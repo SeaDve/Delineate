@@ -1,0 +1,51 @@
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+name: CI
+
+jobs:
+  checks:
+    name: Checks
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      # FIXME uncomment when we don't --skip ui_files anymore
+      # - name: Download dependencies
+      #   run: sudo apt -y install libgtk-4-dev
+      - name: Run checks.py
+        run: curl https://raw.githubusercontent.com/SeaDve/scripts/main/checks.py | python - --verbose --skip rustfmt typos ui_files
+
+  rustfmt:
+    name: Rustfmt
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Create blank versions of configured file
+        run: echo -e "" >> src/config.rs
+      - name: Run cargo fmt
+        run: cargo fmt --all -- --check
+
+  typos:
+    name: Typos
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Check for typos
+        uses: crate-ci/typos@master
+
+  flatpak:
+    name: Flatpak
+    runs-on: ubuntu-22.04
+    container:
+      image: bilelmoussaoui/flatpak-github-actions:gnome-nightly
+      options: --privileged
+    steps:
+      - uses: actions/checkout@v3
+      - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+        with:
+          bundle: dagger.flatpak
+          manifest-path: build-aux/io.github.seadve.Dagger.Devel.json
+          run-tests: true
+          cache-key: flatpak-builder-${{ github.sha }}

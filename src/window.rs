@@ -1,0 +1,213 @@
+use std::time::Duration;
+
+use adw::{prelude::*, subclass::prelude::*};
+use anyhow::Result;
+use gettextrs::gettext;
+use gtk::{
+    gdk, gio,
+    glib::{self, clone},
+};
+use gtk_source::prelude::*;
+
+use crate::{
+    application::Application,
+    config::{APP_ID, PROFILE},
+    graphviz,
+};
+
+const DRAW_GRAPH_INTERVAL: Duration = Duration::from_millis(200);
+
+mod imp {
+    use std::cell::Cell;
+
+    use super::*;
+
+    #[derive(Debug, Default, gtk::CompositeTemplate)]
+    #[template(resource = "/io/github/seadve/Dagger/ui/window.ui")]
+    pub struct Window {
+        #[template_child]
+        pub(super) buffer: TemplateChild<gtk_source::Buffer>,
+        #[template_child]
+        pub(super) picture: TemplateChild<gtk::Picture>,
+
+        pub(super) queued_draw_graph: Cell<bool>,
+    }
+
+    #[glib::object_subclass]
+    impl ObjectSubclass for Window {
+        const NAME: &'static str = "DaggerWindow";
+        type Type = super::Window;
+        type ParentType = adw::ApplicationWindow;
+
+        fn class_init(klass: &mut Self::Class) {
+            klass.bind_template();
+
+            klass.install_action_async("win.open-file", None, |obj, _, _| async move {
+                if let Err(err) = obj.open_file().await {
+                    tracing::error!("Failed to open file: {:?}", err);
+                }
+            });
+        }
+
+        fn instance_init(obj: &glib::subclass::InitializingObject<Self>) {
+            obj.init_template();
+        }
+    }
+
+    impl ObjectImpl for Window {
+        fn constructed(&self) {
+            self.parent_constructed();
+
+            let obj = self.obj();
+
+            if PROFILE == "Devel" {
+                obj.add_css_class("devel");
+            }
+
+            let language_manager = gtk_source::LanguageManager::default();
+            if let Some(language) = language_manager.language("dot") {
+                self.buffer.set_language(Some(&language));
+                self.buffer.set_highlight_syntax(true);
+            }
+
+            self.buffer.connect_changed(clone!(@weak obj => move |_| {
+                obj.queue_draw_graph();
+            }));
+
+            glib::spawn_future_local(clone!(@weak obj => async move {
+                obj.start_draw_graph_loop().await;
+            }));
+
+            obj.load_window_size();
+        }
+
+        fn dispose(&self) {
+            self.dispose_template();
+        }
+    }
+
+    impl WidgetImpl for Window {}
+    impl WindowImpl for Window {
+        fn close_request(&self) -> glib::Propagation {
+            if let Err(err) = self.obj().save_window_size() {
+                tracing::warn!("Failed to save window state, {}", &err);
+            }
+
+            self.parent_close_request()
+        }
+    }
+
+    impl ApplicationWindowImpl for Window {}
+    impl AdwApplicationWindowImpl for Window {}
+}
+
+glib::wrapper! {
+    pub struct Window(ObjectSubclass<imp::Window>)
+        @extends gtk::Widget, gtk::Window, gtk::ApplicationWindow,
+        @implements gio::ActionMap, gio::ActionGroup, gtk::Root;
+}
+
+impl Window {
+    pub fn new(app: &Application) -> Self {
+        glib::Object::builder().property("application", app).build()
+    }
+
+    async fn open_file(&self) -> Result<()> {
+        let imp = self.imp();
+
+        let filter = gtk::FileFilter::new();
+        // Translators: DOT is a type of file, do not translate.
+        filter.set_property("name", gettext("DOT Files"));
+        filter.add_mime_type("text/vnd.graphviz");
+
+        let filters = gio::ListStore::new::<gtk::FileFilter>();
+        filters.append(&filter);
+
+        let dialog = gtk::FileDialog::builder()
+            .title(gettext("Open Circuit"))
+            .filters(&filters)
+            .modal(true)
+            .build();
+        let file = dialog.open_future(Some(self)).await?;
+
+        let source_file = gtk_source::File::new();
+        source_file.set_location(Some(&file));
+
+        let (res, _) = gtk_source::FileLoader::new(&*imp.buffer, &source_file)
+            .load_future(glib::Priority::default());
+        res.await?;
+
+        self.queue_draw_graph();
+
+        Ok(())
+    }
+
+    fn save_window_size(&self) -> Result<(), glib::BoolError> {
+        let settings = gio::Settings::new(APP_ID);
+
+        let (width, height) = self.default_size();
+
+        settings.set_int("window-width", width)?;
+        settings.set_int("window-height", height)?;
+
+        settings.set_boolean("is-maximized", self.is_maximized())?;
+
+        Ok(())
+    }
+
+    fn load_window_size(&self) {
+        let settings = gio::Settings::new(APP_ID);
+
+        let width = settings.int("window-width");
+        let height = settings.int("window-height");
+        let is_maximized = settings.boolean("is-maximized");
+
+        self.set_default_size(width, height);
+
+        if is_maximized {
+            self.maximize();
+        }
+    }
+
+    fn queue_draw_graph(&self) {
+        self.imp().queued_draw_graph.set(true);
+    }
+
+    async fn start_draw_graph_loop(&self) {
+        let imp = self.imp();
+
+        loop {
+            glib::timeout_future(DRAW_GRAPH_INTERVAL).await;
+
+            if !imp.queued_draw_graph.get() {
+                continue;
+            }
+
+            imp.queued_draw_graph.set(false);
+
+            if let Err(err) = self.draw_graph().await {
+                tracing::error!("Failed to draw graph: {:?}", err);
+            }
+        }
+    }
+
+    async fn draw_graph(&self) -> Result<()> {
+        let imp = self.imp();
+
+        let contents = imp
+            .buffer
+            .text(&imp.buffer.start_iter(), &imp.buffer.end_iter(), false);
+
+        if contents.is_empty() {
+            imp.picture.set_paintable(gdk::Paintable::NONE);
+        } else {
+            let png_bytes = graphviz::run_with_str(&contents).await?;
+            let texture = gdk::Texture::from_bytes(&glib::Bytes::from_owned(png_bytes))?;
+            imp.picture.set_paintable(Some(&texture));
+        }
+
+        tracing::debug!("Graph drawn");
+
+        Ok(())
+    }
+}
