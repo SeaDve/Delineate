@@ -185,13 +185,20 @@ impl Window {
 
             imp.queued_draw_graph.set(false);
 
-            if let Err(err) = self.draw_graph().await {
-                tracing::error!("Failed to draw graph: {:?}", err);
+            match self.draw_graph().await {
+                Ok(texture) => {
+                    imp.picture.set_paintable(texture.as_ref());
+                    tracing::debug!("Graph updated");
+                }
+                Err(err) => {
+                    imp.picture.set_paintable(gdk::Paintable::NONE);
+                    tracing::error!("Failed to draw graph: {:?}", err);
+                }
             }
         }
     }
 
-    async fn draw_graph(&self) -> Result<()> {
+    async fn draw_graph(&self) -> Result<Option<gdk::Texture>> {
         let imp = self.imp();
 
         let contents = imp
@@ -199,15 +206,11 @@ impl Window {
             .text(&imp.buffer.start_iter(), &imp.buffer.end_iter(), false);
 
         if contents.is_empty() {
-            imp.picture.set_paintable(gdk::Paintable::NONE);
-        } else {
-            let png_bytes = graphviz::run_with_str(&contents).await?;
-            let texture = gdk::Texture::from_bytes(&glib::Bytes::from_owned(png_bytes))?;
-            imp.picture.set_paintable(Some(&texture));
+            return Ok(None);
         }
 
-        tracing::debug!("Graph drawn");
-
-        Ok(())
+        let png_bytes = graphviz::run_with_str(&contents).await?;
+        let texture = gdk::Texture::from_bytes(&glib::Bytes::from_owned(png_bytes))?;
+        Ok(Some(texture))
     }
 }
