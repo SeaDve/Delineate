@@ -5,17 +5,17 @@ use anyhow::Result;
 use gettextrs::gettext;
 use gtk::{
     gdk, gio,
-    glib::{self, clone},
+    glib::{self, clone, closure},
 };
 use gtk_source::prelude::*;
 
 use crate::{
     application::Application,
     config::{APP_ID, PROFILE},
-    graphviz,
+    graphviz::{self, Layout},
 };
 
-const DRAW_GRAPH_INTERVAL: Duration = Duration::from_millis(200);
+const DRAW_GRAPH_INTERVAL: Duration = Duration::from_millis(100);
 
 mod imp {
     use std::cell::Cell;
@@ -29,6 +29,8 @@ mod imp {
         pub(super) buffer: TemplateChild<gtk_source::Buffer>,
         #[template_child]
         pub(super) picture: TemplateChild<gtk::Picture>,
+        #[template_child]
+        pub(super) layout_drop_down: TemplateChild<gtk::DropDown>,
 
         pub(super) queued_draw_graph: Cell<bool>,
     }
@@ -73,6 +75,19 @@ mod imp {
             self.buffer.connect_changed(clone!(@weak obj => move |_| {
                 obj.queue_draw_graph();
             }));
+
+            self.layout_drop_down.set_expression(Some(
+                &gtk::ClosureExpression::new::<glib::GString>(
+                    &[] as &[gtk::Expression],
+                    closure!(|list_item: adw::EnumListItem| list_item.name()),
+                ),
+            ));
+            self.layout_drop_down
+                .set_model(Some(&adw::EnumListModel::new(Layout::static_type())));
+            self.layout_drop_down
+                .connect_selected_notify(clone!(@weak obj => move |_| {
+                    obj.queue_draw_graph();
+                }));
 
             glib::spawn_future_local(clone!(@weak obj => async move {
                 obj.start_draw_graph_loop().await;
@@ -209,7 +224,15 @@ impl Window {
             return Ok(None);
         }
 
-        let png_bytes = graphviz::run_with_str(&contents).await?;
+        let selected_item = imp
+            .layout_drop_down
+            .selected_item()
+            .unwrap()
+            .downcast::<adw::EnumListItem>()
+            .unwrap();
+        let selected_layout = Layout::try_from(selected_item.value()).unwrap();
+
+        let png_bytes = graphviz::run_with_str(&contents, selected_layout).await?;
         let texture = gdk::Texture::from_bytes(&glib::Bytes::from_owned(png_bytes))?;
         Ok(Some(texture))
     }

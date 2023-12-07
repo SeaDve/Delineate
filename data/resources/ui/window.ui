@@ -55,12 +55,28 @@
               </object>
             </property>
             <property name="end-child">
-              <object class="GtkScrolledWindow">
-                <property name="child">
-                  <object class="GtkPicture" id="picture">
-                    <property name="width-request">20</property>
+              <object class="GtkBox">
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="GtkScrolledWindow">
+                    <property name="vexpand">True</property>
+                    <property name="child">
+                      <object class="GtkPicture" id="picture">
+                        <property name="width-request">20</property>
+                      </object>
+                    </property>
                   </object>
-                </property>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <style>
+                      <class name="toolbar"/>
+                    </style>
+                    <child>
+                      <object class="GtkDropDown" id="layout_drop_down"/>
+                    </child>
+                  </object>
+                </child>
               </object>
             </property>
           </object>
