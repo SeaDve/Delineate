@@ -75,7 +75,7 @@
                     <child>
                       <object class="AdwStatusPage" id="error_page">
                         <property name="icon-name">warning-symbolic</property>
-                        <property name="title" translatable="yes">Can't draw graph</property>
+                        <property name="title" translatable="yes">Can't Draw Graph</property>
                       </object>
                     </child>
                   </object>
