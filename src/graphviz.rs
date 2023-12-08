@@ -56,8 +56,10 @@ impl Format {
     }
 }
 
+/// Returns the version of the graphviz program.
 pub async fn version() -> Result<String> {
     let output = Command::new(PROGRAM).arg("--version").output().await?;
+    tracing::trace!(?output, "Child exited");
 
     ensure!(output.status.success(), "Failed to get version");
 
@@ -67,7 +69,7 @@ pub async fn version() -> Result<String> {
         .to_string())
 }
 
-/// Generate a PNG from the given DOT contents.
+/// Generates a graph from the given contents.
 pub async fn run(contents: &[u8], layout: Layout, format: Format) -> Result<Vec<u8>> {
     let mut child = Command::new(PROGRAM)
         .stdin(Stdio::piped())
