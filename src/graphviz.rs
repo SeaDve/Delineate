@@ -1,8 +1,7 @@
-use anyhow::Result;
+use anyhow::{Error, Result};
 use async_process::{Command, Stdio};
 use futures_util::AsyncWriteExt;
 use gtk::glib::{self, translate::TryFromGlib};
-use tempfile::NamedTempFile;
 
 #[derive(Debug, Clone, Copy, glib::Enum)]
 #[enum_type(name = "DaggerLayout")]
@@ -56,24 +55,25 @@ impl Format {
 
 /// Generate a PNG from the given DOT contents.
 pub async fn run(contents: &[u8], layout: Layout, format: Format) -> Result<Vec<u8>> {
-    let output_path = NamedTempFile::new()?.into_temp_path();
-
     let mut child = Command::new("dot")
         .stdin(Stdio::piped())
+        .stdout(Stdio::piped())
         .arg("-T")
         .arg(format.as_arg())
         .arg("-K")
         .arg(layout.as_arg())
-        .arg("-o")
-        .arg(&output_path)
         .spawn()?;
 
     child.stdin.take().unwrap().write_all(contents).await?;
 
     let output = child.output().await?;
-    tracing::debug!(?output, "Child exited");
+    tracing::trace!(?output, "Child exited");
 
-    let output_bytes = async_fs::read(&output_path).await?;
-
-    Ok(output_bytes)
+    if output.status.success() {
+        Ok(output.stdout)
+    } else {
+        Err(Error::msg(
+            String::from_utf8_lossy(&output.stderr).to_string(),
+        ))
+    }
 }
