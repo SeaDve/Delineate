@@ -1,11 +1,14 @@
-use gettextrs::gettext;
-
 use adw::{prelude::*, subclass::prelude::*};
-use gtk::{gio, glib};
+use gtk::{
+    gio,
+    glib::{self, clone},
+};
 
 use crate::{
+    about,
     config::{APP_ID, PKGDATADIR, PROFILE, VERSION},
     settings::Settings,
+    utils,
     window::Window,
 };
 
@@ -52,12 +55,12 @@ mod imp {
         fn startup(&self) {
             self.parent_startup();
 
-            let app = self.obj();
+            let obj = self.obj();
 
             gtk::Window::set_default_icon_name(APP_ID);
 
-            app.setup_gactions();
-            app.setup_accels();
+            obj.setup_gactions();
+            obj.setup_accels();
         }
     }
 
@@ -82,16 +85,21 @@ impl Application {
 
     fn setup_gactions(&self) {
         let action_quit = gio::ActionEntry::builder("quit")
-            .activate(move |app: &Self, _, _| {
+            .activate(move |obj: &Self, _, _| {
                 // This is needed to trigger the delete event and saving the window state
-                app.window().close();
-                app.quit();
+                obj.window().close();
+                obj.quit();
             })
             .build();
 
         let action_about = gio::ActionEntry::builder("about")
-            .activate(|app: &Self, _, _| {
-                app.show_about_dialog();
+            .activate(|obj: &Self, _, _| {
+                utils::spawn(
+                    glib::Priority::default(),
+                    clone!(@weak obj => async move {
+                        about::present_window(Some(&obj.window())).await;
+                    }),
+                );
             })
             .build();
         self.add_action_entries([action_quit, action_about]);
@@ -101,22 +109,6 @@ impl Application {
         self.set_accels_for_action("app.quit", &["<Control>q"]);
         self.set_accels_for_action("window.close", &["<Control>w"]);
         self.set_accels_for_action("win.open-file", &["<Control>o"]);
-    }
-
-    fn show_about_dialog(&self) {
-        let dialog = gtk::AboutDialog::builder()
-            .logo_icon_name(APP_ID)
-            .license_type(gtk::License::Gpl30)
-            .website("https://github.com/SeaDve/dagger")
-            .version(VERSION)
-            .transient_for(&self.window())
-            .translator_credits(gettext("translator-credits"))
-            .modal(true)
-            .authors(vec!["Dave Patrick Caberto"])
-            .artists(vec!["Dave Patrick Caberto"])
-            .build();
-
-        dialog.present();
     }
 
     pub fn run(&self) -> glib::ExitCode {

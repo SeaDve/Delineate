@@ -1,7 +1,9 @@
-use anyhow::{Error, Result};
+use anyhow::{ensure, Error, Result};
 use async_process::{Command, Stdio};
 use futures_util::AsyncWriteExt;
 use gtk::glib::{self, translate::TryFromGlib};
+
+const PROGRAM: &str = "dot";
 
 #[derive(Debug, Clone, Copy, glib::Enum)]
 #[enum_type(name = "DaggerLayout")]
@@ -54,9 +56,25 @@ impl Format {
     }
 }
 
+pub async fn version() -> Result<String> {
+    let output = Command::new(PROGRAM)
+        .stdout(Stdio::piped())
+        .stderr(Stdio::piped())
+        .arg("--version")
+        .output()
+        .await?;
+
+    ensure!(output.status.success(), "Failed to get version");
+
+    Ok(String::from_utf8_lossy(&output.stderr)
+        .trim_start_matches("dot - graphviz version ")
+        .trim()
+        .to_string())
+}
+
 /// Generate a PNG from the given DOT contents.
 pub async fn run(contents: &[u8], layout: Layout, format: Format) -> Result<Vec<u8>> {
-    let mut child = Command::new("dot")
+    let mut child = Command::new(PROGRAM)
         .stdin(Stdio::piped())
         .stdout(Stdio::piped())
         .stderr(Stdio::piped())

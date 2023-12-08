@@ -1,3 +1,4 @@
+mod about;
 mod application;
 mod config;
 mod graphviz;
