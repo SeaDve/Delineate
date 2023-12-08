@@ -31,6 +31,11 @@ impl fmt::Display for Cancelled {
 
 impl error::Error for Cancelled {}
 
+// TODO
+// * Find and replace
+// * Export
+// * Better viewer
+
 mod imp {
     use std::cell::{Cell, OnceCell};
 
