@@ -12,8 +12,9 @@ pub enum Layout {
     Circo,
     Fdp,
     // Asage,
+    Osage,
     Patchwork,
-    Sfdp,
+    // Sfdp,
 }
 
 impl TryFrom<i32> for Layout {
@@ -32,8 +33,8 @@ impl Layout {
             Self::Twopi => "twopi",
             Self::Circo => "circo",
             Self::Fdp => "fdp",
+            Self::Osage => "osage",
             Self::Patchwork => "patchwork",
-            Self::Sfdp => "sfdp",
         }
     }
 }
