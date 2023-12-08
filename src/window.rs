@@ -34,6 +34,10 @@ mod imp {
         pub(super) layout_drop_down: TemplateChild<gtk::DropDown>,
         #[template_child]
         pub(super) spinner_revealer: TemplateChild<gtk::Revealer>,
+        #[template_child]
+        pub(super) error_revealer: TemplateChild<gtk::Revealer>,
+        #[template_child]
+        pub(super) error_image: TemplateChild<gtk::Image>,
 
         pub(super) queued_draw_graph: Cell<bool>,
     }
@@ -218,10 +222,15 @@ impl Window {
             match self.draw_graph().await {
                 Ok(texture) => {
                     imp.picture.set_paintable(texture.as_ref());
+                    imp.error_revealer.set_reveal_child(false);
+                    imp.error_image.set_tooltip_text(None);
                     tracing::debug!("Graph updated");
                 }
                 Err(err) => {
                     imp.picture.set_paintable(gdk::Paintable::NONE);
+                    imp.error_revealer.set_reveal_child(true);
+                    imp.error_image
+                        .set_tooltip_text(Some(err.to_string().trim()));
                     tracing::error!("Failed to draw graph: {:?}", err);
                 }
             }
