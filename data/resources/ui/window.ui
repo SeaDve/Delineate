@@ -38,6 +38,7 @@
         </child>
         <property name="content">
           <object class="GtkPaned" id="paned">
+            <property name="wide-handle">True</property>
             <property name="start-child">
               <object class="GtkScrolledWindow">
                 <property name="child">
