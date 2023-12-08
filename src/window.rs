@@ -232,7 +232,6 @@ impl Window {
                 Ok(texture) => {
                     imp.picture.set_paintable(texture.as_ref());
                     imp.stack.set_visible_child(&*imp.picture_page);
-                    imp.error_page.set_description(None);
                     tracing::debug!("Graph updated");
                 }
                 Err(err) => {
