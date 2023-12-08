@@ -55,9 +55,9 @@
               </object>
             </property>
             <property name="end-child">
-              <object class="GtkBox">
-                <property name="orientation">vertical</property>
-                <child>
+              <object class="AdwToolbarView">
+                <property name="bottom-bar-style">raised</property>
+                <property name="content">
                   <object class="GtkScrolledWindow">
                     <property name="vexpand">True</property>
                     <property name="child">
@@ -66,12 +66,9 @@
                       </object>
                     </property>
                   </object>
-                </child>
-                <child>
-                  <object class="GtkBox">
-                    <style>
-                      <class name="toolbar"/>
-                    </style>
+                </property>
+                <child type="bottom">
+                  <object class="GtkActionBar">
                     <child>
                       <object class="GtkDropDown" id="layout_drop_down"/>
                     </child>
