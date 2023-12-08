@@ -58,34 +58,30 @@
               <object class="AdwToolbarView">
                 <property name="bottom-bar-style">raised</property>
                 <property name="content">
-                  <object class="GtkScrolledWindow">
-                    <property name="vexpand">True</property>
-                    <property name="child">
-                      <object class="GtkPicture" id="picture">
-                        <property name="can-shrink">False</property>
+                  <object class="GtkStack" id="stack">
+                    <property name="transition-type">crossfade</property>
+                    <child>
+                      <object class="GtkScrolledWindow" id="picture_page">
+                        <property name="vexpand">True</property>
+                        <property name="child">
+                          <object class="GtkPicture" id="picture">
+                            <property name="can-shrink">False</property>
+                          </object>
+                        </property>
                       </object>
-                    </property>
+                    </child>
+                    <child>
+                      <object class="AdwStatusPage" id="error_page">
+                        <property name="icon-name">warning-symbolic</property>
+                        <property name="title" translatable="yes">Can't draw graph</property>
+                      </object>
+                    </child>
                   </object>
                 </property>
                 <child type="bottom">
                   <object class="GtkActionBar">
                     <child>
                       <object class="GtkDropDown" id="layout_drop_down"/>
-                    </child>
-                    <child type="end">
-                      <object class="GtkRevealer" id="error_revealer">
-                        <property name="transition-type">crossfade</property>
-                        <property name="child">
-                          <object class="GtkImage" id="error_image">
-                            <property name="margin-start">6</property>
-                            <property name="margin-end">6</property>
-                            <property name="icon-name">warning-symbolic</property>
-                            <style>
-                              <class name="warning"/>
-                            </style>
-                          </object>
-                        </property>
-                      </object>
                     </child>
                     <child type="end">
                       <object class="GtkRevealer" id="spinner_revealer">

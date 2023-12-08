@@ -29,15 +29,17 @@ mod imp {
         #[template_child]
         pub(super) buffer: TemplateChild<gtk_source::Buffer>,
         #[template_child]
+        pub(super) stack: TemplateChild<gtk::Stack>,
+        #[template_child]
+        pub(super) picture_page: TemplateChild<gtk::ScrolledWindow>,
+        #[template_child]
         pub(super) picture: TemplateChild<gtk::Picture>,
+        #[template_child]
+        pub(super) error_page: TemplateChild<adw::StatusPage>,
         #[template_child]
         pub(super) layout_drop_down: TemplateChild<gtk::DropDown>,
         #[template_child]
         pub(super) spinner_revealer: TemplateChild<gtk::Revealer>,
-        #[template_child]
-        pub(super) error_revealer: TemplateChild<gtk::Revealer>,
-        #[template_child]
-        pub(super) error_image: TemplateChild<gtk::Image>,
 
         pub(super) queued_draw_graph: Cell<bool>,
     }
@@ -222,15 +224,15 @@ impl Window {
             match self.draw_graph().await {
                 Ok(texture) => {
                     imp.picture.set_paintable(texture.as_ref());
-                    imp.error_revealer.set_reveal_child(false);
-                    imp.error_image.set_tooltip_text(None);
+                    imp.stack.set_visible_child(&*imp.picture_page);
+                    imp.error_page.set_description(None);
                     tracing::debug!("Graph updated");
                 }
                 Err(err) => {
                     imp.picture.set_paintable(gdk::Paintable::NONE);
-                    imp.error_revealer.set_reveal_child(true);
-                    imp.error_image
-                        .set_tooltip_text(Some(err.to_string().trim()));
+                    imp.stack.set_visible_child(&*imp.error_page);
+                    imp.error_page
+                        .set_description(Some(&glib::markup_escape_text(err.to_string().trim())));
                     tracing::error!("Failed to draw graph: {:?}", err);
                 }
             }
