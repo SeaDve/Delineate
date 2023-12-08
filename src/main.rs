@@ -1,6 +1,7 @@
 mod application;
 mod config;
 mod graphviz;
+mod utils;
 mod window;
 
 use gettextrs::{gettext, LocaleCategory};

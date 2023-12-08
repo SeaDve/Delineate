@@ -13,6 +13,7 @@ use crate::{
     application::Application,
     config::{APP_ID, PROFILE},
     graphviz::{self, Format, Layout},
+    utils,
 };
 
 const DRAW_GRAPH_INTERVAL: Duration = Duration::from_millis(100);
@@ -89,9 +90,12 @@ mod imp {
                     obj.queue_draw_graph();
                 }));
 
-            glib::spawn_future_local(clone!(@weak obj => async move {
-                obj.start_draw_graph_loop().await;
-            }));
+            utils::spawn(
+                glib::Priority::DEFAULT_IDLE,
+                clone!(@weak obj => async move {
+                    obj.start_draw_graph_loop().await;
+                }),
+            );
 
             obj.load_window_size();
         }
