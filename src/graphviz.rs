@@ -40,26 +40,38 @@ impl Layout {
     }
 }
 
+pub enum Format {
+    Svg,
+    Png,
+}
+
+impl Format {
+    fn as_arg(self) -> &'static str {
+        match self {
+            Self::Svg => "svg",
+            Self::Png => "png",
+        }
+    }
+}
+
 /// Generate a PNG from the given DOT contents.
-pub async fn run_with_str(contents: &str, layout: Layout) -> Result<Vec<u8>> {
+pub async fn run_with_str(contents: &str, layout: Layout, format: Format) -> Result<Vec<u8>> {
     let mut input_file = NamedTempFile::new()?;
     input_file.write_all(contents.as_bytes())?;
 
     let input_path = input_file.into_temp_path();
 
-    run(&input_path, layout).await
+    run(&input_path, layout, format).await
 }
 
 /// Generate a PNG from the given DOT file.
-pub async fn run(input_path: &Path, layout: Layout) -> Result<Vec<u8>> {
+pub async fn run(input_path: &Path, layout: Layout, format: Format) -> Result<Vec<u8>> {
     let output_path = NamedTempFile::new()?.into_temp_path();
-
-    let format = "png";
 
     let child = Command::new("dot")
         .arg(input_path)
         .arg("-T")
-        .arg(format)
+        .arg(format.as_arg())
         .arg("-K")
         .arg(layout.as_arg())
         .arg("-o")

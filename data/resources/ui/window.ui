@@ -62,7 +62,7 @@
                     <property name="vexpand">True</property>
                     <property name="child">
                       <object class="GtkPicture" id="picture">
-                        <property name="width-request">20</property>
+                        <property name="can-shrink">False</property>
                       </object>
                     </property>
                   </object>

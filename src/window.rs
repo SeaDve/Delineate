@@ -12,7 +12,7 @@ use gtk_source::prelude::*;
 use crate::{
     application::Application,
     config::{APP_ID, PROFILE},
-    graphviz::{self, Layout},
+    graphviz::{self, Format, Layout},
 };
 
 const DRAW_GRAPH_INTERVAL: Duration = Duration::from_millis(100);
@@ -232,7 +232,7 @@ impl Window {
             .unwrap();
         let selected_layout = Layout::try_from(selected_item.value()).unwrap();
 
-        let png_bytes = graphviz::run_with_str(&contents, selected_layout).await?;
+        let png_bytes = graphviz::run_with_str(&contents, selected_layout, Format::Svg).await?;
         let texture = gdk::Texture::from_bytes(&glib::Bytes::from_owned(png_bytes))?;
         Ok(Some(texture))
     }
