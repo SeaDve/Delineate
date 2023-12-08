@@ -37,17 +37,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "async-fs"
-version = "2.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dd1f344136bad34df1f83a47f3fd7f2ab85d75cb8a940af4ccf6d482a84ea01b"
-dependencies = [
- "async-lock 3.2.0",
- "blocking",
- "futures-lite",
-]
-
-[[package]]
 name = "async-io"
 version = "2.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -241,7 +230,6 @@ name = "dagger"
 version = "0.1.0"
 dependencies = [
  "anyhow",
- "async-fs",
  "async-process",
  "futures-util",
  "gettext-rs",
