@@ -72,6 +72,20 @@
                     <child>
                       <object class="GtkDropDown" id="layout_drop_down"/>
                     </child>
+                    <child type="end">
+                      <object class="GtkRevealer" id="spinner_revealer">
+                        <property name="transition-type">crossfade</property>
+                        <property name="child">
+                          <object class="GtkSpinner" id="spinner">
+                            <property name="width-request">18</property>
+                            <property name="height-request">18</property>
+                            <property name="margin-start">6</property>
+                            <property name="margin-end">6</property>
+                            <property name="spinning">True</property>
+                          </object>
+                        </property>
+                      </object>
+                    </child>
                   </object>
                 </child>
               </object>

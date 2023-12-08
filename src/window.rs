@@ -32,6 +32,8 @@ mod imp {
         pub(super) picture: TemplateChild<gtk::Picture>,
         #[template_child]
         pub(super) layout_drop_down: TemplateChild<gtk::DropDown>,
+        #[template_child]
+        pub(super) spinner_revealer: TemplateChild<gtk::Revealer>,
 
         pub(super) queued_draw_graph: Cell<bool>,
     }
@@ -196,7 +198,9 @@ impl Window {
     }
 
     fn queue_draw_graph(&self) {
-        self.imp().queued_draw_graph.set(true);
+        let imp = self.imp();
+        imp.queued_draw_graph.set(true);
+        imp.spinner_revealer.set_reveal_child(true);
     }
 
     async fn start_draw_graph_loop(&self) {
@@ -221,6 +225,8 @@ impl Window {
                     tracing::error!("Failed to draw graph: {:?}", err);
                 }
             }
+
+            imp.spinner_revealer.set_reveal_child(false);
         }
     }
 
