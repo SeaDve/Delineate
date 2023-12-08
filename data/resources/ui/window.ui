@@ -47,6 +47,7 @@
                     <property name="left-margin">12</property>
                     <property name="right-margin">12</property>
                     <property name="monospace">True</property>
+                    <property name="show-line-numbers">True</property>
                     <property name="buffer">
                       <object class="GtkSourceBuffer" id="buffer"/>
                     </property>
