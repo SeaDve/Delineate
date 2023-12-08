@@ -243,6 +243,7 @@ dependencies = [
  "anyhow",
  "async-fs",
  "async-process",
+ "futures-util",
  "gettext-rs",
  "gtk4",
  "libadwaita",
@@ -380,8 +381,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a19526d624e703a3179b3d322efec918b6246ea0fa51d41124525f00f1cc8104"
 dependencies = [
  "futures-core",
+ "futures-io",
  "futures-macro",
  "futures-task",
+ "memchr",
  "pin-project-lite",
  "pin-utils",
  "slab",

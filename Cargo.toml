@@ -12,6 +12,7 @@ adw = { package = "libadwaita", version = "0.5", features = ["v1_4"] }
 anyhow = "1.0.75"
 async-fs = "2.1.0"
 async-process = "2.0.1"
+futures-util = { version = "0.3.29", features = ["io"] }
 gettext-rs = { version = "0.7", features = ["gettext-system"] }
 gtk = { version = "0.7", package = "gtk4", features = ["gnome_45"] }
 gtk_source = { package = "sourceview5", version = "0.7" }

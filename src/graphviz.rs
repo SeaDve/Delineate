@@ -1,7 +1,6 @@
-use std::{io::Write, path::Path};
-
 use anyhow::Result;
-use async_process::Command;
+use async_process::{Command, Stdio};
+use futures_util::AsyncWriteExt;
 use gtk::glib::{self, translate::TryFromGlib};
 use tempfile::NamedTempFile;
 
@@ -55,21 +54,11 @@ impl Format {
 }
 
 /// Generate a PNG from the given DOT contents.
-pub async fn run_with_str(contents: &str, layout: Layout, format: Format) -> Result<Vec<u8>> {
-    let mut input_file = NamedTempFile::new()?;
-    input_file.write_all(contents.as_bytes())?;
-
-    let input_path = input_file.into_temp_path();
-
-    run(&input_path, layout, format).await
-}
-
-/// Generate a PNG from the given DOT file.
-pub async fn run(input_path: &Path, layout: Layout, format: Format) -> Result<Vec<u8>> {
+pub async fn run(contents: &[u8], layout: Layout, format: Format) -> Result<Vec<u8>> {
     let output_path = NamedTempFile::new()?.into_temp_path();
 
-    let child = Command::new("dot")
-        .arg(input_path)
+    let mut child = Command::new("dot")
+        .stdin(Stdio::piped())
         .arg("-T")
         .arg(format.as_arg())
         .arg("-K")
@@ -77,6 +66,8 @@ pub async fn run(input_path: &Path, layout: Layout, format: Format) -> Result<Ve
         .arg("-o")
         .arg(&output_path)
         .spawn()?;
+
+    child.stdin.take().unwrap().write_all(contents).await?;
 
     let output = child.output().await?;
     tracing::debug!(?output, "Child exited");
