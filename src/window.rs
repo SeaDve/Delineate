@@ -67,6 +67,11 @@ mod imp {
                 obj.add_css_class("devel");
             }
 
+            let style_manager = adw::StyleManager::default();
+            style_manager.connect_dark_notify(clone!(@weak obj => move |_| {
+                obj.update_buffer_style_scheme();
+            }));
+
             let language_manager = gtk_source::LanguageManager::default();
             if let Some(language) = language_manager.language("dot") {
                 self.buffer.set_language(Some(&language));
@@ -96,6 +101,8 @@ mod imp {
                     obj.start_draw_graph_loop().await;
                 }),
             );
+
+            obj.update_buffer_style_scheme();
 
             obj.load_window_size();
         }
@@ -239,5 +246,24 @@ impl Window {
         let png_bytes = graphviz::run(contents.as_bytes(), selected_layout, Format::Svg).await?;
         let texture = gdk::Texture::from_bytes(&glib::Bytes::from_owned(png_bytes))?;
         Ok(Some(texture))
+    }
+
+    fn update_buffer_style_scheme(&self) {
+        let imp = self.imp();
+
+        let style_manager = adw::StyleManager::default();
+        let style_scheme_manager = gtk_source::StyleSchemeManager::default();
+
+        let style_scheme = if style_manager.is_dark() {
+            style_scheme_manager
+                .scheme("Adwaita-dark")
+                .or_else(|| style_scheme_manager.scheme("classic-dark"))
+        } else {
+            style_scheme_manager
+                .scheme("Adwaita")
+                .or_else(|| style_scheme_manager.scheme("classic"))
+        };
+
+        imp.buffer.set_style_scheme(style_scheme.as_ref());
     }
 }
