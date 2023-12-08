@@ -59,6 +59,7 @@ pub async fn run(contents: &[u8], layout: Layout, format: Format) -> Result<Vec<
     let mut child = Command::new("dot")
         .stdin(Stdio::piped())
         .stdout(Stdio::piped())
+        .stderr(Stdio::piped())
         .arg("-T")
         .arg(format.as_arg())
         .arg("-K")
