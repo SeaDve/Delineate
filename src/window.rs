@@ -238,7 +238,9 @@ impl Window {
                     imp.picture.set_paintable(gdk::Paintable::NONE);
                     imp.stack.set_visible_child(&*imp.error_page);
                     imp.error_page
-                        .set_description(Some(&glib::markup_escape_text(err.to_string().trim())));
+                        .set_description(Some(&glib::markup_escape_text(
+                            err.to_string().trim_start_matches("Error: <stdin>:").trim(),
+                        )));
                     tracing::error!("Failed to draw graph: {:?}", err);
                 }
             }
