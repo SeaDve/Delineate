@@ -26,7 +26,7 @@ impl TryFrom<i32> for Layout {
 }
 
 impl Layout {
-    fn as_arg(self) -> &'static str {
+    fn as_arg(&self) -> &'static str {
         match self {
             Self::Dot => "dot",
             Self::Neato => "neato",
@@ -39,13 +39,14 @@ impl Layout {
     }
 }
 
+#[derive(Debug, Clone, Copy)]
 pub enum Format {
     Svg,
     Png,
 }
 
 impl Format {
-    fn as_arg(self) -> &'static str {
+    fn as_arg(&self) -> &'static str {
         match self {
             Self::Svg => "svg",
             Self::Png => "png",
