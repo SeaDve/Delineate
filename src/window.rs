@@ -261,6 +261,7 @@ impl Window {
         document_signal_group.set_target(Some(document));
 
         self.update_save_action();
+        self.queue_draw_graph();
     }
 
     fn document(&self) -> Document {
@@ -288,8 +289,6 @@ impl Window {
             self.set_document(&prev_document);
             return Err(err);
         }
-
-        self.queue_draw_graph();
 
         Ok(())
     }
