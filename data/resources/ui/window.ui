@@ -49,6 +49,9 @@
                     <property name="right-margin">12</property>
                     <property name="monospace">True</property>
                     <property name="show-line-numbers">True</property>
+                    <property name="insert-spaces-instead-of-tabs">True</property>
+                    <property name="smart-backspace">True</property>
+                    <property name="tab-width">4</property>
                     <property name="buffer">
                       <object class="GtkSourceBuffer" id="buffer"/>
                     </property>
