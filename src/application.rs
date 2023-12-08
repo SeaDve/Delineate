@@ -3,8 +3,11 @@ use gettextrs::gettext;
 use adw::{prelude::*, subclass::prelude::*};
 use gtk::{gio, glib};
 
-use crate::config::{APP_ID, PKGDATADIR, PROFILE, VERSION};
-use crate::window::Window;
+use crate::{
+    config::{APP_ID, PKGDATADIR, PROFILE, VERSION},
+    settings::Settings,
+    window::Window,
+};
 
 mod imp {
     use super::*;
@@ -14,6 +17,7 @@ mod imp {
     #[derive(Debug, Default)]
     pub struct Application {
         pub(super) window: OnceCell<WeakRef<Window>>,
+        pub(super) settings: Settings,
     }
 
     #[glib::object_subclass]
@@ -68,6 +72,10 @@ glib::wrapper! {
 }
 
 impl Application {
+    pub fn settings(&self) -> &Settings {
+        &self.imp().settings
+    }
+
     fn window(&self) -> Window {
         self.imp().window.get().unwrap().upgrade().unwrap()
     }

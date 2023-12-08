@@ -11,7 +11,7 @@ use gtk_source::prelude::*;
 
 use crate::{
     application::Application,
-    config::{APP_ID, PROFILE},
+    config::PROFILE,
     graphviz::{self, Format, Layout},
     utils,
 };
@@ -26,6 +26,8 @@ mod imp {
     #[derive(Debug, Default, gtk::CompositeTemplate)]
     #[template(resource = "/io/github/seadve/Dagger/ui/window.ui")]
     pub struct Window {
+        #[template_child]
+        pub(super) paned: TemplateChild<gtk::Paned>,
         #[template_child]
         pub(super) buffer: TemplateChild<gtk_source::Buffer>,
         #[template_child]
@@ -112,7 +114,7 @@ mod imp {
 
             obj.update_buffer_style_scheme();
 
-            obj.load_window_size();
+            obj.load_window_state();
         }
 
         fn dispose(&self) {
@@ -123,7 +125,7 @@ mod imp {
     impl WidgetImpl for Window {}
     impl WindowImpl for Window {
         fn close_request(&self) -> glib::Propagation {
-            if let Err(err) = self.obj().save_window_size() {
+            if let Err(err) = self.obj().save_window_state() {
                 tracing::warn!("Failed to save window state, {}", &err);
             }
 
@@ -176,31 +178,36 @@ impl Window {
         Ok(())
     }
 
-    fn save_window_size(&self) -> Result<(), glib::BoolError> {
-        let settings = gio::Settings::new(APP_ID);
+    fn save_window_state(&self) -> Result<(), glib::BoolError> {
+        let imp = self.imp();
+
+        let app = utils::app_instance();
+        let settings = app.settings();
 
         let (width, height) = self.default_size();
 
-        settings.set_int("window-width", width)?;
-        settings.set_int("window-height", height)?;
+        settings.try_set_window_width(width)?;
+        settings.try_set_window_height(height)?;
+        settings.try_set_is_maximized(self.is_maximized())?;
 
-        settings.set_boolean("is-maximized", self.is_maximized())?;
+        settings.try_set_paned_position(imp.paned.position())?;
 
         Ok(())
     }
 
-    fn load_window_size(&self) {
-        let settings = gio::Settings::new(APP_ID);
+    fn load_window_state(&self) {
+        let imp = self.imp();
 
-        let width = settings.int("window-width");
-        let height = settings.int("window-height");
-        let is_maximized = settings.boolean("is-maximized");
+        let app = utils::app_instance();
+        let settings = app.settings();
 
-        self.set_default_size(width, height);
+        self.set_default_size(settings.window_width(), settings.window_height());
 
-        if is_maximized {
+        if settings.is_maximized() {
             self.maximize();
         }
+
+        imp.paned.set_position(settings.paned_position());
     }
 
     fn queue_draw_graph(&self) {

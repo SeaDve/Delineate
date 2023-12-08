@@ -1,6 +1,7 @@
 mod application;
 mod config;
 mod graphviz;
+mod settings;
 mod utils;
 mod window;
 

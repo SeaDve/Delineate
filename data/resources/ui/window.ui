@@ -37,7 +37,7 @@
           </object>
         </child>
         <property name="content">
-          <object class="GtkPaned">
+          <object class="GtkPaned" id="paned">
             <property name="start-child">
               <object class="GtkScrolledWindow">
                 <property name="child">
