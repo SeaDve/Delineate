@@ -250,7 +250,12 @@ impl Window {
         let selected_layout = Layout::try_from(selected_item.value()).unwrap();
 
         let png_bytes = graphviz::run(contents.as_bytes(), selected_layout, Format::Svg).await?;
-        let texture = gdk::Texture::from_bytes(&glib::Bytes::from_owned(png_bytes))?;
+
+        let texture =
+            gio::spawn_blocking(|| gdk::Texture::from_bytes(&glib::Bytes::from_owned(png_bytes)))
+                .await
+                .unwrap()?;
+
         Ok(Some(texture))
     }
 
