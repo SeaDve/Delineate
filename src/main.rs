@@ -1,7 +1,9 @@
 mod about;
 mod application;
 mod config;
+mod document;
 mod graphviz;
+mod i18n;
 mod settings;
 mod utils;
 mod window;

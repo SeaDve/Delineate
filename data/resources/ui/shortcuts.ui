@@ -25,11 +25,23 @@
         </child>
         <child>
           <object class="GtkShortcutsGroup">
-            <property name="title" translatable="yes" context="shortcut window">Files</property>
+            <property name="title" translatable="yes" context="shortcut window">Documents</property>
             <child>
               <object class="GtkShortcutsShortcut">
-                <property name="title" translatable="yes" context="shortcut window">Open File</property>
-                <property name="action-name">win.open-file</property>
+                <property name="title" translatable="yes" context="shortcut window">New Document</property>
+                <property name="action-name">win.new-document</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="title" translatable="yes" context="shortcut window">Open Document</property>
+                <property name="action-name">win.open-document</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="title" translatable="yes" context="shortcut window">Save Document</property>
+                <property name="action-name">win.save-document</property>
               </object>
             </child>
           </object>

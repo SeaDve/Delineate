@@ -1,4 +1,4 @@
-use std::time::Duration;
+use std::{error, fmt, time::Duration};
 
 use adw::{prelude::*, subclass::prelude::*};
 use anyhow::Result;
@@ -7,19 +7,32 @@ use gtk::{
     gdk, gio,
     glib::{self, clone, closure},
 };
-use gtk_source::prelude::*;
 
 use crate::{
     application::Application,
     config::PROFILE,
+    document::Document,
     graphviz::{self, Format, Layout},
+    i18n::gettext_f,
     utils,
 };
 
 const DRAW_GRAPH_INTERVAL: Duration = Duration::from_millis(100);
 
+/// Indicates that a task was cancelled.
+#[derive(Debug)]
+struct Cancelled;
+
+impl fmt::Display for Cancelled {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.write_str("Task cancelled")
+    }
+}
+
+impl error::Error for Cancelled {}
+
 mod imp {
-    use std::cell::Cell;
+    use std::cell::{Cell, OnceCell};
 
     use super::*;
 
@@ -29,9 +42,15 @@ mod imp {
         #[template_child]
         pub(super) toast_overlay: TemplateChild<adw::ToastOverlay>,
         #[template_child]
+        pub(super) document_modified_status: TemplateChild<gtk::Label>,
+        #[template_child]
+        pub(super) document_title_label: TemplateChild<gtk::Label>,
+        #[template_child]
         pub(super) paned: TemplateChild<gtk::Paned>,
         #[template_child]
-        pub(super) buffer: TemplateChild<gtk_source::Buffer>,
+        pub(super) progress_bar: TemplateChild<gtk::ProgressBar>,
+        #[template_child]
+        pub(super) view: TemplateChild<gtk_source::View>,
         #[template_child]
         pub(super) stack: TemplateChild<gtk::Stack>,
         #[template_child]
@@ -45,6 +64,9 @@ mod imp {
         #[template_child]
         pub(super) spinner_revealer: TemplateChild<gtk::Revealer>,
 
+        pub(super) document_binding_group: glib::BindingGroup,
+        pub(super) document_signal_group: OnceCell<glib::SignalGroup>,
+
         pub(super) queued_draw_graph: Cell<bool>,
     }
 
@@ -57,14 +79,38 @@ mod imp {
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
 
-            klass.install_action_async("win.open-file", None, |obj, _, _| async move {
-                if let Err(err) = obj.open_file().await {
+            klass.install_action_async("win.new-document", None, |obj, _, _| async move {
+                if obj.handle_unsaved_changes(&obj.document()).await.is_err() {
+                    return;
+                }
+
+                obj.set_document(&Document::draft());
+            });
+
+            klass.install_action_async("win.open-document", None, |obj, _, _| async move {
+                if obj.handle_unsaved_changes(&obj.document()).await.is_err() {
+                    return;
+                }
+
+                if let Err(err) = obj.open_document().await {
                     if !err
                         .downcast_ref::<glib::Error>()
                         .is_some_and(|error| error.matches(gtk::DialogError::Dismissed))
                     {
-                        tracing::error!("Failed to open file: {:?}", err);
-                        obj.add_message_toast(&gettext("Failed to open file"));
+                        tracing::error!("Failed to open document: {:?}", err);
+                        obj.add_message_toast(&gettext("Failed to open document"));
+                    }
+                }
+            });
+
+            klass.install_action_async("win.save-document", None, |obj, _, _| async move {
+                if let Err(err) = obj.save_document(&obj.document()).await {
+                    if !err
+                        .downcast_ref::<glib::Error>()
+                        .is_some_and(|error| error.matches(gtk::DialogError::Dismissed))
+                    {
+                        tracing::error!("Failed to save document: {:?}", err);
+                        obj.add_message_toast(&gettext("Failed to save document"));
                     }
                 }
             });
@@ -85,20 +131,49 @@ mod imp {
                 obj.add_css_class("devel");
             }
 
-            let style_manager = adw::StyleManager::default();
-            style_manager.connect_dark_notify(clone!(@weak obj => move |_| {
-                obj.update_buffer_style_scheme();
-            }));
+            self.document_binding_group
+                .bind("is-modified", &*self.document_modified_status, "visible")
+                .sync_create()
+                .build();
+            self.document_binding_group
+                .bind("title", &*self.document_title_label, "label")
+                .transform_to(|_, value| {
+                    let title = value.get::<String>().unwrap();
+                    let label = if title.is_empty() {
+                        gettext("Untitled Document")
+                    } else {
+                        title
+                    };
+                    Some(label.into())
+                })
+                .sync_create()
+                .build();
+            self.document_binding_group
+                .bind("busy-progress", &*self.progress_bar, "fraction")
+                .sync_create()
+                .build();
+            self.document_binding_group
+                .bind("busy-progress", &*self.progress_bar, "visible")
+                .transform_to(|_, value| {
+                    let busy_progress = value.get::<f64>().unwrap();
+                    let visible = busy_progress != 1.0;
+                    Some(visible.into())
+                })
+                .sync_create()
+                .build();
 
-            let language_manager = gtk_source::LanguageManager::default();
-            if let Some(language) = language_manager.language("dot") {
-                self.buffer.set_language(Some(&language));
-                self.buffer.set_highlight_syntax(true);
-            }
-
-            self.buffer.connect_changed(clone!(@weak obj => move |_| {
-                obj.queue_draw_graph();
-            }));
+            let document_signal_group = glib::SignalGroup::new::<Document>();
+            document_signal_group.connect_local(
+                "changed",
+                false,
+                clone!(@weak obj => @default-panic, move |_| {
+                    obj.queue_draw_graph();
+                    None
+                }),
+            );
+            self.document_signal_group
+                .set(document_signal_group)
+                .unwrap();
 
             self.layout_drop_down.set_expression(Some(
                 &gtk::ClosureExpression::new::<glib::GString>(
@@ -120,7 +195,7 @@ mod imp {
                 }),
             );
 
-            obj.update_buffer_style_scheme();
+            obj.set_document(&Document::draft());
 
             obj.load_window_state();
         }
@@ -133,8 +208,21 @@ mod imp {
     impl WidgetImpl for Window {}
     impl WindowImpl for Window {
         fn close_request(&self) -> glib::Propagation {
-            if let Err(err) = self.obj().save_window_state() {
+            let obj = self.obj();
+
+            if let Err(err) = obj.save_window_state() {
                 tracing::warn!("Failed to save window state, {}", &err);
+            }
+
+            let prev_document = obj.document();
+            if prev_document.is_modified() {
+                glib::spawn_future_local(clone!(@weak obj => async move {
+                    if obj.handle_unsaved_changes(&prev_document).await.is_err() {
+                        return;
+                    }
+                    obj.destroy();
+                }));
+                return glib::Propagation::Stop;
             }
 
             self.parent_close_request()
@@ -156,39 +244,137 @@ impl Window {
         glib::Object::builder().property("application", app).build()
     }
 
+    fn set_document(&self, document: &Document) {
+        let imp = self.imp();
+
+        imp.view.set_buffer(Some(document));
+
+        imp.document_binding_group.set_source(Some(document));
+
+        let document_signal_group = imp.document_signal_group.get().unwrap();
+        document_signal_group.set_target(Some(document));
+    }
+
+    fn document(&self) -> Document {
+        self.imp().view.buffer().downcast().unwrap()
+    }
+
     fn add_message_toast(&self, message: &str) {
         let toast = adw::Toast::new(message);
         self.imp().toast_overlay.add_toast(toast);
     }
 
-    async fn open_file(&self) -> Result<()> {
-        let imp = self.imp();
-
-        let filter = gtk::FileFilter::new();
-        // Translators: DOT is a type of file, do not translate.
-        filter.set_property("name", gettext("DOT Files"));
-        filter.add_mime_type("text/vnd.graphviz");
-
-        let filters = gio::ListStore::new::<gtk::FileFilter>();
-        filters.append(&filter);
-
+    async fn open_document(&self) -> Result<()> {
         let dialog = gtk::FileDialog::builder()
-            .title(gettext("Open Circuit"))
-            .filters(&filters)
+            .title(gettext("Open Document"))
+            .filters(&graphviz_file_filters())
             .modal(true)
             .build();
         let file = dialog.open_future(Some(self)).await?;
 
-        let source_file = gtk_source::File::new();
-        source_file.set_location(Some(&file));
+        let document = Document::for_file(file);
+        let prev_document = self.document();
+        self.set_document(&document);
 
-        let (res, _) = gtk_source::FileLoader::new(&*imp.buffer, &source_file)
-            .load_future(glib::Priority::default());
-        res.await?;
+        if let Err(err) = document.load().await {
+            self.set_document(&prev_document);
+            return Err(err);
+        }
 
         self.queue_draw_graph();
 
         Ok(())
+    }
+
+    async fn save_document(&self, document: &Document) -> Result<()> {
+        if document.file().is_some() {
+            document.save().await?;
+        } else {
+            let dialog = gtk::FileDialog::builder()
+                .title(gettext("Save Document"))
+                .filters(&graphviz_file_filters())
+                .modal(true)
+                .initial_name(format!("{}.gv", document.title()))
+                .build();
+            let file = dialog.save_future(Some(self)).await?;
+
+            document.save_draft_to(&file).await?;
+        }
+
+        Ok(())
+    }
+
+    /// Returns `Ok` if unsaved changes are handled and can proceed, `Err` if
+    /// the next operation should be aborted.
+    async fn handle_unsaved_changes(&self, document: &Document) -> Result<()> {
+        if !document.is_modified() {
+            return Ok(());
+        }
+
+        match self.present_save_changes_dialog(document).await {
+            Ok(_) => Ok(()),
+            Err(err) => {
+                if !err.is::<Cancelled>()
+                    && !err
+                        .downcast_ref::<glib::Error>()
+                        .is_some_and(|error| error.matches(gtk::DialogError::Dismissed))
+                {
+                    tracing::error!("Failed to save changes to document: {:?}", err);
+                    self.add_message_toast(&gettext("Failed to save changes to document"));
+                }
+                Err(err)
+            }
+        }
+    }
+
+    /// Returns `Ok` if unsaved changes are handled and can proceed, `Err` if
+    /// the next operation should be aborted.
+    async fn present_save_changes_dialog(&self, document: &Document) -> Result<()> {
+        const CANCEL_RESPONSE_ID: &str = "cancel";
+        const DISCARD_RESPONSE_ID: &str = "discard";
+        const SAVE_RESPONSE_ID: &str = "save";
+
+        let file_name = document
+            .file()
+            .and_then(|file| {
+                file.path()
+                    .unwrap()
+                    .file_name()
+                    .map(|file_name| file_name.to_string_lossy().to_string())
+            })
+            .unwrap_or_else(|| gettext("Untitled Document"));
+        let dialog = adw::MessageDialog::builder()
+            .modal(true)
+            .transient_for(self)
+            .heading(gettext("Save Changes?"))
+            .body(gettext_f(
+                // Translators: Do NOT translate the contents between '{' and '}', this is a variable name.
+                "“{file_name}” contains unsaved changes. Changes which are not saved will be permanently lost.",
+                &[("file_name", &file_name)],
+            ))
+            .close_response(CANCEL_RESPONSE_ID)
+            .default_response(SAVE_RESPONSE_ID)
+            .build();
+
+        dialog.add_response(CANCEL_RESPONSE_ID, &gettext("Cancel"));
+
+        dialog.add_response(DISCARD_RESPONSE_ID, &gettext("Discard"));
+        dialog.set_response_appearance(DISCARD_RESPONSE_ID, adw::ResponseAppearance::Destructive);
+
+        let save_response_text = if document.file().is_some() {
+            gettext("Save")
+        } else {
+            gettext("Save As…")
+        };
+        dialog.add_response(SAVE_RESPONSE_ID, &save_response_text);
+        dialog.set_response_appearance(SAVE_RESPONSE_ID, adw::ResponseAppearance::Suggested);
+
+        match dialog.choose_future().await.as_str() {
+            CANCEL_RESPONSE_ID => Err(Cancelled.into()),
+            DISCARD_RESPONSE_ID => Ok(()),
+            SAVE_RESPONSE_ID => self.save_document(document).await,
+            _ => unreachable!(),
+        }
     }
 
     fn save_window_state(&self) -> Result<(), glib::BoolError> {
@@ -265,9 +451,7 @@ impl Window {
     async fn draw_graph(&self) -> Result<Option<gdk::Texture>> {
         let imp = self.imp();
 
-        let contents = imp
-            .buffer
-            .text(&imp.buffer.start_iter(), &imp.buffer.end_iter(), false);
+        let contents = self.document().contents();
 
         if contents.is_empty() {
             return Ok(None);
@@ -290,23 +474,15 @@ impl Window {
 
         Ok(Some(texture))
     }
+}
 
-    fn update_buffer_style_scheme(&self) {
-        let imp = self.imp();
+fn graphviz_file_filters() -> gio::ListStore {
+    let filter = gtk::FileFilter::new();
+    // Translators: DOT is a type of file, do not translate.
+    filter.set_property("name", gettext("DOT Files"));
+    filter.add_mime_type("text/vnd.graphviz");
 
-        let style_manager = adw::StyleManager::default();
-        let style_scheme_manager = gtk_source::StyleSchemeManager::default();
-
-        let style_scheme = if style_manager.is_dark() {
-            style_scheme_manager
-                .scheme("Adwaita-dark")
-                .or_else(|| style_scheme_manager.scheme("classic-dark"))
-        } else {
-            style_scheme_manager
-                .scheme("Adwaita")
-                .or_else(|| style_scheme_manager.scheme("classic"))
-        };
-
-        imp.buffer.set_style_scheme(style_scheme.as_ref());
-    }
+    let filters = gio::ListStore::new::<gtk::FileFilter>();
+    filters.append(&filter);
+    filters
 }

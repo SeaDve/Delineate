@@ -108,7 +108,9 @@ impl Application {
     fn setup_accels(&self) {
         self.set_accels_for_action("app.quit", &["<Control>q"]);
         self.set_accels_for_action("window.close", &["<Control>w"]);
-        self.set_accels_for_action("win.open-file", &["<Control>o"]);
+        self.set_accels_for_action("win.new-document", &["<Control>n"]);
+        self.set_accels_for_action("win.open-document", &["<Control>o"]);
+        self.set_accels_for_action("win.save-document", &["<Control>s"]);
     }
 
     pub fn run(&self) -> glib::ExitCode {
