@@ -57,12 +57,7 @@ impl Format {
 }
 
 pub async fn version() -> Result<String> {
-    let output = Command::new(PROGRAM)
-        .stdout(Stdio::piped())
-        .stderr(Stdio::piped())
-        .arg("--version")
-        .output()
-        .await?;
+    let output = Command::new(PROGRAM).arg("--version").output().await?;
 
     ensure!(output.status.success(), "Failed to get version");
 
