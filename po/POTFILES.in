@@ -3,4 +3,6 @@ data/io.github.seadve.Dagger.gschema.xml.in
 data/io.github.seadve.Dagger.metainfo.xml.in.in
 data/resources/ui/shortcuts.ui
 data/resources/ui/window.ui
-src/application.rs
+src/about.rs
+src/main.rs
+src/window.rs
