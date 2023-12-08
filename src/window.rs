@@ -27,6 +27,8 @@ mod imp {
     #[template(resource = "/io/github/seadve/Dagger/ui/window.ui")]
     pub struct Window {
         #[template_child]
+        pub(super) toast_overlay: TemplateChild<adw::ToastOverlay>,
+        #[template_child]
         pub(super) paned: TemplateChild<gtk::Paned>,
         #[template_child]
         pub(super) buffer: TemplateChild<gtk_source::Buffer>,
@@ -57,7 +59,13 @@ mod imp {
 
             klass.install_action_async("win.open-file", None, |obj, _, _| async move {
                 if let Err(err) = obj.open_file().await {
-                    tracing::error!("Failed to open file: {:?}", err);
+                    if !err
+                        .downcast_ref::<glib::Error>()
+                        .is_some_and(|error| error.matches(gtk::DialogError::Dismissed))
+                    {
+                        tracing::error!("Failed to open file: {:?}", err);
+                        obj.add_message_toast(&gettext("Failed to open file"));
+                    }
                 }
             });
         }
@@ -146,6 +154,11 @@ glib::wrapper! {
 impl Window {
     pub fn new(app: &Application) -> Self {
         glib::Object::builder().property("application", app).build()
+    }
+
+    fn add_message_toast(&self, message: &str) {
+        let toast = adw::Toast::new(message);
+        self.imp().toast_overlay.add_toast(toast);
     }
 
     async fn open_file(&self) -> Result<()> {
