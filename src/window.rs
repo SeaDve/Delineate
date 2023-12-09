@@ -139,6 +139,8 @@ mod imp {
                         tracing::error!("Failed to export graph: {:?}", err);
                         obj.add_message_toast(&gettext("Failed to export graph"));
                     }
+                } else {
+                    obj.add_message_toast(&gettext("Graph exported"));
                 }
             });
         }
