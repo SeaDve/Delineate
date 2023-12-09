@@ -121,6 +121,18 @@ mod imp {
                 }
             });
 
+            klass.install_action_async("win.save-document-as", None, |obj, _, _| async move {
+                if let Err(err) = obj.save_document_as(&obj.document()).await {
+                    if !err
+                        .downcast_ref::<glib::Error>()
+                        .is_some_and(|error| error.matches(gtk::DialogError::Dismissed))
+                    {
+                        tracing::error!("Failed to save document as: {:?}", err);
+                        obj.add_message_toast(&gettext("Failed to save document as"));
+                    }
+                }
+            });
+
             klass.install_action_async("win.export-graph", Some("s"), |obj, _, arg| async move {
                 let raw_format = arg.unwrap().get::<String>().unwrap();
 
@@ -347,8 +359,22 @@ impl Window {
                 .build();
             let file = dialog.save_future(Some(self)).await?;
 
-            document.save_draft_to(&file).await?;
+            document.save_as(&file).await?;
         }
+
+        Ok(())
+    }
+
+    async fn save_document_as(&self, document: &Document) -> Result<()> {
+        let dialog = gtk::FileDialog::builder()
+            .title(gettext("Save Document As"))
+            .filters(&graphviz_file_filters())
+            .modal(true)
+            .initial_name(format!("{}.gv", document.title()))
+            .build();
+        let file = dialog.save_future(Some(self)).await?;
+
+        document.save_as(&file).await?;
 
         Ok(())
     }
@@ -555,6 +581,7 @@ impl Window {
     fn update_save_action(&self) {
         let is_document_busy = self.document().is_busy();
         self.action_set_enabled("win.save-document", !is_document_busy);
+        self.action_set_enabled("win.save-document-as", !is_document_busy);
     }
 
     fn update_export_graph_action(&self) {

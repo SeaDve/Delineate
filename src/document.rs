@@ -181,9 +181,7 @@ impl Document {
         Ok(())
     }
 
-    pub async fn save_draft_to(&self, file: &gio::File) -> Result<()> {
-        ensure!(self.file().is_none(), "Document must be a draft");
-
+    pub async fn save_as(&self, file: &gio::File) -> Result<()> {
         let imp = self.imp();
 
         imp.source_file.set_location(Some(file));

@@ -111,6 +111,7 @@ impl Application {
         self.set_accels_for_action("win.new-document", &["<Control>n"]);
         self.set_accels_for_action("win.open-document", &["<Control>o"]);
         self.set_accels_for_action("win.save-document", &["<Control>s"]);
+        self.set_accels_for_action("win.save-document-as", &["<Shift><Control>s"]);
     }
 
     pub fn run(&self) -> glib::ExitCode {
