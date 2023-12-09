@@ -19,8 +19,9 @@ use crate::{
 
 // TODO
 // * Find and replace
-// * Export
 // * Better viewer
+// * Tabs or multiple windows
+// * Drag and drop
 
 const DRAW_GRAPH_INTERVAL: Duration = Duration::from_millis(100);
 
