@@ -151,6 +151,10 @@ impl Document {
         self.text(&self.start_iter(), &self.end_iter(), true)
     }
 
+    pub fn has_contents(&self) -> bool {
+        self.start_iter() != self.end_iter()
+    }
+
     pub fn is_busy(&self) -> bool {
         self.imp().busy_progress.get() != 1.0
     }

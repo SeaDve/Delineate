@@ -1,6 +1,9 @@
+use std::path::Path;
+
 use anyhow::{ensure, Error, Result};
 use async_process::{Command, Stdio};
 use futures_util::AsyncWriteExt;
+use gettextrs::gettext;
 use gtk::glib::{self, translate::TryFromGlib};
 
 const PROGRAM: &str = "dot";
@@ -41,17 +44,57 @@ impl Layout {
     }
 }
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, glib::Enum)]
+#[enum_type(name = "DaggerFormat")]
 pub enum Format {
     Svg,
     Png,
+    Webp,
+    Pdf,
+}
+
+impl TryFrom<i32> for Format {
+    type Error = i32;
+
+    fn try_from(val: i32) -> Result<Self, Self::Error> {
+        unsafe { Self::try_from_glib(val) }
+    }
 }
 
 impl Format {
+    pub fn extension(&self) -> &'static str {
+        match self {
+            Self::Svg => "svg",
+            Self::Png => "png",
+            Self::Webp => "webp",
+            Self::Pdf => "pdf",
+        }
+    }
+
+    pub fn mime_type(&self) -> &'static str {
+        match self {
+            Self::Svg => "image/svg+xml",
+            Self::Png => "image/png",
+            Self::Webp => "image/webp",
+            Self::Pdf => "application/pdf",
+        }
+    }
+
+    pub fn name(&self) -> String {
+        match self {
+            Self::Svg => gettext("SVG"),
+            Self::Png => gettext("PNG"),
+            Self::Webp => gettext("WebP"),
+            Self::Pdf => gettext("PDF"),
+        }
+    }
+
     fn as_arg(&self) -> &'static str {
         match self {
             Self::Svg => "svg",
             Self::Png => "png",
+            Self::Webp => "webp",
+            Self::Pdf => "pdf",
         }
     }
 }
@@ -70,27 +113,52 @@ pub async fn version() -> Result<String> {
 }
 
 /// Generates a graph from the given contents.
-pub async fn run(contents: &[u8], layout: Layout, format: Format) -> Result<Vec<u8>> {
-    let mut child = Command::new(PROGRAM)
-        .stdin(Stdio::piped())
-        .stdout(Stdio::piped())
-        .stderr(Stdio::piped())
-        .arg("-T")
-        .arg(format.as_arg())
-        .arg("-K")
-        .arg(layout.as_arg())
-        .spawn()?;
+pub async fn generate(contents: &[u8], layout: Layout, format: Format) -> Result<Vec<u8>> {
+    let mut child = dot_command(layout, format).spawn()?;
 
     child.stdin.take().unwrap().write_all(contents).await?;
 
     let output = child.output().await?;
     tracing::trace!(?output, "Child exited");
 
-    if output.status.success() {
-        Ok(output.stdout)
-    } else {
-        Err(Error::msg(
+    if !output.status.success() {
+        return Err(Error::msg(
             String::from_utf8_lossy(&output.stderr).to_string(),
-        ))
+        ));
     }
+
+    Ok(output.stdout)
+}
+
+/// Exports the given contents to the given path.
+pub async fn export(contents: &[u8], layout: Layout, format: Format, path: &Path) -> Result<()> {
+    let mut child = dot_command(layout, format).arg("-o").arg(path).spawn()?;
+
+    child.stdin.take().unwrap().write_all(contents).await?;
+
+    let output = child.output().await?;
+    tracing::trace!(?output, "Child exited");
+
+    if !output.status.success() {
+        return Err(Error::msg(
+            String::from_utf8_lossy(&output.stderr).to_string(),
+        ));
+    }
+
+    Ok(())
+}
+
+fn dot_command(layout: Layout, format: Format) -> Command {
+    let mut command = Command::new(PROGRAM);
+
+    command
+        .stdin(Stdio::piped())
+        .stdout(Stdio::piped())
+        .stderr(Stdio::piped())
+        .arg("-T")
+        .arg(format.as_arg())
+        .arg("-K")
+        .arg(layout.as_arg());
+
+    command
 }

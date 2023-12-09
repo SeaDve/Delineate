@@ -231,6 +231,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "async-process",
+ "futures-channel",
  "futures-util",
  "gettext-rs",
  "gsettings-macro",

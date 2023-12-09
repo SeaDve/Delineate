@@ -1,7 +1,9 @@
 mod about;
 mod application;
+mod cancelled;
 mod config;
 mod document;
+mod export_dialog;
 mod graphviz;
 mod i18n;
 mod settings;
