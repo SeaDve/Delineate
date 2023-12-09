@@ -11,22 +11,22 @@
       <submenu>
         <attribute name="label" translatable="yes">_Export Graph</attribute>
         <item>
-          <attribute translatable="yes" name="label">Export As PNG</attribute>
+          <attribute translatable="yes" name="label">Export As PNG…</attribute>
           <attribute name="action">win.export-graph</attribute>
           <attribute name="target">png</attribute>
         </item>
         <item>
-          <attribute translatable="yes" name="label">Export As SVG</attribute>
+          <attribute translatable="yes" name="label">Export As SVG…</attribute>
           <attribute name="action">win.export-graph</attribute>
           <attribute name="target">svg</attribute>
         </item>
         <item>
-          <attribute translatable="yes" name="label">Export As WebP</attribute>
+          <attribute translatable="yes" name="label">Export As WebP…</attribute>
           <attribute name="action">win.export-graph</attribute>
           <attribute name="target">webp</attribute>
         </item>
         <item>
-          <attribute translatable="yes" name="label">Export As PDF</attribute>
+          <attribute translatable="yes" name="label">Export As PDF…</attribute>
           <attribute name="action">win.export-graph</attribute>
           <attribute name="target">pdf</attribute>
         </item>
