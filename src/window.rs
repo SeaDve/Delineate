@@ -596,8 +596,8 @@ impl Window {
 
 fn graphviz_file_filters() -> gio::ListStore {
     let filter = gtk::FileFilter::new();
-    // Translators: DOT is a type of file, do not translate.
-    filter.set_name(Some(&gettext("DOT Files")));
+    // Translators: DOT is an acronym, do not translate.
+    filter.set_name(Some(&gettext("Graphviz DOT Files")));
     filter.add_mime_type("text/vnd.graphviz");
 
     let filters = gio::ListStore::new::<gtk::FileFilter>();
