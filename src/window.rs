@@ -1,7 +1,7 @@
 use std::{error, fmt, time::Duration};
 
 use adw::{prelude::*, subclass::prelude::*};
-use anyhow::Result;
+use anyhow::{Context, Result};
 use gettextrs::gettext;
 use gtk::{
     gdk, gio,
@@ -17,6 +17,11 @@ use crate::{
     utils,
 };
 
+// TODO
+// * Find and replace
+// * Export
+// * Better viewer
+
 const DRAW_GRAPH_INTERVAL: Duration = Duration::from_millis(100);
 
 /// Indicates that a task was cancelled.
@@ -30,11 +35,6 @@ impl fmt::Display for Cancelled {
 }
 
 impl error::Error for Cancelled {}
-
-// TODO
-// * Find and replace
-// * Export
-// * Better viewer
 
 mod imp {
     use std::cell::{Cell, OnceCell};
@@ -116,6 +116,28 @@ mod imp {
                     {
                         tracing::error!("Failed to save document: {:?}", err);
                         obj.add_message_toast(&gettext("Failed to save document"));
+                    }
+                }
+            });
+
+            klass.install_action_async("win.export-graph", Some("s"), |obj, _, arg| async move {
+                let raw_format = arg.unwrap().get::<String>().unwrap();
+
+                let format = match raw_format.as_str() {
+                    "svg" => Format::Svg,
+                    "png" => Format::Png,
+                    "webp" => Format::Webp,
+                    "pdf" => Format::Pdf,
+                    _ => unreachable!("unknown format `{}`", raw_format),
+                };
+
+                if let Err(err) = obj.export_graph(format).await {
+                    if !err
+                        .downcast_ref::<glib::Error>()
+                        .is_some_and(|error| error.matches(gtk::DialogError::Dismissed))
+                    {
+                        tracing::error!("Failed to export graph: {:?}", err);
+                        obj.add_message_toast(&gettext("Failed to export graph"));
                     }
                 }
             });
@@ -207,6 +229,7 @@ mod imp {
             );
 
             obj.set_document(&Document::draft());
+            obj.update_export_graph_action();
 
             obj.load_window_state();
         }
@@ -273,6 +296,17 @@ impl Window {
         self.imp().view.buffer().downcast().unwrap()
     }
 
+    fn selected_layout(&self) -> Layout {
+        let imp = self.imp();
+        let selected_item = imp
+            .layout_drop_down
+            .selected_item()
+            .unwrap()
+            .downcast::<adw::EnumListItem>()
+            .unwrap();
+        Layout::try_from(selected_item.value()).unwrap()
+    }
+
     fn add_message_toast(&self, message: &str) {
         let toast = adw::Toast::new(message);
         self.imp().toast_overlay.add_toast(toast);
@@ -312,6 +346,39 @@ impl Window {
 
             document.save_draft_to(&file).await?;
         }
+
+        Ok(())
+    }
+
+    async fn export_graph(&self, format: Format) -> Result<()> {
+        let filter = gtk::FileFilter::new();
+        filter.set_name(Some(&format.name()));
+        filter.add_mime_type(format.mime_type());
+        filter.add_suffix(format.extension());
+
+        let filters = gio::ListStore::new::<gtk::FileFilter>();
+        filters.append(&filter);
+
+        let document = self.document();
+
+        let dialog = gtk::FileDialog::builder()
+            .title(gettext("Export Graph"))
+            .accept_label(gettext("_Export"))
+            .initial_name(format!("{}.{}", document.title(), format.extension()))
+            .filters(&filters)
+            .modal(true)
+            .build();
+        let file = dialog.save_future(Some(self)).await?;
+
+        graphviz::export(
+            document.contents().as_bytes(),
+            self.selected_layout(),
+            format,
+            &file.path().context("File has no path")?,
+        )
+        .await?;
+
+        tracing::debug!(uri = %file.uri(), "Graph exported");
 
         Ok(())
     }
@@ -423,8 +490,11 @@ impl Window {
 
     fn queue_draw_graph(&self) {
         let imp = self.imp();
+
         imp.queued_draw_graph.set(true);
         imp.spinner_revealer.set_reveal_child(true);
+
+        self.update_export_graph_action();
     }
 
     async fn start_draw_graph_loop(&self) {
@@ -457,27 +527,19 @@ impl Window {
             }
 
             imp.spinner_revealer.set_reveal_child(false);
+            self.update_export_graph_action();
         }
     }
 
     async fn draw_graph(&self) -> Result<Option<gdk::Texture>> {
-        let imp = self.imp();
-
         let contents = self.document().contents();
 
         if contents.is_empty() {
             return Ok(None);
         }
 
-        let selected_item = imp
-            .layout_drop_down
-            .selected_item()
-            .unwrap()
-            .downcast::<adw::EnumListItem>()
-            .unwrap();
-        let selected_layout = Layout::try_from(selected_item.value()).unwrap();
-
-        let png_bytes = graphviz::run(contents.as_bytes(), selected_layout, Format::Svg).await?;
+        let png_bytes =
+            graphviz::generate(contents.as_bytes(), self.selected_layout(), Format::Svg).await?;
 
         let texture =
             gio::spawn_blocking(|| gdk::Texture::from_bytes(&glib::Bytes::from_owned(png_bytes)))
@@ -491,12 +553,21 @@ impl Window {
         let is_document_busy = self.document().is_busy();
         self.action_set_enabled("win.save-document", !is_document_busy);
     }
+
+    fn update_export_graph_action(&self) {
+        let imp = self.imp();
+
+        self.action_set_enabled(
+            "win.export-graph",
+            !imp.spinner_revealer.reveals_child() && imp.picture.paintable().is_some(),
+        );
+    }
 }
 
 fn graphviz_file_filters() -> gio::ListStore {
     let filter = gtk::FileFilter::new();
     // Translators: DOT is a type of file, do not translate.
-    filter.set_property("name", gettext("DOT Files"));
+    filter.set_name(Some(&gettext("DOT Files")));
     filter.add_mime_type("text/vnd.graphviz");
 
     let filters = gio::ListStore::new::<gtk::FileFilter>();

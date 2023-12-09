@@ -198,6 +198,7 @@ impl Document {
 
         Ok(())
     }
+
     fn parse_title(&self) -> String {
         let start = self.start_iter();
 

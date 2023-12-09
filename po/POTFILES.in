@@ -4,5 +4,6 @@ data/io.github.seadve.Dagger.metainfo.xml.in.in
 data/resources/ui/shortcuts.ui
 data/resources/ui/window.ui
 src/about.rs
+src/graphviz.rs
 src/main.rs
 src/window.rs
