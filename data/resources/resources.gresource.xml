@@ -4,8 +4,8 @@
     <file compressed="true" preprocess="xml-stripblanks">icons/scalable/actions/document-new-symbolic.svg</file>
     <file compressed="true" preprocess="xml-stripblanks">icons/scalable/status/warning-symbolic.svg</file>
     <file compressed="true">style.css</file>
-    <file compressed="true" preprocess="xml-stripblanks" alias="gtk/help-overlay.ui">ui/shortcuts.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/drag_overlay.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks" alias="gtk/help-overlay.ui">ui/shortcuts.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/window.ui</file>
   </gresource>
 </gresources>
