@@ -12,6 +12,7 @@ use crate::{
     application::Application,
     config::PROFILE,
     document::Document,
+    drag_overlay::DragOverlay,
     graphviz::{self, Format, Layout},
     i18n::gettext_f,
     utils,
@@ -21,7 +22,8 @@ use crate::{
 // * Find and replace
 // * Better viewer
 // * Tabs or multiple windows
-// * Drag and drop
+
+const GRAPHVIZ_MIME_TYPE: &str = "text/vnd.graphviz";
 
 const DRAW_GRAPH_INTERVAL: Duration = Duration::from_millis(100);
 
@@ -51,6 +53,8 @@ mod imp {
         pub(super) document_modified_status: TemplateChild<gtk::Label>,
         #[template_child]
         pub(super) document_title_label: TemplateChild<gtk::Label>,
+        #[template_child]
+        pub(super) drag_overlay: TemplateChild<DragOverlay>,
         #[template_child]
         pub(super) paned: TemplateChild<gtk::Paned>,
         #[template_child]
@@ -236,6 +240,16 @@ mod imp {
                     obj.queue_draw_graph();
                 }));
 
+            let drop_target = gtk::DropTarget::builder()
+                .propagation_phase(gtk::PropagationPhase::Capture)
+                .actions(gdk::DragAction::COPY)
+                .formats(&gdk::ContentFormats::for_type(gdk::FileList::static_type()))
+                .build();
+            drop_target.connect_drop(clone!(@weak obj => @default-panic, move |_, value, _, _| {
+                obj.handle_drop(&value.get::<gdk::FileList>().unwrap())
+            }));
+            self.drag_overlay.set_target(Some(&drop_target));
+
             utils::spawn(
                 glib::Priority::DEFAULT_IDLE,
                 clone!(@weak obj => async move {
@@ -327,14 +341,7 @@ impl Window {
         self.imp().toast_overlay.add_toast(toast);
     }
 
-    async fn open_document(&self) -> Result<()> {
-        let dialog = gtk::FileDialog::builder()
-            .title(gettext("Open Document"))
-            .filters(&graphviz_file_filters())
-            .modal(true)
-            .build();
-        let file = dialog.open_future(Some(self)).await?;
-
+    async fn load_file(&self, file: gio::File) -> Result<()> {
         let document = Document::for_file(file);
         let prev_document = self.document();
         self.set_document(&document);
@@ -343,6 +350,19 @@ impl Window {
             self.set_document(&prev_document);
             return Err(err);
         }
+
+        Ok(())
+    }
+
+    async fn open_document(&self) -> Result<()> {
+        let dialog = gtk::FileDialog::builder()
+            .title(gettext("Open Document"))
+            .filters(&graphviz_file_filters())
+            .modal(true)
+            .build();
+        let file = dialog.open_future(Some(self)).await?;
+
+        self.load_file(file).await?;
 
         Ok(())
     }
@@ -410,6 +430,38 @@ impl Window {
         tracing::debug!(uri = %file.uri(), "Graph exported");
 
         Ok(())
+    }
+
+    fn handle_drop(&self, file_list: &gdk::FileList) -> bool {
+        let files = file_list.files();
+
+        if files.is_empty() {
+            tracing::warn!("Given files is empty");
+            return false;
+        }
+
+        // TODO Support multiple files
+        if files.len() > 1 {
+            tracing::warn!("Multiple files dropped is not yet supported");
+        }
+
+        utils::spawn(
+            glib::Priority::default(),
+            clone!(@weak self as obj => async move {
+                if obj.handle_unsaved_changes(&obj.document()).await.is_err() {
+                    return ;
+                }
+
+                let file = files.get(0).unwrap();
+
+                if let Err(err) = obj.load_file(file.clone()).await {
+                    tracing::error!("Failed to load file: {:?}", err);
+                    obj.add_message_toast(&gettext("Failed to load file"));
+                }
+            }),
+        );
+
+        true
     }
 
     /// Returns `Ok` if unsaved changes are handled and can proceed, `Err` if
@@ -598,7 +650,7 @@ fn graphviz_file_filters() -> gio::ListStore {
     let filter = gtk::FileFilter::new();
     // Translators: DOT is an acronym, do not translate.
     filter.set_name(Some(&gettext("Graphviz DOT Files")));
-    filter.add_mime_type("text/vnd.graphviz");
+    filter.add_mime_type(GRAPHVIZ_MIME_TYPE);
 
     let filters = gio::ListStore::new::<gtk::FileFilter>();
     filters.append(&filter);

@@ -1,1 +1,11 @@
+/* DragOverlay */
 
+dragoverlay {
+  box-shadow: none;
+}
+
+dragoverlay .drag-area-highlight {
+  border-radius: 8px;
+  background-color: alpha(@blue_2, 0.35);
+  margin: 24px;
+}

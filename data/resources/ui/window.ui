@@ -103,83 +103,88 @@
               </object>
             </child>
             <property name="content">
-              <object class="GtkPaned" id="paned">
-                <property name="wide-handle">True</property>
-                <property name="start-child">
-                  <object class="GtkOverlay">
-                    <property name="child">
-                      <object class="GtkScrolledWindow">
+              <object class="DaggerDragOverlay" id="drag_overlay">
+                <property name="child">
+                  <object class="GtkPaned" id="paned">
+                    <property name="wide-handle">True</property>
+                    <property name="start-child">
+                      <object class="GtkOverlay">
                         <property name="child">
-                          <object class="GtkSourceView" id="view">
-                            <property name="top-margin">12</property>
-                            <property name="bottom-margin">12</property>
-                            <property name="left-margin">12</property>
-                            <property name="right-margin">12</property>
-                            <property name="monospace">True</property>
-                            <property name="show-line-numbers">True</property>
-                            <property name="insert-spaces-instead-of-tabs">True</property>
-                            <property name="smart-backspace">True</property>
-                            <property name="tab-width">4</property>
+                          <object class="GtkScrolledWindow">
+                            <property name="child">
+                              <object class="GtkSourceView" id="view">
+                                <property name="top-margin">12</property>
+                                <property name="bottom-margin">12</property>
+                                <property name="left-margin">12</property>
+                                <property name="right-margin">12</property>
+                                <property name="monospace">True</property>
+                                <property name="show-line-numbers">True</property>
+                                <property name="insert-spaces-instead-of-tabs">True</property>
+                                <property name="smart-backspace">True</property>
+                                <property name="tab-width">4</property>
+                              </object>
+                            </property>
                           </object>
                         </property>
-                      </object>
-                    </property>
-                    <child type="overlay">
-                      <object class="GtkProgressBar" id="progress_bar">
-                        <property name="can-focus">false</property>
-                        <property name="valign">start</property>
-                        <style>
-                          <class name="osd"/>
-                        </style>
-                      </object>
-                    </child>
-                  </object>
-                </property>
-                <property name="end-child">
-                  <object class="AdwToolbarView">
-                    <property name="bottom-bar-style">raised</property>
-                    <property name="content">
-                      <object class="GtkStack" id="stack">
-                        <property name="transition-type">crossfade</property>
-                        <child>
-                          <object class="GtkScrolledWindow" id="picture_page">
-                            <property name="vexpand">True</property>
-                            <property name="child">
-                              <object class="GtkPicture" id="picture">
-                                <property name="can-shrink">False</property>
-                              </object>
-                            </property>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="AdwStatusPage" id="error_page">
-                            <property name="icon-name">warning-symbolic</property>
-                            <property name="title" translatable="yes">Can't Draw Graph</property>
+                        <child type="overlay">
+                          <object class="GtkProgressBar" id="progress_bar">
+                            <property name="can-focus">false</property>
+                            <property name="valign">start</property>
+                            <style>
+                              <class name="osd"/>
+                            </style>
                           </object>
                         </child>
                       </object>
                     </property>
-                    <child type="bottom">
-                      <object class="GtkActionBar">
-                        <child>
-                          <object class="GtkDropDown" id="layout_drop_down"/>
-                        </child>
-                        <child type="end">
-                          <object class="GtkRevealer" id="spinner_revealer">
+                    <property name="end-child">
+                      <object class="AdwToolbarView">
+                        <property name="bottom-bar-style">raised</property>
+                        <property name="content">
+                          <object class="GtkStack" id="stack">
                             <property name="transition-type">crossfade</property>
-                            <property name="child">
-                              <object class="GtkSpinner" id="spinner">
-                                <property name="width-request">18</property>
-                                <property name="height-request">18</property>
-                                <property name="margin-start">6</property>
-                                <property name="margin-end">6</property>
-                                <property name="spinning">True</property>
+                            <child>
+                              <object class="GtkScrolledWindow" id="picture_page">
+                                <property name="vexpand">True</property>
+                                <property name="child">
+                                  <object class="GtkPicture" id="picture">
+                                    <property name="can-shrink">False</property>
+                                  </object>
+                                </property>
                               </object>
-                            </property>
+                            </child>
+                            <child>
+                              <object class="AdwStatusPage" id="error_page">
+                                <property name="icon-name">warning-symbolic</property>
+                                <property name="title" translatable="yes">Can't Draw Graph</property>
+                              </object>
+                            </child>
+                          </object>
+                        </property>
+                        <child type="bottom">
+                          <object class="GtkActionBar">
+                            <child>
+                              <object class="GtkDropDown" id="layout_drop_down"/>
+                            </child>
+                            <child type="end">
+                              <object class="GtkRevealer" id="spinner_revealer">
+                                <property name="can-target">False</property>
+                                <property name="transition-type">crossfade</property>
+                                <property name="child">
+                                  <object class="GtkSpinner" id="spinner">
+                                    <property name="width-request">18</property>
+                                    <property name="height-request">18</property>
+                                    <property name="margin-start">6</property>
+                                    <property name="margin-end">6</property>
+                                    <property name="spinning">True</property>
+                                  </object>
+                                </property>
+                              </object>
+                            </child>
                           </object>
                         </child>
                       </object>
-                    </child>
+                    </property>
                   </object>
                 </property>
               </object>

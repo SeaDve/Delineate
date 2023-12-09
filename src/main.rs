@@ -2,6 +2,7 @@ mod about;
 mod application;
 mod config;
 mod document;
+mod drag_overlay;
 mod graphviz;
 mod i18n;
 mod settings;
