@@ -20,8 +20,11 @@ use crate::{
 
 // TODO
 // * Find and replace
-// * Better viewer
-// * Tabs or multiple windows
+// * Better viewer, with bird's eye view
+// * Tabs and/or multiple windows
+// * Recent files
+// * dot language server, with error handling on text view
+// * modified file on disk handling
 
 const GRAPHVIZ_MIME_TYPE: &str = "text/vnd.graphviz";
 
