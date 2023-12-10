@@ -204,19 +204,10 @@ impl Document {
         second_word_end.forward_word_end();
         second_word_end.forward_word_end();
 
+        let search_flags = gtk::TextSearchFlags::CASE_INSENSITIVE | gtk::TextSearchFlags::TEXT_ONLY;
         let search_match = start
-            .forward_search(
-                "digraph",
-                gtk::TextSearchFlags::CASE_INSENSITIVE | gtk::TextSearchFlags::TEXT_ONLY,
-                Some(&second_word_end),
-            )
-            .or_else(|| {
-                start.forward_search(
-                    "graph",
-                    gtk::TextSearchFlags::CASE_INSENSITIVE | gtk::TextSearchFlags::TEXT_ONLY,
-                    Some(&second_word_end),
-                )
-            });
+            .forward_search("digraph", search_flags, Some(&second_word_end))
+            .or_else(|| start.forward_search("graph", search_flags, Some(&second_word_end)));
 
         let Some((match_start, match_end)) = search_match else {
             return "".to_string();
