@@ -26,7 +26,7 @@ use crate::{
 // * dot language server, with error handling on text view
 // * modified file on disk handling
 
-const DRAW_GRAPH_INTERVAL: Duration = Duration::from_millis(100);
+const DRAW_GRAPH_INTERVAL: Duration = Duration::from_secs(1);
 
 /// Indicates that a task was cancelled.
 #[derive(Debug)]
@@ -41,7 +41,7 @@ impl fmt::Display for Cancelled {
 impl error::Error for Cancelled {}
 
 mod imp {
-    use std::cell::{Cell, OnceCell};
+    use std::cell::{Cell, OnceCell, RefCell};
 
     use super::*;
 
@@ -79,6 +79,7 @@ mod imp {
         pub(super) document_signal_group: OnceCell<glib::SignalGroup>,
 
         pub(super) queued_draw_graph: Cell<bool>,
+        pub(super) draw_graph_timeout_cancellable: RefCell<Option<gio::Cancellable>>,
     }
 
     #[glib::object_subclass]
@@ -574,6 +575,14 @@ impl Window {
         let imp = self.imp();
 
         imp.queued_draw_graph.set(true);
+
+        // If we're not processing a graph, skip the timeout.
+        if !imp.spinner_revealer.reveals_child() {
+            if let Some(cancellable) = imp.draw_graph_timeout_cancellable.take() {
+                cancellable.cancel();
+            }
+        }
+
         imp.spinner_revealer.set_reveal_child(true);
 
         self.update_export_graph_action();
@@ -583,7 +592,15 @@ impl Window {
         let imp = self.imp();
 
         loop {
-            glib::timeout_future(DRAW_GRAPH_INTERVAL).await;
+            let cancellable = gio::Cancellable::new();
+            let timeout = gio::CancellableFuture::new(
+                glib::timeout_future(DRAW_GRAPH_INTERVAL),
+                cancellable.clone(),
+            );
+            imp.draw_graph_timeout_cancellable
+                .replace(Some(cancellable));
+
+            let _ = timeout.await;
 
             if !imp.queued_draw_graph.get() {
                 continue;
