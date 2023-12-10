@@ -26,8 +26,6 @@ use crate::{
 // * dot language server, with error handling on text view
 // * modified file on disk handling
 
-const GRAPHVIZ_MIME_TYPE: &str = "text/vnd.graphviz";
-
 const DRAW_GRAPH_INTERVAL: Duration = Duration::from_millis(100);
 
 /// Indicates that a task was cancelled.
@@ -653,7 +651,7 @@ fn graphviz_file_filters() -> gio::ListStore {
     let filter = gtk::FileFilter::new();
     // Translators: DOT is an acronym, do not translate.
     filter.set_name(Some(&gettext("Graphviz DOT Files")));
-    filter.add_mime_type(GRAPHVIZ_MIME_TYPE);
+    filter.add_mime_type("text/vnd.graphviz");
 
     let filters = gio::ListStore::new::<gtk::FileFilter>();
     filters.append(&filter);
