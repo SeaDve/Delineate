@@ -64,11 +64,11 @@ mod imp {
         fn set_target(&self, target: Option<gtk::DropTarget>) {
             let obj = self.obj();
 
-            if let Some(target) = self.target.take() {
-                obj.remove_controller(&target);
+            if let Some(prev_target) = self.target.take() {
+                obj.remove_controller(&prev_target);
 
                 let handler_id = self.target_handler_id.take().unwrap();
-                target.disconnect(handler_id);
+                prev_target.disconnect(handler_id);
             }
 
             if let Some(ref target) = target {
