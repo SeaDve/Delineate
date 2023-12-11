@@ -584,7 +584,6 @@ impl Window {
         }
 
         imp.spinner_revealer.set_reveal_child(true);
-
         self.update_export_graph_action();
     }
 
