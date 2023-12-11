@@ -51,6 +51,10 @@ mod imp {
 
             let obj = self.obj();
 
+            obj.connect_loading_notify(clone!(@weak obj => move |_| {
+                obj.notify_is_modified();
+            }));
+
             let language_manager = gtk_source::LanguageManager::default();
             if let Some(language) = language_manager.language("dot") {
                 obj.set_language(Some(&language));
@@ -127,8 +131,8 @@ mod imp {
         fn is_modified(&self) -> bool {
             let obj = self.obj();
 
-            // This must not be busy (loading/saving) to be considered modified.
-            gtk::TextBuffer::is_modified(obj.upcast_ref()) && !obj.is_busy()
+            // This must not also be loading to be considered modified.
+            gtk::TextBuffer::is_modified(obj.upcast_ref()) && !obj.is_loading()
         }
     }
 }
@@ -149,10 +153,6 @@ impl Document {
 
     pub fn contents(&self) -> glib::GString {
         self.text(&self.start_iter(), &self.end_iter(), true)
-    }
-
-    pub fn is_busy(&self) -> bool {
-        self.imp().busy_progress.get() != 1.0
     }
 
     pub async fn load(&self) -> Result<()> {
@@ -247,7 +247,6 @@ impl Document {
                 };
                 self.imp().busy_progress.set(progress);
                 self.notify_busy_progress();
-                self.notify_is_modified();
             }
         };
 

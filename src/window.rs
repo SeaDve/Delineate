@@ -7,6 +7,7 @@ use gtk::{
     gdk, gio,
     glib::{self, clone, closure},
 };
+use gtk_source::prelude::*;
 
 use crate::{
     application::Application,
@@ -220,7 +221,7 @@ mod imp {
                 }),
             );
             document_signal_group.connect_notify_local(
-                Some("busy-progress"),
+                Some("loading"),
                 clone!(@weak obj => move |_, _| {
                     obj.update_save_action();
                 }),
@@ -319,7 +320,6 @@ impl Window {
         let document_signal_group = imp.document_signal_group.get().unwrap();
         document_signal_group.set_target(Some(document));
 
-        self.update_save_action();
         self.queue_draw_graph();
     }
 
@@ -649,9 +649,9 @@ impl Window {
     }
 
     fn update_save_action(&self) {
-        let is_document_busy = self.document().is_busy();
-        self.action_set_enabled("win.save-document", !is_document_busy);
-        self.action_set_enabled("win.save-document-as", !is_document_busy);
+        let is_loading = self.document().is_loading();
+        self.action_set_enabled("win.save-document", !is_loading);
+        self.action_set_enabled("win.save-document-as", !is_loading);
     }
 
     fn update_export_graph_action(&self) {
