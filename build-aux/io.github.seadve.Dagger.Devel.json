@@ -39,9 +39,9 @@
             "build-commands": [
                 "npm install",
                 "npm run build",
-                "mkdir -p /app/src/graph_view/d3-graphviz",
-                "cp -r node_modules /app/src/graph_view/d3-graphviz",
-                "cp -r build /app/src/graph_view/d3-graphviz"
+                "mkdir -p $FLATPAK_DEST/src/dagger/graph_view/d3-graphviz",
+                "cp -r node_modules $FLATPAK_DEST/src/dagger/graph_view/d3-graphviz",
+                "cp -r build $FLATPAK_DEST/src/dagger/graph_view/d3-graphviz"
             ],
             "sources": [
                 {

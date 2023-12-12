@@ -10,6 +10,8 @@ use gtk::{
 };
 use webkit::{javascriptcore::Value, prelude::*, ContextMenuAction};
 
+use crate::config::GRAPHVIEWSRCDIR;
+
 #[derive(Debug, Clone, Copy, glib::Enum)]
 #[enum_type(name = "DaggerGraphViewEngine")]
 pub enum Engine {
@@ -278,11 +280,12 @@ impl GraphView {
     async fn ensure_index_loaded(&self) -> Result<()> {
         let imp = self.imp();
 
-        // FIXME don't hardcode
-
         imp.index_loaded
             .get_or_try_init(|| async {
-                let (index_bytes, _) = gio::File::for_path("/app/src/graph_view/index.html")
+                let graph_view_src_dir = gio::File::for_path(GRAPHVIEWSRCDIR);
+
+                let (index_bytes, _) = graph_view_src_dir
+                    .child("index.html")
                     .load_bytes_future()
                     .await?;
 
@@ -299,17 +302,15 @@ impl GraphView {
                     }),
                 );
 
-                imp.view.load_bytes(
-                    &index_bytes,
-                    None,
-                    None,
-                    Some("file:///app/src/graph_view/"),
-                );
+                // Needs to add trailing slash to base_uri
+                let base_uri = format!("{}/", graph_view_src_dir.uri());
+                imp.view
+                    .load_bytes(&index_bytes, None, None, Some(&base_uri));
 
                 rx.await.unwrap();
                 imp.view.disconnect(handler_id);
 
-                tracing::debug!("Loaded index.html");
+                tracing::debug!("Loaded index.html from {}", graph_view_src_dir.uri());
 
                 Ok(())
             })
