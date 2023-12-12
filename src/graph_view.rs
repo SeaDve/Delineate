@@ -96,12 +96,14 @@ mod imp {
 
             self.view.set_parent(&*obj);
 
-            self.view
-                .connect_is_web_process_responsive_notify(clone!(@weak obj => move |view| {
-                    if !view.is_web_process_responsive() {
-                        tracing::warn!("Web process is unresponsive");
-                    }
-                }));
+            self.view.connect_web_process_terminated(|_, reason| {
+                tracing::error!("Web process terminated: {:?}", reason);
+            });
+            self.view.connect_is_web_process_responsive_notify(|view| {
+                if !view.is_web_process_responsive() {
+                    tracing::warn!("Web process is unresponsive");
+                }
+            });
             self.view.connect_context_menu(
                 clone!(@weak obj => @default-panic, move |_, ctx_menu, _| {
                     for item in ctx_menu.items() {
