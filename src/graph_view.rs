@@ -12,7 +12,8 @@ use webkit::{javascriptcore::Value, prelude::*, ContextMenuAction};
 
 use crate::config::GRAPHVIEWSRCDIR;
 
-#[derive(Debug, Clone, Copy, glib::Enum)]
+#[derive(Debug, Clone, Copy, glib::Variant, glib::Enum)]
+#[repr(i32)]
 #[enum_type(name = "DaggerGraphViewEngine")]
 pub enum Engine {
     Dot,
