@@ -261,6 +261,15 @@ mod imp {
                         .set_description(Some(&glib::markup_escape_text(message)));
                     tracing::error!("Failed to draw graph: {}", message);
                 }));
+            self.graph_view
+                .connect_loaded(clone!(@weak obj => move |_| {
+                    let imp = obj.imp();
+                    imp.spinner_revealer.set_reveal_child(false);
+                    imp.stack.set_visible_child(&*imp.graph_view);
+
+                    obj.update_export_graph_action();
+                    tracing::debug!("Graph updated");
+                }));
 
             utils::spawn(
                 glib::Priority::DEFAULT_IDLE,
@@ -624,10 +633,6 @@ impl Window {
                 tracing::error!("Failed to render: {:?}", err);
             }
 
-            imp.spinner_revealer.set_reveal_child(false);
-            imp.stack.set_visible_child(&*imp.graph_view);
-            tracing::debug!("Graph updated");
-
             // match self.draw_graph().await {
             //     Ok(texture) => {
             //         imp.picture.set_paintable(texture.as_ref());
@@ -644,9 +649,6 @@ impl Window {
             // tracing::error!("Failed to draw graph: {:?}", err);
             //     }
             // }
-
-            imp.spinner_revealer.set_reveal_child(false);
-            self.update_export_graph_action();
         }
     }
 

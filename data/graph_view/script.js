@@ -1,9 +1,12 @@
+const graphLoadedHandler = window.webkit.messageHandlers.graphLoaded;
+const graphErrorHandler = window.webkit.messageHandlers.graphError;
+
 class GraphView {
     constructor() {
         this.div = d3.select("#graph");
         this.graphviz = this.div.graphviz()
             .onerror((error) => {
-                window.webkit.messageHandlers.graphError.postMessage(error);
+                graphErrorHandler.postMessage(error);
             })
             .transition(() => {
                 return d3.transition().duration(500);
@@ -21,7 +24,10 @@ class GraphView {
             .height(window.innerHeight)
             .fit(true)
             .engine(engine)
-            .renderDot(dotSrc);
+            .dot(dotSrc)
+            .render(() => {
+                graphLoadedHandler.postMessage(null);
+            });
     }
 }
 
