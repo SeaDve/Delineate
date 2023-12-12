@@ -154,6 +154,13 @@
                             <child>
                               <object class="GtkDropDown" id="engine_drop_down"/>
                             </child>
+                            <child>
+                              <object class="GtkButton">
+                                <property name="tooltip-text" translatable="yes">Reset Zoom</property>
+                                <property name="icon-name">object-scale-to-fit-symbolic</property>
+                                <property name="action-name">win.reset-graph-zoom</property>
+                              </object>
+                            </child>
                             <child type="end">
                               <object class="GtkRevealer" id="spinner_revealer">
                                 <property name="can-target">False</property>
