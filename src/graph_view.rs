@@ -205,10 +205,10 @@ impl GraphView {
         )
     }
 
-    pub async fn render(&self, dot_src: &str, engine: Engine) -> Result<()> {
+    pub async fn set_data(&self, dot_src: &str, engine: Engine) -> Result<()> {
         self.set_graph_loaded(false);
 
-        self.call_js_func("render", &[&dot_src, &engine.as_raw()])
+        self.call_js_func("graphView.setData", &[&dot_src, &engine.as_raw()])
             .await?;
 
         Ok(())
@@ -217,13 +217,13 @@ impl GraphView {
     pub async fn reset_zoom(&self) -> Result<()> {
         self.set_graph_loaded(false);
 
-        self.call_js_func("resetZoom", &[]).await?;
+        self.call_js_func("graphView.resetZoom", &[]).await?;
 
         Ok(())
     }
 
     pub async fn get_svg(&self) -> Result<Option<glib::Bytes>> {
-        let ret = self.call_js_func("getSvg", &[]).await?;
+        let ret = self.call_js_func("graphView.getSvgString", &[]).await?;
 
         if ret.is_null() {
             Ok(None)

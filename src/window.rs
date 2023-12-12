@@ -698,7 +698,7 @@ impl Window {
 
             if let Err(err) = imp
                 .graph_view
-                .render(&self.document().contents(), self.selected_engine())
+                .set_data(&self.document().contents(), self.selected_engine())
                 .await
             {
                 tracing::error!("Failed to render: {:?}", err);
