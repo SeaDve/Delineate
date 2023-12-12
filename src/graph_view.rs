@@ -181,18 +181,18 @@ impl GraphView {
         )
     }
 
-    pub async fn render(&self, dot: &str, engine: Engine) -> Result<()> {
+    pub async fn render(&self, dot_src: &str, engine: Engine) -> Result<()> {
         let imp = self.imp();
 
         let dict = glib::VariantDict::new(None);
-        dict.insert("dot", &dot.to_variant());
+        dict.insert("dotSrc", &dot_src.to_variant());
         dict.insert("engine", &engine.as_raw().to_variant());
         let args = dict.end();
 
         let ret = imp
             .view
             .call_async_javascript_function_future(
-                "graphView.renderGraph(dot, engine)",
+                "render(dotSrc, engine)",
                 Some(&args),
                 None,
                 None,
