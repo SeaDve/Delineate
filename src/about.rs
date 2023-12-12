@@ -6,12 +6,9 @@ use gtk::{
 
 use std::{env, path::Path};
 
-use crate::{
-    config::{APP_ID, VERSION},
-    graphviz,
-};
+use crate::config::{APP_ID, VERSION};
 
-pub async fn present_window(transient_for: Option<&impl IsA<gtk::Window>>) {
+pub fn present_window(transient_for: Option<&impl IsA<gtk::Window>>) {
     let win = adw::AboutWindow::builder()
         .modal(true)
         .application_icon(APP_ID)
@@ -24,7 +21,7 @@ pub async fn present_window(transient_for: Option<&impl IsA<gtk::Window>>) {
         .translator_credits(gettext("translator-credits"))
         .issue_url("https://github.com/SeaDve/Dagger/issues")
         .support_url("https://github.com/SeaDve/Dagger/discussions")
-        .debug_info(debug_info().await)
+        .debug_info(debug_info())
         .debug_info_filename("dagger-debug-info")
         .build();
 
@@ -43,7 +40,7 @@ pub async fn present_window(transient_for: Option<&impl IsA<gtk::Window>>) {
     win.present();
 }
 
-async fn debug_info() -> String {
+fn debug_info() -> String {
     let is_flatpak = Path::new("/.flatpak-info").exists();
 
     let language_names = glib::language_names().join(", ");
@@ -70,9 +67,6 @@ async fn debug_info() -> String {
         webkit::functions::minor_version(),
         webkit::functions::micro_version()
     );
-    let graphviz_version = graphviz::version()
-        .await
-        .unwrap_or_else(|_| "<unknown>".into());
 
     format!(
         r#"- {APP_ID} {VERSION}
@@ -86,7 +80,6 @@ async fn debug_info() -> String {
 
 - GTK {gtk_version}
 - Libadwaita {adw_version}
-- Webkit {webkit_version}
-- Graphviz {graphviz_version}"#
+- Webkit {webkit_version}"#
     )
 }

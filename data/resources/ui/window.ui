@@ -24,16 +24,6 @@
           <attribute name="action">win.export-graph</attribute>
           <attribute name="target">svg</attribute>
         </item>
-        <item>
-          <attribute name="label" translatable="yes">Export As WebP…</attribute>
-          <attribute name="action">win.export-graph</attribute>
-          <attribute name="target">webp</attribute>
-        </item>
-        <item>
-          <attribute name="label" translatable="yes">Export As PDF…</attribute>
-          <attribute name="action">win.export-graph</attribute>
-          <attribute name="target">pdf</attribute>
-        </item>
       </submenu>
     </section>
     <section>
