@@ -24,6 +24,11 @@
           <attribute name="action">win.export-graph</attribute>
           <attribute name="target">svg</attribute>
         </item>
+        <item>
+          <attribute name="label" translatable="yes">Export As JPEG…</attribute>
+          <attribute name="action">win.export-graph</attribute>
+          <attribute name="target">jpeg</attribute>
+        </item>
       </submenu>
     </section>
     <section>
