@@ -1,7 +1,7 @@
 use std::{error, fmt, time::Duration};
 
 use adw::{prelude::*, subclass::prelude::*};
-use anyhow::{Context, Result};
+use anyhow::Result;
 use gettextrs::gettext;
 use gtk::{
     gdk, gio,
@@ -14,7 +14,8 @@ use crate::{
     config::PROFILE,
     document::Document,
     drag_overlay::DragOverlay,
-    graphviz::{self, Format, Layout},
+    graph_view::{Engine, GraphView},
+    graphviz::Format,
     i18n::gettext_f,
     utils,
 };
@@ -66,13 +67,11 @@ mod imp {
         #[template_child]
         pub(super) stack: TemplateChild<gtk::Stack>,
         #[template_child]
-        pub(super) picture_page: TemplateChild<gtk::ScrolledWindow>,
-        #[template_child]
-        pub(super) picture: TemplateChild<gtk::Picture>,
+        pub(super) graph_view: TemplateChild<GraphView>,
         #[template_child]
         pub(super) error_page: TemplateChild<adw::StatusPage>,
         #[template_child]
-        pub(super) layout_drop_down: TemplateChild<gtk::DropDown>,
+        pub(super) engine_drop_down: TemplateChild<gtk::DropDown>,
         #[template_child]
         pub(super) spinner_revealer: TemplateChild<gtk::Revealer>,
 
@@ -230,15 +229,15 @@ mod imp {
                 .set(document_signal_group)
                 .unwrap();
 
-            self.layout_drop_down.set_expression(Some(
+            self.engine_drop_down.set_expression(Some(
                 &gtk::ClosureExpression::new::<glib::GString>(
                     &[] as &[gtk::Expression],
                     closure!(|list_item: adw::EnumListItem| list_item.name()),
                 ),
             ));
-            self.layout_drop_down
-                .set_model(Some(&adw::EnumListModel::new(Layout::static_type())));
-            self.layout_drop_down
+            self.engine_drop_down
+                .set_model(Some(&adw::EnumListModel::new(Engine::static_type())));
+            self.engine_drop_down
                 .connect_selected_notify(clone!(@weak obj => move |_| {
                     obj.queue_draw_graph();
                 }));
@@ -252,6 +251,16 @@ mod imp {
                 obj.handle_drop(&value.get::<gdk::FileList>().unwrap())
             }));
             self.drag_overlay.set_target(Some(&drop_target));
+
+            self.graph_view
+                .connect_error(clone!(@weak obj => move |_, message| {
+                    let imp = obj.imp();
+                    imp.spinner_revealer.set_reveal_child(false);
+                    imp.stack.set_visible_child(&*imp.error_page);
+                    imp.error_page
+                        .set_description(Some(&glib::markup_escape_text(message)));
+                    tracing::error!("Failed to draw graph: {}", message);
+                }));
 
             utils::spawn(
                 glib::Priority::DEFAULT_IDLE,
@@ -327,15 +336,15 @@ impl Window {
         self.imp().view.buffer().downcast().unwrap()
     }
 
-    fn selected_layout(&self) -> Layout {
+    fn selected_engine(&self) -> Engine {
         let imp = self.imp();
         let selected_item = imp
-            .layout_drop_down
+            .engine_drop_down
             .selected_item()
             .unwrap()
             .downcast::<adw::EnumListItem>()
             .unwrap();
-        Layout::try_from(selected_item.value()).unwrap()
+        Engine::try_from(selected_item.value()).unwrap()
     }
 
     fn add_message_toast(&self, message: &str) {
@@ -421,13 +430,13 @@ impl Window {
             .build();
         let file = dialog.save_future(Some(self)).await?;
 
-        graphviz::export(
-            document.contents().as_bytes(),
-            self.selected_layout(),
-            format,
-            &file.path().context("File has no path")?,
-        )
-        .await?;
+        // graphviz::export(
+        //     document.contents().as_bytes(),
+        //     self.selected_engine(),
+        //     format,
+        //     &file.path().context("File has no path")?,
+        // )
+        // .await?;
 
         tracing::debug!(uri = %file.uri(), "Graph exported");
 
@@ -607,22 +616,34 @@ impl Window {
 
             imp.queued_draw_graph.set(false);
 
-            match self.draw_graph().await {
-                Ok(texture) => {
-                    imp.picture.set_paintable(texture.as_ref());
-                    imp.stack.set_visible_child(&*imp.picture_page);
-                    tracing::debug!("Graph updated");
-                }
-                Err(err) => {
-                    imp.picture.set_paintable(gdk::Paintable::NONE);
-                    imp.stack.set_visible_child(&*imp.error_page);
-                    imp.error_page
-                        .set_description(Some(&glib::markup_escape_text(
-                            err.to_string().trim_start_matches("Error: <stdin>:").trim(),
-                        )));
-                    tracing::error!("Failed to draw graph: {:?}", err);
-                }
+            if let Err(err) = imp
+                .graph_view
+                .render(&self.document().contents(), self.selected_engine())
+                .await
+            {
+                tracing::error!("Failed to render: {:?}", err);
             }
+
+            imp.spinner_revealer.set_reveal_child(false);
+            imp.stack.set_visible_child(&*imp.graph_view);
+            tracing::debug!("Graph updated");
+
+            // match self.draw_graph().await {
+            //     Ok(texture) => {
+            //         imp.picture.set_paintable(texture.as_ref());
+            //         imp.stack.set_visible_child(&*imp.picture_page);
+            //         tracing::debug!("Graph updated");
+            //     }
+            //     Err(err) => {
+            // imp.picture.set_paintable(gdk::Paintable::NONE);
+            // imp.stack.set_visible_child(&*imp.error_page);
+            // imp.error_page
+            //     .set_description(Some(&glib::markup_escape_text(
+            //         err.to_string().trim_start_matches("Error: <stdin>:").trim(),
+            //     )));
+            // tracing::error!("Failed to draw graph: {:?}", err);
+            //     }
+            // }
 
             imp.spinner_revealer.set_reveal_child(false);
             self.update_export_graph_action();
@@ -636,15 +657,17 @@ impl Window {
             return Ok(None);
         }
 
-        let png_bytes =
-            graphviz::generate(contents.as_bytes(), self.selected_layout(), Format::Svg).await?;
+        // let png_bytes =
+        //     graphviz::generate(contents.as_bytes(), self.selected_engine(), Format::Svg).await?;
 
-        let texture =
-            gio::spawn_blocking(|| gdk::Texture::from_bytes(&glib::Bytes::from_owned(png_bytes)))
-                .await
-                .unwrap()?;
+        // let texture =
+        //     gio::spawn_blocking(|| gdk::Texture::from_bytes(&glib::Bytes::from_owned(png_bytes)))
+        //         .await
+        //         .unwrap()?;
 
-        Ok(Some(texture))
+        todo!()
+
+        // Ok(Some(texture))
     }
 
     fn update_save_action(&self) {
@@ -656,10 +679,7 @@ impl Window {
     fn update_export_graph_action(&self) {
         let imp = self.imp();
 
-        self.action_set_enabled(
-            "win.export-graph",
-            !imp.spinner_revealer.reveals_child() && imp.picture.paintable().is_some(),
-        );
+        self.action_set_enabled("win.export-graph", !imp.spinner_revealer.reveals_child());
     }
 }
 
