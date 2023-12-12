@@ -88,6 +88,13 @@ mod imp {
 
             self.view.set_parent(&*obj);
 
+            self.view
+                .connect_is_web_process_responsive_notify(clone!(@weak obj => move |view| {
+                    if !view.is_web_process_responsive() {
+                        tracing::warn!("Web process is unresponsive");
+                    }
+                }));
+
             // FIXME don't hardcode
             self.view.load_bytes(
                 &gio::File::for_path("/app/src/graph_view/index.html")
@@ -110,14 +117,25 @@ mod imp {
                 }),
             );
 
+            user_content_manager.register_script_message_handler("graphLoaded", None);
+            user_content_manager.connect_script_message_received(
+                Some("graphLoaded"),
+                clone!(@weak obj => move |_, _| {
+                    obj.emit_loaded();
+                }),
+            );
+
             self.view.inspector().unwrap().show();
         }
 
         fn signals() -> &'static [Signal] {
             static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
-                vec![Signal::builder("error")
-                    .param_types([String::static_type()])
-                    .build()]
+                vec![
+                    Signal::builder("loaded").build(),
+                    Signal::builder("error")
+                        .param_types([String::static_type()])
+                        .build(),
+                ]
             });
 
             SIGNALS.as_ref()
@@ -137,6 +155,19 @@ impl GraphView {
         glib::Object::new()
     }
 
+    pub fn connect_loaded<F>(&self, f: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self) + 'static,
+    {
+        self.connect_closure(
+            "loaded",
+            true,
+            closure_local!(|obj: &Self| {
+                f(obj);
+            }),
+        )
+    }
+
     pub fn connect_error<F>(&self, f: F) -> glib::SignalHandlerId
     where
         F: Fn(&Self, &str) + 'static,
@@ -152,6 +183,11 @@ impl GraphView {
 
     pub async fn render(&self, dot: &str, engine: Engine) -> Result<()> {
         let imp = self.imp();
+
+        if dot.is_empty() {
+            self.emit_loaded();
+            return Ok(());
+        }
 
         let dict = glib::VariantDict::new(None);
         dict.insert("dot", &dot.to_variant());
@@ -170,6 +206,10 @@ impl GraphView {
         tracing::debug!(ret = %ret.to_str(), "Rendered");
 
         Ok(())
+    }
+
+    fn emit_loaded(&self) {
+        self.emit_by_name::<()>("loaded", &[]);
     }
 }
 
