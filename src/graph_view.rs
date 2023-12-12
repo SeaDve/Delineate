@@ -195,7 +195,7 @@ impl GraphView {
 
         self.call_js_func(
             "render",
-            &[("dotSrc", &dot_src), ("engine", &engine.as_raw())],
+            [dot_src.to_variant(), engine.as_raw().to_variant()],
         )
         .await?;
 
@@ -203,7 +203,7 @@ impl GraphView {
     }
 
     pub async fn get_svg(&self) -> Result<Option<glib::Bytes>> {
-        let ret = self.call_js_func("getSvg", &[]).await?;
+        let ret = self.call_js_func("getSvg", []).await?;
 
         if ret.is_null() {
             Ok(None)
@@ -218,15 +218,21 @@ impl GraphView {
     async fn call_js_func(
         &self,
         func_name: &str,
-        args: &[(&str, &dyn ToVariant)],
+        args: impl IntoIterator<Item = glib::Variant>,
     ) -> Result<Value> {
         let imp = self.imp();
+
+        let args = args
+            .into_iter()
+            .enumerate()
+            .map(|(index, value)| (format!("arg{}", index), value))
+            .collect::<Vec<_>>();
 
         let body = format!(
             "return {}({})",
             func_name,
             args.iter()
-                .map(|(name, _)| *name)
+                .map(|(name, _)| name.as_str())
                 .collect::<Vec<_>>()
                 .join(", ")
         );
@@ -236,7 +242,7 @@ impl GraphView {
         } else {
             let arg_dict = glib::VariantDict::new(None);
             for (name, value) in args {
-                arg_dict.insert(name, value.to_variant());
+                arg_dict.insert(&name, value);
             }
             Some(arg_dict.end())
         };
@@ -245,7 +251,7 @@ impl GraphView {
             .view
             .call_async_javascript_function_future(&body, args.as_ref(), None, None)
             .await
-            .context("Failed to call JS function")?;
+            .with_context(|| format!("Failed to call `{}`", func_name))?;
         tracing::trace!(ret = %ret_value.to_str(), "JS function returned");
 
         Ok(ret_value)
