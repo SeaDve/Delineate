@@ -17,10 +17,11 @@ class GraphView {
 
     renderGraph(dotSrc, engine) {
         this.graphviz
-            .engine(engine)
-            .renderDot(dotSrc)
             .width(window.innerWidth)
-            .height(window.innerHeight);
+            .height(window.innerHeight)
+            .fit(true)
+            .engine(engine)
+            .renderDot(dotSrc);
     }
 }
 
