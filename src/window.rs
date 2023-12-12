@@ -284,11 +284,11 @@ mod imp {
             self.drag_overlay.set_target(Some(&drop_target));
 
             self.graph_view
-                .connect_is_loaded_notify(clone!(@weak obj => move |_| {
+                .connect_is_graph_loaded_notify(clone!(@weak obj => move |_| {
                     obj.update_export_graph_action();
                 }));
             self.graph_view
-                .connect_error(clone!(@weak obj => move |_, message| {
+                .connect_graph_error(clone!(@weak obj => move |_, message| {
                     let imp = obj.imp();
                     imp.spinner_revealer.set_reveal_child(false);
                     imp.stack.set_visible_child(&*imp.error_page);
@@ -298,7 +298,7 @@ mod imp {
                     tracing::error!("Failed to draw graph: {}", message);
                 }));
             self.graph_view
-                .connect_loaded(clone!(@weak obj => move |_| {
+                .connect_graph_loaded(clone!(@weak obj => move |_| {
                     let imp = obj.imp();
                     imp.spinner_revealer.set_reveal_child(false);
                     imp.stack.set_visible_child(&*imp.graph_view);
@@ -711,7 +711,7 @@ impl Window {
 
         self.action_set_enabled(
             "win.export-graph",
-            !imp.spinner_revealer.reveals_child() && imp.graph_view.is_loaded(),
+            !imp.spinner_revealer.reveals_child() && imp.graph_view.is_graph_loaded(),
         );
     }
 }
