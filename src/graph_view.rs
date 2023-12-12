@@ -1,4 +1,4 @@
-use anyhow::Result;
+use anyhow::{Context, Result};
 use gtk::{
     gio,
     glib::{self, clone, closure_local, translate::TryFromGlib},
@@ -209,9 +209,28 @@ impl GraphView {
                 None,
             )
             .await?;
-        tracing::debug!(ret = %ret.to_str(), "Rendered");
+        tracing::trace!(ret = %ret.to_str(), "render returned");
 
         Ok(())
+    }
+
+    pub async fn get_svg(&self) -> Result<Option<glib::Bytes>> {
+        let imp = self.imp();
+
+        let ret = imp
+            .view
+            .call_async_javascript_function_future("return getSvg()", None, None, None)
+            .await?;
+        tracing::trace!(ret = %ret.to_str(), "getSvg returned");
+
+        if ret.is_null() {
+            Ok(None)
+        } else {
+            let bytes = ret
+                .to_string_as_bytes()
+                .context("Failed to get ret as bytes")?;
+            Ok(Some(bytes))
+        }
     }
 
     fn set_loaded(&self, is_loaded: bool) {
