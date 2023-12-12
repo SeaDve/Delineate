@@ -1,6 +1,3 @@
-// Idk why this exists
-const WEIRD_BOTTOM_PADDING = 4;
-
 const graphLoadedHandler = window.webkit.messageHandlers.graphLoaded;
 const graphErrorHandler = window.webkit.messageHandlers.graphError;
 
@@ -21,7 +18,7 @@ class GraphView {
 
         d3.select(window).on("resize", () => {
             let svg = this.div.selectWithoutDataPropagation("svg");
-            svg.attr("width", window.innerWidth).attr("height", window.innerHeight - WEIRD_BOTTOM_PADDING);
+            svg.attr("width", window.innerWidth).attr("height", window.innerHeight);
         });
     }
 
@@ -68,7 +65,7 @@ class GraphView {
         this.rendering = true;
         this.graphviz
             .width(window.innerWidth)
-            .height(window.innerHeight - WEIRD_BOTTOM_PADDING)
+            .height(window.innerHeight)
             .fit(true)
             .engine(this.engine)
             .dot(this.dotSrc)
