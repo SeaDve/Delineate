@@ -144,13 +144,8 @@
                           <object class="GtkStack" id="stack">
                             <property name="transition-type">crossfade</property>
                             <child>
-                              <object class="GtkScrolledWindow" id="picture_page">
-                                <property name="vexpand">True</property>
-                                <property name="child">
-                                  <object class="GtkPicture" id="picture">
-                                    <property name="can-shrink">False</property>
-                                  </object>
-                                </property>
+                              <object class="DaggerGraphView" id="graph_view">
+
                               </object>
                             </child>
                             <child>
@@ -164,7 +159,7 @@
                         <child type="bottom">
                           <object class="GtkActionBar">
                             <child>
-                              <object class="GtkDropDown" id="layout_drop_down"/>
+                              <object class="GtkDropDown" id="engine_drop_down"/>
                             </child>
                             <child type="end">
                               <object class="GtkRevealer" id="spinner_revealer">
