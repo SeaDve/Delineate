@@ -5,7 +5,7 @@ use gtk::{
     prelude::*,
     subclass::prelude::*,
 };
-use webkit::prelude::*;
+use webkit::{javascriptcore::Value, prelude::*};
 
 #[derive(Debug, Clone, Copy, glib::Enum)]
 #[enum_type(name = "DaggerGraphViewEngine")]
@@ -191,37 +191,19 @@ impl GraphView {
     }
 
     pub async fn render(&self, dot_src: &str, engine: Engine) -> Result<()> {
-        let imp = self.imp();
-
         self.set_loaded(false);
 
-        let dict = glib::VariantDict::new(None);
-        dict.insert("dotSrc", &dot_src.to_variant());
-        dict.insert("engine", &engine.as_raw().to_variant());
-        let args = dict.end();
-
-        let ret = imp
-            .view
-            .call_async_javascript_function_future(
-                "render(dotSrc, engine)",
-                Some(&args),
-                None,
-                None,
-            )
-            .await?;
-        tracing::trace!(ret = %ret.to_str(), "render returned");
+        self.call_js_func(
+            "render",
+            &[("dotSrc", &dot_src), ("engine", &engine.as_raw())],
+        )
+        .await?;
 
         Ok(())
     }
 
     pub async fn get_svg(&self) -> Result<Option<glib::Bytes>> {
-        let imp = self.imp();
-
-        let ret = imp
-            .view
-            .call_async_javascript_function_future("return getSvg()", None, None, None)
-            .await?;
-        tracing::trace!(ret = %ret.to_str(), "getSvg returned");
+        let ret = self.call_js_func("getSvg", &[]).await?;
 
         if ret.is_null() {
             Ok(None)
@@ -231,6 +213,42 @@ impl GraphView {
                 .context("Failed to get ret as bytes")?;
             Ok(Some(bytes))
         }
+    }
+
+    async fn call_js_func(
+        &self,
+        func_name: &str,
+        args: &[(&str, &dyn ToVariant)],
+    ) -> Result<Value> {
+        let imp = self.imp();
+
+        let body = format!(
+            "return {}({})",
+            func_name,
+            args.iter()
+                .map(|(name, _)| *name)
+                .collect::<Vec<_>>()
+                .join(", ")
+        );
+
+        let args = if args.is_empty() {
+            None
+        } else {
+            let arg_dict = glib::VariantDict::new(None);
+            for (name, value) in args {
+                arg_dict.insert(name, value.to_variant());
+            }
+            Some(arg_dict.end())
+        };
+
+        let ret_value = imp
+            .view
+            .call_async_javascript_function_future(&body, args.as_ref(), None, None)
+            .await
+            .context("Failed to call JS function")?;
+        tracing::trace!(ret = %ret_value.to_str(), "JS function returned");
+
+        Ok(ret_value)
     }
 
     fn set_loaded(&self, is_loaded: bool) {

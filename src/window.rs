@@ -482,44 +482,35 @@ impl Window {
             .await?
             .context("Failed to get SVG")?;
 
-        match format {
-            Format::Svg => {
-                file.replace_contents_future(
-                    svg_bytes,
-                    None,
-                    true,
-                    gio::FileCreateFlags::REPLACE_DESTINATION,
-                )
-                .await
-                .map_err(|(_, err)| err)?;
-            }
+        let bytes = match format {
+            Format::Svg => svg_bytes,
             Format::Png | Format::Jpeg => {
                 let loader = gdk_pixbuf::PixbufLoader::new();
                 loader
                     .write_bytes(&svg_bytes)
                     .context("Failed to write SVG bytes")?;
                 loader.close().context("Failed to close loader")?;
-
-                let stream = file
-                    .create_readwrite_future(
-                        gio::FileCreateFlags::REPLACE_DESTINATION,
-                        glib::Priority::default(),
-                    )
-                    .await?;
-                let output_stream = stream.output_stream();
+                let pixbuf = loader.pixbuf().context("Loader has no pixbuf")?;
 
                 let pixbuf_type = match format {
                     Format::Png => "png",
                     Format::Jpeg => "jpeg",
                     Format::Svg => unreachable!(),
                 };
+                let buffer = pixbuf.save_to_bufferv(pixbuf_type, &[])?;
 
-                let pixbuf = loader.pixbuf().context("Loader has no pixbuf")?;
-                pixbuf
-                    .save_to_streamv_future(&output_stream, pixbuf_type, &[])
-                    .await?;
+                glib::Bytes::from_owned(buffer)
             }
-        }
+        };
+
+        file.replace_contents_future(
+            bytes,
+            None,
+            false,
+            gio::FileCreateFlags::REPLACE_DESTINATION,
+        )
+        .await
+        .map_err(|(_, err)| err)?;
 
         tracing::debug!(uri = %file.uri(), "Graph exported");
 
