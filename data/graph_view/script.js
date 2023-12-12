@@ -19,6 +19,11 @@ class GraphView {
     }
 
     renderGraph(dotSrc, engine) {
+        if (dotSrc.length === 0) {
+            graphLoadedHandler.postMessage(null);
+            return;
+        }
+
         this.graphviz
             .width(window.innerWidth)
             .height(window.innerHeight)
