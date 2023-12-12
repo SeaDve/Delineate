@@ -1,4 +1,7 @@
-use anyhow::{Context, Result};
+use std::cell::RefCell;
+
+use anyhow::{Context, Ok, Result};
+use futures_channel::oneshot;
 use gtk::{
     gio,
     glib::{self, clone, closure_local, translate::TryFromGlib},
@@ -46,6 +49,7 @@ impl Engine {
 mod imp {
     use std::cell::Cell;
 
+    use async_lock::OnceCell;
     use gtk::glib::{once_cell::sync::Lazy, subclass::Signal};
 
     use super::*;
@@ -54,9 +58,10 @@ mod imp {
     #[properties(wrapper_type = super::GraphView)]
     pub struct GraphView {
         #[property(get)]
-        pub(super) is_loaded: Cell<bool>,
+        pub(super) is_graph_loaded: Cell<bool>,
 
         pub(super) view: webkit::WebView,
+        pub(super) index_loaded: OnceCell<()>,
     }
 
     #[glib::object_subclass]
@@ -74,11 +79,12 @@ mod imp {
             context.set_cache_model(webkit::CacheModel::DocumentViewer);
 
             Self {
-                is_loaded: Cell::new(false),
+                is_graph_loaded: Cell::new(false),
                 view: glib::Object::builder()
                     .property("settings", settings)
                     .property("web-context", context)
                     .build(),
+                index_loaded: OnceCell::new(),
             }
         }
 
@@ -120,17 +126,6 @@ mod imp {
                 }),
             );
 
-            // FIXME don't hardcode
-            self.view.load_bytes(
-                &gio::File::for_path("/app/src/graph_view/index.html")
-                    .load_bytes(gio::Cancellable::NONE)
-                    .unwrap()
-                    .0,
-                None,
-                None,
-                Some("file:///app/src/graph_view/"),
-            );
-
             let user_content_manager = self.view.user_content_manager().unwrap();
 
             user_content_manager.register_script_message_handler("graphError", None);
@@ -138,7 +133,7 @@ mod imp {
                 Some("graphError"),
                 clone!(@weak obj => move |_, value| {
                     let message = value.to_str();
-                    obj.emit_by_name::<()>("error", &[&message]);
+                    obj.emit_by_name::<()>("graph-error", &[&message]);
                 }),
             );
 
@@ -146,8 +141,8 @@ mod imp {
             user_content_manager.connect_script_message_received(
                 Some("graphLoaded"),
                 clone!(@weak obj => move |_, _| {
-                    obj.set_loaded(true);
-                    obj.emit_loaded();
+                    obj.set_graph_loaded(true);
+                    obj.emit_graph_loaded();
                 }),
             );
         }
@@ -155,8 +150,8 @@ mod imp {
         fn signals() -> &'static [Signal] {
             static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
                 vec![
-                    Signal::builder("loaded").build(),
-                    Signal::builder("error")
+                    Signal::builder("graph-loaded").build(),
+                    Signal::builder("graph-error")
                         .param_types([String::static_type()])
                         .build(),
                 ]
@@ -179,12 +174,12 @@ impl GraphView {
         glib::Object::new()
     }
 
-    pub fn connect_loaded<F>(&self, f: F) -> glib::SignalHandlerId
+    pub fn connect_graph_loaded<F>(&self, f: F) -> glib::SignalHandlerId
     where
         F: Fn(&Self) + 'static,
     {
         self.connect_closure(
-            "loaded",
+            "graph-loaded",
             true,
             closure_local!(|obj: &Self| {
                 f(obj);
@@ -192,12 +187,12 @@ impl GraphView {
         )
     }
 
-    pub fn connect_error<F>(&self, f: F) -> glib::SignalHandlerId
+    pub fn connect_graph_error<F>(&self, f: F) -> glib::SignalHandlerId
     where
         F: Fn(&Self, &str) + 'static,
     {
         self.connect_closure(
-            "error",
+            "graph-error",
             true,
             closure_local!(|obj: &Self, message: &str| {
                 f(obj, message);
@@ -206,7 +201,7 @@ impl GraphView {
     }
 
     pub async fn render(&self, dot_src: &str, engine: Engine) -> Result<()> {
-        self.set_loaded(false);
+        self.set_graph_loaded(false);
 
         self.call_js_func("render", &[&dot_src, &engine.as_raw()])
             .await?;
@@ -229,6 +224,8 @@ impl GraphView {
 
     async fn call_js_func(&self, func_name: &str, args: &[&dyn ToVariant]) -> Result<Value> {
         let imp = self.imp();
+
+        self.ensure_index_loaded().await?;
 
         let args = args
             .iter()
@@ -265,17 +262,60 @@ impl GraphView {
         Ok(ret_value)
     }
 
-    fn set_loaded(&self, is_loaded: bool) {
-        if is_loaded == self.is_loaded() {
+    fn set_graph_loaded(&self, is_graph_loaded: bool) {
+        if is_graph_loaded == self.is_graph_loaded() {
             return;
         }
 
-        self.imp().is_loaded.set(is_loaded);
-        self.notify_is_loaded();
+        self.imp().is_graph_loaded.set(is_graph_loaded);
+        self.notify_is_graph_loaded();
     }
 
-    fn emit_loaded(&self) {
-        self.emit_by_name::<()>("loaded", &[]);
+    fn emit_graph_loaded(&self) {
+        self.emit_by_name::<()>("graph-loaded", &[]);
+    }
+
+    async fn ensure_index_loaded(&self) -> Result<()> {
+        let imp = self.imp();
+
+        // FIXME don't hardcode
+
+        imp.index_loaded
+            .get_or_try_init(|| async {
+                let (index_bytes, _) = gio::File::for_path("/app/src/graph_view/index.html")
+                    .load_bytes_future()
+                    .await?;
+
+                let (tx, rx) = oneshot::channel();
+                let tx = RefCell::new(Some(tx));
+
+                let handler_id = imp.view.connect_load_changed(
+                    clone!(@weak imp => @default-panic, move |_, load_event| {
+                        if load_event == webkit::LoadEvent::Finished {
+                            if let Some(tx) = tx.take() {
+                                tx.send(()).unwrap();
+                            }
+                        }
+                    }),
+                );
+
+                imp.view.load_bytes(
+                    &index_bytes,
+                    None,
+                    None,
+                    Some("file:///app/src/graph_view/"),
+                );
+
+                rx.await.unwrap();
+                imp.view.disconnect(handler_id);
+
+                tracing::debug!("Loaded index.html");
+
+                Ok(())
+            })
+            .await?;
+
+        Ok(())
     }
 }
 
