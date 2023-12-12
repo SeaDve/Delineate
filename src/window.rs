@@ -4,7 +4,7 @@ use adw::{prelude::*, subclass::prelude::*};
 use anyhow::{Context, Result};
 use gettextrs::gettext;
 use gtk::{
-    gdk, gio,
+    gdk, gdk_pixbuf, gio,
     glib::{self, clone, closure},
 };
 use gtk_source::prelude::*;
@@ -33,6 +33,7 @@ const DRAW_GRAPH_INTERVAL: Duration = Duration::from_secs(1);
 pub enum Format {
     Svg,
     Png,
+    Jpeg,
 }
 
 impl Format {
@@ -40,6 +41,7 @@ impl Format {
         match self {
             Self::Svg => "svg",
             Self::Png => "png",
+            Self::Jpeg => "jpg",
         }
     }
 
@@ -47,6 +49,7 @@ impl Format {
         match self {
             Self::Svg => "image/svg+xml",
             Self::Png => "image/png",
+            Self::Jpeg => "image/jpeg",
         }
     }
 
@@ -54,6 +57,7 @@ impl Format {
         match self {
             Self::Svg => gettext("SVG"),
             Self::Png => gettext("PNG"),
+            Self::Jpeg => gettext("JPEG"),
         }
     }
 }
@@ -173,6 +177,7 @@ mod imp {
                 let format = match raw_format.as_str() {
                     "svg" => Format::Svg,
                     "png" => Format::Png,
+                    "jpeg" => Format::Jpeg,
                     _ => unreachable!("unknown format `{}`", raw_format),
                 };
 
@@ -471,14 +476,14 @@ impl Window {
             .build();
         let file = dialog.save_future(Some(self)).await?;
 
+        let svg_bytes = imp
+            .graph_view
+            .get_svg()
+            .await?
+            .context("Failed to get SVG")?;
+
         match format {
             Format::Svg => {
-                let svg_bytes = imp
-                    .graph_view
-                    .get_svg()
-                    .await?
-                    .context("Failed to get SVG")?;
-
                 file.replace_contents_future(
                     svg_bytes,
                     None,
@@ -488,8 +493,31 @@ impl Window {
                 .await
                 .map_err(|(_, err)| err)?;
             }
-            Format::Png => {
-                todo!()
+            Format::Png | Format::Jpeg => {
+                let loader = gdk_pixbuf::PixbufLoader::new();
+                loader
+                    .write_bytes(&svg_bytes)
+                    .context("Failed to write SVG bytes")?;
+                loader.close().context("Failed to close loader")?;
+
+                let stream = file
+                    .create_readwrite_future(
+                        gio::FileCreateFlags::REPLACE_DESTINATION,
+                        glib::Priority::default(),
+                    )
+                    .await?;
+                let output_stream = stream.output_stream();
+
+                let pixbuf_type = match format {
+                    Format::Png => "png",
+                    Format::Jpeg => "jpeg",
+                    Format::Svg => unreachable!(),
+                };
+
+                let pixbuf = loader.pixbuf().context("Loader has no pixbuf")?;
+                pixbuf
+                    .save_to_streamv_future(&output_stream, pixbuf_type, &[])
+                    .await?;
             }
         }
 
