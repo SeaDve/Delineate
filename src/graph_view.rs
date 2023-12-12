@@ -214,6 +214,14 @@ impl GraphView {
         Ok(())
     }
 
+    pub async fn reset_zoom(&self) -> Result<()> {
+        self.set_graph_loaded(false);
+
+        self.call_js_func("resetZoom", &[]).await?;
+
+        Ok(())
+    }
+
     pub async fn get_svg(&self) -> Result<Option<glib::Bytes>> {
         let ret = self.call_js_func("getSvg", &[]).await?;
 

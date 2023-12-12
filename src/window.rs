@@ -193,6 +193,12 @@ mod imp {
                     obj.add_message_toast(&gettext("Graph exported"));
                 }
             });
+
+            klass.install_action_async("win.reset-graph-zoom", None, |obj, _, _| async move {
+                if let Err(err) = obj.imp().graph_view.reset_zoom().await {
+                    tracing::error!("Failed to reset zoom: {:?}", err);
+                }
+            });
         }
 
         fn instance_init(obj: &glib::subclass::InitializingObject<Self>) {

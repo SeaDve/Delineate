@@ -2,6 +2,7 @@
 <gresources>
   <gresource prefix="/io/github/seadve/Dagger/">
     <file compressed="true" preprocess="xml-stripblanks">icons/scalable/actions/document-new-symbolic.svg</file>
+    <file compressed="true" preprocess="xml-stripblanks">icons/scalable/actions/object-scale-to-fit-symbolic.svg</file>
     <file compressed="true" preprocess="xml-stripblanks">icons/scalable/status/warning-symbolic.svg</file>
     <file compressed="true">style.css</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/drag_overlay.ui</file>
