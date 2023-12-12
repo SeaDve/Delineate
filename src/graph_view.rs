@@ -5,7 +5,7 @@ use gtk::{
     prelude::*,
     subclass::prelude::*,
 };
-use webkit::{javascriptcore::Value, prelude::*};
+use webkit::{javascriptcore::Value, prelude::*, ContextMenuAction};
 
 #[derive(Debug, Clone, Copy, glib::Enum)]
 #[enum_type(name = "DaggerGraphViewEngine")]
@@ -102,6 +102,21 @@ mod imp {
                         tracing::warn!("Web process is unresponsive");
                     }
                 }));
+            self.view.connect_context_menu(
+                clone!(@weak obj => @default-panic, move |_, ctx_menu, _| {
+                    for item in ctx_menu.items() {
+                        if !matches!(item.stock_action(), ContextMenuAction::InspectElement) {
+                            ctx_menu.remove(&item);
+                        }
+                    }
+
+                    if ctx_menu.n_items() == 0 {
+                        return true;
+                    }
+
+                    false
+                }),
+            );
 
             // FIXME don't hardcode
             self.view.load_bytes(
@@ -133,8 +148,6 @@ mod imp {
                     obj.emit_loaded();
                 }),
             );
-
-            self.view.inspector().unwrap().show();
         }
 
         fn signals() -> &'static [Signal] {
