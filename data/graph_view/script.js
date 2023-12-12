@@ -26,6 +26,7 @@ class GraphView {
     }
 
     getSvgString() {
+        // FIXME disregard width and height
         let svg = this.div.selectWithoutDataPropagation("svg").node();
         const serializer = new XMLSerializer();
         return svg ? serializer.serializeToString(svg) : null;
