@@ -641,7 +641,7 @@ impl Window {
         settings.try_set_is_maximized(self.is_maximized())?;
 
         settings.try_set_paned_position(imp.paned.position())?;
-        settings.try_set_selected_engine(self.selected_engine())?;
+        settings.try_set_layout_engine(self.selected_engine())?;
 
         Ok(())
     }
@@ -660,7 +660,7 @@ impl Window {
 
         imp.paned.set_position(settings.paned_position());
         imp.engine_drop_down
-            .set_selected(settings.selected_engine() as u32);
+            .set_selected(settings.layout_engine() as u32);
     }
 
     fn queue_draw_graph(&self) {
