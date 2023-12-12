@@ -44,12 +44,18 @@ impl Engine {
 }
 
 mod imp {
+    use std::cell::Cell;
+
     use gtk::glib::{once_cell::sync::Lazy, subclass::Signal};
 
     use super::*;
 
-    #[derive(Debug)]
+    #[derive(Debug, glib::Properties)]
+    #[properties(wrapper_type = super::GraphView)]
     pub struct GraphView {
+        #[property(get)]
+        pub(super) is_loaded: Cell<bool>,
+
         pub(super) view: webkit::WebView,
     }
 
@@ -68,6 +74,7 @@ mod imp {
             context.set_cache_model(webkit::CacheModel::DocumentViewer);
 
             Self {
+                is_loaded: Cell::new(false),
                 view: glib::Object::builder()
                     .property("settings", settings)
                     .property("web-context", context)
@@ -80,6 +87,7 @@ mod imp {
         }
     }
 
+    #[glib::derived_properties]
     impl ObjectImpl for GraphView {
         fn constructed(&self) {
             self.parent_constructed();
@@ -121,6 +129,7 @@ mod imp {
             user_content_manager.connect_script_message_received(
                 Some("graphLoaded"),
                 clone!(@weak obj => move |_, _| {
+                    obj.set_loaded(true);
                     obj.emit_loaded();
                 }),
             );
@@ -184,6 +193,8 @@ impl GraphView {
     pub async fn render(&self, dot_src: &str, engine: Engine) -> Result<()> {
         let imp = self.imp();
 
+        self.set_loaded(false);
+
         let dict = glib::VariantDict::new(None);
         dict.insert("dotSrc", &dot_src.to_variant());
         dict.insert("engine", &engine.as_raw().to_variant());
@@ -201,6 +212,15 @@ impl GraphView {
         tracing::debug!(ret = %ret.to_str(), "Rendered");
 
         Ok(())
+    }
+
+    fn set_loaded(&self, is_loaded: bool) {
+        if is_loaded == self.is_loaded() {
+            return;
+        }
+
+        self.imp().is_loaded.set(is_loaded);
+        self.notify_is_loaded();
     }
 
     fn emit_loaded(&self) {

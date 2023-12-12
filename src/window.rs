@@ -253,6 +253,10 @@ mod imp {
             self.drag_overlay.set_target(Some(&drop_target));
 
             self.graph_view
+                .connect_is_loaded_notify(clone!(@weak obj => move |_| {
+                    obj.update_export_graph_action();
+                }));
+            self.graph_view
                 .connect_error(clone!(@weak obj => move |_, message| {
                     let imp = obj.imp();
                     imp.spinner_revealer.set_reveal_child(false);
@@ -266,9 +270,7 @@ mod imp {
                     let imp = obj.imp();
                     imp.spinner_revealer.set_reveal_child(false);
                     imp.stack.set_visible_child(&*imp.graph_view);
-
-                    obj.update_export_graph_action();
-                    tracing::debug!("Graph updated");
+                    tracing::debug!("Graph loaded");
                 }));
 
             utils::spawn(
@@ -632,44 +634,7 @@ impl Window {
             {
                 tracing::error!("Failed to render: {:?}", err);
             }
-
-            // match self.draw_graph().await {
-            //     Ok(texture) => {
-            //         imp.picture.set_paintable(texture.as_ref());
-            //         imp.stack.set_visible_child(&*imp.picture_page);
-            //         tracing::debug!("Graph updated");
-            //     }
-            //     Err(err) => {
-            // imp.picture.set_paintable(gdk::Paintable::NONE);
-            // imp.stack.set_visible_child(&*imp.error_page);
-            // imp.error_page
-            //     .set_description(Some(&glib::markup_escape_text(
-            //         err.to_string().trim_start_matches("Error: <stdin>:").trim(),
-            //     )));
-            // tracing::error!("Failed to draw graph: {:?}", err);
-            //     }
-            // }
         }
-    }
-
-    async fn draw_graph(&self) -> Result<Option<gdk::Texture>> {
-        let contents = self.document().contents();
-
-        if contents.is_empty() {
-            return Ok(None);
-        }
-
-        // let png_bytes =
-        //     graphviz::generate(contents.as_bytes(), self.selected_engine(), Format::Svg).await?;
-
-        // let texture =
-        //     gio::spawn_blocking(|| gdk::Texture::from_bytes(&glib::Bytes::from_owned(png_bytes)))
-        //         .await
-        //         .unwrap()?;
-
-        todo!()
-
-        // Ok(Some(texture))
     }
 
     fn update_save_action(&self) {
@@ -681,7 +646,10 @@ impl Window {
     fn update_export_graph_action(&self) {
         let imp = self.imp();
 
-        self.action_set_enabled("win.export-graph", !imp.spinner_revealer.reveals_child());
+        self.action_set_enabled(
+            "win.export-graph",
+            !imp.spinner_revealer.reveals_child() && imp.graph_view.is_loaded(),
+        );
     }
 }
 
