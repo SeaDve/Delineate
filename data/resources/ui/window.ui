@@ -144,9 +144,7 @@
                           <object class="GtkStack" id="stack">
                             <property name="transition-type">crossfade</property>
                             <child>
-                              <object class="DaggerGraphView" id="graph_view">
-
-                              </object>
+                              <object class="DaggerGraphView" id="graph_view"/>
                             </child>
                             <child>
                               <object class="AdwStatusPage" id="error_page">
