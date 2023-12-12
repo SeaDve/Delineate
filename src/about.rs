@@ -64,6 +64,12 @@ async fn debug_info() -> String {
         adw::minor_version(),
         adw::micro_version()
     );
+    let webkit_version = format!(
+        "{}.{}.{}",
+        webkit::functions::major_version(),
+        webkit::functions::minor_version(),
+        webkit::functions::micro_version()
+    );
     let graphviz_version = graphviz::version()
         .await
         .unwrap_or_else(|_| "<unknown>".into());
@@ -80,6 +86,7 @@ async fn debug_info() -> String {
 
 - GTK {gtk_version}
 - Libadwaita {adw_version}
+- Webkit {webkit_version}
 - Graphviz {graphviz_version}"#
     )
 }

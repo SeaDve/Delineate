@@ -48,11 +48,9 @@ mod imp {
 
     use super::*;
 
-    #[derive(Default, gtk::CompositeTemplate)]
-    #[template(resource = "/io/github/seadve/Dagger/ui/graph_view.ui")]
+    #[derive(Debug)]
     pub struct GraphView {
-        #[template_child]
-        pub(super) view: TemplateChild<webkit::WebView>,
+        pub(super) view: webkit::WebView,
     }
 
     #[glib::object_subclass]
@@ -61,12 +59,24 @@ mod imp {
         type Type = super::GraphView;
         type ParentType = gtk::Widget;
 
-        fn class_init(klass: &mut Self::Class) {
-            klass.bind_template();
+        fn new() -> Self {
+            let settings = webkit::Settings::new();
+            settings.set_enable_developer_extras(true);
+            settings.set_enable_write_console_messages_to_stdout(true);
+
+            let context = webkit::WebContext::new();
+            context.set_cache_model(webkit::CacheModel::DocumentViewer);
+
+            Self {
+                view: glib::Object::builder()
+                    .property("settings", settings)
+                    .property("web-context", context)
+                    .build(),
+            }
         }
 
-        fn instance_init(obj: &glib::subclass::InitializingObject<Self>) {
-            obj.init_template();
+        fn class_init(klass: &mut Self::Class) {
+            klass.set_layout_manager_type::<gtk::BinLayout>();
         }
     }
 
@@ -76,10 +86,7 @@ mod imp {
 
             let obj = self.obj();
 
-            let web_settings = webkit::Settings::new();
-            web_settings.set_enable_developer_extras(true);
-            web_settings.set_enable_write_console_messages_to_stdout(true);
-            self.view.set_settings(&web_settings);
+            self.view.set_parent(&*obj);
 
             // FIXME don't hardcode
             self.view.load_bytes(
@@ -104,10 +111,6 @@ mod imp {
             );
 
             self.view.inspector().unwrap().show();
-        }
-
-        fn dispose(&self) {
-            self.dispose_template();
         }
 
         fn signals() -> &'static [Signal] {
@@ -157,7 +160,12 @@ impl GraphView {
 
         let ret = imp
             .view
-            .call_async_javascript_function_future("render(dot, engine)", Some(&args), None, None)
+            .call_async_javascript_function_future(
+                "graphView.renderGraph(dot, engine)",
+                Some(&args),
+                None,
+                None,
+            )
             .await?;
         tracing::debug!(ret = %ret.to_str(), "Rendered");
 
