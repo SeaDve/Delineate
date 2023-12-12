@@ -60,7 +60,7 @@
                 </child>
                 <child>
                   <object class="GtkButton">
-                    <property name="tooltip-text">New Document</property>
+                    <property name="tooltip-text" translatable="yes">New Document</property>
                     <property name="icon-name">document-new-symbolic</property>
                     <property name="action-name">win.new-document</property>
                   </object>
