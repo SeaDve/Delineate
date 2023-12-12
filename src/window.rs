@@ -1,7 +1,7 @@
 use std::{error, fmt, time::Duration};
 
 use adw::{prelude::*, subclass::prelude::*};
-use anyhow::Result;
+use anyhow::{Context, Result};
 use gettextrs::gettext;
 use gtk::{
     gdk, gio,
@@ -15,7 +15,6 @@ use crate::{
     document::Document,
     drag_overlay::DragOverlay,
     graph_view::{Engine, GraphView},
-    graphviz::Format,
     i18n::gettext_f,
     utils,
 };
@@ -29,6 +28,35 @@ use crate::{
 // * modified file on disk handling
 
 const DRAW_GRAPH_INTERVAL: Duration = Duration::from_secs(1);
+
+#[derive(Debug, Clone, Copy)]
+pub enum Format {
+    Svg,
+    Png,
+}
+
+impl Format {
+    pub fn extension(&self) -> &'static str {
+        match self {
+            Self::Svg => "svg",
+            Self::Png => "png",
+        }
+    }
+
+    pub fn mime_type(&self) -> &'static str {
+        match self {
+            Self::Svg => "image/svg+xml",
+            Self::Png => "image/png",
+        }
+    }
+
+    pub fn name(&self) -> String {
+        match self {
+            Self::Svg => gettext("SVG"),
+            Self::Png => gettext("PNG"),
+        }
+    }
+}
 
 /// Indicates that a task was cancelled.
 #[derive(Debug)]
@@ -140,29 +168,25 @@ mod imp {
             });
 
             klass.install_action_async("win.export-graph", Some("s"), |obj, _, arg| async move {
-                // let raw_format = arg.unwrap().get::<String>().unwrap();
+                let raw_format = arg.unwrap().get::<String>().unwrap();
 
-                // let format = match raw_format.as_str() {
-                //     "svg" => Format::Svg,
-                //     "png" => Format::Png,
-                //     "webp" => Format::Webp,
-                //     "pdf" => Format::Pdf,
-                //     _ => unreachable!("unknown format `{}`", raw_format),
-                // };
+                let format = match raw_format.as_str() {
+                    "svg" => Format::Svg,
+                    "png" => Format::Png,
+                    _ => unreachable!("unknown format `{}`", raw_format),
+                };
 
-                // if let Err(err) = obj.export_graph(format).await {
-                //     if !err
-                //         .downcast_ref::<glib::Error>()
-                //         .is_some_and(|error| error.matches(gtk::DialogError::Dismissed))
-                //     {
-                //         tracing::error!("Failed to export graph: {:?}", err);
-                //         obj.add_message_toast(&gettext("Failed to export graph"));
-                //     }
-                // } else {
-                //     obj.add_message_toast(&gettext("Graph exported"));
-                // }
-
-                dbg!(obj.imp().graph_view.get_svg().await);
+                if let Err(err) = obj.export_graph(format).await {
+                    if !err
+                        .downcast_ref::<glib::Error>()
+                        .is_some_and(|error| error.matches(gtk::DialogError::Dismissed))
+                    {
+                        tracing::error!("Failed to export graph: {:?}", err);
+                        obj.add_message_toast(&gettext("Failed to export graph"));
+                    }
+                } else {
+                    obj.add_message_toast(&gettext("Graph exported"));
+                }
             });
         }
 
@@ -426,6 +450,8 @@ impl Window {
     }
 
     async fn export_graph(&self, format: Format) -> Result<()> {
+        let imp = self.imp();
+
         let filter = gtk::FileFilter::new();
         filter.set_name(Some(&format.name()));
         filter.add_mime_type(format.mime_type());
@@ -445,13 +471,27 @@ impl Window {
             .build();
         let file = dialog.save_future(Some(self)).await?;
 
-        // graphviz::export(
-        //     document.contents().as_bytes(),
-        //     self.selected_engine(),
-        //     format,
-        //     &file.path().context("File has no path")?,
-        // )
-        // .await?;
+        match format {
+            Format::Svg => {
+                let svg_bytes = imp
+                    .graph_view
+                    .get_svg()
+                    .await?
+                    .context("Failed to get SVG")?;
+
+                file.replace_contents_future(
+                    svg_bytes,
+                    None,
+                    true,
+                    gio::FileCreateFlags::REPLACE_DESTINATION,
+                )
+                .await
+                .map_err(|(_, err)| err)?;
+            }
+            Format::Png => {
+                todo!()
+            }
+        }
 
         tracing::debug!(uri = %file.uri(), "Graph exported");
 

@@ -1,14 +1,10 @@
 use adw::{prelude::*, subclass::prelude::*};
-use gtk::{
-    gio,
-    glib::{self, clone},
-};
+use gtk::{gio, glib};
 
 use crate::{
     about,
     config::{APP_ID, PKGDATADIR, PROFILE, VERSION},
     settings::Settings,
-    utils,
     window::Window,
 };
 
@@ -91,12 +87,7 @@ impl Application {
             .build();
         let action_about = gio::ActionEntry::builder("about")
             .activate(|obj: &Self, _, _| {
-                utils::spawn(
-                    glib::Priority::default(),
-                    clone!(@weak obj => async move {
-                        about::present_window(Some(&obj.window())).await;
-                    }),
-                );
+                about::present_window(Some(&obj.window()));
             })
             .build();
         self.add_action_entries([action_quit, action_about]);
