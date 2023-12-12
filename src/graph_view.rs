@@ -77,9 +77,6 @@ mod imp {
             let settings = webkit::Settings::new();
             settings.set_enable_developer_extras(true);
             settings.set_enable_write_console_messages_to_stdout(true);
-            settings.set_user_agent(Some(
-                "Mozilla/5.0 (X11; Linux x86_64; rv:120.0) Gecko/20100101 Firefox/120.0",
-            ));
 
             let context = webkit::WebContext::new();
             context.set_cache_model(webkit::CacheModel::DocumentViewer);
