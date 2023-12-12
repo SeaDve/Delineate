@@ -184,11 +184,6 @@ impl GraphView {
     pub async fn render(&self, dot: &str, engine: Engine) -> Result<()> {
         let imp = self.imp();
 
-        if dot.is_empty() {
-            self.emit_loaded();
-            return Ok(());
-        }
-
         let dict = glib::VariantDict::new(None);
         dict.insert("dot", &dot.to_variant());
         dict.insert("engine", &engine.as_raw().to_variant());
