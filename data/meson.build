@@ -1,7 +1,11 @@
 subdir('icons')
 subdir('resources')
 
-install_subdir('graph_view', install_dir: prefix / 'src')
+install_subdir(
+  'graph_view',
+  install_dir: graphviewsrcdir,
+  strip_directory: true
+)
 
 # Desktop file
 desktop_conf = configuration_data()
