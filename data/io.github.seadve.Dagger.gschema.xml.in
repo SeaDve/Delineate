@@ -17,5 +17,9 @@
       <default>500</default>
       <summary>Position of the paned handle</summary>
     </key>
+    <key name="selected-engine" type="s">
+      <default>"dot"</default>
+      <summary>Last selected Graphviz layout engine</summary>
+    </key>
   </schema>
 </schemalist>
