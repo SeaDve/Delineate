@@ -140,27 +140,29 @@ mod imp {
             });
 
             klass.install_action_async("win.export-graph", Some("s"), |obj, _, arg| async move {
-                let raw_format = arg.unwrap().get::<String>().unwrap();
+                // let raw_format = arg.unwrap().get::<String>().unwrap();
 
-                let format = match raw_format.as_str() {
-                    "svg" => Format::Svg,
-                    "png" => Format::Png,
-                    "webp" => Format::Webp,
-                    "pdf" => Format::Pdf,
-                    _ => unreachable!("unknown format `{}`", raw_format),
-                };
+                // let format = match raw_format.as_str() {
+                //     "svg" => Format::Svg,
+                //     "png" => Format::Png,
+                //     "webp" => Format::Webp,
+                //     "pdf" => Format::Pdf,
+                //     _ => unreachable!("unknown format `{}`", raw_format),
+                // };
 
-                if let Err(err) = obj.export_graph(format).await {
-                    if !err
-                        .downcast_ref::<glib::Error>()
-                        .is_some_and(|error| error.matches(gtk::DialogError::Dismissed))
-                    {
-                        tracing::error!("Failed to export graph: {:?}", err);
-                        obj.add_message_toast(&gettext("Failed to export graph"));
-                    }
-                } else {
-                    obj.add_message_toast(&gettext("Graph exported"));
-                }
+                // if let Err(err) = obj.export_graph(format).await {
+                //     if !err
+                //         .downcast_ref::<glib::Error>()
+                //         .is_some_and(|error| error.matches(gtk::DialogError::Dismissed))
+                //     {
+                //         tracing::error!("Failed to export graph: {:?}", err);
+                //         obj.add_message_toast(&gettext("Failed to export graph"));
+                //     }
+                // } else {
+                //     obj.add_message_toast(&gettext("Graph exported"));
+                // }
+
+                dbg!(obj.imp().graph_view.get_svg().await);
             });
         }
 
@@ -263,6 +265,7 @@ mod imp {
                     imp.stack.set_visible_child(&*imp.error_page);
                     imp.error_page
                         .set_description(Some(&glib::markup_escape_text(message)));
+                    obj.update_export_graph_action();
                     tracing::error!("Failed to draw graph: {}", message);
                 }));
             self.graph_view
@@ -270,6 +273,7 @@ mod imp {
                     let imp = obj.imp();
                     imp.spinner_revealer.set_reveal_child(false);
                     imp.stack.set_visible_child(&*imp.graph_view);
+                    obj.update_export_graph_action();
                     tracing::debug!("Graph loaded");
                 }));
 

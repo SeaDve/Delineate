@@ -25,6 +25,12 @@ class GraphView {
         });
     }
 
+    getSvgString() {
+        let svg = this.div.selectWithoutDataPropagation("svg").node();
+        const serializer = new XMLSerializer();
+        return svg ? serializer.serializeToString(svg) : null;
+    }
+
     handleError(error) {
         this.rendering = false;
 
@@ -75,4 +81,8 @@ function render(dotSrc, engine) {
     graphView.dotSrc = dotSrc;
     graphView.engine = engine;
     graphView.renderGraph();
+}
+
+function getSvg() {
+    return graphView.getSvgString();
 }
