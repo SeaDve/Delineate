@@ -6,6 +6,9 @@ class GraphView {
         this._dotSrc = "";
         this._engine = "dot";
 
+        this._prevDotSrc = this._dotSrc;
+        this._prevEngine = this._engine;
+
         this._svg = null;
 
         this._rendering = false;
@@ -54,6 +57,11 @@ class GraphView {
             return;
         }
 
+        if (this._dotSrc === this._prevDotSrc && this._engine === this._prevEngine) {
+            graphLoadedHandler.postMessage(null);
+            return;
+        }
+
         if (this._rendering) {
             this._pendingUpdate = true;
             return;
@@ -72,8 +80,12 @@ class GraphView {
     }
 
     setData(dotSrc, engine) {
+        this._prevDotSrc = this._dotSrc;
+        this._prevEngine = this._engine;
+
         this._dotSrc = dotSrc;
         this._engine = engine;
+
         this._renderGraph();
     }
 
