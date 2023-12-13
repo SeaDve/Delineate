@@ -1,12 +1,12 @@
-const graphLoadedHandler = window.webkit.messageHandlers.graphLoaded;
-const graphErrorHandler = window.webkit.messageHandlers.graphError;
-
 // TODO
 // - no idea why we don't recover from errors
 // - fix exporting
 // - animate and add more zoom controls
 // - improve packaging
-// - print Graphviz version
+
+const graphLoadedHandler = window.webkit.messageHandlers.graphLoaded;
+const graphErrorHandler = window.webkit.messageHandlers.graphError;
+const initEndHandler = window.webkit.messageHandlers.initEnd;
 
 class GraphView {
     constructor() {
@@ -24,6 +24,7 @@ class GraphView {
         this._div = d3.select("#graph");
         this._graphviz = this._div.graphviz()
             .onerror(this._handleError.bind(this))
+            .on('initEnd', this._handleInitEnd.bind(this))
             .transition(() => {
                 return d3.transition().duration(500);
             });
@@ -46,7 +47,13 @@ class GraphView {
         graphErrorHandler.postMessage(error);
     }
 
-    _handleRenderReady() {
+    _handleInitEnd() {
+        this._renderGraph();
+
+        initEndHandler.postMessage(null);
+    }
+
+    _handleRenderDone() {
         this._svg = this._div.selectWithoutDataPropagation("svg");
         this._rendering = false;
 
@@ -87,7 +94,11 @@ class GraphView {
             .fit(true)
             .engine(this._engine)
             .dot(this._dotSrc)
-            .render(this._handleRenderReady.bind(this));
+            .render(this._handleRenderDone.bind(this));
+    }
+
+    graphvizVersion() {
+        return this._graphviz.graphvizVersion();
     }
 
     setData(dotSrc, engine) {
