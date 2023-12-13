@@ -129,20 +129,15 @@ mod imp {
                 }),
             );
 
-            let user_content_manager = self.view.user_content_manager().unwrap();
-
-            user_content_manager.register_script_message_handler("graphError", None);
-            user_content_manager.connect_script_message_received(
-                Some("graphError"),
+            obj.connect_script_message_received(
+                "graphError",
                 clone!(@weak obj => move |_, value| {
                     let message = value.to_str();
                     obj.emit_by_name::<()>("graph-error", &[&message]);
                 }),
             );
-
-            user_content_manager.register_script_message_handler("graphLoaded", None);
-            user_content_manager.connect_script_message_received(
-                Some("graphLoaded"),
+            obj.connect_script_message_received(
+                "graphLoaded",
                 clone!(@weak obj => move |_, _| {
                     obj.set_graph_loaded(true);
                 }),
@@ -260,6 +255,20 @@ impl GraphView {
         tracing::trace!(ret = %ret_value.to_str(), "JS function returned");
 
         Ok(ret_value)
+    }
+
+    fn connect_script_message_received<F>(&self, message_id: &str, f: F)
+    where
+        F: Fn(&webkit::UserContentManager, &Value) + 'static,
+    {
+        let imp = self.imp();
+
+        let user_content_manager = imp.view.user_content_manager().unwrap();
+
+        let was_successful = user_content_manager.register_script_message_handler(message_id, None);
+        debug_assert!(was_successful);
+
+        user_content_manager.connect_script_message_received(Some(message_id), f);
     }
 
     fn set_graph_loaded(&self, is_graph_loaded: bool) {
