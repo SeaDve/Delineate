@@ -204,7 +204,11 @@ impl Document {
         second_word_end.forward_word_end();
         second_word_end.forward_word_end();
 
-        let search_flags = gtk::TextSearchFlags::CASE_INSENSITIVE | gtk::TextSearchFlags::TEXT_ONLY;
+        let search_flags = gtk::TextSearchFlags::CASE_INSENSITIVE
+            | gtk::TextSearchFlags::TEXT_ONLY
+            | gtk::TextSearchFlags::VISIBLE_ONLY;
+
+        // Second word is either the `digraph`/`graph` keyword or the title.
         let search_match = start
             .forward_search("digraph", search_flags, Some(&second_word_end))
             .or_else(|| start.forward_search("graph", search_flags, Some(&second_word_end)));
@@ -213,6 +217,7 @@ impl Document {
             return "".to_string();
         };
 
+        // `digraph` and `graph` must be a standalone word.
         if !match_start.starts_word() || !match_end.ends_word() {
             return "".to_string();
         }
@@ -220,9 +225,15 @@ impl Document {
         let mut title_end = match_end;
         title_end.forward_word_end();
 
+        // If go forward a word and we go past `{`, title is empty.
+        if title_end.backward_search("{", search_flags, None).is_some() {
+            return "".to_string();
+        }
+
         let mut title_start = title_end;
         title_start.backward_word_start();
 
+        // If we go back a word and it's `digraph`/`graph`, title is empty.
         if title_start == match_start {
             return "".to_string();
         }
