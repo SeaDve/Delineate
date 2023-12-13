@@ -53,7 +53,7 @@ mod imp {
     use std::cell::Cell;
 
     use async_lock::OnceCell;
-    use gtk::glib::{once_cell::sync::Lazy, subclass::Signal};
+    use glib::{once_cell::sync::Lazy, subclass::Signal};
 
     use super::*;
 

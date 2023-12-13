@@ -249,7 +249,7 @@ mod imp {
 
             let document_signal_group = glib::SignalGroup::new::<Document>();
             document_signal_group.connect_local(
-                "changed",
+                "text-changed",
                 false,
                 clone!(@weak obj => @default-panic, move |_| {
                     obj.queue_draw_graph();
