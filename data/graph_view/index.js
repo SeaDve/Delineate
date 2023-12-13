@@ -4,6 +4,8 @@
 // - animate and add more zoom controls
 // - improve packaging
 
+const TRANSITION_DURATION_MS = 400;
+
 const graphLoadedHandler = window.webkit.messageHandlers.graphLoaded;
 const graphErrorHandler = window.webkit.messageHandlers.graphError;
 const initEndHandler = window.webkit.messageHandlers.initEnd;
@@ -26,7 +28,7 @@ class GraphView {
             .onerror(this._handleError.bind(this))
             .on('initEnd', this._handleInitEnd.bind(this))
             .transition(() => {
-                return d3.transition().duration(500);
+                return d3.transition().duration(TRANSITION_DURATION_MS);
             });
 
         d3.select(window).on("resize", () => {
@@ -112,22 +114,8 @@ class GraphView {
     }
 
     resetZoom() {
-        if (!this._svg) {
-            return;
-        }
-
-        const [, , svgWidth, svgHeight] = this._svg.attr("viewBox").split(' ');
-        const graph0 = this._svg.selectWithoutDataPropagation("g");
-        const bbox = graph0.node().getBBox();
-
-        let { x, y } = d3.zoomTransform(this._graphviz.zoomSelection().node());
-        const xOffset = (svgWidth - bbox.width) / 2;
-        const yOffset = (svgHeight - bbox.height) / 2;
-        x = -bbox.x + xOffset;
-        y = -bbox.y + yOffset;
-
-        const transform = d3.zoomIdentity.translate(x, y);
-        this._graphviz.zoomSelection().call(this._graphviz.zoomBehavior().transform, transform);
+        const transition = d3.transition().duration(TRANSITION_DURATION_MS);
+        this._graphviz.resetZoom(transition);
     }
 
     getSvgString() {
