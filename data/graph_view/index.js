@@ -1,14 +1,17 @@
 // TODO
 // - no idea why we don't recover from errors
 // - fix exporting
-// - animate and add more zoom controls
+// - make mouse wheel zoom smooth like loupe
+// - only allow resetZoom when not on original zoom level
 // - improve packaging
 
+const ZOOM_TRANSITION_DURATION_MS = 200;
 const TRANSITION_DURATION_MS = 400;
 
-const graphLoadedHandler = window.webkit.messageHandlers.graphLoaded;
-const graphErrorHandler = window.webkit.messageHandlers.graphError;
 const initEndHandler = window.webkit.messageHandlers.initEnd;
+const graphErrorHandler = window.webkit.messageHandlers.graphError;
+const graphLoadedHandler = window.webkit.messageHandlers.graphLoaded;
+const zoomLevelChangedHandler = window.webkit.messageHandlers.zoomLevelChanged;
 
 class GraphView {
     constructor() {
@@ -57,6 +60,8 @@ class GraphView {
 
     _handleRenderDone() {
         this._svg = this._div.selectWithoutDataPropagation("svg");
+        this._graphviz.zoomBehavior().on("end", this._handleZoomEnd.bind(this));
+
         this._rendering = false;
 
         if (this._pendingUpdate) {
@@ -65,6 +70,11 @@ class GraphView {
         }
 
         graphLoadedHandler.postMessage(null);
+        zoomLevelChangedHandler.postMessage(this.getZoomLevel());
+    }
+
+    _handleZoomEnd() {
+        zoomLevelChangedHandler.postMessage(this.getZoomLevel());
     }
 
     _renderGraph() {
@@ -113,8 +123,36 @@ class GraphView {
         this._renderGraph();
     }
 
+    getZoomLevel() {
+        if (!this._svg) {
+            return 1;
+        }
+
+        return d3.zoomTransform(this._svg.node()).k;
+    }
+
+    setZoomScaleExtent(min, max) {
+        this._graphviz.zoomScaleExtent([min, max]);
+    }
+
+    setZoomLevelBy(factor) {
+        if (!this._svg) {
+            return;
+        }
+
+        this._graphviz.zoomSelection()
+            .transition(() => {
+                return d3.transition().duration(ZOOM_TRANSITION_DURATION_MS);
+            })
+            .call(this._graphviz.zoomBehavior().scaleBy, factor);
+    }
+
     resetZoom() {
-        const transition = d3.transition().duration(TRANSITION_DURATION_MS);
+        if (!this._svg) {
+            return;
+        }
+
+        const transition = d3.transition().duration(ZOOM_TRANSITION_DURATION_MS);
         this._graphviz.resetZoom(transition);
     }
 

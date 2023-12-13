@@ -15,6 +15,11 @@ use crate::{config::GRAPHVIEWSRCDIR, utils};
 const INIT_END_MESSAGE_ID: &str = "initEnd";
 const GRAPH_ERROR_MESSAGE_ID: &str = "graphError";
 const GRAPH_LOADED_MESSAGE_ID: &str = "graphLoaded";
+const ZOOM_LEVEL_CHANGED_MESSAGE_ID: &str = "zoomLevelChanged";
+
+const ZOOM_FACTOR: f64 = 1.5;
+const MIN_ZOOM_LEVEL: f64 = 0.05;
+const MAX_ZOOM_LEVEL: f64 = 20.0;
 
 #[derive(Debug, Clone, Copy, glib::Variant, glib::Enum)]
 #[repr(i32)]
@@ -66,6 +71,12 @@ mod imp {
     pub struct GraphView {
         #[property(get)]
         pub(super) is_graph_loaded: Cell<bool>,
+        #[property(get)]
+        pub(super) zoom_level: Cell<f64>,
+        #[property(get)]
+        pub(super) can_zoom_in: Cell<bool>,
+        #[property(get)]
+        pub(super) can_zoom_out: Cell<bool>,
 
         pub(super) view: webkit::WebView,
         pub(super) index_loaded: OnceCell<()>,
@@ -91,6 +102,9 @@ mod imp {
                     .property("settings", settings)
                     .property("web-context", context)
                     .build(),
+                zoom_level: Cell::new(1.0),
+                can_zoom_in: Cell::new(false),
+                can_zoom_out: Cell::new(false),
                 index_loaded: OnceCell::new(),
             }
         }
@@ -144,6 +158,13 @@ mod imp {
                 GRAPH_LOADED_MESSAGE_ID,
                 clone!(@weak obj => move |_, _| {
                     obj.set_graph_loaded(true);
+                }),
+            );
+            obj.connect_script_message_received(
+                ZOOM_LEVEL_CHANGED_MESSAGE_ID,
+                clone!(@weak obj => move |_, value| {
+                    let zoom_level = value.to_double();
+                    obj.set_zoom_level(zoom_level);
                 }),
             );
 
@@ -203,6 +224,16 @@ impl GraphView {
         Ok(())
     }
 
+    pub async fn zoom_in(&self) -> Result<()> {
+        self.set_zoom_level_by(ZOOM_FACTOR).await?;
+        Ok(())
+    }
+
+    pub async fn zoom_out(&self) -> Result<()> {
+        self.set_zoom_level_by(ZOOM_FACTOR.recip()).await?;
+        Ok(())
+    }
+
     pub async fn reset_zoom(&self) -> Result<()> {
         self.call_js_func("graphView.resetZoom", &[]).await?;
         Ok(())
@@ -221,10 +252,19 @@ impl GraphView {
         Ok(Some(bytes))
     }
 
-    async fn call_js_func(&self, func_name: &str, args: &[&dyn ToVariant]) -> Result<Value> {
-        let imp = self.imp();
+    async fn set_zoom_level_by(&self, factor: f64) -> Result<()> {
+        self.call_js_func("graphView.setZoomLevelBy", &[&factor])
+            .await?;
+        Ok(())
+    }
 
+    async fn call_js_func(&self, func_name: &str, args: &[&dyn ToVariant]) -> Result<Value> {
         self.ensure_view_initialized().await?;
+        self.call_js_func_inner(func_name, args).await
+    }
+
+    async fn call_js_func_inner(&self, func_name: &str, args: &[&dyn ToVariant]) -> Result<Value> {
+        let imp = self.imp();
 
         let args = args
             .iter()
@@ -281,7 +321,18 @@ impl GraphView {
         }
 
         self.imp().is_graph_loaded.set(is_graph_loaded);
+        self.update_can_zoom();
         self.notify_is_graph_loaded();
+    }
+
+    fn set_zoom_level(&self, zoom_level: f64) {
+        if zoom_level == self.zoom_level() {
+            return;
+        }
+
+        self.imp().zoom_level.set(zoom_level);
+        self.update_can_zoom();
+        self.notify_zoom_level();
     }
 
     async fn ensure_view_initialized(&self) -> Result<()> {
@@ -333,25 +384,48 @@ impl GraphView {
                 user_content_manager.unregister_script_message_handler(INIT_END_MESSAGE_ID, None);
                 user_content_manager.disconnect(init_handler_id);
 
-                let ret = imp
-                    .view
-                    .call_async_javascript_function_future(
-                        "return graphView.graphvizVersion()",
-                        None,
-                        None,
-                        None,
-                    )
+                self.call_js_func_inner(
+                    "graphView.setZoomScaleExtent",
+                    &[&MIN_ZOOM_LEVEL, &MAX_ZOOM_LEVEL],
+                )
+                .await
+                .context("Failed to set zoom scale extent")?;
+
+                let version = self
+                    .call_js_func_inner("graphView.graphvizVersion", &[])
                     .await
-                    .context("Failed to get version")?;
-                let version = ret.to_str();
+                    .context("Failed to get version")?
+                    .to_str();
 
                 tracing::debug!(%version, "Initialized Graphviz");
+
+                let zoom_level = self
+                    .call_js_func_inner("graphView.getZoomLevel", &[])
+                    .await
+                    .context("Failed to get zoom level")?
+                    .to_double();
+                self.set_zoom_level(zoom_level);
 
                 anyhow::Ok(())
             })
             .await?;
 
         Ok(())
+    }
+
+    fn update_can_zoom(&self) {
+        let imp = self.imp();
+
+        let is_graph_loaded = self.is_graph_loaded();
+        let zoom_level = self.zoom_level();
+
+        imp.can_zoom_in
+            .set(zoom_level < MAX_ZOOM_LEVEL && is_graph_loaded);
+        imp.can_zoom_out
+            .set(zoom_level > MIN_ZOOM_LEVEL && is_graph_loaded);
+
+        self.notify_can_zoom_in();
+        self.notify_can_zoom_out();
     }
 }
 
