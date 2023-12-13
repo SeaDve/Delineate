@@ -378,8 +378,6 @@ impl Window {
 
         let document_signal_group = imp.document_signal_group.get().unwrap();
         document_signal_group.set_target(Some(document));
-
-        self.queue_draw_graph();
     }
 
     fn document(&self) -> Document {
