@@ -10,7 +10,7 @@ use gtk::{
 };
 use webkit::{javascriptcore::Value, prelude::*, ContextMenuAction};
 
-use crate::config::GRAPHVIEWSRCDIR;
+use crate::{config::GRAPHVIEWSRCDIR, utils};
 
 #[derive(Debug, Clone, Copy, glib::Variant, glib::Enum)]
 #[repr(i32)]
@@ -146,6 +146,15 @@ mod imp {
                 clone!(@weak obj => move |_, _| {
                     obj.set_graph_loaded(true);
                     obj.emit_graph_loaded();
+                }),
+            );
+
+            utils::spawn(
+                glib::Priority::default(),
+                clone!(@weak obj => async move {
+                    if let Err(err) = obj.ensure_index_loaded().await {
+                        tracing::error!("Failed to load index.html: {:?}", err);
+                    }
                 }),
             );
         }
