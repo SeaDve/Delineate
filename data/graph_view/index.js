@@ -1,6 +1,13 @@
 const graphLoadedHandler = window.webkit.messageHandlers.graphLoaded;
 const graphErrorHandler = window.webkit.messageHandlers.graphError;
 
+// TODO
+// - no idea why we don't recover from errors
+// - fix exporting
+// - animate and add more zoom controls
+// - improve packaging
+// - print Graphviz version
+
 class GraphView {
     constructor() {
         this._dotSrc = "";
