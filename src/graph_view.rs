@@ -145,7 +145,6 @@ mod imp {
                 Some("graphLoaded"),
                 clone!(@weak obj => move |_, _| {
                     obj.set_graph_loaded(true);
-                    obj.emit_graph_loaded();
                 }),
             );
 
@@ -161,12 +160,9 @@ mod imp {
 
         fn signals() -> &'static [Signal] {
             static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
-                vec![
-                    Signal::builder("graph-loaded").build(),
-                    Signal::builder("graph-error")
-                        .param_types([String::static_type()])
-                        .build(),
-                ]
+                vec![Signal::builder("graph-error")
+                    .param_types([String::static_type()])
+                    .build()]
             });
 
             SIGNALS.as_ref()
@@ -184,19 +180,6 @@ glib::wrapper! {
 impl GraphView {
     pub fn new() -> Self {
         glib::Object::new()
-    }
-
-    pub fn connect_graph_loaded<F>(&self, f: F) -> glib::SignalHandlerId
-    where
-        F: Fn(&Self) + 'static,
-    {
-        self.connect_closure(
-            "graph-loaded",
-            true,
-            closure_local!(|obj: &Self| {
-                f(obj);
-            }),
-        )
     }
 
     pub fn connect_graph_error<F>(&self, f: F) -> glib::SignalHandlerId
@@ -286,10 +269,6 @@ impl GraphView {
 
         self.imp().is_graph_loaded.set(is_graph_loaded);
         self.notify_is_graph_loaded();
-    }
-
-    fn emit_graph_loaded(&self) {
-        self.emit_by_name::<()>("graph-loaded", &[]);
     }
 
     async fn ensure_index_loaded(&self) -> Result<()> {
