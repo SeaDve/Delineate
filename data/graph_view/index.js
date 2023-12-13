@@ -53,6 +53,10 @@ class GraphView {
 
     _renderGraph() {
         if (this._dotSrc.length === 0) {
+            if (this._svg) {
+                this._svg.remove();
+                this._svg = null;
+            }
             graphLoadedHandler.postMessage(null);
             return;
         }
