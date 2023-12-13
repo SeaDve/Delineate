@@ -290,7 +290,13 @@ mod imp {
             self.drag_overlay.set_target(Some(&drop_target));
 
             self.graph_view
-                .connect_is_graph_loaded_notify(clone!(@weak obj => move |_| {
+                .connect_is_graph_loaded_notify(clone!(@weak obj => move |graph_view| {
+                    if graph_view.is_graph_loaded() {
+                        let imp = obj.imp();
+                        imp.spinner_revealer.set_reveal_child(false);
+                        imp.stack.set_visible_child(&*imp.graph_view);
+                        tracing::debug!("Graph loaded");
+                    }
                     obj.update_export_graph_action();
                 }));
             self.graph_view
@@ -302,14 +308,6 @@ mod imp {
                         .set_description(Some(&glib::markup_escape_text(message)));
                     obj.update_export_graph_action();
                     tracing::error!("Failed to draw graph: {}", message);
-                }));
-            self.graph_view
-                .connect_graph_loaded(clone!(@weak obj => move |_| {
-                    let imp = obj.imp();
-                    imp.spinner_revealer.set_reveal_child(false);
-                    imp.stack.set_visible_child(&*imp.graph_view);
-                    obj.update_export_graph_action();
-                    tracing::debug!("Graph loaded");
                 }));
 
             utils::spawn(
