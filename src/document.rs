@@ -13,6 +13,8 @@ use gtk_source::{prelude::*, subclass::prelude::*};
 mod imp {
     use std::{cell::Cell, marker::PhantomData};
 
+    use glib::{once_cell::sync::Lazy, subclass::Signal};
+
     use super::*;
 
     #[derive(Default, glib::Properties)]
@@ -71,6 +73,13 @@ mod imp {
 
             obj.update_style_scheme();
         }
+
+        fn signals() -> &'static [Signal] {
+            static SIGNALS: Lazy<Vec<Signal>> =
+                Lazy::new(|| vec![Signal::builder("text-changed").build()]);
+
+            SIGNALS.as_ref()
+        }
     }
 
     impl TextBufferImpl for Document {
@@ -88,6 +97,10 @@ mod imp {
             if obj.file().is_none() {
                 obj.notify_title();
             }
+
+            if !obj.is_loading() {
+                obj.emit_text_changed();
+            }
         }
 
         fn delete_range(&self, start: &mut gtk::TextIter, end: &mut gtk::TextIter) {
@@ -97,6 +110,10 @@ mod imp {
 
             if obj.file().is_none() {
                 obj.notify_title();
+            }
+
+            if !obj.is_loading() {
+                obj.emit_text_changed();
             }
         }
     }
@@ -164,6 +181,8 @@ impl Document {
         self.handle_file_io(loader.load_future(glib::Priority::default()))
             .await?;
 
+        self.emit_text_changed();
+
         Ok(())
     }
 
@@ -195,6 +214,10 @@ impl Document {
         self.set_modified(false);
 
         Ok(())
+    }
+
+    fn emit_text_changed(&self) {
+        self.emit_by_name::<()>("text-changed", &[]);
     }
 
     fn parse_title(&self) -> String {
