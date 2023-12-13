@@ -416,6 +416,7 @@ impl GraphView {
     fn update_can_zoom(&self) {
         let imp = self.imp();
 
+        // Make this depend on whether it has svg
         let is_graph_loaded = self.is_graph_loaded();
         let zoom_level = self.zoom_level();
 
