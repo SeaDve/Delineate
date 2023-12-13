@@ -222,10 +222,7 @@ impl GraphView {
     }
 
     pub async fn reset_zoom(&self) -> Result<()> {
-        self.set_graph_loaded(false);
-
         self.call_js_func("graphView.resetZoom", &[]).await?;
-
         Ok(())
     }
 
