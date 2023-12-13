@@ -21,7 +21,8 @@ use crate::{
 
 // TODO
 // * Find and replace
-// * Better viewer, with bird's eye view
+// * Bird's eye view of graph
+// * Full screen view of graph
 // * Tabs and/or multiple windows
 // * Recent files
 // * dot language server, with error handling on text view
@@ -104,6 +105,8 @@ mod imp {
         pub(super) error_page: TemplateChild<adw::StatusPage>,
         #[template_child]
         pub(super) engine_drop_down: TemplateChild<gtk::DropDown>,
+        #[template_child]
+        pub(super) zoom_level_button: TemplateChild<gtk::Button>,
         #[template_child]
         pub(super) spinner_revealer: TemplateChild<gtk::Revealer>,
 
@@ -191,6 +194,18 @@ mod imp {
                     }
                 } else {
                     obj.add_message_toast(&gettext("Graph exported"));
+                }
+            });
+
+            klass.install_action_async("win.zoom-graph-in", None, |obj, _, _| async move {
+                if let Err(err) = obj.imp().graph_view.zoom_in().await {
+                    tracing::error!("Failed to zoom in: {:?}", err);
+                }
+            });
+
+            klass.install_action_async("win.zoom-graph-out", None, |obj, _, _| async move {
+                if let Err(err) = obj.imp().graph_view.zoom_out().await {
+                    tracing::error!("Failed to zoom out: {:?}", err);
                 }
             });
 
@@ -309,6 +324,18 @@ mod imp {
                     obj.update_export_graph_action();
                     tracing::error!("Failed to draw graph: {}", message);
                 }));
+            self.graph_view
+                .connect_can_zoom_in_notify(clone!(@weak obj => move |_| {
+                    obj.update_zoom_in_action();
+                }));
+            self.graph_view
+                .connect_can_zoom_out_notify(clone!(@weak obj => move |_| {
+                    obj.update_zoom_out_action();
+                }));
+            self.graph_view
+                .connect_zoom_level_notify(clone!(@weak obj => move |_| {
+                    obj.update_zoom_level_button();
+                }));
 
             utils::spawn(
                 glib::Priority::DEFAULT_IDLE,
@@ -319,6 +346,9 @@ mod imp {
 
             obj.set_document(&Document::draft());
             obj.update_export_graph_action();
+            obj.update_zoom_in_action();
+            obj.update_zoom_out_action();
+            obj.update_zoom_level_button();
 
             obj.load_window_state();
         }
@@ -718,6 +748,26 @@ impl Window {
             "win.export-graph",
             !imp.spinner_revealer.reveals_child() && imp.graph_view.is_graph_loaded(),
         );
+    }
+
+    fn update_zoom_in_action(&self) {
+        let imp = self.imp();
+
+        self.action_set_enabled("win.zoom-graph-in", imp.graph_view.can_zoom_in());
+    }
+
+    fn update_zoom_out_action(&self) {
+        let imp = self.imp();
+
+        self.action_set_enabled("win.zoom-graph-out", imp.graph_view.can_zoom_out());
+    }
+
+    fn update_zoom_level_button(&self) {
+        let imp = self.imp();
+
+        let zoom_level = imp.graph_view.zoom_level();
+        imp.zoom_level_button
+            .set_label(&format!("{:.0}%", zoom_level * 100.0));
     }
 }
 

@@ -152,14 +152,33 @@
                         <child type="bottom">
                           <object class="GtkActionBar">
                             <child>
-                              <object class="GtkDropDown" id="engine_drop_down"/>
-                            </child>
-                            <child>
-                              <object class="GtkButton">
-                                <property name="tooltip-text" translatable="yes">Reset Zoom</property>
-                                <property name="icon-name">object-scale-to-fit-symbolic</property>
-                                <property name="action-name">win.reset-graph-zoom</property>
+                              <object class="GtkBox">
+                                <style>
+                                  <class name="linked"/>
+                                </style>
+                                <child>
+                                  <object class="GtkButton">
+                                    <property name="tooltip-text" translatable="yes">Zoom Out</property>
+                                    <property name="icon-name">zoom-out-symbolic</property>
+                                    <property name="action-name">win.zoom-graph-out</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkButton" id="zoom_level_button">
+                                    <property name="action-name">win.reset-graph-zoom</property>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkButton">
+                                    <property name="tooltip-text" translatable="yes">Zoom In</property>
+                                    <property name="icon-name">zoom-in-symbolic</property>
+                                    <property name="action-name">win.zoom-graph-in</property>
+                                  </object>
+                                </child>
                               </object>
+                            </child>
+                            <child type="end">
+                              <object class="GtkDropDown" id="engine_drop_down"/>
                             </child>
                             <child type="end">
                               <object class="GtkRevealer" id="spinner_revealer">
