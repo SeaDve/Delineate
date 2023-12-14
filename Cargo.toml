@@ -11,7 +11,6 @@ lto = true
 adw = { package = "libadwaita", version = "0.5", features = ["v1_4"] }
 anyhow = "1.0.75"
 async-lock = "3.2"
-async-process = "2.0.1"
 futures-util = { version = "0.3.29", features = ["io"] }
 futures-channel = "0.3.29"
 gettext-rs = { version = "0.7", features = ["gettext-system"] }
