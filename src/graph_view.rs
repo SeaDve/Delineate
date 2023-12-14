@@ -362,11 +362,9 @@ impl GraphView {
         imp.index_loaded
             .get_or_try_init(|| async {
                 let graph_view_src_dir = gio::File::for_path(GRAPHVIEWSRCDIR);
+                let index_file = graph_view_src_dir.child("index.html");
 
-                let (index_bytes, _) = graph_view_src_dir
-                    .child("index.html")
-                    .load_bytes_future()
-                    .await?;
+                let (index_bytes, _) = index_file.load_bytes_future().await?;
 
                 let (load_tx, load_rx) = oneshot::channel();
                 let load_tx = RefCell::new(Some(load_tx));
@@ -397,7 +395,7 @@ impl GraphView {
                 load_rx.await.unwrap();
                 imp.view.disconnect(load_handler_id);
 
-                tracing::debug!("Loaded index.html from {}", graph_view_src_dir.uri());
+                tracing::debug!("Loaded index.html from {}", index_file.uri());
 
                 init_rx.await.unwrap();
                 let user_content_manager = imp.view.user_content_manager().unwrap();
