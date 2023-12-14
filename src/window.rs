@@ -198,8 +198,6 @@ mod imp {
                         tracing::error!("Failed to export graph: {:?}", err);
                         obj.add_message_toast(&gettext("Failed to export graph"));
                     }
-                } else {
-                    obj.add_message_toast(&gettext("Graph exported"));
                 }
             });
 
@@ -226,6 +224,20 @@ mod imp {
             klass.install_action_async("win.reset-graph-zoom", None, |obj, _, _| async move {
                 if let Err(err) = obj.imp().graph_view.reset_zoom().await {
                     tracing::error!("Failed to reset zoom: {:?}", err);
+                }
+            });
+
+            klass.install_action_async("win.show-in-files", Some("s"), |obj, _, arg| async move {
+                let uri = arg.unwrap().get::<String>().unwrap();
+
+                let file = gio::File::for_uri(&uri);
+                let file_launcher = gtk::FileLauncher::new(Some(&file));
+                if let Err(err) = file_launcher
+                    .open_containing_folder_future(Some(&obj))
+                    .await
+                {
+                    tracing::error!("Failed to show in Files: {:?}", err);
+                    obj.add_message_toast(&gettext("Failed to show in Files"));
                 }
             });
         }
@@ -575,6 +587,14 @@ impl Window {
         )
         .await
         .map_err(|(_, err)| err)?;
+
+        let toast = adw::Toast::builder()
+            .title(gettext("Graph exported"))
+            .button_label(gettext("Show in Files"))
+            .action_name("win.show-in-files")
+            .action_target(&file.uri().to_variant())
+            .build();
+        imp.toast_overlay.add_toast(toast);
 
         tracing::debug!(uri = %file.uri(), "Graph exported");
 
