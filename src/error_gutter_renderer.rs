@@ -122,7 +122,7 @@ impl ErrorGutterRenderer {
 
         let icon_theme = gtk::IconTheme::for_display(&self.display());
         let paintable = icon_theme.lookup_icon(
-            "warning-symbolic",
+            "error-symbolic",
             &[],
             CELL_SIZE,
             self.scale_factor(),

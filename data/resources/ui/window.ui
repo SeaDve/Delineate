@@ -110,7 +110,7 @@
                               <object class="GtkSourceView" id="view">
                                 <property name="top-margin">12</property>
                                 <property name="bottom-margin">12</property>
-                                <property name="left-margin">12</property>
+                                <property name="left-margin">6</property>
                                 <property name="right-margin">12</property>
                                 <property name="monospace">True</property>
                                 <property name="show-line-numbers">True</property>
@@ -137,7 +137,7 @@
                             <property name="valign">start</property>
                             <property name="margin-end">18</property>
                             <property name="margin-top">18</property>
-                            <property name="icon-name">warning-symbolic</property>
+                            <property name="icon-name">error-symbolic</property>
                             <property name="pixel-size">24</property>
                             <style>
                               <class name="error"/>
