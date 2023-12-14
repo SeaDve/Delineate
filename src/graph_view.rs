@@ -395,7 +395,6 @@ impl GraphView {
                 tracing::debug!("Loaded index.html from {}", graph_view_src_dir.uri());
 
                 init_rx.await.unwrap();
-
                 let user_content_manager = imp.view.user_content_manager().unwrap();
                 user_content_manager.unregister_script_message_handler(INIT_END_MESSAGE_ID, None);
                 user_content_manager.disconnect(init_handler_id);
@@ -412,7 +411,6 @@ impl GraphView {
                     .await
                     .context("Failed to get version")?
                     .to_str();
-
                 tracing::debug!(%version, "Initialized Graphviz");
 
                 anyhow::Ok(())
