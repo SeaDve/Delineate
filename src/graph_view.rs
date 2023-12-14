@@ -80,6 +80,8 @@ mod imp {
         pub(super) can_zoom_in: Cell<bool>,
         #[property(get)]
         pub(super) can_zoom_out: Cell<bool>,
+        #[property(get)]
+        pub(super) can_reset_zoom: Cell<bool>,
 
         pub(super) view: webkit::WebView,
         pub(super) index_loaded: OnceCell<()>,
@@ -105,6 +107,7 @@ mod imp {
                 zoom_level: Cell::new(1.0),
                 can_zoom_in: Cell::new(false),
                 can_zoom_out: Cell::new(false),
+                can_reset_zoom: Cell::new(false),
                 view: glib::Object::builder()
                     .property("settings", settings)
                     .property("web-context", context)
@@ -422,7 +425,6 @@ impl GraphView {
     fn update_can_zoom(&self) {
         let imp = self.imp();
 
-        // Make this depend on whether it has svg
         let is_graph_loaded = self.is_graph_loaded();
         let zoom_level = self.zoom_level();
 
@@ -430,9 +432,12 @@ impl GraphView {
             .set(zoom_level < MAX_ZOOM_LEVEL && is_graph_loaded);
         imp.can_zoom_out
             .set(zoom_level > MIN_ZOOM_LEVEL && is_graph_loaded);
+        // FIXME Also only allow it when not on default zoom level & position
+        imp.can_reset_zoom.set(is_graph_loaded);
 
         self.notify_can_zoom_in();
         self.notify_can_zoom_out();
+        self.notify_can_reset_zoom();
     }
 }
 

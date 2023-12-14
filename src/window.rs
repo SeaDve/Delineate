@@ -328,6 +328,10 @@ mod imp {
                     }
                 }));
             self.graph_view
+                .connect_zoom_level_notify(clone!(@weak obj => move |_| {
+                    obj.update_zoom_level_button();
+                }));
+            self.graph_view
                 .connect_can_zoom_in_notify(clone!(@weak obj => move |_| {
                     obj.update_zoom_in_action();
                 }));
@@ -336,8 +340,8 @@ mod imp {
                     obj.update_zoom_out_action();
                 }));
             self.graph_view
-                .connect_zoom_level_notify(clone!(@weak obj => move |_| {
-                    obj.update_zoom_level_button();
+                .connect_can_reset_zoom_notify(clone!(@weak obj => move |_| {
+                    obj.update_reset_zoom_action();
                 }));
 
             utils::spawn(
@@ -349,9 +353,10 @@ mod imp {
 
             obj.set_document(&Document::draft());
             obj.update_export_graph_action();
+            obj.update_zoom_level_button();
             obj.update_zoom_in_action();
             obj.update_zoom_out_action();
-            obj.update_zoom_level_button();
+            obj.update_reset_zoom_action();
 
             obj.load_window_state();
         }
@@ -749,6 +754,14 @@ impl Window {
         self.action_set_enabled("win.export-graph", imp.graph_view.is_graph_loaded());
     }
 
+    fn update_zoom_level_button(&self) {
+        let imp = self.imp();
+
+        let zoom_level = imp.graph_view.zoom_level();
+        imp.zoom_level_button
+            .set_label(&format!("{:.0}%", zoom_level * 100.0));
+    }
+
     fn update_zoom_in_action(&self) {
         let imp = self.imp();
 
@@ -761,12 +774,10 @@ impl Window {
         self.action_set_enabled("win.zoom-graph-out", imp.graph_view.can_zoom_out());
     }
 
-    fn update_zoom_level_button(&self) {
+    fn update_reset_zoom_action(&self) {
         let imp = self.imp();
 
-        let zoom_level = imp.graph_view.zoom_level();
-        imp.zoom_level_button
-            .set_label(&format!("{:.0}%", zoom_level * 100.0));
+        self.action_set_enabled("win.reset-graph-zoom", imp.graph_view.can_reset_zoom());
     }
 }
 
