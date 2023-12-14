@@ -322,6 +322,13 @@ mod imp {
             let was_inserted = gutter.insert(&self.error_gutter_renderer, 0);
             debug_assert!(was_inserted);
 
+            self.go_to_error_revealer
+                .connect_child_revealed_notify(|revealer| {
+                    if !revealer.is_child_revealed() {
+                        revealer.set_visible(false);
+                    }
+                });
+
             self.graph_view
                 .connect_is_graph_loaded_notify(clone!(@weak obj => move |_| {
                     obj.update_export_graph_action();
@@ -617,14 +624,16 @@ impl Window {
         if let Some(captures) = ERROR_MESSAGE_REGEX.captures(message) {
             tracing::debug!("Syntax error: {}", message);
 
-            let line_number = captures[1]
+            let raw_line_number = captures[1]
                 .parse::<u32>()
                 .expect("Failed to parse line number");
+            let line_number = raw_line_number - 1;
             imp.error_gutter_renderer
-                .set_error(line_number - 1, message.trim());
+                .set_error(line_number, message.trim());
 
             // FIXME Show only when line is not visible,also make it clickable through
             imp.line_with_error.set(Some(line_number));
+            imp.go_to_error_revealer.set_visible(true);
             imp.go_to_error_revealer.set_reveal_child(true);
         } else {
             tracing::error!("Failed to draw graph: {}", message);
