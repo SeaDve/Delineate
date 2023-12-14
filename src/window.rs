@@ -101,7 +101,7 @@ mod imp {
         #[template_child]
         pub(super) progress_bar: TemplateChild<gtk::ProgressBar>,
         #[template_child]
-        pub(super) view_error_image: TemplateChild<gtk::Image>,
+        pub(super) go_to_error_revealer: TemplateChild<gtk::Revealer>,
         #[template_child]
         pub(super) view: TemplateChild<gtk_source::View>,
         #[template_child]
@@ -114,6 +114,7 @@ mod imp {
         pub(super) spinner_revealer: TemplateChild<gtk::Revealer>,
 
         pub(super) error_gutter_renderer: ErrorGutterRenderer,
+        pub(super) line_with_error: Cell<Option<u32>>,
 
         pub(super) document_binding_group: glib::BindingGroup,
         pub(super) document_signal_group: OnceCell<glib::SignalGroup>,
@@ -200,6 +201,14 @@ mod imp {
                 } else {
                     obj.add_message_toast(&gettext("Graph exported"));
                 }
+            });
+
+            klass.install_action("win.go-to-error", None, |obj, _, _| {
+                let imp = obj.imp();
+
+                let line = imp.line_with_error.get().unwrap();
+                let mut iter = imp.view.buffer().iter_at_line(line as i32).unwrap();
+                imp.view.scroll_to_iter(&mut iter, 0.0, true, 0.0, 0.5);
             });
 
             klass.install_action_async("win.zoom-graph-in", None, |obj, _, _| async move {
@@ -595,7 +604,8 @@ impl Window {
     fn handle_document_text_changed(&self) {
         let imp = self.imp();
 
-        imp.view_error_image.set_visible(false);
+        imp.go_to_error_revealer.set_reveal_child(false);
+        imp.line_with_error.set(None);
         imp.error_gutter_renderer.clear_errors();
 
         self.queue_draw_graph();
@@ -613,9 +623,8 @@ impl Window {
             imp.error_gutter_renderer
                 .set_error(line_number - 1, message.trim());
 
-            // TODO make this clickable to jump to the error
-            imp.view_error_image.set_visible(true);
-            imp.view_error_image.set_tooltip_text(Some(message.trim()));
+            imp.line_with_error.set(Some(line_number));
+            imp.go_to_error_revealer.set_reveal_child(true);
         } else {
             tracing::error!("Failed to draw graph: {}", message);
 
