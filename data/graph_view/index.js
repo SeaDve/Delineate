@@ -2,7 +2,6 @@
 // - no idea why we don't recover from errors
 // - fix exporting
 // - make mouse wheel zoom smooth like loupe
-// - only allow resetZoom when not on original zoom level
 // - improve packaging
 
 const ZOOM_TRANSITION_DURATION_MS = 200;
