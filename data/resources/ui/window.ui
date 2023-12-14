@@ -165,6 +165,7 @@
                                 </child>
                                 <child>
                                   <object class="GtkButton" id="zoom_level_button">
+                                    <property name="tooltip-text" translatable="yes">Reset Zoom</property>
                                     <property name="action-name">win.reset-graph-zoom</property>
                                   </object>
                                 </child>
