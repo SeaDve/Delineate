@@ -627,6 +627,8 @@ impl Window {
     fn handle_graph_view_error(&self, message: &str) {
         let imp = self.imp();
 
+        let message = message.trim();
+
         if let Some(captures) = ERROR_MESSAGE_REGEX.captures(message) {
             tracing::debug!("Syntax error: {}", message);
 
@@ -634,8 +636,7 @@ impl Window {
                 .parse::<u32>()
                 .expect("Failed to parse line number");
             let line_number = raw_line_number - 1;
-            imp.error_gutter_renderer
-                .set_error(line_number, message.trim());
+            imp.error_gutter_renderer.set_error(line_number, message);
 
             imp.line_with_error.set(Some(line_number));
             self.update_go_to_error_revealer_reveal_child();
