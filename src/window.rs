@@ -636,7 +636,6 @@ impl Window {
             imp.error_gutter_renderer
                 .set_error(line_number, message.trim());
 
-            // FIXME Show only when line is not visible
             imp.line_with_error.set(Some(line_number));
             self.update_go_to_error_revealer();
         } else {
