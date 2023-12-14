@@ -377,12 +377,15 @@ mod imp {
 
             let prev_document = obj.document();
             if prev_document.is_modified() {
-                glib::spawn_future_local(clone!(@weak obj => async move {
-                    if obj.handle_unsaved_changes(&prev_document).await.is_err() {
-                        return;
-                    }
-                    obj.destroy();
-                }));
+                utils::spawn(
+                    glib::Priority::default(),
+                    clone!(@weak obj => async move {
+                        if obj.handle_unsaved_changes(&prev_document).await.is_err() {
+                            return;
+                        }
+                        obj.destroy();
+                    }),
+                );
                 return glib::Propagation::Stop;
             }
 
