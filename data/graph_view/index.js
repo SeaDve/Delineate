@@ -96,6 +96,13 @@ class GraphView {
     }
 
     _renderGraph() {
+        if (this._rendering) {
+            this._pendingUpdate = true;
+            return;
+        }
+
+        this._setRendering(true);
+
         if (this._dotSrc.length === 0) {
             if (this._svg) {
                 this._svg.remove();
@@ -110,13 +117,7 @@ class GraphView {
             return;
         }
 
-        if (this._rendering) {
-            this._pendingUpdate = true;
-            return;
-        }
-
         this._setSvg(null)
-        this._setRendering(true)
 
         this._graphviz
             .width(window.innerWidth)

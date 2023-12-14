@@ -172,8 +172,7 @@ mod imp {
                 IS_RENDERING_CHANGED_MESSAGE_ID,
                 clone!(@weak obj => move |_, value| {
                     let is_rendering = value.to_boolean();
-                    obj.imp().is_rendering.set(is_rendering);
-                    obj.notify_is_rendering();
+                    obj.set_rendering(is_rendering);
                 }),
             );
             obj.connect_script_message_received(
@@ -336,6 +335,15 @@ impl GraphView {
         self.imp().is_graph_loaded.set(is_graph_loaded);
         self.update_can_zoom();
         self.notify_is_graph_loaded();
+    }
+
+    fn set_rendering(&self, is_rendering: bool) {
+        if is_rendering == self.is_rendering() {
+            return;
+        }
+
+        self.imp().is_rendering.set(is_rendering);
+        self.notify_is_rendering();
     }
 
     fn set_zoom_level(&self, zoom_level: f64) {
