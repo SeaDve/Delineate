@@ -561,6 +561,8 @@ impl Window {
         let bytes = match format {
             Format::Svg => svg_bytes,
             Format::Png | Format::Jpeg => {
+                // TODO improve resolution
+
                 let loader = gdk_pixbuf::PixbufLoader::new();
                 loader
                     .write_bytes(&svg_bytes)
