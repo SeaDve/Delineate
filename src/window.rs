@@ -633,6 +633,7 @@ impl Window {
             tracing::debug!("Syntax error: {}", message);
 
             let raw_line_number = captures[1].parse::<u32>().unwrap();
+            // Subtract 1 since line numbers from the error starts at 1.
             let line_number = raw_line_number - 1;
             imp.error_gutter_renderer.set_error(line_number, message);
 
