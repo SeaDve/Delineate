@@ -71,7 +71,8 @@ mod imp {
             let obj = self.obj();
 
             let view = obj.view();
-            let (iter, _) = view.line_at_y(y - view.top_margin());
+            let (_, buffer_y) = view.window_to_buffer_coords(gtk::TextWindowType::Left, 0, y);
+            let (iter, _) = view.line_at_y(buffer_y);
             let line = iter.line() as u32;
 
             if let Some(message) = self.error_lines.borrow().get(&line) {
