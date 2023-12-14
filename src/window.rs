@@ -101,7 +101,7 @@ mod imp {
         #[template_child]
         pub(super) progress_bar: TemplateChild<gtk::ProgressBar>,
         #[template_child]
-        pub(super) graph_error_image: TemplateChild<gtk::Image>,
+        pub(super) view_error_image: TemplateChild<gtk::Image>,
         #[template_child]
         pub(super) view: TemplateChild<gtk_source::View>,
         #[template_child]
@@ -595,7 +595,7 @@ impl Window {
     fn handle_document_text_changed(&self) {
         let imp = self.imp();
 
-        imp.graph_error_image.set_visible(false);
+        imp.view_error_image.set_visible(false);
         imp.error_gutter_renderer.clear_errors();
 
         self.queue_draw_graph();
@@ -605,17 +605,22 @@ impl Window {
         let imp = self.imp();
 
         if let Some(captures) = ERROR_MESSAGE_REGEX.captures(message) {
+            tracing::debug!("Syntax error: {}", message);
+
             // TODO show message too, and position before the line numbers
             let line_number = captures[1]
                 .parse::<u32>()
                 .expect("Failed to parse line number");
             imp.error_gutter_renderer.set_error(line_number - 1);
-        } else {
-            imp.graph_error_image.set_visible(true);
-            imp.graph_error_image.set_tooltip_text(Some(message.trim()));
-        }
 
-        tracing::error!("Failed to draw graph: {}", message);
+            // TODO make this clickable to jump to the error
+            imp.view_error_image.set_visible(true);
+            imp.view_error_image.set_tooltip_text(Some(message.trim()));
+        } else {
+            tracing::error!("Failed to draw graph: {}", message);
+
+            self.add_message_toast(&gettext("Failed to draw graph"));
+        }
     }
 
     /// Returns `Ok` if unsaved changes are handled and can proceed, `Err` if
