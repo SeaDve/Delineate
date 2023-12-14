@@ -20,6 +20,8 @@ class GraphView {
         this._prevDotSrc = this._dotSrc;
         this._prevEngine = this._engine;
 
+        this._originalAttributes = null;
+
         this._setSvg(null)
         this._setRendering(false);
 
@@ -58,7 +60,19 @@ class GraphView {
         this._renderGraph();
     }
 
+    _handleDotLayoutDone() {
+        const attributes = this._graphviz.data().attributes;
+        this._originalAttributes = {
+            height: attributes.height,
+            width: attributes.width,
+            viewBox: attributes.viewBox,
+        }
+    }
+
     _handleRenderDone() {
+        const svg = this._div.selectWithoutDataPropagation("svg");
+        this._originalAttributes.transform = svg.selectWithoutDataPropagation("g").attr("transform");
+
         this._setSvg(this._div.selectWithoutDataPropagation("svg"));
         this._setRendering(false);
 
@@ -105,7 +119,8 @@ class GraphView {
         if (this._dotSrc.length === 0) {
             if (this._svg) {
                 this._svg.remove();
-                this._setSvg(null)
+                this._setSvg(null);
+                this._originalAttributes = null;
             }
             this._setRendering(false)
             return;
@@ -121,7 +136,7 @@ class GraphView {
             .height(window.innerHeight)
             .fit(true)
             .engine(this._engine)
-            .dot(this._dotSrc)
+            .dot(this._dotSrc, this._handleDotLayoutDone.bind(this))
             .render(this._handleRenderDone.bind(this));
     }
 
@@ -175,10 +190,18 @@ class GraphView {
             return null;
         }
 
-        // FIXME restore original translate
+        const clone = svg_node.cloneNode(true);
+        clone.setAttribute("width", this._originalAttributes.width);
+        clone.setAttribute("height", this._originalAttributes.height);
+        clone.setAttribute("viewBox", this._originalAttributes.viewBox);
+        clone.children[0].setAttribute("transform", this._originalAttributes.transform);
+
         const serializer = new XMLSerializer();
 
-        return serializer.serializeToString(svg_node);
+        console.log(JSON.stringify(this._originalAttributes));
+        console.log(serializer.serializeToString(clone));
+
+        return serializer.serializeToString(clone);
     }
 }
 
