@@ -9,8 +9,9 @@ const ZOOM_TRANSITION_DURATION_MS = 200;
 const TRANSITION_DURATION_MS = 400;
 
 const initEndHandler = window.webkit.messageHandlers.initEnd;
-const graphErrorHandler = window.webkit.messageHandlers.graphError;
-const graphLoadedHandler = window.webkit.messageHandlers.graphLoaded;
+const errorHandler = window.webkit.messageHandlers.error;
+const isRenderingChangedHandler = window.webkit.messageHandlers.isRenderingChanged;
+const isGraphLoadedChangedHandler = window.webkit.messageHandlers.isGraphLoadedChanged;
 const zoomLevelChangedHandler = window.webkit.messageHandlers.zoomLevelChanged;
 
 class GraphView {
@@ -21,9 +22,9 @@ class GraphView {
         this._prevDotSrc = this._dotSrc;
         this._prevEngine = this._engine;
 
-        this._svg = null;
+        this._setSvg(null)
+        this._setRendering(false);
 
-        this._rendering = false;
         this._pendingUpdate = false;
 
         this._div = d3.select("#graph");
@@ -42,53 +43,71 @@ class GraphView {
     }
 
     _handleError(error) {
-        this._rendering = false;
+        this._setRendering(false)
 
         if (this._pendingUpdate) {
             this._pendingUpdate = false;
             this._renderGraph();
         }
 
-        graphErrorHandler.postMessage(error);
+        errorHandler.postMessage(error);
     }
 
     _handleInitEnd() {
-        this._renderGraph();
-
         initEndHandler.postMessage(null);
+        zoomLevelChangedHandler.postMessage(this._getZoomLevel());
+
+        this._renderGraph();
     }
 
     _handleRenderDone() {
-        this._svg = this._div.selectWithoutDataPropagation("svg");
-        this._graphviz.zoomBehavior().on("end", this._handleZoomEnd.bind(this));
+        this._setSvg(this._div.selectWithoutDataPropagation("svg"));
+        this._setRendering(false);
 
-        this._rendering = false;
+        this._graphviz.zoomBehavior().on("end", this._handleZoomEnd.bind(this));
 
         if (this._pendingUpdate) {
             this._pendingUpdate = false;
             this._renderGraph();
         }
 
-        graphLoadedHandler.postMessage(null);
-        zoomLevelChangedHandler.postMessage(this.getZoomLevel());
+        zoomLevelChangedHandler.postMessage(this._getZoomLevel());
     }
 
     _handleZoomEnd() {
-        zoomLevelChangedHandler.postMessage(this.getZoomLevel());
+        zoomLevelChangedHandler.postMessage(this._getZoomLevel());
+    }
+
+    _setRendering(rendering) {
+        this._rendering = rendering;
+        isRenderingChangedHandler.postMessage(rendering);
+    }
+
+    _setSvg(svg) {
+        this._svg = svg;
+        isGraphLoadedChangedHandler.postMessage(svg !== null);
+    }
+
+    _getZoomLevel() {
+        if (!this._svg) {
+            return 1;
+        }
+
+        return d3.zoomTransform(this._svg.node()).k;
     }
 
     _renderGraph() {
         if (this._dotSrc.length === 0) {
             if (this._svg) {
                 this._svg.remove();
-                this._svg = null;
+                this._setSvg(null)
             }
-            graphLoadedHandler.postMessage(null);
+            this._setRendering(false)
             return;
         }
 
         if (this._dotSrc === this._prevDotSrc && this._engine === this._prevEngine) {
-            graphLoadedHandler.postMessage(null);
+            this._setRendering(false)
             return;
         }
 
@@ -97,8 +116,8 @@ class GraphView {
             return;
         }
 
-        this._svg = null;
-        this._rendering = true;
+        this._setSvg(null)
+        this._setRendering(true)
 
         this._graphviz
             .width(window.innerWidth)
@@ -121,14 +140,6 @@ class GraphView {
         this._engine = engine;
 
         this._renderGraph();
-    }
-
-    getZoomLevel() {
-        if (!this._svg) {
-            return 1;
-        }
-
-        return d3.zoomTransform(this._svg.node()).k;
     }
 
     setZoomScaleExtent(min, max) {
