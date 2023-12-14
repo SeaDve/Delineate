@@ -308,21 +308,24 @@ mod imp {
                 .connect_is_graph_loaded_notify(clone!(@weak obj => move |graph_view| {
                     if graph_view.is_graph_loaded() {
                         let imp = obj.imp();
-                        imp.spinner_revealer.set_reveal_child(false);
                         imp.stack.set_visible_child(&*imp.graph_view);
                         tracing::debug!("Graph loaded");
                     }
                     obj.update_export_graph_action();
                 }));
             self.graph_view
-                .connect_graph_error(clone!(@weak obj => move |_, message| {
+                .connect_error(clone!(@weak obj => move |_, message| {
                     let imp = obj.imp();
-                    imp.spinner_revealer.set_reveal_child(false);
                     imp.stack.set_visible_child(&*imp.error_page);
                     imp.error_page
                         .set_description(Some(&glib::markup_escape_text(message)));
-                    obj.update_export_graph_action();
                     tracing::error!("Failed to draw graph: {}", message);
+                }));
+            self.graph_view
+                .connect_is_rendering_notify(clone!(@weak obj => move |graph_view| {
+                    if !dbg!(graph_view.is_rendering()) {
+                        obj.imp().spinner_revealer.set_reveal_child(false);
+                    }
                 }));
             self.graph_view
                 .connect_can_zoom_in_notify(clone!(@weak obj => move |_| {
@@ -702,7 +705,6 @@ impl Window {
         }
 
         imp.spinner_revealer.set_reveal_child(true);
-        self.update_export_graph_action();
     }
 
     async fn start_draw_graph_loop(&self) {
@@ -744,10 +746,7 @@ impl Window {
     fn update_export_graph_action(&self) {
         let imp = self.imp();
 
-        self.action_set_enabled(
-            "win.export-graph",
-            !imp.spinner_revealer.reveals_child() && imp.graph_view.is_graph_loaded(),
-        );
+        self.action_set_enabled("win.export-graph", imp.graph_view.is_graph_loaded());
     }
 
     fn update_zoom_in_action(&self) {

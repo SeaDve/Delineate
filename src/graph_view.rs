@@ -13,8 +13,9 @@ use webkit::{javascriptcore::Value, prelude::*, ContextMenuAction};
 use crate::{config::GRAPHVIEWSRCDIR, utils};
 
 const INIT_END_MESSAGE_ID: &str = "initEnd";
-const GRAPH_ERROR_MESSAGE_ID: &str = "graphError";
-const GRAPH_LOADED_MESSAGE_ID: &str = "graphLoaded";
+const ERROR_MESSAGE_ID: &str = "error";
+const IS_GRAPH_LOADED_CHANGED_MESSAGE_ID: &str = "isGraphLoadedChanged";
+const IS_RENDERING_CHANGED_MESSAGE_ID: &str = "isRenderingChanged";
 const ZOOM_LEVEL_CHANGED_MESSAGE_ID: &str = "zoomLevelChanged";
 
 const ZOOM_FACTOR: f64 = 1.5;
@@ -72,6 +73,8 @@ mod imp {
         #[property(get)]
         pub(super) is_graph_loaded: Cell<bool>,
         #[property(get)]
+        pub(super) is_rendering: Cell<bool>,
+        #[property(get)]
         pub(super) zoom_level: Cell<f64>,
         #[property(get)]
         pub(super) can_zoom_in: Cell<bool>,
@@ -98,13 +101,14 @@ mod imp {
 
             Self {
                 is_graph_loaded: Cell::new(false),
+                is_rendering: Cell::new(false),
+                zoom_level: Cell::new(1.0),
+                can_zoom_in: Cell::new(false),
+                can_zoom_out: Cell::new(false),
                 view: glib::Object::builder()
                     .property("settings", settings)
                     .property("web-context", context)
                     .build(),
-                zoom_level: Cell::new(1.0),
-                can_zoom_in: Cell::new(false),
-                can_zoom_out: Cell::new(false),
                 index_loaded: OnceCell::new(),
             }
         }
@@ -148,16 +152,25 @@ mod imp {
             );
 
             obj.connect_script_message_received(
-                GRAPH_ERROR_MESSAGE_ID,
+                ERROR_MESSAGE_ID,
                 clone!(@weak obj => move |_, value| {
                     let message = value.to_str();
-                    obj.emit_by_name::<()>("graph-error", &[&message]);
+                    obj.emit_by_name::<()>("error", &[&message]);
                 }),
             );
             obj.connect_script_message_received(
-                GRAPH_LOADED_MESSAGE_ID,
-                clone!(@weak obj => move |_, _| {
-                    obj.set_graph_loaded(true);
+                IS_GRAPH_LOADED_CHANGED_MESSAGE_ID,
+                clone!(@weak obj => move |_, value| {
+                    let is_graph_loaded = value.to_boolean();
+                    obj.set_graph_loaded(is_graph_loaded);
+                }),
+            );
+            obj.connect_script_message_received(
+                IS_RENDERING_CHANGED_MESSAGE_ID,
+                clone!(@weak obj => move |_, value| {
+                    let is_rendering = value.to_boolean();
+                    obj.imp().is_rendering.set(is_rendering);
+                    obj.notify_is_rendering();
                 }),
             );
             obj.connect_script_message_received(
@@ -180,7 +193,7 @@ mod imp {
 
         fn signals() -> &'static [Signal] {
             static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
-                vec![Signal::builder("graph-error")
+                vec![Signal::builder("error")
                     .param_types([String::static_type()])
                     .build()]
             });
@@ -202,12 +215,12 @@ impl GraphView {
         glib::Object::new()
     }
 
-    pub fn connect_graph_error<F>(&self, f: F) -> glib::SignalHandlerId
+    pub fn connect_error<F>(&self, f: F) -> glib::SignalHandlerId
     where
         F: Fn(&Self, &str) + 'static,
     {
         self.connect_closure(
-            "graph-error",
+            "error",
             true,
             closure_local!(|obj: &Self, message: &str| {
                 f(obj, message);
@@ -398,13 +411,6 @@ impl GraphView {
                     .to_str();
 
                 tracing::debug!(%version, "Initialized Graphviz");
-
-                let zoom_level = self
-                    .call_js_func_inner("graphView.getZoomLevel", &[])
-                    .await
-                    .context("Failed to get zoom level")?
-                    .to_double();
-                self.set_zoom_level(zoom_level);
 
                 anyhow::Ok(())
             })
