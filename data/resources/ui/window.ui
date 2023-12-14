@@ -132,6 +132,7 @@
                         </child>
                         <child type="overlay">
                           <object class="GtkRevealer" id="go_to_error_revealer">
+                            <property name="visible">False</property>
                             <property name="halign">end</property>
                             <property name="valign">end</property>
                             <property name="margin-end">18</property>
