@@ -630,7 +630,7 @@ impl Window {
         let message = message.trim();
 
         if let Some(captures) = ERROR_MESSAGE_REGEX.captures(message) {
-            tracing::debug!("Syntax error: {}", message);
+            tracing::trace!("Syntax error: {}", message);
 
             let raw_line_number = captures[1].parse::<u32>().unwrap();
             // Subtract 1 since line numbers from the error starts at 1.
