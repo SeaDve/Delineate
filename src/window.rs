@@ -623,6 +623,7 @@ impl Window {
             imp.error_gutter_renderer
                 .set_error(line_number - 1, message.trim());
 
+            // FIXME Show only when line is not visible,also make it clickable through
             imp.line_with_error.set(Some(line_number));
             imp.go_to_error_revealer.set_reveal_child(true);
         } else {
