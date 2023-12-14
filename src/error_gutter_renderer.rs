@@ -12,14 +12,20 @@ use crate::colors::{RED_1, RED_4};
 const CELL_SIZE: i32 = 12;
 
 mod imp {
-    use std::{cell::RefCell, collections::HashMap};
+    use std::{
+        cell::{Cell, RefCell},
+        collections::HashMap,
+    };
 
     use super::*;
 
-    #[derive(Default)]
+    #[derive(Default, glib::Properties)]
+    #[properties(wrapper_type = super::ErrorGutterRenderer)]
     pub struct ErrorGutterRenderer {
-        pub(super) error_lines: RefCell<HashMap<u32, String>>,
+        #[property(get)]
+        pub(super) has_visible_errors: Cell<bool>,
 
+        pub(super) error_lines: RefCell<HashMap<u32, String>>,
         pub(super) paintable: RefCell<Option<gtk::IconPaintable>>,
     }
 
@@ -30,6 +36,7 @@ mod imp {
         type ParentType = gtk_source::GutterRenderer;
     }
 
+    #[glib::derived_properties]
     impl ObjectImpl for ErrorGutterRenderer {
         fn constructed(&self) {
             self.parent_constructed();
@@ -77,6 +84,21 @@ mod imp {
     }
 
     impl GutterRendererImpl for ErrorGutterRenderer {
+        fn begin(&self, lines: &gtk_source::GutterLines) {
+            self.parent_begin(lines);
+
+            let obj = self.obj();
+
+            let visible_line_range = lines.first()..=lines.last();
+
+            let has_visible_errors = self
+                .error_lines
+                .borrow()
+                .keys()
+                .any(|line| visible_line_range.contains(line));
+            obj.set_has_visible_errors(has_visible_errors);
+        }
+
         fn query_activatable(&self, _iter: &gtk::TextIter, _area: &gdk::Rectangle) -> bool {
             false
         }
@@ -134,6 +156,15 @@ impl ErrorGutterRenderer {
     pub fn clear_errors(&self) {
         self.imp().error_lines.borrow_mut().clear();
         self.queue_draw();
+    }
+
+    fn set_has_visible_errors(&self, has_visible_errors: bool) {
+        if has_visible_errors == self.has_visible_errors() {
+            return;
+        }
+
+        self.imp().has_visible_errors.set(has_visible_errors);
+        self.notify_has_visible_errors();
     }
 
     fn cache_paintable(&self) {

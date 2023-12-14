@@ -328,6 +328,10 @@ mod imp {
                         revealer.set_visible(false);
                     }
                 });
+            self.error_gutter_renderer
+                .connect_has_visible_errors_notify(clone!(@weak obj => move |_| {
+                    obj.update_go_to_error_revealer();
+                }));
 
             self.graph_view
                 .connect_is_graph_loaded_notify(clone!(@weak obj => move |_| {
@@ -798,7 +802,7 @@ impl Window {
     fn update_go_to_error_revealer(&self) {
         let imp = self.imp();
 
-        if imp.line_with_error.get().is_some() {
+        if imp.line_with_error.get().is_some() && !imp.error_gutter_renderer.has_visible_errors() {
             imp.go_to_error_revealer.set_visible(true);
             imp.go_to_error_revealer.set_reveal_child(true);
         } else {
