@@ -1,5 +1,4 @@
 // TODO
-// - fix exporting
 // - make mouse wheel zoom smooth like loupe
 // - improve packaging
 
@@ -197,10 +196,6 @@ class GraphView {
         clone.children[0].setAttribute("transform", this._originalAttributes.transform);
 
         const serializer = new XMLSerializer();
-
-        console.log(JSON.stringify(this._originalAttributes));
-        console.log(serializer.serializeToString(clone));
-
         return serializer.serializeToString(clone);
     }
 }
