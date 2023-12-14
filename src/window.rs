@@ -607,11 +607,11 @@ impl Window {
         if let Some(captures) = ERROR_MESSAGE_REGEX.captures(message) {
             tracing::debug!("Syntax error: {}", message);
 
-            // TODO show message too
             let line_number = captures[1]
                 .parse::<u32>()
                 .expect("Failed to parse line number");
-            imp.error_gutter_renderer.set_error(line_number - 1);
+            imp.error_gutter_renderer
+                .set_error(line_number - 1, message.trim());
 
             // TODO make this clickable to jump to the error
             imp.view_error_image.set_visible(true);
