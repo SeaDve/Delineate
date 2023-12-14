@@ -232,11 +232,8 @@ impl GraphView {
     }
 
     pub async fn set_data(&self, dot_src: &str, engine: Engine) -> Result<()> {
-        self.set_graph_loaded(false);
-
         self.call_js_func("graphView.setData", &[&dot_src, &engine.as_raw()])
             .await?;
-
         Ok(())
     }
 
