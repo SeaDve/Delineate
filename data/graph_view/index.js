@@ -1,5 +1,4 @@
 // TODO
-// - no idea why we don't recover from errors
 // - fix exporting
 // - make mouse wheel zoom smooth like loupe
 // - improve packaging
@@ -116,8 +115,6 @@ class GraphView {
             this._setRendering(false)
             return;
         }
-
-        this._setSvg(null)
 
         this._graphviz
             .width(window.innerWidth)
