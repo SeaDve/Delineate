@@ -323,14 +323,12 @@ mod imp {
             debug_assert!(was_inserted);
 
             self.go_to_error_revealer
-                .connect_child_revealed_notify(|revealer| {
-                    if !revealer.is_child_revealed() {
-                        revealer.set_visible(false);
-                    }
-                });
+                .connect_child_revealed_notify(clone!(@weak obj => move |_| {
+                    obj.update_go_to_error_revealer_can_target();
+                }));
             self.error_gutter_renderer
                 .connect_has_visible_errors_notify(clone!(@weak obj => move |_| {
-                    obj.update_go_to_error_revealer();
+                    obj.update_go_to_error_revealer_reveal_child();
                 }));
 
             self.graph_view
@@ -372,7 +370,10 @@ mod imp {
             );
 
             obj.set_document(&Document::draft());
+            obj.update_save_action();
             obj.update_export_graph_action();
+            obj.update_go_to_error_revealer_reveal_child();
+            obj.update_go_to_error_revealer_can_target();
             obj.update_zoom_level_button();
             obj.update_zoom_in_action();
             obj.update_zoom_out_action();
@@ -618,7 +619,7 @@ impl Window {
         imp.error_gutter_renderer.clear_errors();
 
         imp.line_with_error.set(None);
-        self.update_go_to_error_revealer();
+        self.update_go_to_error_revealer_reveal_child();
 
         self.queue_draw_graph();
     }
@@ -637,7 +638,7 @@ impl Window {
                 .set_error(line_number, message.trim());
 
             imp.line_with_error.set(Some(line_number));
-            self.update_go_to_error_revealer();
+            self.update_go_to_error_revealer_reveal_child();
         } else {
             tracing::error!("Failed to draw graph: {}", message);
 
@@ -798,15 +799,19 @@ impl Window {
         }
     }
 
-    fn update_go_to_error_revealer(&self) {
+    fn update_go_to_error_revealer_reveal_child(&self) {
         let imp = self.imp();
 
-        if imp.line_with_error.get().is_some() && !imp.error_gutter_renderer.has_visible_errors() {
-            imp.go_to_error_revealer.set_visible(true);
-            imp.go_to_error_revealer.set_reveal_child(true);
-        } else {
-            imp.go_to_error_revealer.set_reveal_child(false);
-        }
+        imp.go_to_error_revealer.set_reveal_child(
+            imp.line_with_error.get().is_some() && !imp.error_gutter_renderer.has_visible_errors(),
+        );
+    }
+
+    fn update_go_to_error_revealer_can_target(&self) {
+        let imp = self.imp();
+
+        imp.go_to_error_revealer
+            .set_can_target(imp.go_to_error_revealer.is_child_revealed());
     }
 
     fn update_save_action(&self) {
