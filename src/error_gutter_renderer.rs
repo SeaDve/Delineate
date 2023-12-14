@@ -12,13 +12,13 @@ use crate::colors::{RED_1, RED_4};
 const CELL_SIZE: i32 = 12;
 
 mod imp {
-    use std::cell::{OnceCell, RefCell};
+    use std::{cell::RefCell, collections::HashMap};
 
     use super::*;
 
     #[derive(Default)]
     pub struct ErrorGutterRenderer {
-        pub(super) error_lines: OnceCell<gtk::Bitset>,
+        pub(super) error_lines: RefCell<HashMap<u32, String>>,
 
         pub(super) paintable: RefCell<Option<gtk::IconPaintable>>,
     }
@@ -34,9 +34,8 @@ mod imp {
         fn constructed(&self) {
             self.parent_constructed();
 
-            self.error_lines.set(gtk::Bitset::new_empty()).unwrap();
-
             let obj = self.obj();
+            obj.set_has_tooltip(true);
 
             obj.connect_scale_factor_notify(clone!(@weak obj => move |_| {
                 obj.cache_paintable();
@@ -54,6 +53,27 @@ mod imp {
                 _ => unreachable!(),
             }
         }
+
+        fn query_tooltip(
+            &self,
+            _x: i32,
+            y: i32,
+            _keyboard_tooltip: bool,
+            tooltip: &gtk::Tooltip,
+        ) -> bool {
+            let obj = self.obj();
+
+            let view = obj.view();
+            let (iter, _) = view.line_at_y(y - view.top_margin());
+            let line = iter.line() as u32;
+
+            if let Some(message) = self.error_lines.borrow().get(&line) {
+                tooltip.set_text(Some(message));
+                return true;
+            }
+
+            false
+        }
     }
 
     impl GutterRendererImpl for ErrorGutterRenderer {
@@ -69,7 +89,7 @@ mod imp {
         ) {
             let obj = self.obj();
 
-            if obj.error_lines().contains(line) {
+            if self.error_lines.borrow().contains_key(&line) {
                 let (x, y) = obj.align_cell(line, CELL_SIZE as f32, CELL_SIZE as f32);
 
                 snapshot.save();
@@ -103,18 +123,17 @@ impl ErrorGutterRenderer {
         glib::Object::new()
     }
 
-    pub fn set_error(&self, line: u32) {
-        self.error_lines().add(line);
+    pub fn set_error(&self, line: u32, message: impl Into<String>) {
+        self.imp()
+            .error_lines
+            .borrow_mut()
+            .insert(line, message.into());
         self.queue_draw();
     }
 
     pub fn clear_errors(&self) {
-        self.error_lines().remove_all();
+        self.imp().error_lines.borrow_mut().clear();
         self.queue_draw();
-    }
-
-    fn error_lines(&self) -> &gtk::Bitset {
-        self.imp().error_lines.get().unwrap()
     }
 
     fn cache_paintable(&self) {
