@@ -323,7 +323,7 @@ mod imp {
                 }));
             self.graph_view
                 .connect_is_rendering_notify(clone!(@weak obj => move |graph_view| {
-                    if !dbg!(graph_view.is_rendering()) {
+                    if !graph_view.is_rendering() {
                         obj.imp().spinner_revealer.set_reveal_child(false);
                     }
                 }));
