@@ -131,18 +131,23 @@
                           </object>
                         </child>
                         <child type="overlay">
-                          <object class="GtkImage" id="view_error_image">
-                            <property name="visible">False</property>
+                          <object class="GtkRevealer" id="go_to_error_revealer">
                             <property name="halign">end</property>
-                            <property name="valign">start</property>
+                            <property name="valign">end</property>
                             <property name="margin-end">18</property>
-                            <property name="margin-top">18</property>
-                            <property name="icon-name">error-symbolic</property>
-                            <property name="pixel-size">24</property>
-                            <style>
-                              <class name="error"/>
-                              <class name="icon-dropshadow"/>
-                            </style>
+                            <property name="margin-bottom">18</property>
+                            <property name="transition-type">crossfade</property>
+                            <property name="child">
+                              <object class="GtkButton">
+                                <property name="tooltip-text">Go To Error</property>
+                                <property name="icon-name">error-symbolic</property>
+                                <property name="action-name">win.go-to-error</property>
+                                <style>
+                                  <class name="circular"/>
+                                  <class name="osd"/>
+                                </style>
+                              </object>
+                            </property>
                           </object>
                         </child>
                       </object>
