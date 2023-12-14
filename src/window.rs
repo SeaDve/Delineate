@@ -607,7 +607,7 @@ impl Window {
         if let Some(captures) = ERROR_MESSAGE_REGEX.captures(message) {
             tracing::debug!("Syntax error: {}", message);
 
-            // TODO show message too, and position before the line numbers
+            // TODO show message too
             let line_number = captures[1]
                 .parse::<u32>()
                 .expect("Failed to parse line number");
