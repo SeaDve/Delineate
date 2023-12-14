@@ -611,9 +611,10 @@ impl Window {
     fn handle_document_text_changed(&self) {
         let imp = self.imp();
 
-        imp.go_to_error_revealer.set_reveal_child(false);
-        imp.line_with_error.set(None);
         imp.error_gutter_renderer.clear_errors();
+
+        imp.line_with_error.set(None);
+        self.update_go_to_error_revealer();
 
         self.queue_draw_graph();
     }
@@ -631,10 +632,9 @@ impl Window {
             imp.error_gutter_renderer
                 .set_error(line_number, message.trim());
 
-            // FIXME Show only when line is not visible,also make it clickable through
+            // FIXME Show only when line is not visible
             imp.line_with_error.set(Some(line_number));
-            imp.go_to_error_revealer.set_visible(true);
-            imp.go_to_error_revealer.set_reveal_child(true);
+            self.update_go_to_error_revealer();
         } else {
             tracing::error!("Failed to draw graph: {}", message);
 
@@ -792,6 +792,17 @@ impl Window {
             {
                 tracing::error!("Failed to render: {:?}", err);
             }
+        }
+    }
+
+    fn update_go_to_error_revealer(&self) {
+        let imp = self.imp();
+
+        if imp.line_with_error.get().is_some() {
+            imp.go_to_error_revealer.set_visible(true);
+            imp.go_to_error_revealer.set_reveal_child(true);
+        } else {
+            imp.go_to_error_revealer.set_reveal_child(false);
         }
     }
 
