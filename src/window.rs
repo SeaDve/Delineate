@@ -5,15 +5,17 @@ use anyhow::{Context, Result};
 use gettextrs::gettext;
 use gtk::{
     gdk, gdk_pixbuf, gio,
-    glib::{self, clone, closure},
+    glib::{self, clone, closure, once_cell::sync::Lazy},
 };
 use gtk_source::prelude::*;
+use regex::Regex;
 
 use crate::{
     application::Application,
     config::PROFILE,
     document::Document,
     drag_overlay::DragOverlay,
+    error_gutter_renderer::ErrorGutterRenderer,
     graph_view::{Engine, GraphView},
     i18n::gettext_f,
     utils,
@@ -29,6 +31,9 @@ use crate::{
 // * modified file on disk handling
 
 const DRAW_GRAPH_INTERVAL: Duration = Duration::from_secs(1);
+
+static ERROR_MESSAGE_REGEX: Lazy<Regex> =
+    Lazy::new(|| Regex::new(r"syntax error in line (\d+)").expect("Failed to compile regex"));
 
 #[derive(Debug, Clone, Copy)]
 pub enum Format {
@@ -96,19 +101,19 @@ mod imp {
         #[template_child]
         pub(super) progress_bar: TemplateChild<gtk::ProgressBar>,
         #[template_child]
+        pub(super) graph_error_image: TemplateChild<gtk::Image>,
+        #[template_child]
         pub(super) view: TemplateChild<gtk_source::View>,
         #[template_child]
-        pub(super) stack: TemplateChild<gtk::Stack>,
-        #[template_child]
         pub(super) graph_view: TemplateChild<GraphView>,
-        #[template_child]
-        pub(super) error_page: TemplateChild<adw::StatusPage>,
         #[template_child]
         pub(super) engine_drop_down: TemplateChild<gtk::DropDown>,
         #[template_child]
         pub(super) zoom_level_button: TemplateChild<gtk::Button>,
         #[template_child]
         pub(super) spinner_revealer: TemplateChild<gtk::Revealer>,
+
+        pub(super) error_gutter_renderer: ErrorGutterRenderer,
 
         pub(super) document_binding_group: glib::BindingGroup,
         pub(super) document_signal_group: OnceCell<glib::SignalGroup>,
@@ -267,7 +272,7 @@ mod imp {
                 "text-changed",
                 false,
                 clone!(@weak obj => @default-panic, move |_| {
-                    obj.queue_draw_graph();
+                    obj.handle_document_text_changed();
                     None
                 }),
             );
@@ -304,22 +309,17 @@ mod imp {
             }));
             self.drag_overlay.set_target(Some(&drop_target));
 
+            let gutter = ViewExt::gutter(&*self.view, gtk::TextWindowType::Left);
+            let was_inserted = gutter.insert(&self.error_gutter_renderer, 0);
+            debug_assert!(was_inserted);
+
             self.graph_view
-                .connect_is_graph_loaded_notify(clone!(@weak obj => move |graph_view| {
-                    if graph_view.is_graph_loaded() {
-                        let imp = obj.imp();
-                        imp.stack.set_visible_child(&*imp.graph_view);
-                        tracing::debug!("Graph loaded");
-                    }
+                .connect_is_graph_loaded_notify(clone!(@weak obj => move |_| {
                     obj.update_export_graph_action();
                 }));
             self.graph_view
                 .connect_error(clone!(@weak obj => move |_, message| {
-                    let imp = obj.imp();
-                    imp.stack.set_visible_child(&*imp.error_page);
-                    imp.error_page
-                        .set_description(Some(&glib::markup_escape_text(message)));
-                    tracing::error!("Failed to draw graph: {}", message);
+                    obj.handle_graph_view_error(message);
                 }));
             self.graph_view
                 .connect_is_rendering_notify(clone!(@weak obj => move |graph_view| {
@@ -590,6 +590,32 @@ impl Window {
         );
 
         true
+    }
+
+    fn handle_document_text_changed(&self) {
+        let imp = self.imp();
+
+        imp.graph_error_image.set_visible(false);
+        imp.error_gutter_renderer.clear_errors();
+
+        self.queue_draw_graph();
+    }
+
+    fn handle_graph_view_error(&self, message: &str) {
+        let imp = self.imp();
+
+        if let Some(captures) = ERROR_MESSAGE_REGEX.captures(message) {
+            // TODO show message too, and position before the line numbers
+            let line_number = captures[1]
+                .parse::<u32>()
+                .expect("Failed to parse line number");
+            imp.error_gutter_renderer.set_error(line_number - 1);
+        } else {
+            imp.graph_error_image.set_visible(true);
+            imp.graph_error_image.set_tooltip_text(Some(message.trim()));
+        }
+
+        tracing::error!("Failed to draw graph: {}", message);
     }
 
     /// Returns `Ok` if unsaved changes are handled and can proceed, `Err` if

@@ -238,6 +238,7 @@ dependencies = [
  "gsettings-macro",
  "gtk4",
  "libadwaita",
+ "regex",
  "sourceview5",
  "tracing",
  "tracing-subscriber",

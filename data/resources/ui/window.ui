@@ -136,15 +136,23 @@
                       <object class="AdwToolbarView">
                         <property name="bottom-bar-style">raised</property>
                         <property name="content">
-                          <object class="GtkStack" id="stack">
-                            <property name="transition-type">crossfade</property>
-                            <child>
+                          <object class="GtkOverlay">
+                            <property name="child">
                               <object class="DaggerGraphView" id="graph_view"/>
-                            </child>
-                            <child>
-                              <object class="AdwStatusPage" id="error_page">
+                            </property>
+                            <child type="overlay">
+                              <object class="GtkImage" id="graph_error_image">
+                                <property name="visible">False</property>
+                                <property name="halign">end</property>
+                                <property name="valign">start</property>
+                                <property name="margin-end">18</property>
+                                <property name="margin-top">18</property>
                                 <property name="icon-name">warning-symbolic</property>
-                                <property name="title" translatable="yes">Can't Draw Graph</property>
+                                <property name="pixel-size">24</property>
+                                <style>
+                                  <class name="error"/>
+                                  <class name="icon-dropshadow"/>
+                                </style>
                               </object>
                             </child>
                           </object>

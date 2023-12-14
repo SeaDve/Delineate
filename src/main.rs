@@ -24,9 +24,11 @@
 
 mod about;
 mod application;
+mod colors;
 mod config;
 mod document;
 mod drag_overlay;
+mod error_gutter_renderer;
 mod graph_view;
 mod i18n;
 mod settings;
