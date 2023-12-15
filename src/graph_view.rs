@@ -95,8 +95,11 @@ mod imp {
 
         fn new() -> Self {
             let settings = webkit::Settings::new();
-            settings.set_enable_developer_extras(true);
-            settings.set_enable_write_console_messages_to_stdout(true);
+
+            if utils::is_devel_profile() {
+                settings.set_enable_developer_extras(true);
+                settings.set_enable_write_console_messages_to_stdout(true);
+            }
 
             let context = webkit::WebContext::new();
             context.set_cache_model(webkit::CacheModel::DocumentViewer);
