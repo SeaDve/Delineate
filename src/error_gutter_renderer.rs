@@ -7,7 +7,8 @@ use gtk::{
 };
 use gtk_source::{prelude::*, subclass::prelude::*};
 
-use crate::colors::{RED_1, RED_4};
+const ERROR_LIGHT_MODE_COLOR: gdk::RGBA = gdk::RGBA::new(0.753, 0.11, 0.157, 1.0);
+const ERROR_DARK_MODE_COLOR: gdk::RGBA = gdk::RGBA::new(1.0, 0.482, 0.388, 1.0);
 
 const SIZE_SP: f64 = 12.0;
 
@@ -130,9 +131,9 @@ mod imp {
 
                 let style_manager = adw::StyleManager::default();
                 let color = if style_manager.is_dark() {
-                    RED_1
+                    ERROR_DARK_MODE_COLOR
                 } else {
-                    RED_4
+                    ERROR_LIGHT_MODE_COLOR
                 };
 
                 self.paintable.borrow().as_ref().unwrap().snapshot_symbolic(

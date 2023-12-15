@@ -24,7 +24,6 @@
 
 mod about;
 mod application;
-mod colors;
 mod config;
 mod document;
 mod drag_overlay;
