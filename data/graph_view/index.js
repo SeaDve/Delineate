@@ -1,6 +1,7 @@
 // TODO
 // - make mouse wheel zoom smooth like loupe
 // - improve packaging
+// - show proper cursors when dragging etc.
 
 const ZOOM_TRANSITION_DURATION_MS = 200;
 const TRANSITION_DURATION_MS = 400;
