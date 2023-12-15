@@ -22,7 +22,7 @@ class GraphView {
 
         this._originalAttributes = null;
 
-        this._setSvg(null)
+        this._setSvg(null);
         this._setRendering(false);
 
         this._pendingUpdate = false;
@@ -30,7 +30,7 @@ class GraphView {
         this._div = d3.select("#graph");
         this._graphviz = this._div.graphviz()
             .onerror(this._handleError.bind(this))
-            .on('initEnd', this._handleInitEnd.bind(this))
+            .on("initEnd", this._handleInitEnd.bind(this))
             .transition(() => {
                 return d3.transition().duration(TRANSITION_DURATION_MS);
             });
@@ -43,7 +43,7 @@ class GraphView {
     }
 
     _handleError(error) {
-        this._setRendering(false)
+        this._setRendering(false);
 
         if (this._pendingUpdate) {
             this._pendingUpdate = false;
@@ -66,7 +66,7 @@ class GraphView {
             height: attributes.height,
             width: attributes.width,
             viewBox: attributes.viewBox,
-        }
+        };
     }
 
     _handleRenderDone() {
@@ -122,12 +122,12 @@ class GraphView {
                 this._setSvg(null);
                 this._originalAttributes = null;
             }
-            this._setRendering(false)
+            this._setRendering(false);
             return;
         }
 
         if (this._dotSrc === this._prevDotSrc && this._engine === this._prevEngine) {
-            this._setRendering(false)
+            this._setRendering(false);
             return;
         }
 
