@@ -1,5 +1,7 @@
 // TODO
 // - make mouse wheel zoom smooth like loupe
+// - add search from nodes, edges, or clusters
+// - highlight bidirectional, upstream, or downstream references
 // - improve packaging
 // - show proper cursors when dragging etc.
 

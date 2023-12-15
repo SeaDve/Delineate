@@ -27,7 +27,7 @@ use crate::{
 // * Full screen view of graph
 // * Tabs and/or multiple windows
 // * Recent files
-// * dot language server, with error handling on text view
+// * dot language server, hover info, color picker, autocompletion, snippets, renames, etc.
 // * modified file on disk handling
 
 const DRAW_GRAPH_INTERVAL: Duration = Duration::from_secs(1);
