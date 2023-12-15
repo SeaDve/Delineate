@@ -231,7 +231,7 @@ impl GraphView {
     }
 
     pub async fn set_data(&self, dot_src: &str, engine: Engine) -> Result<()> {
-        self.call_js_func("graphView.setData", &[&dot_src, &engine.as_raw()])
+        self.call_js_method("setData", &[&dot_src, &engine.as_raw()])
             .await?;
         Ok(())
     }
@@ -247,12 +247,12 @@ impl GraphView {
     }
 
     pub async fn reset_zoom(&self) -> Result<()> {
-        self.call_js_func("graphView.resetZoom", &[]).await?;
+        self.call_js_method("resetZoom", &[]).await?;
         Ok(())
     }
 
     pub async fn get_svg(&self) -> Result<Option<glib::Bytes>> {
-        let ret = self.call_js_func("graphView.getSvgString", &[]).await?;
+        let ret = self.call_js_method("getSvgString", &[]).await?;
 
         if ret.is_null() {
             return Ok(None);
@@ -265,17 +265,20 @@ impl GraphView {
     }
 
     async fn set_zoom_level_by(&self, factor: f64) -> Result<()> {
-        self.call_js_func("graphView.setZoomLevelBy", &[&factor])
-            .await?;
+        self.call_js_method("setZoomLevelBy", &[&factor]).await?;
         Ok(())
     }
 
-    async fn call_js_func(&self, func_name: &str, args: &[&dyn ToVariant]) -> Result<Value> {
+    async fn call_js_method(&self, method_name: &str, args: &[&dyn ToVariant]) -> Result<Value> {
         self.ensure_view_initialized().await?;
-        self.call_js_func_inner(func_name, args).await
+        self.call_js_method_inner(method_name, args).await
     }
 
-    async fn call_js_func_inner(&self, func_name: &str, args: &[&dyn ToVariant]) -> Result<Value> {
+    async fn call_js_method_inner(
+        &self,
+        method_name: &str,
+        args: &[&dyn ToVariant],
+    ) -> Result<Value> {
         let imp = self.imp();
 
         let args = args
@@ -285,8 +288,8 @@ impl GraphView {
             .collect::<Vec<_>>();
 
         let body = format!(
-            "return {}({})",
-            func_name,
+            "return graphView.{}({})",
+            method_name,
             args.iter()
                 .map(|(name, _)| name.as_str())
                 .collect::<Vec<_>>()
@@ -307,8 +310,8 @@ impl GraphView {
             .view
             .call_async_javascript_function_future(&body, args.as_ref(), None, None)
             .await
-            .with_context(|| format!("Failed to call `{}`", func_name))?;
-        tracing::trace!(ret = %ret_value.to_str(), "JS function returned");
+            .with_context(|| format!("Failed to call `{}`", method_name))?;
+        tracing::trace!(ret = %ret_value.to_str(), "JS method returned");
 
         Ok(ret_value)
     }
@@ -402,15 +405,15 @@ impl GraphView {
                 user_content_manager.unregister_script_message_handler(INIT_END_MESSAGE_ID, None);
                 user_content_manager.disconnect(init_handler_id);
 
-                self.call_js_func_inner(
-                    "graphView.setZoomScaleExtent",
+                self.call_js_method_inner(
+                    "setZoomScaleExtent",
                     &[&MIN_ZOOM_LEVEL, &MAX_ZOOM_LEVEL],
                 )
                 .await
                 .context("Failed to set zoom scale extent")?;
 
                 let version = self
-                    .call_js_func_inner("graphView.graphvizVersion", &[])
+                    .call_js_method_inner("graphvizVersion", &[])
                     .await
                     .context("Failed to get version")?
                     .to_str();
