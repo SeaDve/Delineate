@@ -288,7 +288,7 @@ impl GraphView {
         let args = args
             .iter()
             .enumerate()
-            .map(|(index, value)| (format!("arg{}", index), value))
+            .map(|(index, value)| (format!("arg{}", index), value.to_variant()))
             .collect::<Vec<_>>();
 
         let body = format!(
@@ -305,7 +305,7 @@ impl GraphView {
         } else {
             let arg_dict = glib::VariantDict::new(None);
             for (name, value) in args {
-                arg_dict.insert(&name, value.to_variant());
+                arg_dict.insert(&name, value);
             }
             Some(arg_dict.end())
         };
