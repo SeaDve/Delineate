@@ -2,7 +2,11 @@ use std::future::Future;
 
 use gtk::{gio, glib, prelude::*};
 
-use crate::application::Application;
+use crate::{application::Application, config::PROFILE};
+
+pub fn is_devel_profile() -> bool {
+    PROFILE == "Devel"
+}
 
 /// Spawns a future in the default [`glib::MainContext`]
 pub fn spawn<R, F>(priority: glib::Priority, fut: F) -> glib::JoinHandle<R>

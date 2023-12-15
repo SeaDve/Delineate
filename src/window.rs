@@ -12,7 +12,6 @@ use regex::Regex;
 
 use crate::{
     application::Application,
-    config::PROFILE,
     document::Document,
     drag_overlay::DragOverlay,
     error_gutter_renderer::ErrorGutterRenderer,
@@ -253,7 +252,7 @@ mod imp {
 
             let obj = self.obj();
 
-            if PROFILE == "Devel" {
+            if utils::is_devel_profile() {
                 obj.add_css_class("devel");
             }
 
