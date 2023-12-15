@@ -162,10 +162,9 @@ class GraphView {
             return;
         }
 
+        const transition = d3.transition().duration(ZOOM_TRANSITION_DURATION_MS);
         this._graphviz.zoomSelection()
-            .transition(() => {
-                return d3.transition().duration(ZOOM_TRANSITION_DURATION_MS);
-            })
+            .transition(transition)
             .call(this._graphviz.zoomBehavior().scaleBy, factor);
     }
 
