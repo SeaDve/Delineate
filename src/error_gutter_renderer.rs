@@ -9,7 +9,7 @@ use gtk_source::{prelude::*, subclass::prelude::*};
 
 use crate::colors::{RED_1, RED_4};
 
-const CELL_SIZE: i32 = 12;
+const SIZE_SP: f64 = 12.0;
 
 mod imp {
     use std::{
@@ -43,10 +43,16 @@ mod imp {
 
             let obj = self.obj();
             obj.set_has_tooltip(true);
+            obj.set_yalign(0.5);
 
             obj.connect_scale_factor_notify(clone!(@weak obj => move |_| {
                 obj.cache_paintable();
             }));
+
+            obj.settings()
+                .connect_gtk_xft_dpi_notify(clone!(@weak obj => move |_| {
+                    obj.cache_paintable();
+                }));
 
             obj.cache_paintable();
         }
@@ -55,7 +61,10 @@ mod imp {
     impl WidgetImpl for ErrorGutterRenderer {
         fn measure(&self, _orientation: gtk::Orientation, _for_size: i32) -> (i32, i32, i32, i32) {
             match _orientation {
-                gtk::Orientation::Horizontal => (CELL_SIZE, CELL_SIZE, -1, -1),
+                gtk::Orientation::Horizontal => {
+                    let size = self.obj().size() as i32;
+                    (size, size, -1, -1)
+                }
                 gtk::Orientation::Vertical => (0, 0, -1, -1),
                 _ => unreachable!(),
             }
@@ -113,10 +122,11 @@ mod imp {
             let obj = self.obj();
 
             if self.error_lines.borrow().contains_key(&line) {
-                let (x, y) = obj.align_cell(line, CELL_SIZE as f32, CELL_SIZE as f32);
+                let size = obj.size();
+                let (x, y) = obj.align_cell(line, size as f32, size as f32);
 
                 snapshot.save();
-                snapshot.translate(&Point::new(x, y + 2.0));
+                snapshot.translate(&Point::new(x, y));
 
                 let style_manager = adw::StyleManager::default();
                 let color = if style_manager.is_dark() {
@@ -127,8 +137,8 @@ mod imp {
 
                 self.paintable.borrow().as_ref().unwrap().snapshot_symbolic(
                     snapshot,
-                    CELL_SIZE as f64,
-                    CELL_SIZE as f64,
+                    size,
+                    size,
                     &[color],
                 );
 
@@ -161,6 +171,10 @@ impl ErrorGutterRenderer {
         self.queue_draw();
     }
 
+    fn size(&self) -> f64 {
+        adw::LengthUnit::Sp.to_px(SIZE_SP, Some(&self.settings()))
+    }
+
     fn set_has_visible_errors(&self, has_visible_errors: bool) {
         if has_visible_errors == self.has_visible_errors() {
             return;
@@ -177,7 +191,7 @@ impl ErrorGutterRenderer {
         let paintable = icon_theme.lookup_icon(
             "error-symbolic",
             &[],
-            CELL_SIZE,
+            self.size() as i32,
             self.scale_factor(),
             self.direction(),
             gtk::IconLookupFlags::FORCE_SYMBOLIC,
