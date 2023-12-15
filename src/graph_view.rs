@@ -109,6 +109,7 @@ mod imp {
                 can_zoom_out: Cell::new(false),
                 can_reset_zoom: Cell::new(false),
                 view: glib::Object::builder()
+                    .property("visible", false)
                     .property("settings", settings)
                     .property("web-context", context)
                     .build(),
@@ -418,6 +419,10 @@ impl GraphView {
                     .context("Failed to get version")?
                     .to_str();
                 tracing::debug!(%version, "Initialized Graphviz");
+
+                // This make sure that even the style sheet is loaded preventing
+                // the view from flickering when it is shown.
+                imp.view.set_visible(true);
 
                 anyhow::Ok(())
             })
