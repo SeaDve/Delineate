@@ -118,9 +118,6 @@ mod imp {
                 snapshot.save();
                 snapshot.translate(&Point::new(x, y + 2.0));
 
-                let paintable = self.paintable.borrow();
-                let paintable = paintable.as_ref().unwrap();
-
                 let style_manager = adw::StyleManager::default();
                 let color = if style_manager.is_dark() {
                     RED_1
@@ -128,7 +125,12 @@ mod imp {
                     RED_4
                 };
 
-                paintable.snapshot_symbolic(snapshot, CELL_SIZE as f64, CELL_SIZE as f64, &[color]);
+                self.paintable.borrow().as_ref().unwrap().snapshot_symbolic(
+                    snapshot,
+                    CELL_SIZE as f64,
+                    CELL_SIZE as f64,
+                    &[color],
+                );
 
                 snapshot.restore();
             }
