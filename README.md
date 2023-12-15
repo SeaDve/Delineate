@@ -24,3 +24,9 @@ cd Dagger
 meson _build --prefix=/usr/local
 ninja -C _build install
 ```
+
+## 💝 Acknowledgment
+
+I would also like to acknowledge the open-source software projects, libraries, and APIs that were
+used in developing this app, such as GStreamer, GTK, LibAdwaita, `d3-graphviz`, etc.,
+for making Dagger possible.
