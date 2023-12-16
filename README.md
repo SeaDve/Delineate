@@ -8,6 +8,12 @@
   <strong>View and edit Graphviz DOT graphs</strong>
 </p>
 
+<p align="center">
+  <a href="https://github.com/SeaDve/dagger/actions/workflows/ci.yml">
+    <img alt="CI status" src="https://github.com/SeaDve/dagger/actions/workflows/ci.yml/badge.svg"/>
+  </a>
+</p>
+
 ## 🏗️ Building from source
 
 ### GNOME Builder
