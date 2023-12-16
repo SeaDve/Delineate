@@ -197,6 +197,10 @@ mod imp {
             );
         }
 
+        fn dispose(&self) {
+            self.view.unparent();
+        }
+
         fn signals() -> &'static [Signal] {
             static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
                 vec![Signal::builder("error")
