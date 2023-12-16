@@ -14,6 +14,14 @@
   </a>
 </p>
 
+Dagger provides facilities to edit and draw graphs specified in the [DOT language](https://graphviz.org/doc/info/lang.html). It is designed to be a simple and intuitive tool for creating and editing graphs, with a focus on the user experience.
+
+The main features of Dagger include the following:
+- 🖼️ Live and interactive preview of the graph as you type
+- ⏺️ Multiple Graphviz layout engines support
+- 📝 Full-featured DOT language editor
+- 📦 Export graph to PNG, SVG, and JPEG
+
 ## 🏗️ Building from source
 
 ### GNOME Builder
@@ -30,6 +38,14 @@ cd Dagger
 meson _build --prefix=/usr/local
 ninja -C _build install
 ```
+
+## 📦 Third-Party Packages
+
+Unlike Flatpak, take note that these packages are not officially supported by the developer.
+
+### Repology
+
+You can also check out other third-party packages on [Repology](https://repology.org/project/dagger/versions).
 
 ## 💝 Acknowledgment
 
