@@ -195,7 +195,7 @@
                                 <property name="can-target">False</property>
                                 <property name="transition-type">crossfade</property>
                                 <property name="child">
-                                  <object class="GtkSpinner" id="spinner">
+                                  <object class="GtkSpinner">
                                     <property name="width-request">18</property>
                                     <property name="height-request">18</property>
                                     <property name="margin-start">6</property>
