@@ -32,7 +32,7 @@ use crate::{
 const DRAW_GRAPH_PRIORITY: glib::Priority = glib::Priority::DEFAULT_IDLE;
 const DRAW_GRAPH_INTERVAL: Duration = Duration::from_secs(1);
 
-static ERROR_MESSAGE_REGEX: Lazy<Regex> =
+static SYNTAX_ERROR_REGEX: Lazy<Regex> =
     Lazy::new(|| Regex::new(r"syntax error in line (\d+)").expect("Failed to compile regex"));
 
 #[derive(Debug, Clone, Copy)]
@@ -651,7 +651,7 @@ impl Window {
 
         let message = message.trim();
 
-        if let Some(captures) = ERROR_MESSAGE_REGEX.captures(message) {
+        if let Some(captures) = SYNTAX_ERROR_REGEX.captures(message) {
             tracing::trace!("Syntax error: {}", message);
 
             let raw_line_number = captures[1].parse::<u32>().unwrap();
