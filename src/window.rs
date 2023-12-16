@@ -29,6 +29,7 @@ use crate::{
 // * dot language server, hover info, color picker, autocompletion, snippets, renames, etc.
 // * modified file on disk handling
 
+const DRAW_GRAPH_PRIORITY: glib::Priority = glib::Priority::DEFAULT_IDLE;
 const DRAW_GRAPH_INTERVAL: Duration = Duration::from_secs(1);
 
 static ERROR_MESSAGE_REGEX: Lazy<Regex> =
@@ -374,7 +375,7 @@ mod imp {
                 }));
 
             utils::spawn(
-                glib::Priority::DEFAULT_IDLE,
+                DRAW_GRAPH_PRIORITY,
                 clone!(@weak obj => async move {
                     obj.start_draw_graph_loop().await;
                 }),
@@ -796,7 +797,7 @@ impl Window {
         loop {
             let cancellable = gio::Cancellable::new();
             let timeout = gio::CancellableFuture::new(
-                glib::timeout_future(DRAW_GRAPH_INTERVAL),
+                glib::timeout_future_with_priority(DRAW_GRAPH_PRIORITY, DRAW_GRAPH_INTERVAL),
                 cancellable.clone(),
             );
             imp.draw_graph_timeout_cancellable
