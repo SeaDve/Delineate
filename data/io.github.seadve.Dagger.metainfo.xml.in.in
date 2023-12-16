@@ -6,12 +6,18 @@
   <name>Dagger</name>
   <summary>View and edit Graphviz DOT graphs</summary>
   <description>
-    <p>A boilerplate template for GTK + Rust. It uses Meson as a build system and has flatpak support by default.</p>
+    <p>Dagger provides facilities to edit and draw graphs specified in the DOT language It is designed to be a simple and intuitive tool for creating and editing graphs, with a focus on the user experience.</p>
+    <p>The main features of Dagger include the following:</p>
+    <ul>
+      <li>🖼️ Live and interactive preview of the graph as you type</li>
+      <li>⏺️ Multiple Graphviz layout engines support</li>
+      <li>📝 Full-featured DOT language editor</li>
+      <li>📦 Export graph to PNG, SVG, and JPEG</li>
+    </ul>
   </description>
   <screenshots>
     <screenshot type="default">
       <image>https://gitlab.gnome.org/bilelmoussaoui/dagger/raw/master/data/resources/screenshots/screenshot1.png</image>
-      <caption>Main window</caption>
     </screenshot>
   </screenshots>
   <url type="homepage">https://github.com/SeaDve/dagger</url>
@@ -21,7 +27,11 @@
   <url type="donation">https://seadve.github.io/donate</url>
   <content_rating type="oars-1.0"/>
   <releases>
-    <release version="0.1.0" date="2019-07-11"/>
+    <release version="0.1.0" date="2023-12-16">
+      <description translatable="no">
+        <p>Initial release.</p>
+      </description>
+    </release>
   </releases>
   <kudos>
     <kudo>ModernToolkit</kudo>
@@ -39,4 +49,7 @@
     <control>pointing</control>
     <control>touch</control>
   </recommends>
+  <custom>
+    <value key="Purism::form_factor">mobile</value>
+  </custom>
 </component>
