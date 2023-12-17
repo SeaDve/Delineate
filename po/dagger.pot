@@ -1,0 +1,302 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the dagger package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: dagger\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-12-17 19:03+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: data/io.github.seadve.Dagger.desktop.in.in:3
+#: data/io.github.seadve.Dagger.metainfo.xml.in.in:6 src/about.rs:15
+#: src/main.rs:55
+msgid "Dagger"
+msgstr ""
+
+#: data/io.github.seadve.Dagger.desktop.in.in:4
+#: data/io.github.seadve.Dagger.metainfo.xml.in.in:7
+msgid "View and edit Graphviz DOT graphs"
+msgstr ""
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/io.github.seadve.Dagger.desktop.in.in:10
+msgid "graphviz;dot;graphs;visualization;"
+msgstr ""
+
+#: data/io.github.seadve.Dagger.gschema.xml.in:6
+msgid "Window width"
+msgstr ""
+
+#: data/io.github.seadve.Dagger.gschema.xml.in:10
+msgid "Window height"
+msgstr ""
+
+#: data/io.github.seadve.Dagger.gschema.xml.in:14
+msgid "Window maximized state"
+msgstr ""
+
+#: data/io.github.seadve.Dagger.gschema.xml.in:18
+msgid "Position of the paned handle"
+msgstr ""
+
+#: data/io.github.seadve.Dagger.gschema.xml.in:22
+msgid "Last selected Graphviz layout engine"
+msgstr ""
+
+#: data/io.github.seadve.Dagger.metainfo.xml.in.in:9
+msgid ""
+"Dagger provides facilities to edit and draw graphs specified in the DOT "
+"language It is designed to be a simple and intuitive tool for creating and "
+"editing graphs, with a focus on the user experience."
+msgstr ""
+
+#: data/io.github.seadve.Dagger.metainfo.xml.in.in:10
+msgid "The main features of Dagger include the following:"
+msgstr ""
+
+#: data/io.github.seadve.Dagger.metainfo.xml.in.in:12
+msgid "🖼️ Live and interactive preview of the graph as you type"
+msgstr ""
+
+#: data/io.github.seadve.Dagger.metainfo.xml.in.in:13
+msgid "⏺️ Multiple Graphviz layout engines support"
+msgstr ""
+
+#: data/io.github.seadve.Dagger.metainfo.xml.in.in:14
+msgid "📝 Fully-featured DOT language editor"
+msgstr ""
+
+#: data/io.github.seadve.Dagger.metainfo.xml.in.in:15
+msgid "📦 Export graph as PNG, SVG, or JPEG"
+msgstr ""
+
+#: data/io.github.seadve.Dagger.metainfo.xml.in.in:40 src/about.rs:16
+msgid "Dave Patrick Caberto"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:28
+msgctxt "shortcut window"
+msgid "Documents"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:31
+msgctxt "shortcut window"
+msgid "New Document"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:37
+msgctxt "shortcut window"
+msgid "Open Document"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:43
+msgctxt "shortcut window"
+msgid "Save Document"
+msgstr ""
+
+#: data/resources/ui/window.ui:6
+msgid "_Save"
+msgstr ""
+
+#: data/resources/ui/window.ui:10
+msgid "Save _As…"
+msgstr ""
+
+#: data/resources/ui/window.ui:16
+msgid "_Export Graph"
+msgstr ""
+
+#: data/resources/ui/window.ui:18
+msgid "Export As PNG…"
+msgstr ""
+
+#: data/resources/ui/window.ui:23
+msgid "Export As SVG…"
+msgstr ""
+
+#: data/resources/ui/window.ui:28
+msgid "Export As JPEG…"
+msgstr ""
+
+#: data/resources/ui/window.ui:36
+msgid "_Keyboard Shortcuts"
+msgstr ""
+
+#: data/resources/ui/window.ui:40
+msgid "_About Dagger"
+msgstr ""
+
+#: data/resources/ui/window.ui:57
+msgid "Open"
+msgstr ""
+
+#: data/resources/ui/window.ui:63
+msgid "New Document"
+msgstr ""
+
+#: data/resources/ui/window.ui:92
+msgid "Main Menu"
+msgstr ""
+
+#: data/resources/ui/window.ui:170
+msgid "Zoom Out"
+msgstr ""
+
+#: data/resources/ui/window.ui:177
+msgid "Reset Zoom"
+msgstr ""
+
+#: data/resources/ui/window.ui:183
+msgid "Zoom In"
+msgstr ""
+
+#: src/about.rs:18
+msgid "© 2023 Dave Patrick Caberto"
+msgstr ""
+
+#. Translators: Replace "translator-credits" with your names. Put a comma between.
+#: src/about.rs:21
+msgid "translator-credits"
+msgstr ""
+
+#: src/about.rs:28
+msgid "Donate"
+msgstr ""
+
+#: src/about.rs:30
+msgid "Donate (Buy Me a Coffee)"
+msgstr ""
+
+#: src/about.rs:33
+msgid "GitHub"
+msgstr ""
+
+#: src/about.rs:35
+msgid "Translate"
+msgstr ""
+
+#: src/window.rs:64
+msgid "SVG"
+msgstr ""
+
+#: src/window.rs:65
+msgid "PNG"
+msgstr ""
+
+#: src/window.rs:66
+msgid "JPEG"
+msgstr ""
+
+#: src/window.rs:154
+msgid "Failed to open document"
+msgstr ""
+
+#: src/window.rs:166
+msgid "Failed to save document"
+msgstr ""
+
+#: src/window.rs:178
+msgid "Failed to save document as"
+msgstr ""
+
+#: src/window.rs:199
+msgid "Failed to export graph"
+msgstr ""
+
+#: src/window.rs:240
+msgid "Failed to show in Files"
+msgstr ""
+
+#: src/window.rs:269 src/window.rs:709
+msgid "Untitled Document"
+msgstr ""
+
+#: src/window.rs:490
+msgid "Open Document"
+msgstr ""
+
+#: src/window.rs:506
+msgid "Save Document"
+msgstr ""
+
+#: src/window.rs:521
+msgid "Save Document As"
+msgstr ""
+
+#: src/window.rs:547
+msgid "Export Graph"
+msgstr ""
+
+#: src/window.rs:548
+msgid "_Export"
+msgstr ""
+
+#: src/window.rs:594
+msgid "Graph exported"
+msgstr ""
+
+#: src/window.rs:595
+msgid "Show in Files"
+msgstr ""
+
+#: src/window.rs:630
+msgid "Failed to load file"
+msgstr ""
+
+#: src/window.rs:667
+msgid "Failed to draw graph"
+msgstr ""
+
+#: src/window.rs:687
+msgid "Failed to save changes to document"
+msgstr ""
+
+#: src/window.rs:713
+msgid "Save Changes?"
+msgstr ""
+
+#: src/window.rs:723
+msgid "Cancel"
+msgstr ""
+
+#: src/window.rs:725
+msgid "Discard"
+msgstr ""
+
+#: src/window.rs:729
+msgid "Save"
+msgstr ""
+
+#: src/window.rs:731
+msgid "Save As…"
+msgstr ""
+
+#. Translators: DOT is an acronym, do not translate.
+#: src/window.rs:881
+msgid "Graphviz DOT Files"
+msgstr ""
