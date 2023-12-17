@@ -9,9 +9,22 @@
 </p>
 
 <p align="center">
+  <a href="https://www.buymeacoffee.com/seadve">
+    <img alt="Buy Me a Coffee" src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=seadve&button_colour=FFDD00&font_colour=000000&font_family=Inter&outline_colour=000000&coffee_colour=ffffff" width="150"/>
+  </a>
+</p>
+
+<p align="center">
+ <a href="https://hosted.weblate.org/engage/kooha">
+    <img alt="Translation status" src="https://hosted.weblate.org/widgets/kooha/-/dagger/svg-badge.svg"/>
+  </a>
   <a href="https://github.com/SeaDve/dagger/actions/workflows/ci.yml">
     <img alt="CI status" src="https://github.com/SeaDve/dagger/actions/workflows/ci.yml/badge.svg"/>
   </a>
+</p>
+
+<p align="center">
+  <img src="data/resources/screenshots/preview.png" alt="Preview"/>
 </p>
 
 Dagger provides facilities to edit and draw graphs specified in the [DOT language](https://graphviz.org/doc/info/lang.html). It is designed to be a simple and intuitive tool for creating and editing graphs, with a focus on the user experience.
@@ -47,7 +60,21 @@ Unlike Flatpak, take note that these packages are not officially supported by th
 
 You can also check out other third-party packages on [Repology](https://repology.org/project/dagger/versions).
 
+## 🙌 Help translate
+
+You can help Dagger translate into your native language. If you find any typos
+or think you can improve a translation, you can use the [Weblate](https://hosted.weblate.org/engage/kooha/) platform.
+
+## ☕ Support me and the project
+
+Dagger is free and will always be for everyone to use. If you like the project and
+would like to support it, you may [buy me a coffee](https://www.buymeacoffee.com/seadve).
+
 ## 💝 Acknowledgment
+
+I would like to thank the [contributors](https://github.com/SeaDve/dagger/graphs/contributors)
+and [translators](https://hosted.weblate.org/engage/kooha/) of the project for helping Dagger
+to grow and improve.
 
 I would also like to acknowledge the open-source software projects, libraries, and APIs that were
 used in developing this app, such as GStreamer, GTK, LibAdwaita, `d3-graphviz`, etc.,
