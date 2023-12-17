@@ -19,8 +19,8 @@ Dagger provides facilities to edit and draw graphs specified in the [DOT languag
 The main features of Dagger include the following:
 - 🖼️ Live and interactive preview of the graph as you type
 - ⏺️ Multiple Graphviz layout engines support
-- 📝 Full-featured DOT language editor
-- 📦 Export graph to PNG, SVG, and JPEG
+- 📝 Fully-featured DOT language editor
+- 📦 📦 Export graph as PNG, SVG, or JPEG
 
 ## 🏗️ Building from source
 

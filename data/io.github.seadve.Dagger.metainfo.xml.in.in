@@ -11,8 +11,8 @@
     <ul>
       <li>🖼️ Live and interactive preview of the graph as you type</li>
       <li>⏺️ Multiple Graphviz layout engines support</li>
-      <li>📝 Full-featured DOT language editor</li>
-      <li>📦 Export graph to PNG, SVG, and JPEG</li>
+      <li>📝 Fully-featured DOT language editor</li>
+      <li>📦 Export graph as PNG, SVG, or JPEG</li>
     </ul>
   </description>
   <screenshots>
