@@ -451,8 +451,8 @@ impl GraphView {
                     .to_str();
                 tracing::debug!(%version, "Initialized Graphviz");
 
-                // This make sure that even the style sheet is loaded preventing
-                // the view from flickering when it is shown.
+                // Hide view while it's loading to prevent flickering from the delayed
+                // style sheet loading.
                 imp.view.set_visible(true);
 
                 anyhow::Ok(())
