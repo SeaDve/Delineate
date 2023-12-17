@@ -552,11 +552,7 @@ impl Window {
             .build();
         let file = dialog.save_future(Some(self)).await?;
 
-        let svg_bytes = imp
-            .graph_view
-            .get_svg()
-            .await?
-            .context("Failed to get SVG")?;
+        let svg_bytes = imp.graph_view.get_svg().await?;
 
         let bytes = match format {
             Format::Svg => svg_bytes,

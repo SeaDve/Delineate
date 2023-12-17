@@ -1,6 +1,6 @@
 use std::cell::RefCell;
 
-use anyhow::{Context, Result};
+use anyhow::{ensure, Context, Result};
 use futures_channel::oneshot;
 use gtk::{
     gio,
@@ -280,17 +280,15 @@ impl GraphView {
         Ok(())
     }
 
-    pub async fn get_svg(&self) -> Result<Option<glib::Bytes>> {
-        let ret = self.call_js_method("getSvgString", &[]).await?;
+    pub async fn get_svg(&self) -> Result<glib::Bytes> {
+        let value = self.call_js_method("getSvgString", &[]).await?;
 
-        if ret.is_null() {
-            return Ok(None);
-        }
+        ensure!(!value.is_null(), "SVG is null");
 
-        let bytes = ret
+        let bytes = value
             .to_string_as_bytes()
-            .context("Failed to get ret as bytes")?;
-        Ok(Some(bytes))
+            .context("Failed to get value as bytes")?;
+        Ok(bytes)
     }
 
     async fn set_zoom_level_by(&self, factor: f64) -> Result<()> {
@@ -335,14 +333,14 @@ impl GraphView {
             Some(arg_dict.end())
         };
 
-        let ret_value = imp
+        let value = imp
             .view
             .call_async_javascript_function_future(&body, args.as_ref(), None, None)
             .await
             .with_context(|| format!("Failed to call `{}`", method_name))?;
-        tracing::trace!(ret = %ret_value.to_str(), "JS method returned");
+        tracing::trace!(value = %value.to_str(), "JS method returned");
 
-        Ok(ret_value)
+        Ok(value)
     }
 
     fn connect_script_message_received<F>(&self, message_id: &str, f: F) -> glib::SignalHandlerId
