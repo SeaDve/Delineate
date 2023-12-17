@@ -60,7 +60,7 @@ impl Engine {
 }
 
 mod imp {
-    use std::cell::Cell;
+    use std::{cell::Cell, marker::PhantomData};
 
     use async_lock::OnceCell;
     use glib::{once_cell::sync::Lazy, subclass::Signal};
@@ -76,12 +76,12 @@ mod imp {
         pub(super) is_rendering: Cell<bool>,
         #[property(get)]
         pub(super) zoom_level: Cell<f64>,
-        #[property(get)]
-        pub(super) can_zoom_in: Cell<bool>,
-        #[property(get)]
-        pub(super) can_zoom_out: Cell<bool>,
-        #[property(get)]
-        pub(super) can_reset_zoom: Cell<bool>,
+        #[property(get = Self::can_zoom_in)]
+        pub(super) can_zoom_in: PhantomData<bool>,
+        #[property(get = Self::can_zoom_out)]
+        pub(super) can_zoom_out: PhantomData<bool>,
+        #[property(get = Self::can_reset_zoom)]
+        pub(super) can_reset_zoom: PhantomData<bool>,
 
         pub(super) view: webkit::WebView,
         pub(super) index_loaded: OnceCell<()>,
@@ -108,9 +108,9 @@ mod imp {
                 is_graph_loaded: Cell::new(false),
                 is_rendering: Cell::new(false),
                 zoom_level: Cell::new(1.0),
-                can_zoom_in: Cell::new(false),
-                can_zoom_out: Cell::new(false),
-                can_reset_zoom: Cell::new(false),
+                can_zoom_in: PhantomData,
+                can_zoom_out: PhantomData,
+                can_reset_zoom: PhantomData,
                 view: glib::Object::builder()
                     .property("visible", false)
                     .property("settings", settings)
@@ -213,6 +213,27 @@ mod imp {
     }
 
     impl WidgetImpl for GraphView {}
+
+    impl GraphView {
+        fn can_zoom_in(&self) -> bool {
+            let obj = self.obj();
+
+            obj.zoom_level() < MAX_ZOOM_LEVEL && obj.is_graph_loaded()
+        }
+
+        fn can_zoom_out(&self) -> bool {
+            let obj = self.obj();
+
+            obj.zoom_level() > MIN_ZOOM_LEVEL && obj.is_graph_loaded()
+        }
+
+        fn can_reset_zoom(&self) -> bool {
+            let obj = self.obj();
+
+            // FIXME Also only allow it when not on default zoom level & position
+            obj.is_graph_loaded()
+        }
+    }
 }
 
 glib::wrapper! {
@@ -344,7 +365,9 @@ impl GraphView {
         }
 
         self.imp().is_graph_loaded.set(is_graph_loaded);
-        self.update_can_zoom();
+        self.notify_can_zoom_in();
+        self.notify_can_zoom_out();
+        self.notify_can_reset_zoom();
         self.notify_is_graph_loaded();
     }
 
@@ -363,7 +386,8 @@ impl GraphView {
         }
 
         self.imp().zoom_level.set(zoom_level);
-        self.update_can_zoom();
+        self.notify_can_zoom_in();
+        self.notify_can_zoom_out();
         self.notify_zoom_level();
     }
 
@@ -436,24 +460,6 @@ impl GraphView {
             .await?;
 
         Ok(())
-    }
-
-    fn update_can_zoom(&self) {
-        let imp = self.imp();
-
-        let is_graph_loaded = self.is_graph_loaded();
-        let zoom_level = self.zoom_level();
-
-        imp.can_zoom_in
-            .set(zoom_level < MAX_ZOOM_LEVEL && is_graph_loaded);
-        imp.can_zoom_out
-            .set(zoom_level > MIN_ZOOM_LEVEL && is_graph_loaded);
-        // FIXME Also only allow it when not on default zoom level & position
-        imp.can_reset_zoom.set(is_graph_loaded);
-
-        self.notify_can_zoom_in();
-        self.notify_can_zoom_out();
-        self.notify_can_reset_zoom();
     }
 }
 
