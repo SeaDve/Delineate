@@ -14,6 +14,8 @@
   </a>
 </p>
 
+<br>
+
 <p align="center">
  <a href="https://hosted.weblate.org/engage/kooha">
     <img alt="Translation status" src="https://hosted.weblate.org/widgets/kooha/-/dagger/svg-badge.svg"/>
@@ -33,7 +35,7 @@ The main features of Dagger include the following:
 - 🖼️ Live and interactive preview of the graph as you type
 - ⏺️ Multiple Graphviz layout engines support
 - 📝 Fully-featured DOT language editor
-- 📦 📦 Export graph as PNG, SVG, or JPEG
+- 📦 Export graph as PNG, SVG, or JPEG
 
 ## 🏗️ Building from source
 
