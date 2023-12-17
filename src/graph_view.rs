@@ -394,70 +394,72 @@ impl GraphView {
     async fn ensure_view_initialized(&self) -> Result<()> {
         let imp = self.imp();
 
+        // FIXME Use a proper async Once
         imp.index_loaded
-            .get_or_try_init(|| async {
-                let graph_view_src_dir = gio::File::for_path(GRAPHVIEWSRCDIR);
-                let index_file = graph_view_src_dir.child("index.html");
-
-                let (index_bytes, _) = index_file.load_bytes_future().await?;
-
-                let (load_tx, load_rx) = oneshot::channel();
-                let load_tx = RefCell::new(Some(load_tx));
-
-                let load_handler_id = imp.view.connect_load_changed(move |_, load_event| {
-                    if load_event == webkit::LoadEvent::Finished {
-                        if let Some(tx) = load_tx.take() {
-                            tx.send(()).unwrap();
-                        }
-                    }
-                });
-
-                let (init_tx, init_rx) = oneshot::channel();
-                let init_tx = RefCell::new(Some(init_tx));
-
-                let init_handler_id =
-                    self.connect_script_message_received(INIT_END_MESSAGE_ID, move |_, _| {
-                        if let Some(tx) = init_tx.take() {
-                            tx.send(()).unwrap();
-                        }
-                    });
-
-                // Needs to add trailing slash to base_uri
-                let base_uri = format!("{}/", graph_view_src_dir.uri());
-                imp.view
-                    .load_bytes(&index_bytes, None, None, Some(&base_uri));
-
-                load_rx.await.unwrap();
-                imp.view.disconnect(load_handler_id);
-
-                tracing::debug!("Loaded index.html from {}", index_file.uri());
-
-                init_rx.await.unwrap();
-                let user_content_manager = imp.view.user_content_manager().unwrap();
-                user_content_manager.unregister_script_message_handler(INIT_END_MESSAGE_ID, None);
-                user_content_manager.disconnect(init_handler_id);
-
-                self.call_js_method_inner(
-                    "setZoomScaleExtent",
-                    &[&MIN_ZOOM_LEVEL, &MAX_ZOOM_LEVEL],
-                )
-                .await
-                .context("Failed to set zoom scale extent")?;
-
-                let version = self
-                    .call_js_method_inner("graphvizVersion", &[])
-                    .await
-                    .context("Failed to get version")?
-                    .to_str();
-                tracing::debug!(%version, "Initialized Graphviz");
-
-                // Hide view while it's loading to prevent flickering from the delayed
-                // style sheet loading.
-                imp.view.set_visible(true);
-
-                anyhow::Ok(())
-            })
+            .get_or_try_init(|| self.init_view())
             .await?;
+
+        Ok(())
+    }
+
+    async fn init_view(&self) -> Result<()> {
+        let imp = self.imp();
+
+        let graph_view_src_dir = gio::File::for_path(GRAPHVIEWSRCDIR);
+        let index_file = graph_view_src_dir.child("index.html");
+
+        let (index_bytes, _) = index_file.load_bytes_future().await?;
+
+        let (load_tx, load_rx) = oneshot::channel();
+        let load_tx = RefCell::new(Some(load_tx));
+
+        let load_handler_id = imp.view.connect_load_changed(move |_, load_event| {
+            if load_event == webkit::LoadEvent::Finished {
+                if let Some(tx) = load_tx.take() {
+                    tx.send(()).unwrap();
+                }
+            }
+        });
+
+        let (init_tx, init_rx) = oneshot::channel();
+        let init_tx = RefCell::new(Some(init_tx));
+
+        let init_handler_id =
+            self.connect_script_message_received(INIT_END_MESSAGE_ID, move |_, _| {
+                if let Some(tx) = init_tx.take() {
+                    tx.send(()).unwrap();
+                }
+            });
+
+        // Needs to add trailing slash to base_uri
+        let base_uri = format!("{}/", graph_view_src_dir.uri());
+        imp.view
+            .load_bytes(&index_bytes, None, None, Some(&base_uri));
+
+        load_rx.await.unwrap();
+        imp.view.disconnect(load_handler_id);
+
+        tracing::debug!("Loaded index.html from {}", index_file.uri());
+
+        init_rx.await.unwrap();
+        let user_content_manager = imp.view.user_content_manager().unwrap();
+        user_content_manager.unregister_script_message_handler(INIT_END_MESSAGE_ID, None);
+        user_content_manager.disconnect(init_handler_id);
+
+        self.call_js_method_inner("setZoomScaleExtent", &[&MIN_ZOOM_LEVEL, &MAX_ZOOM_LEVEL])
+            .await
+            .context("Failed to set zoom scale extent")?;
+
+        let version = self
+            .call_js_method_inner("graphvizVersion", &[])
+            .await
+            .context("Failed to get version")?
+            .to_str();
+        tracing::debug!(%version, "Initialized Graphviz");
+
+        // Hide view while it's loading to prevent flickering from the delayed
+        // style sheet loading.
+        imp.view.set_visible(true);
 
         Ok(())
     }
