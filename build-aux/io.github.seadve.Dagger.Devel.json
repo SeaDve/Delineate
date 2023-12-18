@@ -34,20 +34,17 @@
     },
     "modules": [
         {
-            "name": "d3-graphviz",
-            "buildsystem": "simple",
-            "build-commands": [
-                "npm install",
-                "npm run build",
-                "mkdir -p $FLATPAK_DEST/src/dagger/graph_view/d3-graphviz",
-                "cp -r node_modules $FLATPAK_DEST/src/dagger/graph_view/d3-graphviz",
-                "cp -r build $FLATPAK_DEST/src/dagger/graph_view/d3-graphviz"
+            "name": "graphviz",
+            "buildsystem": "autotools",
+            "config-opts": [
+                "--enable-static",
+                "--enable-shared"
             ],
             "sources": [
                 {
-                    "type": "git",
-                    "url": "https://github.com/magjac/d3-graphviz.git",
-                    "tag": "v5.2.0"
+                    "type": "archive",
+                    "url": "https://gitlab.com/graphviz/graphviz/-/archive/9.0.0/graphviz-9.0.0.tar.gz",
+                    "sha256": "504d19b5d0e5398a57e9d9de42393f90b9e79aff0969b4ebc3b891ccb39602ed"
                 }
             ]
         },
