@@ -34,8 +34,6 @@ mod settings;
 mod utils;
 mod window;
 
-use std::ffi::c_char;
-
 use gettextrs::{gettext, LocaleCategory};
 use gtk::{gio, glib};
 
@@ -59,41 +57,6 @@ fn main() -> glib::ExitCode {
     let res = gio::Resource::load(RESOURCES_FILE).expect("Could not load gresource file");
     gio::resources_register(&res);
 
-    test();
-
     let app = Application::default();
     app.run()
-}
-
-fn test() {
-    use std::ffi::CString;
-
-    use graphviz_sys::*;
-
-    unsafe {
-        // agseterr(AGERR);
-        // agseterr(vizErrorf);
-
-        let dot_source = CString::new("digraph { a -> b }").unwrap();
-        let graph = agmemread(dot_source.as_ptr());
-
-        let gvc = gvContext();
-        let input_format = CString::new("dot").unwrap();
-        let output_format = CString::new("svg").unwrap();
-
-        let layout_error = gvLayout(gvc, graph, input_format.as_ptr());
-        dbg!(layout_error);
-
-        let mut data = std::ptr::null_mut();
-        let mut data_size = 0;
-        let ret = gvRenderData(gvc, graph, output_format.as_ptr(), data, &mut data_size);
-        dbg!(ret);
-
-        gvFreeLayout(gvc, graph);
-        agclose(graph);
-        gvFreeContext(gvc);
-
-        let s = String::from_raw_parts(*data as _, data_size as _, data_size as _);
-        dbg!(s);
-    }
 }
