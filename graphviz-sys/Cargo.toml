@@ -1,0 +1,13 @@
+[package]
+name = "graphviz-sys"
+version = "0.1.0"
+edition = "2021"
+
+[package.metadata.system-deps]
+libgvc = "9.0.0"
+libcgraph = "9.0.0"
+libcdt = "9.0.0"
+
+[build-dependencies]
+bindgen = "0.69"
+system-deps = "6"

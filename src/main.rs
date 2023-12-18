@@ -29,6 +29,7 @@ mod document;
 mod drag_overlay;
 mod error_gutter_renderer;
 mod graph_view;
+mod graphviz;
 mod i18n;
 mod settings;
 mod utils;
@@ -56,6 +57,10 @@ fn main() -> glib::ExitCode {
 
     let res = gio::Resource::load(RESOURCES_FILE).expect("Could not load gresource file");
     gio::resources_register(&res);
+
+    dbg!(std::str::from_utf8(
+        &graphviz::render("digraph { ", "dot", "svg").unwrap()
+    ));
 
     let app = Application::default();
     app.run()
