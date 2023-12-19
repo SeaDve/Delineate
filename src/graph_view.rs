@@ -19,8 +19,8 @@ const IS_RENDERING_CHANGED_MESSAGE_ID: &str = "isRenderingChanged";
 const ZOOM_LEVEL_CHANGED_MESSAGE_ID: &str = "zoomLevelChanged";
 
 const ZOOM_FACTOR: f64 = 1.5;
-const MIN_ZOOM_LEVEL: f64 = 0.05;
-const MAX_ZOOM_LEVEL: f64 = 20.0;
+const MIN_ZOOM_LEVEL: f64 = 0.1;
+const MAX_ZOOM_LEVEL: f64 = 100.0;
 
 #[derive(Debug, Clone, Copy, glib::Variant, glib::Enum)]
 #[repr(i32)]
