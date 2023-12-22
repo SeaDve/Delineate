@@ -99,7 +99,7 @@
                       </object>
                     </child>
                     <child type="end">
-                      <object class="AdwTabButton">
+                      <object class="AdwTabButton" id="tab_button">
                         <property name="view">tab_view</property>
                         <property name="action-name">overview.open</property>
                       </object>

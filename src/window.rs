@@ -38,6 +38,8 @@ mod imp {
         #[template_child]
         pub(super) document_title_label: TemplateChild<gtk::Label>,
         #[template_child]
+        pub(super) tab_button: TemplateChild<adw::TabButton>,
+        #[template_child]
         pub(super) drag_overlay: TemplateChild<DragOverlay>,
         #[template_child]
         pub(super) tab_view: TemplateChild<adw::TabView>,
@@ -185,6 +187,12 @@ mod imp {
                     let tab_view = window.imp().tab_view.get();
                     Some(tab_view)
                 }));
+
+            self.tab_view
+                .bind_property("n-pages", &*self.tab_button, "visible")
+                .transform_to(|_, n_pages: i32| Some(n_pages > 0))
+                .sync_create()
+                .build();
 
             obj.bind_page(None);
 
