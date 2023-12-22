@@ -24,12 +24,15 @@
 
 mod about;
 mod application;
+mod cancelled;
 mod config;
 mod document;
 mod drag_overlay;
 mod error_gutter_renderer;
+mod format;
 mod graph_view;
 mod i18n;
+mod page;
 mod settings;
 mod utils;
 mod window;
@@ -57,6 +60,6 @@ fn main() -> glib::ExitCode {
     let res = gio::Resource::load(RESOURCES_FILE).expect("Could not load gresource file");
     gio::resources_register(&res);
 
-    let app = Application::default();
+    let app = Application::new();
     app.run()
 }

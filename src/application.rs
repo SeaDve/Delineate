@@ -10,12 +10,9 @@ use crate::{
 
 mod imp {
     use super::*;
-    use glib::WeakRef;
-    use std::cell::OnceCell;
 
     #[derive(Debug, Default)]
     pub struct Application {
-        pub(super) window: OnceCell<WeakRef<Window>>,
         pub(super) settings: Settings,
     }
 
@@ -34,18 +31,13 @@ mod imp {
 
             let obj = self.obj();
 
-            if let Some(window) = self.window.get() {
-                let window = window.upgrade().unwrap();
+            if let Some(window) = obj.windows().first() {
                 window.present();
                 return;
             }
 
             let window = Window::new(&obj);
-            self.window
-                .set(window.downgrade())
-                .expect("Window already set.");
-
-            obj.window().present();
+            window.present();
         }
 
         fn startup(&self) {
@@ -71,23 +63,26 @@ glib::wrapper! {
 }
 
 impl Application {
-    pub fn settings(&self) -> &Settings {
-        &self.imp().settings
+    pub fn new() -> Self {
+        glib::Object::builder()
+            .property("application-id", APP_ID)
+            .property("resource-base-path", "/io/github/seadve/Dagger/")
+            .build()
     }
 
-    fn window(&self) -> Window {
-        self.imp().window.get().unwrap().upgrade().unwrap()
+    pub fn settings(&self) -> &Settings {
+        &self.imp().settings
     }
 
     fn setup_gactions(&self) {
         let action_quit = gio::ActionEntry::builder("quit")
             .activate(move |obj: &Self, _, _| {
-                obj.window().close();
+                todo!();
             })
             .build();
         let action_about = gio::ActionEntry::builder("about")
             .activate(|obj: &Self, _, _| {
-                about::present_window(Some(&obj.window()));
+                about::present_window(obj.active_window().as_ref());
             })
             .build();
         self.add_action_entries([action_quit, action_about]);
@@ -95,7 +90,6 @@ impl Application {
 
     fn setup_accels(&self) {
         self.set_accels_for_action("app.quit", &["<Control>q"]);
-        self.set_accels_for_action("window.close", &["<Control>w"]);
         self.set_accels_for_action("win.new-document", &["<Control>n"]);
         self.set_accels_for_action("win.open-document", &["<Control>o"]);
         self.set_accels_for_action("win.save-document", &["<Control>s"]);
@@ -112,10 +106,16 @@ impl Application {
 }
 
 impl Default for Application {
+    /// Returns the static instance of `Application`.
+    ///
+    /// # Panics
+    /// Panics if the app is not running or if this is called on a non-main thread.
     fn default() -> Self {
-        glib::Object::builder()
-            .property("application-id", APP_ID)
-            .property("resource-base-path", "/io/github/seadve/Dagger/")
-            .build()
+        debug_assert!(
+            gtk::is_initialized_main_thread(),
+            "application must only be accessed in the main thread"
+        );
+
+        gio::Application::default().unwrap().downcast().unwrap()
     }
 }

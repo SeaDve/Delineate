@@ -1,8 +1,9 @@
 use std::future::Future;
 
-use gtk::{gio, glib, prelude::*};
+use gettextrs::gettext;
+use gtk::{gio, glib};
 
-use crate::{application::Application, config::PROFILE};
+use crate::config::PROFILE;
 
 pub fn is_devel_profile() -> bool {
     PROFILE == "Devel"
@@ -18,16 +19,13 @@ where
     ctx.spawn_local_with_priority(priority, fut)
 }
 
-/// Get the global instance of `Application`.
-///
-/// # Panics
-/// Panics if the application is not running or if this is
-/// called on a non-main thread.
-pub fn app_instance() -> Application {
-    debug_assert!(
-        gtk::is_initialized_main_thread(),
-        "application must only be accessed in the main thread"
-    );
+pub fn graphviz_file_filters() -> gio::ListStore {
+    let filter = gtk::FileFilter::new();
+    // Translators: DOT is an acronym, do not translate.
+    filter.set_name(Some(&gettext("Graphviz DOT Files")));
+    filter.add_mime_type("text/vnd.graphviz");
 
-    gio::Application::default().unwrap().downcast().unwrap()
+    let filters = gio::ListStore::new::<gtk::FileFilter>();
+    filters.append(&filter);
+    filters
 }
