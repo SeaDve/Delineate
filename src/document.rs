@@ -170,6 +170,10 @@ impl Document {
         glib::Object::new()
     }
 
+    pub fn is_draft(&self) -> bool {
+        self.file().is_none()
+    }
+
     pub fn for_file(file: gio::File) -> Self {
         glib::Object::builder().property("file", file).build()
     }
@@ -179,7 +183,7 @@ impl Document {
     }
 
     pub async fn load(&self) -> Result<()> {
-        ensure!(self.file().is_some(), "Document must not be a draft");
+        ensure!(!self.is_draft(), "Document must not be a draft");
 
         let imp = self.imp();
 
@@ -193,7 +197,7 @@ impl Document {
     }
 
     pub async fn save(&self) -> Result<()> {
-        ensure!(self.file().is_some(), "Document must not be a draft");
+        ensure!(!self.is_draft(), "Document must not be a draft");
 
         let imp = self.imp();
 
