@@ -181,7 +181,7 @@ mod imp {
                 .connect_create_window(clone!(@weak obj => @default-panic, move |_| {
                     let app = Application::default();
 
-                    let window = super::Window::new(&app);
+                    let window = super::Window::new_empty(&app);
                     window.present();
 
                     let tab_view = window.imp().tab_view.get();
@@ -242,12 +242,18 @@ glib::wrapper! {
 }
 
 impl Window {
-    pub fn new(app: &Application) -> Self {
+    pub fn new_empty(app: &Application) -> Self {
         let this = glib::Object::builder().property("application", app).build();
 
         let group = gtk::WindowGroup::new();
         group.add_window(&this);
 
+        this
+    }
+
+    pub fn new(app: &Application) -> Self {
+        let this = Self::new_empty(app);
+        this.add_new_page();
         this
     }
 
