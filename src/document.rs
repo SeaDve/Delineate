@@ -24,6 +24,8 @@ mod imp {
         pub(super) file: PhantomData<Option<gio::File>>,
         #[property(get = Self::title)]
         pub(super) title: PhantomData<String>,
+        #[property(get = Self::is_busy)]
+        pub(super) is_busy: PhantomData<bool>,
         #[property(get = Self::is_modified)]
         pub(super) is_modified: PhantomData<bool>,
         #[property(get, default_value = 1.0, minimum = 0.0, maximum = 1.0)]
@@ -143,6 +145,10 @@ mod imp {
             } else {
                 obj.parse_title()
             }
+        }
+
+        fn is_busy(&self) -> bool {
+            self.busy_progress.get() != 1.0
         }
 
         fn is_modified(&self) -> bool {
@@ -281,6 +287,7 @@ impl Document {
                 };
                 self.imp().busy_progress.set(progress);
                 self.notify_busy_progress();
+                self.notify_is_busy();
             }
         };
 

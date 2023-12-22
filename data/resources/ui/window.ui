@@ -48,166 +48,73 @@
     <property name="content">
       <object class="AdwToastOverlay" id="toast_overlay">
         <property name="child">
-          <object class="AdwToolbarView">
-            <property name="top-bar-style">raised</property>
-            <child type="top">
-              <object class="GtkHeaderBar">
-                <child>
-                  <object class="GtkButton">
-                    <property name="label" translatable="yes">Open</property>
-                    <property name="action-name">win.open-document</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkButton">
-                    <property name="tooltip-text" translatable="yes">New Document</property>
-                    <property name="icon-name">document-new-symbolic</property>
-                    <property name="action-name">win.new-document</property>
-                  </object>
-                </child>
-                <property name="title-widget">
-                  <object class="GtkBox">
+          <object class="AdwTabOverview">
+            <property name="view">tab_view</property>
+            <property name="child">
+              <object class="AdwToolbarView">
+                <property name="top-bar-style">raised</property>
+                <child type="top">
+                  <object class="GtkHeaderBar">
                     <child>
-                      <object class="GtkLabel" id="document_modified_status">
-                        <property name="visible">False</property>
-                        <property name="margin-end">6</property>
-                        <property name="label">•</property>
+                      <object class="GtkButton">
+                        <property name="label" translatable="yes">Open</property>
+                        <property name="action-name">win.open-document</property>
                       </object>
                     </child>
                     <child>
-                      <object class="GtkLabel" id="document_title_label">
-                        <property name="ellipsize">end</property>
-                        <property name="wrap">False</property>
-                        <property name="single-line-mode">True</property>
-                        <property name="width-chars">5</property>
-                        <style>
-                          <class name="heading"/>
-                        </style>
+                      <object class="GtkButton">
+                        <property name="tooltip-text" translatable="yes">New Document</property>
+                        <property name="icon-name">tab-new-symbolic</property>
+                        <property name="action-name">win.new-document</property>
                       </object>
                     </child>
-                  </object>
-                </property>
-                <child type="end">
-                  <object class="GtkMenuButton">
-                    <property name="tooltip-text" translatable="yes">Main Menu</property>
-                    <property name="icon-name">open-menu-symbolic</property>
-                    <property name="menu-model">primary_menu</property>
-                    <property name="primary">True</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <property name="content">
-              <object class="DaggerDragOverlay" id="drag_overlay">
-                <property name="child">
-                  <object class="GtkPaned" id="paned">
-                    <property name="wide-handle">True</property>
-                    <property name="start-child">
-                      <object class="GtkOverlay">
-                        <property name="child">
-                          <object class="GtkScrolledWindow">
-                            <property name="child">
-                              <object class="GtkSourceView" id="view">
-                                <property name="top-margin">12</property>
-                                <property name="bottom-margin">12</property>
-                                <property name="left-margin">6</property>
-                                <property name="right-margin">12</property>
-                                <property name="monospace">True</property>
-                                <property name="show-line-numbers">True</property>
-                                <property name="insert-spaces-instead-of-tabs">True</property>
-                                <property name="smart-backspace">True</property>
-                                <property name="tab-width">4</property>
-                              </object>
-                            </property>
-                          </object>
-                        </property>
-                        <child type="overlay">
-                          <object class="GtkProgressBar" id="progress_bar">
-                            <property name="can-focus">false</property>
-                            <property name="valign">start</property>
-                            <style>
-                              <class name="osd"/>
-                            </style>
+                    <property name="title-widget">
+                      <object class="GtkBox">
+                        <child>
+                          <object class="GtkLabel" id="document_modified_status">
+                            <property name="visible">False</property>
+                            <property name="margin-end">6</property>
+                            <property name="label">•</property>
                           </object>
                         </child>
-                        <child type="overlay">
-                          <object class="GtkRevealer" id="go_to_error_revealer">
-                            <property name="halign">end</property>
-                            <property name="valign">end</property>
-                            <property name="margin-end">18</property>
-                            <property name="margin-bottom">18</property>
-                            <property name="transition-type">crossfade</property>
-                            <property name="child">
-                              <object class="GtkButton">
-                                <property name="tooltip-text">Go To Error</property>
-                                <property name="icon-name">error-symbolic</property>
-                                <property name="action-name">win.go-to-error</property>
-                                <style>
-                                  <class name="circular"/>
-                                  <class name="osd"/>
-                                </style>
-                              </object>
-                            </property>
+                        <child>
+                          <object class="GtkLabel" id="document_title_label">
+                            <property name="ellipsize">end</property>
+                            <property name="wrap">False</property>
+                            <property name="single-line-mode">True</property>
+                            <property name="width-chars">5</property>
+                            <style>
+                              <class name="heading"/>
+                            </style>
                           </object>
                         </child>
                       </object>
                     </property>
-                    <property name="end-child">
-                      <object class="AdwToolbarView">
-                        <property name="bottom-bar-style">raised</property>
-                        <property name="content">
-                          <object class="DaggerGraphView" id="graph_view"/>
-                        </property>
-                        <child type="bottom">
-                          <object class="GtkActionBar">
-                            <child>
-                              <object class="GtkBox">
-                                <style>
-                                  <class name="linked"/>
-                                </style>
-                                <child>
-                                  <object class="GtkButton">
-                                    <property name="tooltip-text" translatable="yes">Zoom Out</property>
-                                    <property name="icon-name">zoom-out-symbolic</property>
-                                    <property name="action-name">win.zoom-graph-out</property>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkButton" id="zoom_level_button">
-                                    <property name="tooltip-text" translatable="yes">Reset Zoom</property>
-                                    <property name="action-name">win.reset-graph-zoom</property>
-                                  </object>
-                                </child>
-                                <child>
-                                  <object class="GtkButton">
-                                    <property name="tooltip-text" translatable="yes">Zoom In</property>
-                                    <property name="icon-name">zoom-in-symbolic</property>
-                                    <property name="action-name">win.zoom-graph-in</property>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
-                            <child type="end">
-                              <object class="GtkDropDown" id="engine_drop_down"/>
-                            </child>
-                            <child type="end">
-                              <object class="GtkRevealer" id="spinner_revealer">
-                                <property name="can-target">False</property>
-                                <property name="transition-type">crossfade</property>
-                                <property name="child">
-                                  <object class="GtkSpinner">
-                                    <property name="width-request">18</property>
-                                    <property name="height-request">18</property>
-                                    <property name="margin-start">6</property>
-                                    <property name="margin-end">6</property>
-                                    <property name="spinning">True</property>
-                                  </object>
-                                </property>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
+                    <child type="end">
+                      <object class="GtkMenuButton">
+                        <property name="tooltip-text" translatable="yes">Main Menu</property>
+                        <property name="icon-name">open-menu-symbolic</property>
+                        <property name="menu-model">primary_menu</property>
+                        <property name="primary">True</property>
                       </object>
+                    </child>
+                    <child type="end">
+                      <object class="AdwTabButton">
+                        <property name="view">tab_view</property>
+                        <property name="action-name">overview.open</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child type="top">
+                  <object class="AdwTabBar">
+                    <property name="view">tab_view</property>
+                  </object>
+                </child>
+                <property name="content">
+                  <object class="DaggerDragOverlay" id="drag_overlay">
+                    <property name="child">
+                      <object class="AdwTabView" id="tab_view"/>
                     </property>
                   </object>
                 </property>
