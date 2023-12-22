@@ -274,8 +274,15 @@ impl Window {
             .build();
         let file = dialog.open_future(Some(self)).await?;
 
-        let page = self.add_new_page();
-        page.load_file(file).await?;
+        match self.selected_page() {
+            Some(page) if page.document().is_draft() && !page.is_modified() => {
+                page.load_file(file).await?;
+            }
+            _ => {
+                let page = self.add_new_page();
+                page.load_file(file).await?;
+            }
+        }
 
         Ok(())
     }

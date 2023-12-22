@@ -314,9 +314,7 @@ impl Page {
     pub async fn save_document(&self) -> Result<()> {
         let document = self.document();
 
-        if document.file().is_some() {
-            document.save().await?;
-        } else {
+        if document.is_draft() {
             let dialog = gtk::FileDialog::builder()
                 .title(gettext("Save Document"))
                 .filters(&utils::graphviz_file_filters())
@@ -326,6 +324,8 @@ impl Page {
             let file = dialog.save_future(Some(&self.window())).await?;
 
             document.save_as(&file).await?;
+        } else {
+            document.save().await?;
         }
 
         Ok(())
@@ -416,6 +416,10 @@ impl Page {
         Ok(())
     }
 
+    pub fn document(&self) -> Document {
+        self.imp().view.buffer().downcast().unwrap()
+    }
+
     fn window(&self) -> Window {
         self.root().unwrap().downcast().unwrap()
     }
@@ -442,10 +446,6 @@ impl Page {
         self.notify_is_busy();
         self.notify_is_modified();
         self.notify_can_save();
-    }
-
-    fn document(&self) -> Document {
-        self.imp().view.buffer().downcast().unwrap()
     }
 
     fn selected_engine(&self) -> Engine {
@@ -594,10 +594,10 @@ impl Page {
         dialog.add_response(DISCARD_RESPONSE_ID, &gettext("Discard"));
         dialog.set_response_appearance(DISCARD_RESPONSE_ID, adw::ResponseAppearance::Destructive);
 
-        let save_response_text = if document.file().is_some() {
-            gettext("Save")
-        } else {
+        let save_response_text = if document.is_draft() {
             gettext("Save As…")
+        } else {
+            gettext("Save")
         };
         dialog.add_response(SAVE_RESPONSE_ID, &save_response_text);
         dialog.set_response_appearance(SAVE_RESPONSE_ID, adw::ResponseAppearance::Suggested);
