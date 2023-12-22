@@ -20,6 +20,7 @@ use crate::{application::Application, format::Format, page::Page, utils};
 // * Drag and drop on tabs
 // * Session saving (window state, unsaved documents, etc.)
 // * Shortcuts
+// * Inhibit when unsave
 
 mod imp {
     use std::cell::OnceCell;
@@ -284,7 +285,7 @@ impl Window {
 
         let page = Page::new();
 
-        let tab_page = imp.tab_view.add_page(&page, None);
+        let tab_page = imp.tab_view.append(&page);
         page.bind_property("title", &tab_page, "title")
             .sync_create()
             .build();
@@ -302,6 +303,8 @@ impl Window {
                 Some(icon)
             })
             .build();
+
+        imp.tab_view.set_selected_page(&tab_page);
 
         page
     }
