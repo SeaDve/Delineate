@@ -247,7 +247,7 @@ mod imp {
                 }),
             );
 
-            obj.set_document(&Document::draft());
+            obj.set_document(&Document::new());
 
             obj.update_go_to_error_revealer_reveal_child();
             obj.update_go_to_error_revealer_can_target();
