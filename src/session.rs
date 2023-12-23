@@ -141,6 +141,8 @@ impl Session {
                 clone!(@weak self as obj, @weak window => async move {
                     let _hold_guard = hold_guard;
 
+                    tracing::debug!("Saving session on last window");
+
                     if let Err(err) = obj.save().await {
                         tracing::error!("Failed to save session on last window: {:?}", err);
                     }
@@ -156,7 +158,6 @@ impl Session {
     pub async fn restore(&self) -> Result<()> {
         let imp = self.imp();
 
-        tracing::debug!("Restoring session");
         let now = Instant::now();
 
         let state = match imp.state_file.load_bytes_future().await {
@@ -236,7 +237,6 @@ impl Session {
     pub async fn save(&self) -> Result<()> {
         let imp = self.imp();
 
-        tracing::debug!("Saving session");
         let now = Instant::now();
 
         let mut windows_state = Vec::new();
