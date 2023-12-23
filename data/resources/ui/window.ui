@@ -48,6 +48,35 @@
       </item>
     </section>
   </menu>
+  <menu id="tab_menu">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Move _Left</attribute>
+        <attribute name="action">win.move-page-to-left</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Move _Right</attribute>
+        <attribute name="action">win.move-page-to-right</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">_Move to New Window</attribute>
+        <attribute name="action">win.move-page-to-new-window</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Close _Other Tabs</attribute>
+        <attribute name="action">win.close-other-pages</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">_Close</attribute>
+        <attribute name="action">win.close-page</attribute>
+        <attribute name="accel">&lt;control&gt;w</attribute>
+      </item>
+    </section>
+  </menu>
   <template class="DaggerWindow" parent="AdwApplicationWindow">
     <property name="width-request">360</property>
     <property name="height-request">294</property>
@@ -134,7 +163,9 @@
                           </object>
                         </child>
                         <child>
-                          <object class="AdwTabView" id="tab_view"/>
+                          <object class="AdwTabView" id="tab_view">
+                            <property name="menu-model">tab_menu</property>
+                          </object>
                         </child>
                       </object>
                     </property>
