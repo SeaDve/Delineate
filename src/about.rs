@@ -6,13 +6,16 @@ use gtk::{
 
 use std::{env, path::Path};
 
-use crate::config::{APP_ID, VERSION};
+use crate::{
+    config::{APP_ID, VERSION},
+    utils,
+};
 
 pub fn present_window(transient_for: Option<&impl IsA<gtk::Window>>) {
     let win = adw::AboutWindow::builder()
         .modal(true)
         .application_icon(APP_ID)
-        .application_name(gettext("Dagger"))
+        .application_name(utils::application_name())
         .developer_name(gettext("Dave Patrick Caberto"))
         .version(VERSION)
         .copyright(gettext("© 2023 Dave Patrick Caberto"))
