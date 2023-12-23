@@ -199,8 +199,6 @@ mod imp {
                 .build();
 
             obj.bind_page(None);
-
-            // obj.load_window_state();
         }
 
         fn dispose(&self) {
@@ -220,10 +218,6 @@ mod imp {
 
             let app = Application::default();
             app.session().remove_window(&obj);
-
-            // if let Err(err) = obj.save_window_state() {
-            //     tracing::warn!("Failed to save window state, {}", &err);
-            // }
 
             // let prev_document = obj.document();
             // if prev_document.is_modified() {
