@@ -29,19 +29,89 @@
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">New Document</property>
-                <property name="action-name">win.new-document</property>
+                <property name="accelerator">&lt;control&gt;t</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut window">Open Document</property>
-                <property name="action-name">win.open-document</property>
+                <property name="accelerator">&lt;control&gt;o</property>
               </object>
             </child>
             <child>
               <object class="GtkShortcutsShortcut">
-                <property name="title" translatable="yes" context="shortcut window">Save Document</property>
-                <property name="action-name">win.save-document</property>
+                <property name="title" translatable="yes" context="shortcut window">Save</property>
+                <property name="accelerator">&lt;control&gt;s</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="title" translatable="yes" context="shortcut window">Save As</property>
+                <property name="accelerator">&lt;control&gt;&lt;shift&gt;s</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkShortcutsGroup">
+            <property name="title" translatable="yes" context="shortcut window">Windows</property>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="title" translatable="yes" context="shortcut window">New Window</property>
+                <property name="accelerator">&lt;control&gt;n</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="title" translatable="yes" context="shortcut window">Move Document to New Window</property>
+                <property name="accelerator">&lt;control&gt;&lt;shift&gt;n</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="accelerator">&lt;ctrl&gt;Page_Down</property>
+                <property name="title" translatable="yes" context="shortcut window">Move to Next Tab</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="accelerator">&lt;ctrl&gt;Page_Up</property>
+                <property name="title" translatable="yes" context="shortcut window">Move to Previous Tab</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="accelerator">&lt;ctrl&gt;&lt;shift&gt;Page_Down</property>
+                <property name="title" translatable="yes" context="shortcut window">Reorder After Next Tab</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="accelerator">&lt;ctrl&gt;&lt;shift&gt;Page_Up</property>
+                <property name="title" translatable="yes" context="shortcut window">Reorder Before Previous Tab</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkShortcutsGroup">
+            <property name="title" translatable="yes" context="shortcut window">Zoom</property>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="accelerator">&lt;ctrl&gt;plus</property>
+                <property name="title" translatable="yes" context="shortcut window">Zoom In</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="accelerator">&lt;ctrl&gt;minus</property>
+                <property name="title" translatable="yes" context="shortcut window">Zoom Out</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="accelerator">&lt;ctrl&gt;0</property>
+                <property name="title" translatable="yes" context="shortcut window">Reset Zoom</property>
               </object>
             </child>
           </object>
