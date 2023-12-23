@@ -170,6 +170,10 @@ impl Document {
         glib::Object::new()
     }
 
+    pub fn is_discardable(&self) -> bool {
+        self.is_draft() && !self.is_modified()
+    }
+
     pub fn is_draft(&self) -> bool {
         self.file().is_none()
     }
