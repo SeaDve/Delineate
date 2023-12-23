@@ -269,33 +269,25 @@ mod imp {
 
             klass.add_binding_action(
                 gdk::Key::Page_Up,
-                gdk::ModifierType::CONTROL_MASK
-                    | gdk::ModifierType::SHIFT_MASK
-                    | gdk::ModifierType::ALT_MASK,
+                gdk::ModifierType::CONTROL_MASK | gdk::ModifierType::SHIFT_MASK,
                 "win.move-page-to-left",
                 None,
             );
             klass.add_binding_action(
                 gdk::Key::KP_Page_Up,
-                gdk::ModifierType::CONTROL_MASK
-                    | gdk::ModifierType::SHIFT_MASK
-                    | gdk::ModifierType::ALT_MASK,
+                gdk::ModifierType::CONTROL_MASK | gdk::ModifierType::SHIFT_MASK,
                 "win.move-page-to-left",
                 None,
             );
             klass.add_binding_action(
                 gdk::Key::Page_Down,
-                gdk::ModifierType::CONTROL_MASK
-                    | gdk::ModifierType::SHIFT_MASK
-                    | gdk::ModifierType::ALT_MASK,
+                gdk::ModifierType::CONTROL_MASK | gdk::ModifierType::SHIFT_MASK,
                 "win.move-page-to-right",
                 None,
             );
             klass.add_binding_action(
                 gdk::Key::KP_Page_Down,
-                gdk::ModifierType::CONTROL_MASK
-                    | gdk::ModifierType::SHIFT_MASK
-                    | gdk::ModifierType::ALT_MASK,
+                gdk::ModifierType::CONTROL_MASK | gdk::ModifierType::SHIFT_MASK,
                 "win.move-page-to-right",
                 None,
             );
