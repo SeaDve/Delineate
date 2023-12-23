@@ -14,13 +14,13 @@ use crate::{application::Application, format::Format, page::Page, session::Sessi
 // * Full screen view of graph
 // * Recent files
 // * Drag and drop on tabs
+// * Inhibit when has unsaved changes
 // * dot language server, hover info, color picker, autocompletion, snippets, renames, etc.
 // * modified file on disk handling
 
 // FIXME
 // * Session saving (unsaved documents, etc.)
 // * Shortcuts
-// * Inhibit when unsave
 
 mod imp {
     use std::cell::OnceCell;
