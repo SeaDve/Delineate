@@ -463,9 +463,3 @@ impl GraphView {
         Ok(())
     }
 }
-
-impl Default for GraphView {
-    fn default() -> Self {
-        Self::new()
-    }
-}

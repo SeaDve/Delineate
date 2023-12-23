@@ -6,7 +6,7 @@ use gtk::{
     glib::{self, clone},
 };
 
-use crate::{application::Application, format::Format, page::Page, utils};
+use crate::{application::Application, format::Format, page::Page, session::Session, utils};
 
 // TODO
 // * Find and replace
@@ -18,7 +18,6 @@ use crate::{application::Application, format::Format, page::Page, utils};
 // * modified file on disk handling
 
 // FIXME
-// * Dont open what is already open, just make it active
 // * Session saving (unsaved documents, etc.)
 // * Shortcuts
 // * Inhibit when unsave
@@ -181,9 +180,9 @@ mod imp {
                 }));
             self.tab_view
                 .connect_create_window(clone!(@weak obj => @default-panic, move |_| {
-                    let app = Application::default();
+                    let session = Session::instance();
 
-                    let window = app.session().add_new_raw_window();
+                    let window = session.add_new_raw_window();
                     window.set_default_width(obj.default_width());
                     window.set_default_height(obj.default_height());
                     window.present();
@@ -206,8 +205,8 @@ mod imp {
 
             let obj = self.obj();
 
-            let app = Application::default();
-            app.session().remove_window(&obj);
+            let session = Session::instance();
+            session.remove_window(&obj);
         }
     }
 
@@ -216,8 +215,8 @@ mod imp {
         fn close_request(&self) -> glib::Propagation {
             let obj = self.obj();
 
-            let app = Application::default();
-            app.session().remove_window(&obj);
+            let session = Session::instance();
+            session.remove_window(&obj);
 
             // let prev_document = obj.document();
             // if prev_document.is_modified() {
@@ -321,6 +320,22 @@ impl Window {
             .modal(true)
             .build();
         let file = dialog.open_future(Some(self)).await?;
+
+        // Check if the document is already loaded in other windows or pages
+        let session = Session::instance();
+        for window in session.windows() {
+            for page in window.pages() {
+                if page
+                    .document()
+                    .file()
+                    .is_some_and(|f| f.uri() == file.uri())
+                {
+                    window.set_selected_page(&page);
+                    window.present();
+                    return Ok(());
+                }
+            }
+        }
 
         match self.selected_page() {
             Some(page) if page.document().is_discardable() => {

@@ -663,9 +663,3 @@ impl Page {
         self.action_set_enabled("page.reset-graph-zoom", imp.graph_view.can_reset_zoom());
     }
 }
-
-impl Default for Page {
-    fn default() -> Self {
-        Self::new()
-    }
-}

@@ -9,7 +9,7 @@ use gtk::{
 };
 use serde::{Deserialize, Serialize};
 
-use crate::{config::APP_ID, graph_view::LayoutEngine, utils, window::Window, Application};
+use crate::{config::APP_ID, graph_view::LayoutEngine, window::Window, Application};
 
 const DEFAULT_WINDOW_WIDTH: i32 = 1000;
 const DEFAULT_WINDOW_HEIGHT: i32 = 600;
@@ -92,10 +92,18 @@ impl Session {
         glib::Object::new()
     }
 
+    pub fn instance() -> Self {
+        Application::instance().session().clone()
+    }
+
+    pub fn windows(&self) -> Vec<Window> {
+        self.imp().windows.borrow().clone()
+    }
+
     pub fn add_new_raw_window(&self) -> Window {
         let imp = self.imp();
 
-        let app = Application::default();
+        let app = Application::instance();
         let window = Window::new(&app);
 
         let group = gtk::WindowGroup::new();
