@@ -255,10 +255,6 @@ impl Session {
 
             let pages = window.pages();
 
-            if pages.is_empty() || pages.iter().all(|page| page.document().is_discardable()) {
-                continue;
-            }
-
             let mut pages_state = Vec::new();
             for page in pages {
                 let document = page.document();
@@ -284,6 +280,10 @@ impl Session {
                     selection,
                     layout_engine: page.layout_engine(),
                 });
+            }
+
+            if pages_state.is_empty() {
+                continue;
             }
 
             windows_state.push(WindowState {
