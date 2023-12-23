@@ -245,13 +245,17 @@ impl Session {
 
             let pages = window.pages();
 
-            if pages.is_empty() || pages.iter().all(|page| page.document().file().is_none()) {
+            if pages.is_empty() || pages.iter().all(|page| page.document().is_discardable()) {
                 continue;
             }
 
             let mut pages_state = Vec::new();
             for page in pages {
                 let document = page.document();
+
+                if document.is_discardable() {
+                    continue;
+                }
 
                 let Some(file) = &document.file() else {
                     continue;

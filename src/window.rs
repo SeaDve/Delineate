@@ -324,7 +324,7 @@ impl Window {
         let file = dialog.open_future(Some(self)).await?;
 
         match self.selected_page() {
-            Some(page) if page.document().is_draft() && !page.is_modified() => {
+            Some(page) if page.document().is_discardable() => {
                 page.load_file(file).await?;
             }
             _ => {
