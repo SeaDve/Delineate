@@ -8,6 +8,7 @@ use gtk::{
     prelude::*,
     subclass::prelude::*,
 };
+use serde::{Deserialize, Serialize};
 use webkit::{javascriptcore::Value, prelude::*, ContextMenuAction};
 
 use crate::{config::GRAPHVIEWSRCDIR, utils};
@@ -22,10 +23,10 @@ const ZOOM_FACTOR: f64 = 1.5;
 const MIN_ZOOM_LEVEL: f64 = 0.1;
 const MAX_ZOOM_LEVEL: f64 = 100.0;
 
-#[derive(Debug, Clone, Copy, glib::Variant, glib::Enum)]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, glib::Enum)]
 #[repr(i32)]
 #[enum_type(name = "DaggerGraphViewEngine")]
-pub enum Engine {
+pub enum LayoutEngine {
     Dot,
     Circo,
     Fdp,
@@ -36,7 +37,7 @@ pub enum Engine {
     Twopi,
 }
 
-impl TryFrom<i32> for Engine {
+impl TryFrom<i32> for LayoutEngine {
     type Error = i32;
 
     fn try_from(val: i32) -> Result<Self, Self::Error> {
@@ -44,7 +45,7 @@ impl TryFrom<i32> for Engine {
     }
 }
 
-impl Engine {
+impl LayoutEngine {
     fn as_raw(&self) -> &'static str {
         match self {
             Self::Dot => "dot",
@@ -259,8 +260,8 @@ impl GraphView {
         )
     }
 
-    pub async fn set_data(&self, dot_src: &str, engine: Engine) -> Result<()> {
-        self.call_js_method("setData", &[&dot_src, &engine.as_raw()])
+    pub async fn set_data(&self, dot_src: &str, layout_engine: LayoutEngine) -> Result<()> {
+        self.call_js_method("setData", &[&dot_src, &layout_engine.as_raw()])
             .await?;
         Ok(())
     }

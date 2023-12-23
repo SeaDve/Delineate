@@ -13,12 +13,13 @@ use crate::{application::Application, format::Format, page::Page, utils};
 // * Bird's eye view of graph
 // * Full screen view of graph
 // * Recent files
+// * Drag and drop on tabs
 // * dot language server, hover info, color picker, autocompletion, snippets, renames, etc.
 // * modified file on disk handling
 
 // FIXME
-// * Drag and drop on tabs
-// * Session saving (window state, unsaved documents, etc.)
+// * Dont open what is already open, just make it active
+// * Session saving (unsaved documents, etc.)
 // * Shortcuts
 // * Inhibit when unsave
 
@@ -182,7 +183,9 @@ mod imp {
                 .connect_create_window(clone!(@weak obj => @default-panic, move |_| {
                     let app = Application::default();
 
-                    let window = super::Window::new_empty(&app);
+                    let window = app.session().add_new_raw_window();
+                    window.set_default_width(obj.default_width());
+                    window.set_default_height(obj.default_height());
                     window.present();
 
                     let tab_view = window.imp().tab_view.get();
@@ -209,6 +212,9 @@ mod imp {
     impl WindowImpl for Window {
         fn close_request(&self) -> glib::Propagation {
             let obj = self.obj();
+
+            let app = Application::default();
+            app.session().remove_window(&obj);
 
             // if let Err(err) = obj.save_window_state() {
             //     tracing::warn!("Failed to save window state, {}", &err);
@@ -243,19 +249,8 @@ glib::wrapper! {
 }
 
 impl Window {
-    pub fn new_empty(app: &Application) -> Self {
-        let this = glib::Object::builder().property("application", app).build();
-
-        let group = gtk::WindowGroup::new();
-        group.add_window(&this);
-
-        this
-    }
-
     pub fn new(app: &Application) -> Self {
-        let this = Self::new_empty(app);
-        this.add_new_page();
-        this
+        glib::Object::builder().property("application", app).build()
     }
 
     pub fn add_toast(&self, toast: adw::Toast) {
@@ -266,31 +261,11 @@ impl Window {
         self.add_toast(adw::Toast::new(message));
     }
 
-    async fn open_document(&self) -> Result<()> {
-        let dialog = gtk::FileDialog::builder()
-            .title(gettext("Open Document"))
-            .filters(&utils::graphviz_file_filters())
-            .modal(true)
-            .build();
-        let file = dialog.open_future(Some(self)).await?;
-
-        match self.selected_page() {
-            Some(page) if page.document().is_draft() && !page.is_modified() => {
-                page.load_file(file).await?;
-            }
-            _ => {
-                let page = self.add_new_page();
-                page.load_file(file).await?;
-            }
-        }
-
-        Ok(())
-    }
-
-    fn add_new_page(&self) -> Page {
+    pub fn add_new_page(&self) -> Page {
         let imp = self.imp();
 
         let page = Page::new();
+        page.set_paned_position(self.width() / 2);
 
         let tab_page = imp.tab_view.append(&page);
         page.bind_property("title", &tab_page, "title")
@@ -316,6 +291,51 @@ impl Window {
         page
     }
 
+    pub fn pages(&self) -> Vec<Page> {
+        self.imp()
+            .tab_view
+            .pages()
+            .upcast::<gio::ListModel>()
+            .iter::<adw::TabPage>()
+            .map(|tab_page| tab_page.unwrap().child().downcast::<Page>().unwrap())
+            .collect()
+    }
+
+    pub fn selected_page(&self) -> Option<Page> {
+        self.imp()
+            .tab_view
+            .selected_page()
+            .map(|tab_page| tab_page.child().downcast().unwrap())
+    }
+
+    pub fn set_selected_page(&self, page: &Page) {
+        let imp = self.imp();
+
+        let tab_page = imp.tab_view.page(page);
+        imp.tab_view.set_selected_page(&tab_page);
+    }
+
+    async fn open_document(&self) -> Result<()> {
+        let dialog = gtk::FileDialog::builder()
+            .title(gettext("Open Document"))
+            .filters(&utils::graphviz_file_filters())
+            .modal(true)
+            .build();
+        let file = dialog.open_future(Some(self)).await?;
+
+        match self.selected_page() {
+            Some(page) if page.document().is_draft() && !page.is_modified() => {
+                page.load_file(file).await?;
+            }
+            _ => {
+                let page = self.add_new_page();
+                page.load_file(file).await?;
+            }
+        }
+
+        Ok(())
+    }
+
     fn bind_page(&self, page: Option<&Page>) {
         let imp = self.imp();
 
@@ -326,13 +346,6 @@ impl Window {
         self.update_is_modified();
         self.update_save_action();
         self.update_export_graph_action();
-    }
-
-    fn selected_page(&self) -> Option<Page> {
-        self.imp()
-            .tab_view
-            .selected_page()
-            .map(|tab_page| tab_page.child().downcast().unwrap())
     }
 
     fn handle_drop(&self, file_list: &gdk::FileList) -> bool {
@@ -363,41 +376,6 @@ impl Window {
             }
         }
     }
-
-    // fn save_window_state(&self) -> Result<(), glib::BoolError> {
-    //     let imp = self.imp();
-
-    //     let app = utils::app_instance();
-    //     let settings = app.settings();
-
-    //     let (width, height) = self.default_size();
-
-    //     settings.try_set_window_width(width)?;
-    //     settings.try_set_window_height(height)?;
-    //     settings.try_set_is_maximized(self.is_maximized())?;
-
-    //     settings.try_set_paned_position(imp.paned.position())?;
-    //     settings.try_set_layout_engine(self.selected_engine())?;
-
-    //     Ok(())
-    // }
-
-    // fn load_window_state(&self) {
-    //     let imp = self.imp();
-
-    //     let app = utils::app_instance();
-    //     let settings = app.settings();
-
-    //     self.set_default_size(settings.window_width(), settings.window_height());
-
-    //     if settings.is_maximized() {
-    //         self.maximize();
-    //     }
-
-    //     imp.paned.set_position(settings.paned_position());
-    //     imp.engine_drop_down
-    //         .set_selected(settings.layout_engine() as u32);
-    // }
 
     fn update_title(&self) {
         let imp = self.imp();

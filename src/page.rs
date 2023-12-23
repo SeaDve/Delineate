@@ -12,8 +12,8 @@ use gtk_source::prelude::*;
 use regex::Regex;
 
 use crate::{
-    cancelled::Cancelled, document::Document, format::Format, graph_view::Engine, i18n::gettext_f,
-    utils, window::Window,
+    cancelled::Cancelled, document::Document, format::Format, graph_view::LayoutEngine,
+    i18n::gettext_f, utils, window::Window,
 };
 
 const DRAW_GRAPH_PRIORITY: glib::Priority = glib::Priority::DEFAULT_IDLE;
@@ -58,7 +58,7 @@ mod imp {
         #[template_child]
         pub(super) graph_view: TemplateChild<GraphView>,
         #[template_child]
-        pub(super) engine_drop_down: TemplateChild<gtk::DropDown>,
+        pub(super) layout_engine_drop_down: TemplateChild<gtk::DropDown>,
         #[template_child]
         pub(super) zoom_level_button: TemplateChild<gtk::Button>,
         #[template_child]
@@ -183,15 +183,14 @@ mod imp {
                 .set(document_signal_group)
                 .unwrap();
 
-            self.engine_drop_down.set_expression(Some(
-                &gtk::ClosureExpression::new::<glib::GString>(
+            self.layout_engine_drop_down
+                .set_expression(Some(&gtk::ClosureExpression::new::<glib::GString>(
                     &[] as &[gtk::Expression],
                     closure!(|list_item: adw::EnumListItem| list_item.name()),
-                ),
-            ));
-            self.engine_drop_down
-                .set_model(Some(&adw::EnumListModel::new(Engine::static_type())));
-            self.engine_drop_down
+                )));
+            self.layout_engine_drop_down
+                .set_model(Some(&adw::EnumListModel::new(LayoutEngine::static_type())));
+            self.layout_engine_drop_down
                 .connect_selected_notify(clone!(@weak obj => move |_| {
                     obj.queue_draw_graph();
                 }));
@@ -420,6 +419,30 @@ impl Page {
         self.imp().view.buffer().downcast().unwrap()
     }
 
+    pub fn set_paned_position(&self, position: i32) {
+        self.imp().paned.set_position(position);
+    }
+
+    pub fn paned_position(&self) -> i32 {
+        self.imp().paned.position()
+    }
+
+    pub fn set_layout_engine(&self, engine: LayoutEngine) {
+        let imp = self.imp();
+        imp.layout_engine_drop_down.set_selected(engine as u32);
+    }
+
+    pub fn layout_engine(&self) -> LayoutEngine {
+        let imp = self.imp();
+        let selected_item = imp
+            .layout_engine_drop_down
+            .selected_item()
+            .unwrap()
+            .downcast::<adw::EnumListItem>()
+            .unwrap();
+        LayoutEngine::try_from(selected_item.value()).unwrap()
+    }
+
     fn window(&self) -> Window {
         self.root().unwrap().downcast().unwrap()
     }
@@ -446,17 +469,6 @@ impl Page {
         self.notify_is_busy();
         self.notify_is_modified();
         self.notify_can_save();
-    }
-
-    fn selected_engine(&self) -> Engine {
-        let imp = self.imp();
-        let selected_item = imp
-            .engine_drop_down
-            .selected_item()
-            .unwrap()
-            .downcast::<adw::EnumListItem>()
-            .unwrap();
-        Engine::try_from(selected_item.value()).unwrap()
     }
 
     fn queue_draw_graph(&self) {
@@ -496,7 +508,7 @@ impl Page {
 
             if let Err(err) = imp
                 .graph_view
-                .set_data(&self.document().contents(), self.selected_engine())
+                .set_data(&self.document().contents(), self.layout_engine())
                 .await
             {
                 tracing::error!("Failed to render: {:?}", err);
