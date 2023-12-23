@@ -12,8 +12,8 @@ use gtk_source::prelude::*;
 use regex::Regex;
 
 use crate::{
-    cancelled::Cancelled, document::Document, format::Format, graph_view::LayoutEngine,
-    i18n::gettext_f, utils, window::Window,
+    cancelled::Cancelled, document::Document, export_format::ExportFormat,
+    graph_view::LayoutEngine, i18n::gettext_f, utils, window::Window,
 };
 
 const DRAW_GRAPH_PRIORITY: glib::Priority = glib::Priority::DEFAULT_IDLE;
@@ -389,7 +389,7 @@ impl Page {
         Ok(())
     }
 
-    pub async fn export_graph(&self, format: Format) -> Result<()> {
+    pub async fn export_graph(&self, format: ExportFormat) -> Result<()> {
         let imp = self.imp();
 
         let filter = gtk::FileFilter::new();
@@ -414,8 +414,8 @@ impl Page {
         let svg_bytes = imp.graph_view.get_svg().await?;
 
         let bytes = match format {
-            Format::Svg => svg_bytes,
-            Format::Png | Format::Jpeg => {
+            ExportFormat::Svg => svg_bytes,
+            ExportFormat::Png | ExportFormat::Jpeg => {
                 // TODO improve resolution
 
                 let loader = gdk_pixbuf::PixbufLoader::new();
@@ -426,9 +426,9 @@ impl Page {
                 let pixbuf = loader.pixbuf().context("Loader has no pixbuf")?;
 
                 let pixbuf_type = match format {
-                    Format::Png => "png",
-                    Format::Jpeg => "jpeg",
-                    Format::Svg => unreachable!(),
+                    ExportFormat::Png => "png",
+                    ExportFormat::Jpeg => "jpeg",
+                    ExportFormat::Svg => unreachable!(),
                 };
                 let buffer = pixbuf.save_to_bufferv(pixbuf_type, &[])?;
 

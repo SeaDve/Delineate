@@ -1,13 +1,13 @@
 use gettextrs::gettext;
 
 #[derive(Debug, Clone, Copy)]
-pub enum Format {
+pub enum ExportFormat {
     Svg,
     Png,
     Jpeg,
 }
 
-impl Format {
+impl ExportFormat {
     pub fn extension(&self) -> &'static str {
         match self {
             Self::Svg => "svg",

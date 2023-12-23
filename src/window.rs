@@ -6,7 +6,10 @@ use gtk::{
     glib::{self, clone},
 };
 
-use crate::{application::Application, format::Format, page::Page, session::Session, utils};
+use crate::{
+    application::Application, config::APP_ID, export_format::ExportFormat, page::Page,
+    session::Session, utils,
+};
 
 // TODO
 // * Find and replace
@@ -42,6 +45,12 @@ mod imp {
         pub(super) tab_button: TemplateChild<adw::TabButton>,
         #[template_child]
         pub(super) drag_overlay: TemplateChild<DragOverlay>,
+        #[template_child]
+        pub(super) stack: TemplateChild<gtk::Stack>,
+        #[template_child]
+        pub(super) empty_page: TemplateChild<adw::StatusPage>,
+        #[template_child]
+        pub(super) empty_page_description: TemplateChild<gtk::Label>,
         #[template_child]
         pub(super) tab_view: TemplateChild<adw::TabView>,
 
@@ -103,9 +112,9 @@ mod imp {
                 let raw_format = arg.unwrap().get::<String>().unwrap();
 
                 let format = match raw_format.as_str() {
-                    "svg" => Format::Svg,
-                    "png" => Format::Png,
-                    "jpeg" => Format::Jpeg,
+                    "svg" => ExportFormat::Svg,
+                    "png" => ExportFormat::Png,
+                    "jpeg" => ExportFormat::Jpeg,
                     _ => unreachable!("unknown format `{}`", raw_format),
                 };
 
@@ -177,6 +186,17 @@ mod imp {
                 obj.add_css_class("devel");
             }
 
+            self.empty_page.set_icon_name(Some(APP_ID));
+            self.empty_page_description.set_label(&gettext(
+                "• Press the Open button
+• Press the New Tab Button
+• Press Ctrl+N to start a new document
+• Press Ctrl+O to browse for a document
+• Drag a file into the window
+
+Or, press Ctrl+W to close the window.",
+            ));
+
             let page_signal_group = glib::SignalGroup::new::<Page>();
             page_signal_group.connect_notify_local(
                 Some("title"),
@@ -216,6 +236,7 @@ mod imp {
 
             self.tab_view
                 .connect_selected_page_notify(clone!(@weak obj => move |_| {
+                    obj.update_stack_page();
                     obj.bind_page(obj.selected_page().as_ref());
                 }));
             self.tab_view
@@ -237,6 +258,7 @@ mod imp {
                 .sync_create()
                 .build();
 
+            obj.update_stack_page();
             obj.bind_page(None);
         }
 
@@ -438,13 +460,31 @@ impl Window {
         }
     }
 
+    fn update_stack_page(&self) {
+        let imp = self.imp();
+
+        if self.selected_page().is_some() {
+            imp.stack.set_visible_child(&*imp.tab_view);
+        } else {
+            imp.stack.set_visible_child(&*imp.empty_page);
+        }
+    }
+
     fn update_title(&self) {
         let imp = self.imp();
-        let title = self
+
+        let app_name = glib::application_name().unwrap();
+
+        let header_title = self
             .selected_page()
-            .map(|page| page.title())
-            .unwrap_or_default();
-        imp.document_title_label.set_text(&title);
+            .map_or_else(|| app_name.to_string(), |page| page.title());
+        imp.document_title_label.set_text(&header_title);
+
+        let window_title = self.selected_page().map_or_else(
+            || app_name.to_string(),
+            |page| format!("{} - {}", page.title(), app_name),
+        );
+        self.set_title(Some(&window_title));
     }
 
     fn update_is_modified(&self) {
