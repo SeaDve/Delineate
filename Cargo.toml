@@ -15,7 +15,6 @@ bincode = "1"
 futures-util = { version = "0.3.29", features = ["io"] }
 futures-channel = "0.3.29"
 gettext-rs = { version = "0.7", features = ["gettext-system"] }
-gsettings-macro = "0.1.20"
 gtk = { version = "0.7", package = "gtk4", features = ["gnome_45"] }
 gtk_source = { package = "sourceview5", version = "0.7", features = ["v5_10"] }
 regex = "1.10.2"
