@@ -16,6 +16,10 @@
         <attribute name="label" translatable="yes">Save _As…</attribute>
         <attribute name="action">win.save-document-as</attribute>
       </item>
+      <item>
+        <attribute name="label" translatable="yes">Discard Changes</attribute>
+        <attribute name="action">win.discard-document-changes</attribute>
+      </item>
     </section>
     <section>
       <submenu>

@@ -83,6 +83,8 @@ mod imp {
 
             klass.install_action_async("win.save-document", None, |obj, _, _| async move {
                 let page = obj.selected_page().unwrap();
+                debug_assert!(page.can_save());
+
                 if let Err(err) = page.save_document().await {
                     if !err
                         .downcast_ref::<glib::Error>()
@@ -96,6 +98,8 @@ mod imp {
 
             klass.install_action_async("win.save-document-as", None, |obj, _, _| async move {
                 let page = obj.selected_page().unwrap();
+                debug_assert!(page.can_save());
+
                 if let Err(err) = page.save_document_as().await {
                     if !err
                         .downcast_ref::<glib::Error>()
@@ -106,6 +110,20 @@ mod imp {
                     }
                 }
             });
+
+            klass.install_action_async(
+                "win.discard-document-changes",
+                None,
+                |obj, _, _| async move {
+                    let page = obj.selected_page().unwrap();
+                    debug_assert!(page.can_discard_changes());
+
+                    if let Err(err) = page.discard_changes().await {
+                        tracing::error!("Failed to discard document changes: {:?}", err);
+                        obj.add_message_toast(&gettext("Failed to discard document changes"));
+                    }
+                },
+            );
 
             klass.install_action_async("win.export-graph", Some("s"), |obj, _, arg| async move {
                 let raw_format = arg.unwrap().get::<String>().unwrap();
@@ -118,6 +136,8 @@ mod imp {
                 };
 
                 let page = obj.selected_page().unwrap();
+                debug_assert!(page.can_export());
+
                 if let Err(err) = page.export_graph(format).await {
                     if !err
                         .downcast_ref::<glib::Error>()
@@ -351,6 +371,12 @@ Or, press Ctrl+W to close the window.",
                 }),
             );
             page_signal_group.connect_notify_local(
+                Some("can-discard-changes"),
+                clone!(@weak obj => move |_, _| {
+                    obj.update_discard_changes_action();
+                }),
+            );
+            page_signal_group.connect_notify_local(
                 Some("can-export"),
                 clone!(@weak obj => move |_, _| {
                     obj.update_export_graph_action();
@@ -404,8 +430,6 @@ Or, press Ctrl+W to close the window.",
         }
 
         fn dispose(&self) {
-            self.dispose_template();
-
             let obj = self.obj();
 
             let session = Session::instance();
@@ -566,7 +590,7 @@ impl Window {
         }
 
         match self.selected_page() {
-            Some(page) if page.document().is_discardable() => {
+            Some(page) if page.document().is_safely_discardable() => {
                 page.load_file(file).await?;
             }
             _ => {
@@ -587,6 +611,7 @@ impl Window {
         self.update_title();
         self.update_is_modified();
         self.update_save_action();
+        self.update_discard_changes_action();
         self.update_export_graph_action();
     }
 
@@ -659,6 +684,13 @@ impl Window {
         let can_save = self.selected_page().is_some_and(|page| page.can_save());
         self.action_set_enabled("win.save-document", can_save);
         self.action_set_enabled("win.save-document-as", can_save);
+    }
+
+    fn update_discard_changes_action(&self) {
+        let can_discard_changes = self
+            .selected_page()
+            .is_some_and(|page| page.can_discard_changes());
+        self.action_set_enabled("win.discard-document-changes", can_discard_changes);
     }
 
     fn update_export_graph_action(&self) {
