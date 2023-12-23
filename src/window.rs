@@ -205,6 +205,11 @@ mod imp {
 
         fn dispose(&self) {
             self.dispose_template();
+
+            let obj = self.obj();
+
+            let app = Application::default();
+            app.session().remove_window(&obj);
         }
     }
 

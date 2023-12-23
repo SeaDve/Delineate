@@ -133,26 +133,18 @@ impl Session {
             imp.default_window_width.set(window.default_width());
             imp.default_window_height.set(window.default_height());
 
-            let app = Application::default();
-            let hold_guard = app.hold();
+            let ctx = glib::MainContext::default();
+            ctx.block_on(clone!(@weak self as obj => async move {
+                tracing::debug!("Saving session on last window");
 
-            utils::spawn(
-                glib::Priority::default(),
-                clone!(@weak self as obj, @weak window => async move {
-                    let _hold_guard = hold_guard;
+                if let Err(err) = obj.save().await {
+                    tracing::error!("Failed to save session on last window: {:?}", err);
+                }
 
-                    tracing::debug!("Saving session on last window");
-
-                    if let Err(err) = obj.save().await {
-                        tracing::error!("Failed to save session on last window: {:?}", err);
-                    }
-
-                    obj.imp().windows.borrow_mut().retain(|w| w != &window);
-                }),
-            );
-        } else {
-            imp.windows.borrow_mut().retain(|w| w != window);
+            }));
         }
+
+        imp.windows.borrow_mut().retain(|w| w != window);
     }
 
     pub async fn restore(&self) -> Result<()> {
