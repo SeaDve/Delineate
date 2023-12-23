@@ -120,6 +120,31 @@ mod imp {
                     }
                 }
             });
+
+            klass.add_binding_action(
+                gdk::Key::T,
+                gdk::ModifierType::CONTROL_MASK,
+                "win.new-document",
+                None,
+            );
+            klass.add_binding_action(
+                gdk::Key::O,
+                gdk::ModifierType::CONTROL_MASK,
+                "win.open-document",
+                None,
+            );
+            klass.add_binding_action(
+                gdk::Key::S,
+                gdk::ModifierType::CONTROL_MASK,
+                "win.save-document",
+                None,
+            );
+            klass.add_binding_action(
+                gdk::Key::S,
+                gdk::ModifierType::CONTROL_MASK | gdk::ModifierType::SHIFT_MASK,
+                "win.save-document-as",
+                None,
+            );
         }
 
         fn instance_init(obj: &glib::subclass::InitializingObject<Self>) {
