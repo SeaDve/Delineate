@@ -174,6 +174,7 @@ impl Session {
         imp.default_window_width.set(state.window_width);
         imp.default_window_height.set(state.window_height);
 
+        let mut active_window = None;
         for window_state in &state.windows {
             let window = self.add_new_raw_window();
             window.set_default_size(window_state.width, window_state.height);
@@ -221,6 +222,15 @@ impl Session {
                 window.set_selected_page(&page);
             }
 
+            window.present();
+
+            if window_state.is_active {
+                let prev_value = active_window.replace(window);
+                debug_assert!(prev_value.is_none());
+            }
+        }
+
+        if let Some(window) = active_window {
             window.present();
         }
 
