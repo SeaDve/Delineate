@@ -30,7 +30,7 @@ mod config;
 mod document;
 mod drag_overlay;
 mod error_gutter_renderer;
-mod format;
+mod export_format;
 mod graph_view;
 mod i18n;
 mod page;
