@@ -57,7 +57,7 @@ mod imp {
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
 
-            klass.install_action_async("win.new-document", None, |obj, _, _| async move {
+            klass.install_action("win.new-document", None, |obj, _, _| {
                 obj.add_new_page();
             });
 
@@ -121,6 +121,14 @@ mod imp {
                 }
             });
 
+            klass.install_action("win.close-page-or-window", None, |obj, _, _| {
+                if let Some(selected_page) = obj.selected_page() {
+                    obj.close_page(&selected_page);
+                } else {
+                    obj.close();
+                }
+            });
+
             klass.add_binding_action(
                 gdk::Key::T,
                 gdk::ModifierType::CONTROL_MASK,
@@ -143,6 +151,13 @@ mod imp {
                 gdk::Key::S,
                 gdk::ModifierType::CONTROL_MASK | gdk::ModifierType::SHIFT_MASK,
                 "win.save-document-as",
+                None,
+            );
+
+            klass.add_binding_action(
+                gdk::Key::W,
+                gdk::ModifierType::CONTROL_MASK,
+                "win.close-page-or-window",
                 None,
             );
         }
@@ -312,6 +327,13 @@ impl Window {
         imp.tab_view.set_selected_page(&tab_page);
 
         page
+    }
+
+    pub fn close_page(&self, page: &Page) {
+        let imp = self.imp();
+
+        let tab_page = imp.tab_view.page(page);
+        imp.tab_view.close_page(&tab_page);
     }
 
     pub fn pages(&self) -> Vec<Page> {
