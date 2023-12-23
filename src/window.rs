@@ -23,7 +23,6 @@ use crate::{
 
 // FIXME
 // * Session saving (unsaved documents, etc.)
-// * Shortcuts
 
 mod imp {
     use std::cell::OnceCell;
@@ -130,9 +129,59 @@ mod imp {
                 }
             });
 
+            klass.install_action("win.select-page", Some("i"), |obj, _, args| {
+                let index = args.unwrap().get::<i32>().unwrap();
+
+                if index < obj.n_pages() {
+                    let page = obj.nth_page(index);
+                    obj.set_selected_page(&page);
+                }
+            });
+
+            klass.install_action("win.move-page-to-left", None, |obj, _, _| {
+                let imp = obj.imp();
+                if let Some(page) = obj.selected_page() {
+                    let tab_page = imp.tab_view.page(&page);
+                    imp.tab_view.reorder_backward(&tab_page);
+                }
+            });
+            klass.install_action("win.move-page-to-right", None, |obj, _, _| {
+                let imp = obj.imp();
+                if let Some(page) = obj.selected_page() {
+                    let tab_page = imp.tab_view.page(&page);
+                    imp.tab_view.reorder_forward(&tab_page);
+                }
+            });
+            klass.install_action("win.move-page-to-new-window", None, |obj, _, _| {
+                let imp = obj.imp();
+                if let Some(page) = obj.selected_page() {
+                    let session = Session::instance();
+
+                    let new_window = session.add_new_raw_window();
+                    new_window.set_default_width(obj.default_width());
+                    new_window.set_default_height(obj.default_height());
+                    new_window.present();
+
+                    let tab_page = imp.tab_view.page(&page);
+                    imp.tab_view
+                        .transfer_page(&tab_page, &new_window.imp().tab_view, 0);
+                }
+            });
+            klass.install_action("win.close-other-pages", None, |obj, _, _| {
+                if let Some(page) = obj.selected_page() {
+                    let pages = obj.pages();
+                    let pages_to_close = pages.iter().filter(|p| **p != page);
+                    obj.close_pages(pages_to_close);
+                }
+            });
+            klass.install_action("win.close-page", None, |obj, _, _| {
+                if let Some(page) = obj.selected_page() {
+                    obj.close_page(&page);
+                }
+            });
             klass.install_action("win.close-page-or-window", None, |obj, _, _| {
-                if let Some(selected_page) = obj.selected_page() {
-                    obj.close_page(&selected_page);
+                if let Some(page) = obj.selected_page() {
+                    obj.close_page(&page);
                 } else {
                     obj.close();
                 }
@@ -163,6 +212,99 @@ mod imp {
                 None,
             );
 
+            klass.add_binding_action(
+                gdk::Key::_1,
+                gdk::ModifierType::CONTROL_MASK,
+                "win.select-page",
+                Some(&0.into()),
+            );
+            klass.add_binding_action(
+                gdk::Key::_2,
+                gdk::ModifierType::CONTROL_MASK,
+                "win.select-page",
+                Some(&1.into()),
+            );
+            klass.add_binding_action(
+                gdk::Key::_3,
+                gdk::ModifierType::CONTROL_MASK,
+                "win.select-page",
+                Some(&2.into()),
+            );
+            klass.add_binding_action(
+                gdk::Key::_4,
+                gdk::ModifierType::CONTROL_MASK,
+                "win.select-page",
+                Some(&3.into()),
+            );
+            klass.add_binding_action(
+                gdk::Key::_5,
+                gdk::ModifierType::CONTROL_MASK,
+                "win.select-page",
+                Some(&4.into()),
+            );
+            klass.add_binding_action(
+                gdk::Key::_6,
+                gdk::ModifierType::CONTROL_MASK,
+                "win.select-page",
+                Some(&5.into()),
+            );
+            klass.add_binding_action(
+                gdk::Key::_7,
+                gdk::ModifierType::CONTROL_MASK,
+                "win.select-page",
+                Some(&6.into()),
+            );
+            klass.add_binding_action(
+                gdk::Key::_8,
+                gdk::ModifierType::CONTROL_MASK,
+                "win.select-page",
+                Some(&7.into()),
+            );
+            klass.add_binding_action(
+                gdk::Key::_9,
+                gdk::ModifierType::CONTROL_MASK,
+                "win.select-page",
+                Some(&8.into()),
+            );
+
+            klass.add_binding_action(
+                gdk::Key::Page_Up,
+                gdk::ModifierType::CONTROL_MASK
+                    | gdk::ModifierType::SHIFT_MASK
+                    | gdk::ModifierType::ALT_MASK,
+                "win.move-page-to-left",
+                None,
+            );
+            klass.add_binding_action(
+                gdk::Key::KP_Page_Up,
+                gdk::ModifierType::CONTROL_MASK
+                    | gdk::ModifierType::SHIFT_MASK
+                    | gdk::ModifierType::ALT_MASK,
+                "win.move-page-to-left",
+                None,
+            );
+            klass.add_binding_action(
+                gdk::Key::Page_Down,
+                gdk::ModifierType::CONTROL_MASK
+                    | gdk::ModifierType::SHIFT_MASK
+                    | gdk::ModifierType::ALT_MASK,
+                "win.move-page-to-right",
+                None,
+            );
+            klass.add_binding_action(
+                gdk::Key::KP_Page_Down,
+                gdk::ModifierType::CONTROL_MASK
+                    | gdk::ModifierType::SHIFT_MASK
+                    | gdk::ModifierType::ALT_MASK,
+                "win.move-page-to-right",
+                None,
+            );
+            klass.add_binding_action(
+                gdk::Key::N,
+                gdk::ModifierType::CONTROL_MASK | gdk::ModifierType::SHIFT_MASK,
+                "win.move-page-to-new-window",
+                None,
+            );
             klass.add_binding_action(
                 gdk::Key::W,
                 gdk::ModifierType::CONTROL_MASK,
@@ -243,13 +385,20 @@ Or, press Ctrl+W to close the window.",
                 .connect_create_window(clone!(@weak obj => @default-panic, move |_| {
                     let session = Session::instance();
 
-                    let window = session.add_new_raw_window();
-                    window.set_default_width(obj.default_width());
-                    window.set_default_height(obj.default_height());
-                    window.present();
+                    let new_window = session.add_new_raw_window();
+                    new_window.set_default_width(obj.default_width());
+                    new_window.set_default_height(obj.default_height());
+                    new_window.present();
 
-                    let tab_view = window.imp().tab_view.get();
+                    let tab_view = new_window.imp().tab_view.get();
                     Some(tab_view)
+                }));
+            self.tab_view
+                .connect_setup_menu(clone!(@weak obj => move |_, tab_page| {
+                    if let Some(tab_page) = tab_page {
+                        let page = tab_page.child().downcast::<Page>().unwrap();
+                        obj.set_selected_page(&page);
+                    }
                 }));
 
             self.tab_view
@@ -352,10 +501,15 @@ impl Window {
     }
 
     pub fn close_page(&self, page: &Page) {
-        let imp = self.imp();
+        self.close_pages([page]);
+    }
 
-        let tab_page = imp.tab_view.page(page);
-        imp.tab_view.close_page(&tab_page);
+    pub fn close_pages<'a>(&self, pages: impl IntoIterator<Item = &'a Page>) {
+        let imp = self.imp();
+        for page in pages.into_iter() {
+            let tab_page = imp.tab_view.page(page);
+            imp.tab_view.close_page(&tab_page);
+        }
     }
 
     pub fn pages(&self) -> Vec<Page> {
@@ -364,8 +518,21 @@ impl Window {
             .pages()
             .upcast::<gio::ListModel>()
             .iter::<adw::TabPage>()
-            .map(|tab_page| tab_page.unwrap().child().downcast::<Page>().unwrap())
+            .map(|tab_page| tab_page.unwrap().child().downcast().unwrap())
             .collect()
+    }
+
+    pub fn n_pages(&self) -> i32 {
+        self.imp().tab_view.n_pages()
+    }
+
+    pub fn nth_page(&self, index: i32) -> Page {
+        self.imp()
+            .tab_view
+            .nth_page(index)
+            .child()
+            .downcast()
+            .unwrap()
     }
 
     pub fn selected_page(&self) -> Option<Page> {
