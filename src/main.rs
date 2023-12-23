@@ -33,7 +33,7 @@ mod format;
 mod graph_view;
 mod i18n;
 mod page;
-mod settings;
+mod session;
 mod utils;
 mod window;
 

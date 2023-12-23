@@ -93,7 +93,7 @@
                   </object>
                 </child>
                 <child type="end">
-                  <object class="GtkDropDown" id="engine_drop_down"/>
+                  <object class="GtkDropDown" id="layout_engine_drop_down"/>
                 </child>
                 <child type="end">
                   <object class="GtkRevealer" id="spinner_revealer">
