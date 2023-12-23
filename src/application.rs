@@ -43,11 +43,11 @@ mod imp {
             utils::spawn(
                 glib::Priority::default(),
                 clone!(@weak obj => async move {
-                    let imp = obj.imp();
+                    tracing::debug!("Restoring session on activate");
 
                     let _hold_guard = hold_guard;
 
-                    if let Err(err) = imp.session.restore().await {
+                    if let Err(err) = obj.session().restore().await {
                         tracing::error!("Failed to restore session: {:?}", err);
                     }
                 }),
@@ -127,6 +127,8 @@ impl Application {
         utils::spawn(
             glib::Priority::default(),
             clone!(@weak self as obj => async move {
+                tracing::debug!("Saving session on quit");
+
                 if let Err(err) = obj.session().save().await {
                     tracing::error!("Failed to save session on quit: {:?}", err);
                 }
