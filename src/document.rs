@@ -234,6 +234,17 @@ impl Document {
         Ok(())
     }
 
+    pub async fn discard_changes(&self) -> Result<()> {
+        if self.is_draft() {
+            self.delete(&mut self.start_iter(), &mut self.end_iter());
+            self.set_modified(false);
+        } else {
+            self.load().await?;
+        }
+
+        Ok(())
+    }
+
     fn emit_text_changed(&self) {
         self.emit_by_name::<()>("text-changed", &[]);
     }

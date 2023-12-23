@@ -200,12 +200,6 @@ mod imp {
                 }),
             );
             document_signal_group.connect_notify_local(
-                Some("file"),
-                clone!(@weak obj => move |_, _| {
-                    obj.notify_can_discard_changes();
-                }),
-            );
-            document_signal_group.connect_notify_local(
                 Some("title"),
                 clone!(@weak obj => move |_, _| {
                     obj.notify_title();
@@ -340,9 +334,7 @@ mod imp {
         }
 
         fn can_discard_changes(&self) -> bool {
-            let document = self.obj().document();
-
-            document.is_modified() && !document.is_draft()
+            self.obj().document().is_modified()
         }
 
         fn can_export(&self) -> bool {
@@ -369,6 +361,8 @@ impl Page {
     }
 
     pub async fn save_document(&self) -> Result<()> {
+        debug_assert!(self.can_save());
+
         let document = self.document();
 
         if document.is_draft() {
@@ -389,6 +383,8 @@ impl Page {
     }
 
     pub async fn save_document_as(&self) -> Result<()> {
+        debug_assert!(self.can_save());
+
         let document = self.document();
 
         let dialog = gtk::FileDialog::builder()
@@ -405,14 +401,17 @@ impl Page {
     }
 
     pub async fn discard_changes(&self) -> Result<()> {
-        let document = self.document();
+        debug_assert!(self.can_discard_changes());
 
-        document.load().await?;
+        let document = self.document();
+        document.discard_changes().await?;
 
         Ok(())
     }
 
     pub async fn export_graph(&self, format: ExportFormat) -> Result<()> {
+        debug_assert!(self.can_export());
+
         let imp = self.imp();
 
         let filter = gtk::FileFilter::new();
