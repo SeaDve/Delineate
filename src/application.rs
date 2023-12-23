@@ -84,6 +84,19 @@ impl Application {
             .build()
     }
 
+    /// Returns the static instance of `Application`.
+    ///
+    /// # Panics
+    /// Panics if the app is not running or if this is called on a non-main thread.
+    pub fn instance() -> Self {
+        debug_assert!(
+            gtk::is_initialized_main_thread(),
+            "application must only be accessed in the main thread"
+        );
+
+        gio::Application::default().unwrap().downcast().unwrap()
+    }
+
     pub fn session(&self) -> &Session {
         &self.imp().session
     }
@@ -136,20 +149,5 @@ impl Application {
                 ApplicationExt::quit(&obj);
             }),
         );
-    }
-}
-
-impl Default for Application {
-    /// Returns the static instance of `Application`.
-    ///
-    /// # Panics
-    /// Panics if the app is not running or if this is called on a non-main thread.
-    fn default() -> Self {
-        debug_assert!(
-            gtk::is_initialized_main_thread(),
-            "application must only be accessed in the main thread"
-        );
-
-        gio::Application::default().unwrap().downcast().unwrap()
     }
 }

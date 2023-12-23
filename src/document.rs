@@ -322,9 +322,3 @@ impl Document {
         self.set_style_scheme(style_scheme.as_ref());
     }
 }
-
-impl Default for Document {
-    fn default() -> Self {
-        Self::new()
-    }
-}

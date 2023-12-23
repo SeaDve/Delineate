@@ -99,9 +99,3 @@ impl DragOverlay {
         glib::Object::new()
     }
 }
-
-impl Default for DragOverlay {
-    fn default() -> Self {
-        Self::new()
-    }
-}
