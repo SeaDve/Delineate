@@ -12,8 +12,8 @@ use gtk_source::prelude::*;
 use regex::Regex;
 
 use crate::{
-    cancelled::Cancelled, document::Document, export_format::ExportFormat,
-    graph_view::LayoutEngine, i18n::gettext_f, utils, window::Window,
+    document::Document, export_format::ExportFormat, graph_view::LayoutEngine, utils,
+    window::Window,
 };
 
 const DRAW_GRAPH_PRIORITY: glib::Priority = glib::Priority::DEFAULT_IDLE;
@@ -44,6 +44,8 @@ mod imp {
         pub(super) is_modified: PhantomData<bool>,
         #[property(get = Self::can_save)]
         pub(super) can_save: PhantomData<bool>,
+        #[property(get = Self::can_discard_changes)]
+        pub(super) can_discard_changes: PhantomData<bool>,
         #[property(get = Self::can_export)]
         pub(super) can_export: PhantomData<bool>,
 
@@ -198,6 +200,12 @@ mod imp {
                 }),
             );
             document_signal_group.connect_notify_local(
+                Some("file"),
+                clone!(@weak obj => move |_, _| {
+                    obj.notify_can_discard_changes();
+                }),
+            );
+            document_signal_group.connect_notify_local(
                 Some("title"),
                 clone!(@weak obj => move |_, _| {
                     obj.notify_title();
@@ -207,6 +215,7 @@ mod imp {
                 Some("is-modified"),
                 clone!(@weak obj => move |_, _| {
                     obj.notify_is_modified();
+                    obj.notify_can_discard_changes();
                 }),
             );
             document_signal_group.connect_notify_local(
@@ -330,6 +339,12 @@ mod imp {
             !self.obj().document().is_loading()
         }
 
+        fn can_discard_changes(&self) -> bool {
+            let document = self.obj().document();
+
+            document.is_modified() && !document.is_draft()
+        }
+
         fn can_export(&self) -> bool {
             self.graph_view.is_graph_loaded()
         }
@@ -385,6 +400,14 @@ impl Page {
         let file = dialog.save_future(Some(&self.window())).await?;
 
         document.save_as(&file).await?;
+
+        Ok(())
+    }
+
+    pub async fn discard_changes(&self) -> Result<()> {
+        let document = self.document();
+
+        document.load().await?;
 
         Ok(())
     }
@@ -512,6 +535,7 @@ impl Page {
         self.notify_is_busy();
         self.notify_is_modified();
         self.notify_can_save();
+        self.notify_can_discard_changes();
     }
 
     fn queue_draw_graph(&self) {
@@ -589,79 +613,6 @@ impl Page {
             tracing::error!("Failed to draw graph: {}", message);
 
             self.add_message_toast(&gettext("Failed to draw graph"));
-        }
-    }
-
-    /// Returns `Ok` if unsaved changes are handled and can proceed, `Err` if
-    /// the next operation should be aborted.
-    async fn handle_unsaved_changes(&self, document: &Document) -> Result<()> {
-        if !document.is_modified() {
-            return Ok(());
-        }
-
-        match self.present_save_changes_dialog(document).await {
-            Ok(_) => Ok(()),
-            Err(err) => {
-                if !err.is::<Cancelled>()
-                    && !err
-                        .downcast_ref::<glib::Error>()
-                        .is_some_and(|error| error.matches(gtk::DialogError::Dismissed))
-                {
-                    tracing::error!("Failed to save changes to document: {:?}", err);
-                    self.add_message_toast(&gettext("Failed to save changes to document"));
-                }
-                Err(err)
-            }
-        }
-    }
-
-    /// Returns `Ok` if unsaved changes are handled and can proceed, `Err` if
-    /// the next operation should be aborted.
-    async fn present_save_changes_dialog(&self, document: &Document) -> Result<()> {
-        const CANCEL_RESPONSE_ID: &str = "cancel";
-        const DISCARD_RESPONSE_ID: &str = "discard";
-        const SAVE_RESPONSE_ID: &str = "save";
-
-        let file_name = document
-            .file()
-            .and_then(|file| {
-                file.path()
-                    .unwrap()
-                    .file_name()
-                    .map(|file_name| file_name.to_string_lossy().to_string())
-            })
-            .unwrap_or_else(|| gettext("Untitled Document"));
-        let dialog = adw::MessageDialog::builder()
-            .modal(true)
-            .transient_for(&self.window())
-            .heading(gettext("Save Changes?"))
-            .body(gettext_f(
-                // Translators: Do NOT translate the contents between '{' and '}', this is a variable name.
-                "“{file_name}” contains unsaved changes. Changes which are not saved will be permanently lost.",
-                &[("file_name", &file_name)],
-            ))
-            .close_response(CANCEL_RESPONSE_ID)
-            .default_response(SAVE_RESPONSE_ID)
-            .build();
-
-        dialog.add_response(CANCEL_RESPONSE_ID, &gettext("Cancel"));
-
-        dialog.add_response(DISCARD_RESPONSE_ID, &gettext("Discard"));
-        dialog.set_response_appearance(DISCARD_RESPONSE_ID, adw::ResponseAppearance::Destructive);
-
-        let save_response_text = if document.is_draft() {
-            gettext("Save As…")
-        } else {
-            gettext("Save")
-        };
-        dialog.add_response(SAVE_RESPONSE_ID, &save_response_text);
-        dialog.set_response_appearance(SAVE_RESPONSE_ID, adw::ResponseAppearance::Suggested);
-
-        match dialog.choose_future().await.as_str() {
-            CANCEL_RESPONSE_ID => Err(Cancelled.into()),
-            DISCARD_RESPONSE_ID => Ok(()),
-            SAVE_RESPONSE_ID => self.save_document().await,
-            _ => unreachable!(),
         }
     }
 

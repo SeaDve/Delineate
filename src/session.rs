@@ -259,7 +259,7 @@ impl Session {
             for page in pages {
                 let document = page.document();
 
-                if document.is_discardable() {
+                if document.is_safely_discardable() {
                     continue;
                 }
 

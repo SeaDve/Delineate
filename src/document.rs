@@ -20,7 +20,7 @@ mod imp {
     #[derive(Default, glib::Properties)]
     #[properties(wrapper_type = super::Document)]
     pub struct Document {
-        #[property(get = Self::file, set = Self::set_file, construct_only)]
+        #[property(get = Self::file, set = Self::set_file, explicit_notify)]
         pub(super) file: PhantomData<Option<gio::File>>,
         #[property(get = Self::title)]
         pub(super) title: PhantomData<String>,
@@ -129,7 +129,10 @@ mod imp {
         }
 
         fn set_file(&self, file: Option<&gio::File>) {
+            let obj = self.obj();
+
             self.source_file.set_location(file);
+            obj.notify_file();
         }
 
         fn title(&self) -> String {
@@ -170,16 +173,16 @@ impl Document {
         glib::Object::new()
     }
 
-    pub fn is_discardable(&self) -> bool {
+    pub fn for_file(file: gio::File) -> Self {
+        glib::Object::builder().property("file", file).build()
+    }
+
+    pub fn is_safely_discardable(&self) -> bool {
         self.is_draft() && !self.is_modified()
     }
 
     pub fn is_draft(&self) -> bool {
         self.file().is_none()
-    }
-
-    pub fn for_file(file: gio::File) -> Self {
-        glib::Object::builder().property("file", file).build()
     }
 
     pub fn contents(&self) -> glib::GString {
@@ -223,6 +226,7 @@ impl Document {
         self.handle_file_io(saver.save_future(glib::Priority::default()))
             .await?;
 
+        self.notify_file();
         self.notify_title();
 
         self.set_modified(false);
