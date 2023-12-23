@@ -5,6 +5,10 @@ use gtk::{gio, glib};
 
 use crate::config::PROFILE;
 
+pub fn application_name() -> String {
+    gettext("Dagger")
+}
+
 pub fn is_devel_profile() -> bool {
     PROFILE == "Devel"
 }

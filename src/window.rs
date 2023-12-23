@@ -473,7 +473,7 @@ impl Window {
     fn update_title(&self) {
         let imp = self.imp();
 
-        let app_name = glib::application_name().unwrap();
+        let app_name = utils::application_name();
 
         let header_title = self
             .selected_page()
