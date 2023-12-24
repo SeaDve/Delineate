@@ -9,3 +9,21 @@ dragoverlay .drag-area-highlight {
   background-color: alpha(@blue_2, 0.35);
   margin: 24px;
 }
+
+/* SaveChangesDialog */
+
+.save-changes-dialog > windowhandle > box.vertical > box.message-area.vertical {
+  padding-bottom: 0;
+}
+
+.save-changes-dialog > windowhandle > box.vertical > box.message-area.vertical > preferencespage {
+  margin-left: -30px;
+  margin-right: -30px;
+}
+
+.save-changes-dialog > windowhandle > box.vertical > box.message-area.vertical > preferencespage > scrolledwindow > viewport {
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 10px;
+}
+

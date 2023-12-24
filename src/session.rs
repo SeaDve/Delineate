@@ -80,7 +80,21 @@ mod imp {
         }
     }
 
-    impl ObjectImpl for Session {}
+    impl ObjectImpl for Session {
+        fn dispose(&self) {
+            let obj = self.obj();
+
+            // FIXME This should be spawned asynchronously and called in last window closed
+            let ctx = glib::MainContext::default();
+            ctx.block_on(clone!(@weak obj => async move {
+                tracing::debug!("Saving session on dispose");
+
+                if let Err(err) = obj.save().await {
+                    tracing::error!("Failed to save session on dispose: {:?}", err);
+                }
+            }));
+        }
+    }
 }
 
 glib::wrapper! {
@@ -140,16 +154,6 @@ impl Session {
         if matches!(imp.windows.borrow().as_slice(), [last_window] if last_window == window) {
             imp.default_window_width.set(window.default_width());
             imp.default_window_height.set(window.default_height());
-
-            let ctx = glib::MainContext::default();
-            ctx.block_on(clone!(@weak self as obj => async move {
-                tracing::debug!("Saving session on last window");
-
-                if let Err(err) = obj.save().await {
-                    tracing::error!("Failed to save session on last window: {:?}", err);
-                }
-
-            }));
         }
 
         imp.windows.borrow_mut().retain(|w| w != window);
