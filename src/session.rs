@@ -256,10 +256,10 @@ impl Session {
             // FIXME This causes EntryError on close_request
             let ctx = glib::MainContext::default();
             ctx.block_on(clone!(@weak self as obj => async move {
-                tracing::debug!("Saving session on dispose");
+                tracing::debug!("Saving session on last window");
 
                 if let Err(err) = obj.save().await {
-                    tracing::error!("Failed to save session on dispose: {:?}", err);
+                    tracing::error!("Failed to save session on last window: {:?}", err);
                 }
             }));
         }
