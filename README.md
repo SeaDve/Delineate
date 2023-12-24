@@ -74,10 +74,12 @@ would like to support it, you may [buy me a coffee](https://www.buymeacoffee.com
 
 ## 💝 Acknowledgment
 
-I would like to thank the [contributors](https://github.com/SeaDve/dagger/graphs/contributors)
-and [translators](https://hosted.weblate.org/engage/kooha/) of the project for helping Dagger
-to grow and improve.
-
-I would also like to acknowledge the open-source software projects, libraries, and APIs that were
+I would like to express my gratitude to the open-source software projects, libraries, and APIs that were
 used in developing this app, such as GStreamer, GTK, LibAdwaita, `d3-graphviz`, etc.,
 for making Dagger possible.
+
+I'd also acknowledge GNOME Text Editor as the session and document architecture is heavily inspired by it.
+
+Finally, I would like to thank the [contributors](https://github.com/SeaDve/dagger/graphs/contributors)
+and [translators](https://hosted.weblate.org/engage/kooha/) of the project for helping Dagger
+to grow and improve.
