@@ -117,7 +117,7 @@ mod imp {
                 let file = gio::File::for_uri(&uri);
                 let file_launcher = gtk::FileLauncher::new(Some(&file));
                 if let Err(err) = file_launcher
-                    .open_containing_folder_future(Some(&obj.window()))
+                    .open_containing_folder_future(Some(&obj.window().unwrap()))
                     .await
                 {
                     tracing::error!("Failed to show in Files: {:?}", err);
@@ -372,7 +372,7 @@ impl Page {
                 .modal(true)
                 .initial_name(format!("{}.gv", document.title()))
                 .build();
-            let file = dialog.save_future(Some(&self.window())).await?;
+            let file = dialog.save_future(Some(&self.window().unwrap())).await?;
 
             document.save_as(&file).await?;
         } else {
@@ -393,7 +393,7 @@ impl Page {
             .modal(true)
             .initial_name(format!("{}.gv", document.title()))
             .build();
-        let file = dialog.save_future(Some(&self.window())).await?;
+        let file = dialog.save_future(Some(&self.window().unwrap())).await?;
 
         document.save_as(&file).await?;
 
@@ -431,7 +431,7 @@ impl Page {
             .filters(&filters)
             .modal(true)
             .build();
-        let file = dialog.save_future(Some(&self.window())).await?;
+        let file = dialog.save_future(Some(&self.window().unwrap())).await?;
 
         let svg_bytes = imp.graph_view.get_svg().await?;
 
@@ -508,16 +508,31 @@ impl Page {
         LayoutEngine::try_from(selected_item.value()).unwrap()
     }
 
-    fn window(&self) -> Window {
-        self.root().unwrap().downcast().unwrap()
+    /// Whether this page is the selected page in its window.
+    pub fn is_active(&self) -> bool {
+        self.window()
+            .and_then(|w| w.selected_page())
+            .is_some_and(|p| &p == self)
+    }
+
+    fn window(&self) -> Option<Window> {
+        self.root().map(|r| r.downcast().unwrap())
     }
 
     fn add_toast(&self, toast: adw::Toast) {
-        self.window().add_toast(toast);
+        if let Some(window) = self.window() {
+            window.add_toast(toast);
+        } else {
+            tracing::error!("Failed to show toast: no root");
+        }
     }
 
     fn add_message_toast(&self, message: &str) {
-        self.window().add_message_toast(message);
+        if let Some(window) = self.window() {
+            window.add_message_toast(message);
+        } else {
+            tracing::error!("Failed to show message toast: no root");
+        }
     }
 
     fn set_document(&self, document: &Document) {

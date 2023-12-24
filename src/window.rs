@@ -7,8 +7,13 @@ use gtk::{
 };
 
 use crate::{
-    application::Application, config::APP_ID, export_format::ExportFormat, page::Page,
-    save_changes_dialog, session::Session, utils,
+    application::Application,
+    config::APP_ID,
+    export_format::ExportFormat,
+    page::Page,
+    save_changes_dialog,
+    session::{PageState, Session},
+    utils,
 };
 
 // TODO
@@ -21,12 +26,8 @@ use crate::{
 // * dot language server, hover info, color picker, autocompletion, snippets, renames, etc.
 // * modified file on disk handling
 
-// FIXME
-// * Session saving (unsaved documents, etc.)
-// * Restore closed pages with Ctrl+Shift+T
-
 mod imp {
-    use std::cell::OnceCell;
+    use std::cell::{OnceCell, RefCell};
 
     use crate::drag_overlay::DragOverlay;
 
@@ -56,6 +57,7 @@ mod imp {
         #[template_child]
         pub(super) tab_view: TemplateChild<adw::TabView>,
 
+        pub(super) closed_pages: RefCell<Vec<PageState>>,
         pub(super) page_signal_group: OnceCell<glib::SignalGroup>,
         pub(super) tab_view_close_page_handler_id: OnceCell<glib::SignalHandlerId>,
     }
@@ -212,6 +214,13 @@ mod imp {
                 }
             });
 
+            klass.install_action_async("win.undo-close-page", None, |obj, _, _| async move {
+                if let Err(err) = obj.restore_closed_page().await {
+                    tracing::error!("Failed to restore closed page: {:?}", err);
+                    obj.add_message_toast(&gettext("Failed to restore closed page"));
+                }
+            });
+
             klass.add_binding_action(
                 gdk::Key::T,
                 gdk::ModifierType::CONTROL_MASK,
@@ -326,6 +335,13 @@ mod imp {
                 gdk::Key::W,
                 gdk::ModifierType::CONTROL_MASK,
                 "win.close-page-or-window",
+                None,
+            );
+
+            klass.add_binding_action(
+                gdk::Key::T,
+                gdk::ModifierType::CONTROL_MASK | gdk::ModifierType::SHIFT_MASK,
+                "win.undo-close-page",
                 None,
             );
         }
@@ -448,6 +464,7 @@ Or, press Ctrl+W to close the window.",
 
             obj.update_stack_page();
             obj.bind_page(None);
+            obj.update_undo_close_page_action();
         }
 
         fn dispose(&self) {
@@ -519,7 +536,7 @@ impl Window {
         let imp = self.imp();
 
         let page = Page::new();
-        page.set_paned_position(self.width() / 2);
+        page.set_paned_position(self.default_width() / 2);
 
         let tab_page = imp.tab_view.append(&page);
         page.bind_property("title", &tab_page, "title")
@@ -550,11 +567,18 @@ impl Window {
 
         let imp = self.imp();
 
+        let handler_id = imp.tab_view_close_page_handler_id.get().unwrap();
+
+        // Block our handler, so it will immediately confirm closing the page
+        // as we already handle here unsaved changes.
+        imp.tab_view.block_signal(handler_id);
+
         let mut unsaved_pages = Vec::new();
         for page in pages {
             if !page.is_modified() {
                 let tab_page = imp.tab_view.page(page);
                 imp.tab_view.close_page(&tab_page);
+                self.add_closed_page(page);
                 continue;
             }
 
@@ -570,17 +594,14 @@ impl Window {
                 .await
                 .is_proceed()
         {
-            let handler_id = imp.tab_view_close_page_handler_id.get().unwrap();
-
-            // Block our handler, so it will immediately confirm closing the page
-            // as we already handle unsaved changes.
-            imp.tab_view.block_signal(handler_id);
             for page in unsaved_pages {
                 let tab_page = imp.tab_view.page(page);
                 imp.tab_view.close_page(&tab_page);
+                self.add_closed_page(page);
             }
-            imp.tab_view.unblock_signal(handler_id);
         }
+
+        imp.tab_view.unblock_signal(handler_id);
     }
 
     pub fn pages(&self) -> Vec<Page> {
@@ -620,6 +641,19 @@ impl Window {
         imp.tab_view.set_selected_page(&tab_page);
     }
 
+    pub fn set_closed_pages(&self, page_states: Vec<PageState>) {
+        let imp = self.imp();
+
+        imp.closed_pages.replace(page_states);
+        self.update_undo_close_page_action();
+    }
+
+    pub fn closed_pages(&self) -> Vec<PageState> {
+        let imp = self.imp();
+
+        imp.closed_pages.borrow().clone()
+    }
+
     async fn open_document(&self) -> Result<()> {
         let dialog = gtk::FileDialog::builder()
             .title(gettext("Open Document"))
@@ -644,6 +678,8 @@ impl Window {
             }
         }
 
+        // Load the document in the current page if it is empty, otherwise
+        // create a new page and load the document there.
         match self.selected_page() {
             Some(page) if page.document().is_safely_discardable() => {
                 page.load_file(file).await?;
@@ -675,6 +711,32 @@ impl Window {
         session.remove_window(self);
     }
 
+    fn add_closed_page(&self, page: &Page) {
+        let imp = self.imp();
+
+        if page.document().is_draft() {
+            return;
+        }
+
+        let page_state = PageState::for_page(page);
+        tracing::debug!(?page_state, "Saved page state");
+
+        imp.closed_pages.borrow_mut().push(page_state);
+        self.update_undo_close_page_action();
+    }
+
+    async fn restore_closed_page(&self) -> Result<()> {
+        let imp = self.imp();
+
+        let page_state = imp.closed_pages.borrow_mut().pop();
+        if let Some(page_state) = page_state {
+            page_state.restore(self).await;
+            self.update_undo_close_page_action();
+        }
+
+        Ok(())
+    }
+
     fn handle_tab_view_close_page(&self, tab_page: &adw::TabPage) -> glib::Propagation {
         let page = tab_page.child().downcast::<Page>().unwrap();
 
@@ -683,14 +745,19 @@ impl Window {
             utils::spawn(
                 glib::Priority::default(),
                 clone!(@weak self as obj, @weak tab_page => async move {
-                    let propagation = save_changes_dialog::run(&obj, &[document]).await;
-                    obj.imp()
-                        .tab_view
-                        .close_page_finish(&tab_page, propagation.is_proceed());
+                    let imp = obj.imp();
+                    if save_changes_dialog::run(&obj, &[document]).await.is_proceed() {
+                        imp.tab_view.close_page_finish(&tab_page, true);
+                        obj.add_closed_page(&page);
+                    } else {
+                        imp.tab_view.close_page_finish(&tab_page, false);
+                    }
                 }),
             );
             return glib::Propagation::Stop;
         }
+
+        self.add_closed_page(&page);
 
         glib::Propagation::Proceed
     }
@@ -776,5 +843,10 @@ impl Window {
     fn update_export_graph_action(&self) {
         let can_export = self.selected_page().is_some_and(|page| page.can_export());
         self.action_set_enabled("win.export-graph", can_export);
+    }
+
+    fn update_undo_close_page_action(&self) {
+        let is_empty = self.imp().closed_pages.borrow().is_empty();
+        self.action_set_enabled("win.undo-close-page", !is_empty);
     }
 }
