@@ -23,6 +23,7 @@ use crate::{
 
 // FIXME
 // * Session saving (unsaved documents, etc.)
+// * Restore closed pages with Ctrl+Shift+T
 
 mod imp {
     use std::cell::OnceCell;
