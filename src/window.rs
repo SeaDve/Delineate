@@ -8,7 +8,7 @@ use gtk::{
 
 use crate::{
     application::Application, config::APP_ID, export_format::ExportFormat, page::Page,
-    session::Session, utils,
+    save_changes_dialog, session::Session, utils,
 };
 
 // TODO
@@ -57,6 +57,7 @@ mod imp {
         pub(super) tab_view: TemplateChild<adw::TabView>,
 
         pub(super) page_signal_group: OnceCell<glib::SignalGroup>,
+        pub(super) tab_view_close_page_handler_id: OnceCell<glib::SignalHandlerId>,
     }
 
     #[glib::object_subclass]
@@ -190,21 +191,22 @@ mod imp {
                         .transfer_page(&tab_page, &new_window.imp().tab_view, 0);
                 }
             });
-            klass.install_action("win.close-other-pages", None, |obj, _, _| {
+            klass.install_action_async("win.close-other-pages", None, |obj, _, _| async move {
                 if let Some(page) = obj.selected_page() {
                     let pages = obj.pages();
-                    let pages_to_close = pages.iter().filter(|p| **p != page);
-                    obj.close_pages(pages_to_close);
+                    let pages_to_close =
+                        pages.into_iter().filter(|p| p != &page).collect::<Vec<_>>();
+                    obj.request_close_pages(&pages_to_close).await;
                 }
             });
-            klass.install_action("win.close-page", None, |obj, _, _| {
+            klass.install_action_async("win.close-page", None, |obj, _, _| async move {
                 if let Some(page) = obj.selected_page() {
-                    obj.close_page(&page);
+                    obj.request_close_pages(&[page]).await;
                 }
             });
-            klass.install_action("win.close-page-or-window", None, |obj, _, _| {
+            klass.install_action_async("win.close-page-or-window", None, |obj, _, _| async move {
                 if let Some(page) = obj.selected_page() {
-                    obj.close_page(&page);
+                    obj.request_close_pages(&[page]).await;
                 } else {
                     obj.close();
                 }
@@ -429,6 +431,15 @@ Or, press Ctrl+W to close the window.",
                     }
                 }));
 
+            let tab_view_close_page_handler_id = self.tab_view.connect_close_page(
+                clone!(@weak obj => @default-panic, move |_, tab_page| {
+                    obj.handle_tab_view_close_page(tab_page).into()
+                }),
+            );
+            self.tab_view_close_page_handler_id
+                .set(tab_view_close_page_handler_id)
+                .unwrap();
+
             self.tab_view
                 .bind_property("n-pages", &*self.tab_button, "visible")
                 .transform_to(|_, n_pages: i32| Some(n_pages > 0))
@@ -452,22 +463,30 @@ Or, press Ctrl+W to close the window.",
         fn close_request(&self) -> glib::Propagation {
             let obj = self.obj();
 
-            let session = Session::instance();
-            session.remove_window(&obj);
+            let unsaved_documents = obj
+                .pages()
+                .iter()
+                .map(|page| page.document())
+                .filter(|document| document.is_modified())
+                .collect::<Vec<_>>();
 
-            // let prev_document = obj.document();
-            // if prev_document.is_modified() {
-            //     utils::spawn(
-            //         glib::Priority::default(),
-            //         clone!(@weak obj => async move {
-            //             if obj.handle_unsaved_changes(&prev_document).await.is_err() {
-            //                 return;
-            //             }
-            //             obj.destroy();
-            //         }),
-            //     );
-            //     return glib::Propagation::Stop;
-            // }
+            if !unsaved_documents.is_empty() {
+                utils::spawn(
+                    glib::Priority::default(),
+                    clone!(@weak obj => async move {
+                        if save_changes_dialog::run(&obj, &unsaved_documents)
+                            .await
+                            .is_proceed()
+                        {
+                            obj.close_request_inner();
+                            obj.destroy();
+                        }
+                    }),
+                );
+                return glib::Propagation::Stop;
+            }
+
+            obj.close_request_inner();
 
             self.parent_close_request()
         }
@@ -526,15 +545,41 @@ impl Window {
         page
     }
 
-    pub fn close_page(&self, page: &Page) {
-        self.close_pages([page]);
-    }
+    pub async fn request_close_pages<'a>(&self, pages: &[Page]) {
+        debug_assert!(!pages.is_empty());
 
-    pub fn close_pages<'a>(&self, pages: impl IntoIterator<Item = &'a Page>) {
         let imp = self.imp();
-        for page in pages.into_iter() {
-            let tab_page = imp.tab_view.page(page);
-            imp.tab_view.close_page(&tab_page);
+
+        let mut unsaved_pages = Vec::new();
+        for page in pages {
+            if !page.is_modified() {
+                let tab_page = imp.tab_view.page(page);
+                imp.tab_view.close_page(&tab_page);
+                continue;
+            }
+
+            unsaved_pages.push(page);
+        }
+
+        let unsaved_documents = unsaved_pages
+            .iter()
+            .map(|page| page.document())
+            .collect::<Vec<_>>();
+        if !unsaved_documents.is_empty()
+            && save_changes_dialog::run(self, &unsaved_documents)
+                .await
+                .is_proceed()
+        {
+            let handler_id = imp.tab_view_close_page_handler_id.get().unwrap();
+
+            // Block our handler, so it will immediately confirm closing the page
+            // as we already handle unsaved changes.
+            imp.tab_view.block_signal(handler_id);
+            for page in unsaved_pages {
+                let tab_page = imp.tab_view.page(page);
+                imp.tab_view.close_page(&tab_page);
+            }
+            imp.tab_view.unblock_signal(handler_id);
         }
     }
 
@@ -623,6 +668,31 @@ impl Window {
         self.update_save_action();
         self.update_discard_changes_action();
         self.update_export_graph_action();
+    }
+
+    fn close_request_inner(&self) {
+        let session = Session::instance();
+        session.remove_window(self);
+    }
+
+    fn handle_tab_view_close_page(&self, tab_page: &adw::TabPage) -> glib::Propagation {
+        let page = tab_page.child().downcast::<Page>().unwrap();
+
+        let document = page.document();
+        if document.is_modified() {
+            utils::spawn(
+                glib::Priority::default(),
+                clone!(@weak self as obj, @weak tab_page => async move {
+                    let propagation = save_changes_dialog::run(&obj, &[document]).await;
+                    obj.imp()
+                        .tab_view
+                        .close_page_finish(&tab_page, propagation.is_proceed());
+                }),
+            );
+            return glib::Propagation::Stop;
+        }
+
+        glib::Propagation::Proceed
     }
 
     fn handle_drop(&self, file_list: &gdk::FileList) -> bool {

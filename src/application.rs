@@ -7,8 +7,10 @@ use gtk::{
 use crate::{
     about,
     config::{APP_ID, PKGDATADIR, PROFILE, VERSION},
+    save_changes_dialog,
     session::Session,
     utils,
+    window::Window,
 };
 
 mod imp {
@@ -101,6 +103,58 @@ impl Application {
         &self.imp().session
     }
 
+    pub fn run(&self) -> glib::ExitCode {
+        tracing::info!("Dagger ({})", APP_ID);
+        tracing::info!("Version: {} ({})", VERSION, PROFILE);
+        tracing::info!("Datadir: {}", PKGDATADIR);
+
+        ApplicationExtManual::run(self)
+    }
+
+    pub fn quit(&self) {
+        let unsaved_documents = self
+            .session()
+            .windows()
+            .iter()
+            .flat_map(|windows| windows.pages())
+            .map(|page| page.document())
+            .filter(|document| document.is_modified())
+            .collect::<Vec<_>>();
+
+        if !unsaved_documents.is_empty() {
+            utils::spawn(
+                glib::Priority::default(),
+                clone!(@weak self as obj => async move {
+                    let active_window = obj.active_window().unwrap().downcast::<Window>().unwrap();
+                    if save_changes_dialog::run(&active_window, &unsaved_documents)
+                        .await
+                        .is_proceed()
+                    {
+                        obj.quit_inner();
+                    }
+                }),
+            );
+            return;
+        }
+
+        self.quit_inner();
+    }
+
+    fn quit_inner(&self) {
+        utils::spawn(
+            glib::Priority::default(),
+            clone!(@weak self as obj => async move {
+                tracing::debug!("Saving session on quit");
+
+                if let Err(err) = obj.session().save().await {
+                    tracing::error!("Failed to save session on quit: {:?}", err);
+                }
+
+                ApplicationExt::quit(&obj);
+            }),
+        );
+    }
+
     fn setup_gactions(&self) {
         let action_new_window = gio::ActionEntry::builder("new-window")
             .activate(|obj: &Self, _, _| {
@@ -122,28 +176,5 @@ impl Application {
     fn setup_accels(&self) {
         self.set_accels_for_action("app.new-window", &["<Control>n"]);
         self.set_accels_for_action("app.quit", &["<Control>q"]);
-    }
-
-    pub fn run(&self) -> glib::ExitCode {
-        tracing::info!("Dagger ({})", APP_ID);
-        tracing::info!("Version: {} ({})", VERSION, PROFILE);
-        tracing::info!("Datadir: {}", PKGDATADIR);
-
-        ApplicationExtManual::run(self)
-    }
-
-    pub fn quit(&self) {
-        utils::spawn(
-            glib::Priority::default(),
-            clone!(@weak self as obj => async move {
-                tracing::debug!("Saving session on quit");
-
-                if let Err(err) = obj.session().save().await {
-                    tracing::error!("Failed to save session on quit: {:?}", err);
-                }
-
-                ApplicationExt::quit(&obj);
-            }),
-        );
     }
 }

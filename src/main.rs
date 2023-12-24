@@ -25,7 +25,6 @@
 
 mod about;
 mod application;
-mod cancelled;
 mod config;
 mod document;
 mod drag_overlay;
@@ -34,6 +33,7 @@ mod export_format;
 mod graph_view;
 mod i18n;
 mod page;
+mod save_changes_dialog;
 mod session;
 mod utils;
 mod window;
