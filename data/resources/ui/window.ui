@@ -87,7 +87,8 @@
     <property name="content">
       <object class="AdwToastOverlay" id="toast_overlay">
         <property name="child">
-          <object class="AdwTabOverview">
+          <object class="AdwTabOverview" id="tab_overview">
+            <property name="enable-new-tab">True</property>
             <property name="view">tab_view</property>
             <property name="child">
               <object class="AdwToolbarView">

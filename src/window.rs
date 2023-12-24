@@ -37,6 +37,8 @@ mod imp {
         #[template_child]
         pub(super) toast_overlay: TemplateChild<adw::ToastOverlay>,
         #[template_child]
+        pub(super) tab_overview: TemplateChild<adw::TabOverview>,
+        #[template_child]
         pub(super) document_modified_status: TemplateChild<gtk::Label>,
         #[template_child]
         pub(super) document_title_label: TemplateChild<gtk::Label>,
@@ -393,6 +395,13 @@ Or, press Ctrl+W to close the window.",
                 obj.handle_drop(&value.get::<gdk::FileList>().unwrap())
             }));
             self.drag_overlay.set_target(Some(&drop_target));
+
+            self.tab_overview
+                .connect_create_tab(clone!(@weak obj => @default-panic, move |_| {
+                    let imp = obj.imp();
+                    let page = obj.add_new_page();
+                    imp.tab_view.page(&page)
+                }));
 
             self.tab_view
                 .connect_selected_page_notify(clone!(@weak obj => move |_| {
