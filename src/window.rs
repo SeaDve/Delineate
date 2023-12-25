@@ -17,10 +17,10 @@ use crate::{
 };
 
 // TODO
-// * modified file on disk handling
 // * Recent files
-// * Session autosave
 // * Find and replace
+// * Session autosave
+// * modified file on disk handling
 // * Bird's eye view of graph
 // * Full screen view of graph
 // * Drag and drop on tabs
