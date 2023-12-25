@@ -71,8 +71,8 @@ mod imp {
         pub(super) error_gutter_renderer: ErrorGutterRenderer,
         pub(super) line_with_error: Cell<Option<u32>>,
 
-        pub(super) document_binding_group: glib::BindingGroup,
-        pub(super) document_signal_group: OnceCell<glib::SignalGroup>,
+        pub(super) document_bindings: glib::BindingGroup,
+        pub(super) document_signals: OnceCell<glib::SignalGroup>,
 
         pub(super) queued_draw_graph: Cell<bool>,
         pub(super) draw_graph_timeout_cancellable: RefCell<Option<gio::Cancellable>>,
@@ -183,17 +183,17 @@ mod imp {
 
             let obj = self.obj();
 
-            self.document_binding_group
+            self.document_bindings
                 .bind("busy-progress", &*self.progress_bar, "fraction")
                 .sync_create()
                 .build();
-            self.document_binding_group
+            self.document_bindings
                 .bind("is-busy", &*self.progress_bar, "visible")
                 .sync_create()
                 .build();
 
-            let document_signal_group = glib::SignalGroup::new::<Document>();
-            document_signal_group.connect_local(
+            let document_signals = glib::SignalGroup::new::<Document>();
+            document_signals.connect_local(
                 "text-changed",
                 false,
                 clone!(@weak obj => @default-panic, move |_| {
@@ -201,29 +201,27 @@ mod imp {
                     None
                 }),
             );
-            document_signal_group.connect_notify_local(
+            document_signals.connect_notify_local(
                 Some("title"),
                 clone!(@weak obj => move |_, _| {
                     obj.notify_title();
                 }),
             );
-            document_signal_group.connect_notify_local(
+            document_signals.connect_notify_local(
                 Some("is-modified"),
                 clone!(@weak obj => move |_, _| {
                     obj.notify_is_modified();
                     obj.notify_can_discard_changes();
                 }),
             );
-            document_signal_group.connect_notify_local(
+            document_signals.connect_notify_local(
                 Some("is-busy"),
                 clone!(@weak obj => move |_, _| {
                     obj.notify_is_busy();
                     obj.notify_can_save();
                 }),
             );
-            self.document_signal_group
-                .set(document_signal_group)
-                .unwrap();
+            self.document_signals.set(document_signals).unwrap();
 
             self.layout_engine_drop_down
                 .set_expression(Some(&gtk::ClosureExpression::new::<glib::GString>(
@@ -551,10 +549,10 @@ impl Page {
 
         imp.view.set_buffer(Some(document));
 
-        imp.document_binding_group.set_source(Some(document));
+        imp.document_bindings.set_source(Some(document));
 
-        let document_signal_group = imp.document_signal_group.get().unwrap();
-        document_signal_group.set_target(Some(document));
+        let document_signals = imp.document_signals.get().unwrap();
+        document_signals.set_target(Some(document));
 
         self.notify_title();
         self.notify_is_busy();

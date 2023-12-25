@@ -61,7 +61,7 @@ mod imp {
 
         pub(super) inhibit_cookie: RefCell<Option<u32>>,
         pub(super) closed_pages: RefCell<Vec<PageState>>,
-        pub(super) page_signal_group: OnceCell<glib::SignalGroup>,
+        pub(super) selected_page_signals: OnceCell<glib::SignalGroup>,
         pub(super) tab_view_close_page_handler_id: OnceCell<glib::SignalHandlerId>,
     }
 
@@ -391,44 +391,46 @@ mod imp {
 Or, press Ctrl+W to close the window.",
             ));
 
-            let page_signal_group = glib::SignalGroup::new::<Page>();
-            page_signal_group.connect_notify_local(
+            let selected_page_signals = glib::SignalGroup::new::<Page>();
+            selected_page_signals.connect_notify_local(
                 Some("title"),
                 clone!(@weak obj => move |_, _| {
                     obj.update_title();
                 }),
             );
-            page_signal_group.connect_notify_local(
+            selected_page_signals.connect_notify_local(
                 Some("is-modified"),
                 clone!(@weak obj => move |_, _| {
                     obj.update_modified_status();
                 }),
             );
-            page_signal_group.connect_notify_local(
+            selected_page_signals.connect_notify_local(
                 Some("can-save"),
                 clone!(@weak obj => move |_, _| {
                     obj.update_save_action();
                 }),
             );
-            page_signal_group.connect_notify_local(
+            selected_page_signals.connect_notify_local(
                 Some("can-discard-changes"),
                 clone!(@weak obj => move |_, _| {
                     obj.update_discard_changes_action();
                 }),
             );
-            page_signal_group.connect_notify_local(
+            selected_page_signals.connect_notify_local(
                 Some("can-export-graph"),
                 clone!(@weak obj => move |_, _| {
                     obj.update_export_graph_action();
                 }),
             );
-            page_signal_group.connect_notify_local(
+            selected_page_signals.connect_notify_local(
                 Some("can-open-containing-folder"),
                 clone!(@weak obj => move |_, _| {
                     obj.update_open_containing_folder_action();
                 }),
             );
-            self.page_signal_group.set(page_signal_group).unwrap();
+            self.selected_page_signals
+                .set(selected_page_signals)
+                .unwrap();
 
             let drop_target = gtk::DropTarget::builder()
                 .propagation_phase(gtk::PropagationPhase::Capture)
@@ -757,8 +759,8 @@ impl Window {
     fn bind_page(&self, page: Option<&Page>) {
         let imp = self.imp();
 
-        let page_signal_group = imp.page_signal_group.get().unwrap();
-        page_signal_group.set_target(page);
+        let selected_page_signals = imp.selected_page_signals.get().unwrap();
+        selected_page_signals.set_target(page);
 
         self.update_title();
         self.update_modified_status();
