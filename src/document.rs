@@ -248,9 +248,9 @@ impl Document {
     pub async fn discard_changes(&self) -> Result<()> {
         ensure!(!self.is_busy(), "Document must not be busy");
 
-        let _guard = self.mark_busy();
-
         if self.is_draft() {
+            let _guard = self.mark_busy();
+
             self.delete(&mut self.start_iter(), &mut self.end_iter());
             self.set_modified(false);
         } else {
@@ -267,16 +267,21 @@ impl Document {
     fn set_busy_progress(&self, busy_progress: f64) {
         let imp = self.imp();
 
-        if busy_progress != self.busy_progress() {
-            imp.busy_progress.set(busy_progress);
-            self.notify_busy_progress();
+        if busy_progress == self.busy_progress() {
+            return;
         }
 
+        imp.busy_progress.set(busy_progress);
+        self.notify_busy_progress();
+
         let is_busy = busy_progress != 1.0;
-        if is_busy != self.is_busy() {
-            imp.is_busy.set(is_busy);
-            self.notify_is_busy();
+
+        if is_busy == self.is_busy() {
+            return;
         }
+
+        imp.is_busy.set(is_busy);
+        self.notify_is_busy();
     }
 
     fn mark_busy(&self) -> MarkBusyGuard<'_> {
