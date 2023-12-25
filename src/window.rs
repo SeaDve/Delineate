@@ -17,14 +17,14 @@ use crate::{
 };
 
 // TODO
+// * modified file on disk handling
+// * Recent files
+// * Inhibit when has unsaved changes
 // * Find and replace
 // * Bird's eye view of graph
 // * Full screen view of graph
-// * Recent files
 // * Drag and drop on tabs
-// * Inhibit when has unsaved changes
 // * dot language server, hover info, color picker, autocompletion, snippets, renames, etc.
-// * modified file on disk handling
 
 mod imp {
     use std::cell::{OnceCell, RefCell};
