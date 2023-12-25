@@ -401,7 +401,7 @@ Or, press Ctrl+W to close the window.",
             page_signal_group.connect_notify_local(
                 Some("is-modified"),
                 clone!(@weak obj => move |_, _| {
-                    obj.update_is_modified();
+                    obj.update_modified_status();
                 }),
             );
             page_signal_group.connect_notify_local(
@@ -761,7 +761,7 @@ impl Window {
         page_signal_group.set_target(page);
 
         self.update_title();
-        self.update_is_modified();
+        self.update_modified_status();
         self.update_save_action();
         self.update_discard_changes_action();
         self.update_export_graph_action();
@@ -906,7 +906,7 @@ impl Window {
         self.set_title(Some(&window_title));
     }
 
-    fn update_is_modified(&self) {
+    fn update_modified_status(&self) {
         let imp = self.imp();
         let is_modified = self
             .selected_page()
