@@ -505,20 +505,17 @@ Or, press Ctrl+W to close the window.",
                 .collect::<Vec<_>>();
 
             if !unsaved_documents.is_empty() {
-                utils::spawn(
-                    glib::Priority::default(),
-                    clone!(@weak obj => async move {
-                        if save_changes_dialog::run(&obj, &unsaved_documents)
-                            .await
-                            .is_proceed()
-                        {
-                            let session = Session::instance();
-                            session.remove_window(&obj);
+                utils::spawn(clone!(@weak obj => async move {
+                    if save_changes_dialog::run(&obj, &unsaved_documents)
+                        .await
+                        .is_proceed()
+                    {
+                        let session = Session::instance();
+                        session.remove_window(&obj);
 
-                            obj.destroy();
-                        }
-                    }),
-                );
+                        obj.destroy();
+                    }
+                }));
                 return glib::Propagation::Stop;
             }
 
@@ -759,18 +756,15 @@ impl Window {
 
         let document = page.document();
         if document.is_modified() {
-            utils::spawn(
-                glib::Priority::default(),
-                clone!(@weak self as obj, @weak tab_page => async move {
-                    let imp = obj.imp();
-                    if save_changes_dialog::run(&obj, &[document]).await.is_proceed() {
-                        imp.tab_view.close_page_finish(&tab_page, true);
-                        obj.remove_page(&page);
-                    } else {
-                        imp.tab_view.close_page_finish(&tab_page, false);
-                    }
-                }),
-            );
+            utils::spawn(clone!(@weak self as obj, @weak tab_page => async move {
+                let imp = obj.imp();
+                if save_changes_dialog::run(&obj, &[document]).await.is_proceed() {
+                    imp.tab_view.close_page_finish(&tab_page, true);
+                    obj.remove_page(&page);
+                } else {
+                    imp.tab_view.close_page_finish(&tab_page, false);
+                }
+            }));
             return glib::Propagation::Stop;
         }
 
@@ -787,12 +781,9 @@ impl Window {
             return false;
         }
 
-        utils::spawn(
-            glib::Priority::default(),
-            clone!(@weak self as obj => async move {
-                obj.handle_drop_inner(files).await;
-            }),
-        );
+        utils::spawn(clone!(@weak self as obj => async move {
+            obj.handle_drop_inner(files).await;
+        }));
 
         true
     }

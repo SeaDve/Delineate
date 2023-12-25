@@ -74,14 +74,11 @@ impl PageState {
 
         if let Some(uri) = &self.uri {
             let file = gio::File::for_uri(uri);
-            utils::spawn(
-                glib::Priority::default(),
-                clone!(@weak page => async move {
-                    if let Err(err) = page.load_file(file).await {
-                        tracing::error!("Failed to load file for page: {:?}", err);
-                    }
-                }),
-            );
+            utils::spawn(clone!(@weak page => async move {
+                if let Err(err) = page.load_file(file).await {
+                    tracing::error!("Failed to load file for page: {:?}", err);
+                }
+            }));
         }
 
         if let Some(SelectionState {
@@ -263,20 +260,17 @@ impl Session {
             let app = Application::instance();
             let hold_guard = app.hold();
 
-            utils::spawn(
-                glib::Priority::default(),
-                clone!(@weak self as obj, @weak window => async move {
-                    tracing::debug!("Saving session on last window");
+            utils::spawn(clone!(@weak self as obj, @weak window => async move {
+                tracing::debug!("Saving session on last window");
 
-                    let _hold_guard = hold_guard;
+                let _hold_guard = hold_guard;
 
-                    if let Err(err) = obj.save().await {
-                        tracing::debug!("Failed to save session on last window: {:?}", err);
-                    }
+                if let Err(err) = obj.save().await {
+                    tracing::debug!("Failed to save session on last window: {:?}", err);
+                }
 
-                    obj.remove_window_inner(&window);
-                }),
-            );
+                obj.remove_window_inner(&window);
+            }));
         } else {
             self.remove_window_inner(window);
         }

@@ -188,14 +188,11 @@ mod imp {
                 }),
             );
 
-            utils::spawn(
-                glib::Priority::default(),
-                clone!(@weak obj => async move {
-                    if let Err(err) = obj.ensure_view_initialized().await {
-                        tracing::error!("Failed to initialize view: {:?}", err);
-                    }
-                }),
-            );
+            utils::spawn(clone!(@weak obj => async move {
+                if let Err(err) = obj.ensure_view_initialized().await {
+                    tracing::error!("Failed to initialize view: {:?}", err);
+                }
+            }));
         }
 
         fn dispose(&self) {

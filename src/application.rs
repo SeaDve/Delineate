@@ -42,18 +42,15 @@ mod imp {
             }
 
             let hold_guard = obj.hold();
-            utils::spawn(
-                glib::Priority::default(),
-                clone!(@weak obj => async move {
-                    tracing::debug!("Restoring session on activate");
+            utils::spawn(clone!(@weak obj => async move {
+                tracing::debug!("Restoring session on activate");
 
-                    let _hold_guard = hold_guard;
+                let _hold_guard = hold_guard;
 
-                    if let Err(err) = obj.session().restore().await {
-                        tracing::error!("Failed to restore session: {:?}", err);
-                    }
-                }),
-            );
+                if let Err(err) = obj.session().restore().await {
+                    tracing::error!("Failed to restore session: {:?}", err);
+                }
+            }));
         }
 
         fn startup(&self) {
@@ -112,20 +109,17 @@ impl Application {
     }
 
     pub fn quit(&self) {
-        utils::spawn(
-            glib::Priority::default(),
-            clone!(@weak self as obj => async move {
-                if obj.quit_request().await.is_proceed() {
-                    tracing::debug!("Saving session on quit");
+        utils::spawn(clone!(@weak self as obj => async move {
+            if obj.quit_request().await.is_proceed() {
+                tracing::debug!("Saving session on quit");
 
-                    if let Err(err) = obj.session().save().await {
-                        tracing::error!("Failed to save session on quit: {:?}", err);
-                    }
-
-                    ApplicationExt::quit(&obj);
+                if let Err(err) = obj.session().save().await {
+                    tracing::error!("Failed to save session on quit: {:?}", err);
                 }
-            }),
-        );
+
+                ApplicationExt::quit(&obj);
+            }
+        }));
     }
 
     /// Returns `Proceed` if quit process shall proceed, `Stop` if it shall be aborted.

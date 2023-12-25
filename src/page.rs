@@ -279,7 +279,7 @@ mod imp {
                     obj.update_reset_zoom_action();
                 }));
 
-            utils::spawn(
+            utils::spawn_with_priority(
                 DRAW_GRAPH_PRIORITY,
                 clone!(@weak obj => async move {
                     obj.start_draw_graph_loop().await;
