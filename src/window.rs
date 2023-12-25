@@ -55,8 +55,6 @@ mod imp {
         #[template_child]
         pub(super) empty_page: TemplateChild<adw::StatusPage>,
         #[template_child]
-        pub(super) empty_page_description: TemplateChild<gtk::Label>,
-        #[template_child]
         pub(super) tab_view: TemplateChild<adw::TabView>,
 
         pub(super) inhibit_cookie: RefCell<Option<u32>>,
@@ -378,15 +376,6 @@ mod imp {
             }
 
             self.empty_page.set_icon_name(Some(APP_ID));
-            self.empty_page_description.set_label(&gettext(
-                "• Press the Open button
-• Press the New Tab Button
-• Press Ctrl+N to start a new document
-• Press Ctrl+O to browse for a document
-• Drag a file into the window
-
-Or, press Ctrl+W to close the window.",
-            ));
 
             let selected_page_signals = glib::SignalGroup::new::<Page>();
             selected_page_signals.connect_notify_local(

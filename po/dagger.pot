@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dagger\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-25 20:57+0800\n"
+"POT-Creation-Date: 2023-12-25 21:06+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -259,6 +259,18 @@ msgstr ""
 msgid "Start or Open a Document"
 msgstr ""
 
+#: data/resources/ui/window.ui:170
+msgid ""
+"• Press the Open button\n"
+"• Press the New Tab Button\n"
+"• Press Ctrl+N to start a new document\n"
+"• Press Ctrl+O to browse for a document\n"
+"• Drag a file into the window\n"
+"\n"
+"Or, press Ctrl+W to close the window.\n"
+"                                "
+msgstr ""
+
 #: src/about.rs:21
 msgid "© 2023 Dave Patrick Caberto"
 msgstr ""
@@ -361,42 +373,38 @@ msgstr[1] ""
 msgid "Graphviz DOT Files"
 msgstr ""
 
-#: src/window.rs:88
+#: src/window.rs:86
 msgid "Failed to open document"
 msgstr ""
 
-#: src/window.rs:103
+#: src/window.rs:101
 msgid "Failed to save document"
 msgstr ""
 
-#: src/window.rs:118
+#: src/window.rs:116
 msgid "Failed to save document as"
 msgstr ""
 
-#: src/window.rs:132
+#: src/window.rs:130
 msgid "Failed to discard document changes"
 msgstr ""
 
-#: src/window.rs:146
+#: src/window.rs:144
 msgid "Failed to open containing folder"
 msgstr ""
 
-#: src/window.rs:170
+#: src/window.rs:168
 msgid "Failed to export graph"
 msgstr ""
 
-#: src/window.rs:382
-msgid "• Press the Open button"
-msgstr ""
-
-#: src/window.rs:686
+#: src/window.rs:675
 msgid "Open Document"
 msgstr ""
 
-#: src/window.rs:797
+#: src/window.rs:786
 msgid "Failed to load file"
 msgstr ""
 
-#: src/window.rs:812
+#: src/window.rs:801
 msgid "There are unsaved documents"
 msgstr ""
