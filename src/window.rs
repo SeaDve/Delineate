@@ -678,7 +678,7 @@ impl Window {
             }
         }
 
-        // Load the document in the current page if it is empty, otherwise
+        // Load the document in the current page if it is a draft and empty, otherwise
         // create a new page and load the document there.
         match self.selected_page() {
             Some(page) if page.document().is_safely_discardable() => {
