@@ -10,6 +10,17 @@ use gtk::{
 };
 use gtk_source::{prelude::*, subclass::prelude::*};
 
+/// Unmarks the document as busy on drop.
+struct MarkBusyGuard<'a> {
+    document: &'a Document,
+}
+
+impl Drop for MarkBusyGuard<'_> {
+    fn drop(&mut self) {
+        self.document.set_busy_progress(1.0);
+    }
+}
+
 mod imp {
     use std::{cell::Cell, marker::PhantomData};
 
@@ -24,12 +35,12 @@ mod imp {
         pub(super) file: PhantomData<Option<gio::File>>,
         #[property(get = Self::title)]
         pub(super) title: PhantomData<String>,
-        #[property(get = Self::is_busy)]
-        pub(super) is_busy: PhantomData<bool>,
         #[property(get = Self::is_modified)]
         pub(super) is_modified: PhantomData<bool>,
         #[property(get, default_value = 1.0, minimum = 0.0, maximum = 1.0)]
         pub(super) busy_progress: Cell<f64>,
+        #[property(get)]
+        pub(super) is_busy: Cell<bool>,
 
         pub(super) source_file: gtk_source::File,
     }
@@ -39,13 +50,6 @@ mod imp {
         const NAME: &'static str = "DaggerDocument";
         type Type = super::Document;
         type ParentType = gtk_source::Buffer;
-
-        fn new() -> Self {
-            Self {
-                busy_progress: Cell::new(1.0),
-                ..Default::default()
-            }
-        }
     }
 
     #[glib::derived_properties]
@@ -54,10 +58,7 @@ mod imp {
             self.parent_constructed();
 
             let obj = self.obj();
-
-            obj.connect_loading_notify(clone!(@weak obj => move |_| {
-                obj.notify_is_modified();
-            }));
+            obj.set_busy_progress(1.0);
 
             let language_manager = gtk_source::LanguageManager::default();
             if let Some(language) = language_manager.language("dot") {
@@ -67,6 +68,10 @@ mod imp {
 
             // FIXME Disable when https://gitlab.gnome.org/World/Rust/sourceview5-rs/-/issues/11 is fixed
             obj.set_highlight_matching_brackets(false);
+
+            obj.connect_loading_notify(clone!(@weak obj => move |_| {
+                obj.notify_is_modified();
+            }));
 
             let style_manager = adw::StyleManager::default();
             style_manager.connect_dark_notify(clone!(@weak obj => move |_| {
@@ -150,10 +155,6 @@ mod imp {
             }
         }
 
-        fn is_busy(&self) -> bool {
-            self.busy_progress.get() != 1.0
-        }
-
         fn is_modified(&self) -> bool {
             let obj = self.obj();
 
@@ -190,9 +191,12 @@ impl Document {
     }
 
     pub async fn load(&self) -> Result<()> {
+        ensure!(!self.is_busy(), "Document must not be busy");
         ensure!(!self.is_draft(), "Document must not be a draft");
 
         let imp = self.imp();
+
+        let _guard = self.mark_busy();
 
         let loader = gtk_source::FileLoader::new(self, &imp.source_file);
         self.handle_file_io(loader.load_future(glib::Priority::default()))
@@ -204,9 +208,12 @@ impl Document {
     }
 
     pub async fn save(&self) -> Result<()> {
+        ensure!(!self.is_busy(), "Document must not be busy");
         ensure!(!self.is_draft(), "Document must not be a draft");
 
         let imp = self.imp();
+
+        let _guard = self.mark_busy();
 
         let saver = gtk_source::FileSaver::new(self, &imp.source_file);
         self.handle_file_io(saver.save_future(glib::Priority::default()))
@@ -218,7 +225,11 @@ impl Document {
     }
 
     pub async fn save_as(&self, file: &gio::File) -> Result<()> {
+        ensure!(!self.is_busy(), "Document must not be busy");
+
         let imp = self.imp();
+
+        let _guard = self.mark_busy();
 
         imp.source_file.set_location(Some(file));
 
@@ -235,6 +246,10 @@ impl Document {
     }
 
     pub async fn discard_changes(&self) -> Result<()> {
+        ensure!(!self.is_busy(), "Document must not be busy");
+
+        let _guard = self.mark_busy();
+
         if self.is_draft() {
             self.delete(&mut self.start_iter(), &mut self.end_iter());
             self.set_modified(false);
@@ -247,6 +262,27 @@ impl Document {
 
     fn emit_text_changed(&self) {
         self.emit_by_name::<()>("text-changed", &[]);
+    }
+
+    fn set_busy_progress(&self, busy_progress: f64) {
+        let imp = self.imp();
+
+        if busy_progress != self.busy_progress() {
+            imp.busy_progress.set(busy_progress);
+            self.notify_busy_progress();
+        }
+
+        let is_busy = busy_progress != 1.0;
+        if is_busy != self.is_busy() {
+            imp.is_busy.set(is_busy);
+            self.notify_is_busy();
+        }
+    }
+
+    fn mark_busy(&self) -> MarkBusyGuard<'_> {
+        self.set_busy_progress(0.0);
+
+        MarkBusyGuard { document: self }
     }
 
     fn parse_title(&self) -> String {
@@ -308,9 +344,7 @@ impl Document {
                 } else {
                     current_n_bytes as f64 / total_n_bytes as f64
                 };
-                self.imp().busy_progress.set(progress);
-                self.notify_busy_progress();
-                self.notify_is_busy();
+                self.set_busy_progress(progress);
             }
         };
 

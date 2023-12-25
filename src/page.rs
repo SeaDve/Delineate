@@ -215,16 +215,10 @@ mod imp {
                 }),
             );
             document_signal_group.connect_notify_local(
-                Some("loading"),
-                clone!(@weak obj => move |_, _| {
-                    obj.notify_is_busy();
-                    obj.notify_can_save();
-                }),
-            );
-            document_signal_group.connect_notify_local(
                 Some("is-busy"),
                 clone!(@weak obj => move |_, _| {
                     obj.notify_is_busy();
+                    obj.notify_can_save();
                 }),
             );
             self.document_signal_group
@@ -322,9 +316,7 @@ mod imp {
         }
 
         fn is_busy(&self) -> bool {
-            let document = self.obj().document();
-
-            document.is_loading() || document.is_busy()
+            self.obj().document().is_busy()
         }
 
         fn is_modified(&self) -> bool {
@@ -332,7 +324,7 @@ mod imp {
         }
 
         fn can_save(&self) -> bool {
-            !self.obj().document().is_loading()
+            !self.obj().document().is_busy()
         }
 
         fn can_discard_changes(&self) -> bool {
