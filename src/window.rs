@@ -19,13 +19,14 @@ use crate::{
 // TODO
 // * modified file on disk handling
 // * Recent files
-// * Inhibit when has unsaved changes
 // * Session autosave
 // * Find and replace
 // * Bird's eye view of graph
 // * Full screen view of graph
 // * Drag and drop on tabs
 // * dot language server, hover info, color picker, autocompletion, snippets, renames, etc.
+
+const PAGE_IS_MODIFIED_HANDLER_ID_KEY: &str = "dagger-page-is-modified-handler-id";
 
 mod imp {
     use std::cell::{OnceCell, RefCell};
@@ -58,6 +59,7 @@ mod imp {
         #[template_child]
         pub(super) tab_view: TemplateChild<adw::TabView>,
 
+        pub(super) inhibit_cookie: RefCell<Option<u32>>,
         pub(super) closed_pages: RefCell<Vec<PageState>>,
         pub(super) page_signal_group: OnceCell<glib::SignalGroup>,
         pub(super) tab_view_close_page_handler_id: OnceCell<glib::SignalHandlerId>,
@@ -558,6 +560,16 @@ impl Window {
             })
             .build();
 
+        unsafe {
+            let is_modified_handler_id =
+                page.connect_is_modified_notify(clone!(@weak self as obj => move |_| {
+                    obj.update_inhibit();
+                }));
+            page.set_data(PAGE_IS_MODIFIED_HANDLER_ID_KEY, is_modified_handler_id);
+        }
+
+        self.update_inhibit();
+
         imp.tab_view.set_selected_page(&tab_page);
 
         page
@@ -579,7 +591,7 @@ impl Window {
             if !page.is_modified() {
                 let tab_page = imp.tab_view.page(page);
                 imp.tab_view.close_page(&tab_page);
-                self.add_closed_page(page);
+                self.remove_page(page);
                 continue;
             }
 
@@ -598,7 +610,7 @@ impl Window {
             for page in unsaved_pages {
                 let tab_page = imp.tab_view.page(page);
                 imp.tab_view.close_page(&tab_page);
-                self.add_closed_page(page);
+                self.remove_page(page);
             }
         }
 
@@ -712,18 +724,25 @@ impl Window {
         session.remove_window(self);
     }
 
-    fn add_closed_page(&self, page: &Page) {
+    fn remove_page(&self, page: &Page) {
         let imp = self.imp();
 
-        if page.document().is_draft() {
-            return;
+        if !page.document().is_draft() {
+            let page_state = PageState::for_page(page);
+            tracing::debug!(?page_state, "Saved page state");
+
+            imp.closed_pages.borrow_mut().push(page_state);
+            self.update_undo_close_page_action();
         }
 
-        let page_state = PageState::for_page(page);
-        tracing::debug!(?page_state, "Saved page state");
+        unsafe {
+            let is_modified_handler_id = page
+                .steal_data::<glib::SignalHandlerId>(PAGE_IS_MODIFIED_HANDLER_ID_KEY)
+                .unwrap();
+            page.disconnect(is_modified_handler_id);
+        }
 
-        imp.closed_pages.borrow_mut().push(page_state);
-        self.update_undo_close_page_action();
+        self.update_inhibit();
     }
 
     async fn restore_closed_page(&self) -> Result<()> {
@@ -749,7 +768,7 @@ impl Window {
                     let imp = obj.imp();
                     if save_changes_dialog::run(&obj, &[document]).await.is_proceed() {
                         imp.tab_view.close_page_finish(&tab_page, true);
-                        obj.add_closed_page(&page);
+                        obj.remove_page(&page);
                     } else {
                         imp.tab_view.close_page_finish(&tab_page, false);
                     }
@@ -758,7 +777,7 @@ impl Window {
             return glib::Propagation::Stop;
         }
 
-        self.add_closed_page(&page);
+        self.remove_page(&page);
 
         glib::Propagation::Proceed
     }
@@ -788,6 +807,30 @@ impl Window {
             if let Err(err) = page.load_file(file).await {
                 tracing::error!("Failed to load file: {:?}", err);
                 self.add_message_toast(&gettext("Failed to load file"));
+            }
+        }
+    }
+
+    fn update_inhibit(&self) {
+        let imp = self.imp();
+
+        let app = Application::instance();
+        let has_modified = self.pages().iter().any(|page| page.is_modified());
+
+        if has_modified && imp.inhibit_cookie.borrow().is_none() {
+            let inhibit_cookie = app.inhibit(
+                Some(self),
+                gtk::ApplicationInhibitFlags::LOGOUT,
+                Some(&gettext("There are unsaved documents")),
+            );
+            imp.inhibit_cookie.replace(Some(inhibit_cookie));
+
+            tracing::debug!("Inhibited logout");
+        } else if !has_modified {
+            if let Some(inhibit_cookie) = imp.inhibit_cookie.take() {
+                app.uninhibit(inhibit_cookie);
+
+                tracing::debug!("Uninhibited logout");
             }
         }
     }
