@@ -318,7 +318,7 @@ impl Document {
         let mut title_end = match_end;
         title_end.forward_word_end();
 
-        // If go forward a word and we go past `{`, title is empty.
+        // If we go forward a word and we go past `{`, title is empty.
         if title_end.backward_search("{", search_flags, None).is_some() {
             return "".to_string();
         }

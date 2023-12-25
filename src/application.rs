@@ -112,6 +112,24 @@ impl Application {
     }
 
     pub fn quit(&self) {
+        utils::spawn(
+            glib::Priority::default(),
+            clone!(@weak self as obj => async move {
+                if obj.quit_request().await.is_proceed() {
+                    tracing::debug!("Saving session on quit");
+
+                    if let Err(err) = obj.session().save().await {
+                        tracing::error!("Failed to save session on quit: {:?}", err);
+                    }
+
+                    ApplicationExt::quit(&obj);
+                }
+            }),
+        );
+    }
+
+    /// Returns `Proceed` if quit process shall proceed, `Stop` if it shall be aborted.
+    async fn quit_request(&self) -> glib::Propagation {
         let unsaved_documents = self
             .session()
             .windows()
@@ -121,38 +139,12 @@ impl Application {
             .filter(|document| document.is_modified())
             .collect::<Vec<_>>();
 
-        if !unsaved_documents.is_empty() {
-            utils::spawn(
-                glib::Priority::default(),
-                clone!(@weak self as obj => async move {
-                    let active_window = obj.active_window().unwrap().downcast::<Window>().unwrap();
-                    if save_changes_dialog::run(&active_window, &unsaved_documents)
-                        .await
-                        .is_proceed()
-                    {
-                        obj.quit_inner();
-                    }
-                }),
-            );
-            return;
+        if unsaved_documents.is_empty() {
+            return glib::Propagation::Proceed;
         }
 
-        self.quit_inner();
-    }
-
-    fn quit_inner(&self) {
-        utils::spawn(
-            glib::Priority::default(),
-            clone!(@weak self as obj => async move {
-                tracing::debug!("Saving session on quit");
-
-                if let Err(err) = obj.session().save().await {
-                    tracing::error!("Failed to save session on quit: {:?}", err);
-                }
-
-                ApplicationExt::quit(&obj);
-            }),
-        );
+        let active_window = self.active_window().unwrap().downcast::<Window>().unwrap();
+        save_changes_dialog::run(&active_window, &unsaved_documents).await
     }
 
     fn setup_gactions(&self) {
