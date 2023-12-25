@@ -452,7 +452,7 @@ Or, press Ctrl+W to close the window.",
             self.tab_view
                 .connect_selected_page_notify(clone!(@weak obj => move |_| {
                     obj.update_stack_page();
-                    obj.bind_page(obj.selected_page().as_ref());
+                    obj.update_selected_page_signals_target();
                 }));
             self.tab_view
                 .connect_create_window(clone!(@weak obj => @default-panic, move |_| {
@@ -490,7 +490,7 @@ Or, press Ctrl+W to close the window.",
                 .build();
 
             obj.update_stack_page();
-            obj.bind_page(None);
+            obj.update_selected_page_signals_target();
             obj.update_undo_close_page_action();
         }
     }
@@ -756,20 +756,6 @@ impl Window {
         Ok(())
     }
 
-    fn bind_page(&self, page: Option<&Page>) {
-        let imp = self.imp();
-
-        let selected_page_signals = imp.selected_page_signals.get().unwrap();
-        selected_page_signals.set_target(page);
-
-        self.update_title();
-        self.update_modified_status();
-        self.update_save_action();
-        self.update_discard_changes_action();
-        self.update_export_graph_action();
-        self.update_open_containing_folder_action();
-    }
-
     fn remove_page(&self, page: &Page) {
         let imp = self.imp();
 
@@ -889,6 +875,20 @@ impl Window {
         } else {
             imp.stack.set_visible_child(&*imp.empty_page);
         }
+    }
+
+    fn update_selected_page_signals_target(&self) {
+        let imp = self.imp();
+
+        let selected_page_signals = imp.selected_page_signals.get().unwrap();
+        selected_page_signals.set_target(self.selected_page().as_ref());
+
+        self.update_title();
+        self.update_modified_status();
+        self.update_save_action();
+        self.update_discard_changes_action();
+        self.update_export_graph_action();
+        self.update_open_containing_folder_action();
     }
 
     fn update_title(&self) {
