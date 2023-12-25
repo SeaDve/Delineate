@@ -134,6 +134,20 @@ mod imp {
                 },
             );
 
+            klass.install_action_async(
+                "win.open-containing-folder",
+                None,
+                |obj, _, _| async move {
+                    let page = obj.selected_page().unwrap();
+                    debug_assert!(page.can_open_containing_folder());
+
+                    if let Err(err) = page.open_containing_folder().await {
+                        tracing::error!("Failed to open containing folder: {:?}", err);
+                        obj.add_message_toast(&gettext("Failed to open containing folder"));
+                    }
+                },
+            );
+
             klass.install_action_async("win.export-graph", Some("s"), |obj, _, arg| async move {
                 let raw_format = arg.unwrap().get::<String>().unwrap();
 
@@ -145,7 +159,7 @@ mod imp {
                 };
 
                 let page = obj.selected_page().unwrap();
-                debug_assert!(page.can_export());
+                debug_assert!(page.can_export_graph());
 
                 if let Err(err) = page.export_graph(format).await {
                     if !err
@@ -403,9 +417,15 @@ Or, press Ctrl+W to close the window.",
                 }),
             );
             page_signal_group.connect_notify_local(
-                Some("can-export"),
+                Some("can-export-graph"),
                 clone!(@weak obj => move |_, _| {
                     obj.update_export_graph_action();
+                }),
+            );
+            page_signal_group.connect_notify_local(
+                Some("can-open-containing-folder"),
+                clone!(@weak obj => move |_, _| {
+                    obj.update_open_containing_folder_action();
                 }),
             );
             self.page_signal_group.set(page_signal_group).unwrap();
@@ -719,6 +739,7 @@ impl Window {
         self.update_save_action();
         self.update_discard_changes_action();
         self.update_export_graph_action();
+        self.update_open_containing_folder_action();
     }
 
     fn close_request_inner(&self) {
@@ -887,8 +908,17 @@ impl Window {
     }
 
     fn update_export_graph_action(&self) {
-        let can_export = self.selected_page().is_some_and(|page| page.can_export());
-        self.action_set_enabled("win.export-graph", can_export);
+        let can_export_graph = self
+            .selected_page()
+            .is_some_and(|page| page.can_export_graph());
+        self.action_set_enabled("win.export-graph", can_export_graph);
+    }
+
+    fn update_open_containing_folder_action(&self) {
+        let can_open_containing_folder = self
+            .selected_page()
+            .is_some_and(|page| page.can_open_containing_folder());
+        self.action_set_enabled("win.open-containing-folder", can_open_containing_folder);
     }
 
     fn update_undo_close_page_action(&self) {

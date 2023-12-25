@@ -46,8 +46,10 @@ mod imp {
         pub(super) can_save: PhantomData<bool>,
         #[property(get = Self::can_discard_changes)]
         pub(super) can_discard_changes: PhantomData<bool>,
-        #[property(get = Self::can_export)]
-        pub(super) can_export: PhantomData<bool>,
+        #[property(get = Self::can_export_graph)]
+        pub(super) can_export_graph: PhantomData<bool>,
+        #[property(get = Self::can_open_containing_folder)]
+        pub(super) can_open_containing_folder: PhantomData<bool>,
 
         #[template_child]
         pub(super) paned: TemplateChild<gtk::Paned>,
@@ -256,7 +258,7 @@ mod imp {
 
             self.graph_view
                 .connect_is_graph_loaded_notify(clone!(@weak obj => move |_| {
-                    obj.notify_can_export();
+                    obj.notify_can_export_graph();
                 }));
             self.graph_view
                 .connect_error(clone!(@weak obj => move |_, message| {
@@ -337,8 +339,12 @@ mod imp {
             self.obj().document().is_modified()
         }
 
-        fn can_export(&self) -> bool {
+        fn can_export_graph(&self) -> bool {
             self.graph_view.is_graph_loaded()
+        }
+
+        fn can_open_containing_folder(&self) -> bool {
+            self.obj().document().file().is_some()
         }
     }
 }
@@ -409,8 +415,21 @@ impl Page {
         Ok(())
     }
 
+    pub async fn open_containing_folder(&self) -> Result<()> {
+        debug_assert!(self.can_open_containing_folder());
+
+        let file = self.document().file().context("No file")?;
+
+        let file_launcher = gtk::FileLauncher::new(Some(&file));
+        file_launcher
+            .open_containing_folder_future(Some(&self.window().unwrap()))
+            .await?;
+
+        Ok(())
+    }
+
     pub async fn export_graph(&self, format: ExportFormat) -> Result<()> {
-        debug_assert!(self.can_export());
+        debug_assert!(self.can_export_graph());
 
         let imp = self.imp();
 
