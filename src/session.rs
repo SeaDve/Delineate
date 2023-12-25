@@ -3,15 +3,15 @@ use std::{fs, path::PathBuf, time::Instant};
 use anyhow::Result;
 use gtk::{
     gio,
-    glib::{self, clone, once_cell::sync::Lazy},
+    glib::{self, once_cell::sync::Lazy},
     prelude::*,
     subclass::prelude::*,
 };
 use serde::{Deserialize, Serialize};
 
 use crate::{
-    config::APP_ID, document::Document, graph_view::LayoutEngine, page::Page, utils,
-    window::Window, Application,
+    config::APP_ID, document::Document, graph_view::LayoutEngine, page::Page, window::Window,
+    Application,
 };
 
 const DEFAULT_WINDOW_WIDTH: i32 = 1000;
@@ -249,27 +249,17 @@ impl Session {
     pub fn remove_window(&self, window: &Window) {
         let imp = self.imp();
 
-        if matches!(imp.windows.borrow().as_slice(), [last_window] if last_window == window) {
+        if self.is_last_window(window) {
             imp.default_window_width.set(window.default_width());
             imp.default_window_height.set(window.default_height());
-
-            let app = Application::instance();
-            let hold_guard = app.hold();
-            utils::spawn(
-                glib::Priority::default(),
-                clone!(@weak self as obj => async move {
-                    tracing::debug!("Saving session on last window");
-
-                    let _hold_guard = hold_guard;
-
-                    if let Err(err) = obj.save().await {
-                        tracing::error!("Failed to save session on last window: {:?}", err);
-                    }
-                }),
-            );
         }
 
         imp.windows.borrow_mut().retain(|w| w != window);
+    }
+
+    /// Returns whether the window is the only window left.
+    pub fn is_last_window(&self, window: &Window) -> bool {
+        matches!(self.imp().windows.borrow().as_slice(), [w] if w == window)
     }
 
     pub async fn restore(&self) -> Result<()> {

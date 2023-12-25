@@ -491,13 +491,6 @@ Or, press Ctrl+W to close the window.",
             obj.bind_page(None);
             obj.update_undo_close_page_action();
         }
-
-        fn dispose(&self) {
-            let obj = self.obj();
-
-            let session = Session::instance();
-            session.remove_window(&obj);
-        }
     }
 
     impl WidgetImpl for Window {}
@@ -520,7 +513,19 @@ Or, press Ctrl+W to close the window.",
                             .await
                             .is_proceed()
                         {
-                            obj.close_request_inner();
+                            let session = Session::instance();
+
+                            if session.is_last_window(&obj) {
+                                tracing::debug!("Saving session on last window");
+
+                                if let Err(err) = session.save().await {
+                                    tracing::debug!(
+                                        "Failed to save session on last window: {:?}",
+                                        err
+                                    );
+                                }
+                            }
+
                             obj.destroy();
                         }
                     }),
@@ -528,7 +533,28 @@ Or, press Ctrl+W to close the window.",
                 return glib::Propagation::Stop;
             }
 
-            obj.close_request_inner();
+            let session = Session::instance();
+
+            if session.is_last_window(&obj) {
+                let app = Application::instance();
+                let hold_guard = app.hold();
+
+                utils::spawn(
+                    glib::Priority::default(),
+                    clone!(@weak obj => async move {
+                        tracing::debug!("Saving session on last window");
+
+                        let _hold_guard = hold_guard;
+
+                        if let Err(err) = session.save().await {
+                            tracing::debug!(
+                                "Failed to save session on last window: {:?}",
+                                err
+                            );
+                        }
+                    }),
+                );
+            }
 
             self.parent_close_request()
         }
@@ -740,11 +766,6 @@ impl Window {
         self.update_discard_changes_action();
         self.update_export_graph_action();
         self.update_open_containing_folder_action();
-    }
-
-    fn close_request_inner(&self) {
-        let session = Session::instance();
-        session.remove_window(self);
     }
 
     fn remove_page(&self, page: &Page) {
