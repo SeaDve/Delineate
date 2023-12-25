@@ -184,6 +184,15 @@ mod imp {
             let obj = self.obj();
 
             self.document_bindings
+                .bind("loading", &*self.view, "sensitive")
+                .transform_to(|_, value| {
+                    let loading = value.get::<bool>().unwrap();
+                    let sensitive = !loading;
+                    Some(sensitive.into())
+                })
+                .sync_create()
+                .build();
+            self.document_bindings
                 .bind("busy-progress", &*self.progress_bar, "fraction")
                 .sync_create()
                 .build();
