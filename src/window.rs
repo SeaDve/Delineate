@@ -20,6 +20,7 @@ use crate::{
 // * modified file on disk handling
 // * Recent files
 // * Inhibit when has unsaved changes
+// * Session autosave
 // * Find and replace
 // * Bird's eye view of graph
 // * Full screen view of graph
