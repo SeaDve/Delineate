@@ -118,12 +118,9 @@ async fn run_inner(parent: &impl IsA<gtk::Window>, unsaved: &[Document]) -> Resu
             row.set_title(&gettext_f("{title} (new)", &[("title", &title)]));
 
             let file = {
-                let mut path = glib::user_special_dir(glib::UserDirectory::Documents)
+                let dir = glib::user_special_dir(glib::UserDirectory::Documents)
                     .unwrap_or_else(glib::home_dir);
-                path.push(title);
-                path.set_extension("gv");
-
-                gio::File::for_path(path)
+                gio::File::for_path(dir).child(format!("{}.gv", title))
             };
             row.set_subtitle(&display_file_parent(&file));
 
