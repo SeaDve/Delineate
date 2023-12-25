@@ -254,17 +254,32 @@ impl Session {
     pub fn remove_window(&self, window: &Window) {
         let imp = self.imp();
 
-        if self.is_last_window(window) {
+        // If the window is the only window left, save the session before removing it.
+        // Otherwise, remove it immediately.
+        if matches!(self.imp().windows.borrow().as_slice(), [w] if w == window) {
             imp.default_window_width.set(window.default_width());
             imp.default_window_height.set(window.default_height());
+
+            let app = Application::instance();
+            let hold_guard = app.hold();
+
+            utils::spawn(
+                glib::Priority::default(),
+                clone!(@weak self as obj, @weak window => async move {
+                    tracing::debug!("Saving session on last window");
+
+                    let _hold_guard = hold_guard;
+
+                    if let Err(err) = obj.save().await {
+                        tracing::debug!("Failed to save session on last window: {:?}", err);
+                    }
+
+                    obj.remove_window_inner(&window);
+                }),
+            );
+        } else {
+            self.remove_window_inner(window);
         }
-
-        imp.windows.borrow_mut().retain(|w| w != window);
-    }
-
-    /// Returns whether the window is the only window left.
-    pub fn is_last_window(&self, window: &Window) -> bool {
-        matches!(self.imp().windows.borrow().as_slice(), [w] if w == window)
     }
 
     pub async fn restore(&self) -> Result<()> {
@@ -353,6 +368,12 @@ impl Session {
         );
 
         Ok(())
+    }
+
+    fn remove_window_inner(&self, window: &Window) {
+        let imp = self.imp();
+
+        imp.windows.borrow_mut().retain(|w| w != window);
     }
 }
 

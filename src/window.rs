@@ -513,18 +513,6 @@ Or, press Ctrl+W to close the window.",
                             .is_proceed()
                         {
                             let session = Session::instance();
-
-                            if session.is_last_window(&obj) {
-                                tracing::debug!("Saving session on last window");
-
-                                if let Err(err) = session.save().await {
-                                    tracing::debug!(
-                                        "Failed to save session on last window: {:?}",
-                                        err
-                                    );
-                                }
-                            }
-
                             session.remove_window(&obj);
 
                             obj.destroy();
@@ -535,33 +523,7 @@ Or, press Ctrl+W to close the window.",
             }
 
             let session = Session::instance();
-
-            // If this is the last window, save the session before removing the window from
-            // the session. Otherwise, remove it immediately.
-            if session.is_last_window(&obj) {
-                let app = Application::instance();
-                let hold_guard = app.hold();
-
-                utils::spawn(
-                    glib::Priority::default(),
-                    clone!(@weak obj, @weak session => async move {
-                        tracing::debug!("Saving session on last window");
-
-                        let _hold_guard = hold_guard;
-
-                        if let Err(err) = session.save().await {
-                            tracing::debug!(
-                                "Failed to save session on last window: {:?}",
-                                err
-                            );
-                        }
-
-                        session.remove_window(&obj);
-                    }),
-                );
-            } else {
-                session.remove_window(&obj);
-            }
+            session.remove_window(&obj);
 
             self.parent_close_request()
         }
