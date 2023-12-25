@@ -233,11 +233,8 @@ mod imp {
                 }
             });
 
-            klass.install_action_async("win.undo-close-page", None, |obj, _, _| async move {
-                if let Err(err) = obj.restore_closed_page().await {
-                    tracing::error!("Failed to restore closed page: {:?}", err);
-                    obj.add_message_toast(&gettext("Failed to restore closed page"));
-                }
+            klass.install_action("win.undo-close-page", None, |obj, _, _| {
+                obj.restore_closed_page();
             });
 
             klass.add_binding_action(
@@ -777,16 +774,14 @@ impl Window {
         self.update_inhibit();
     }
 
-    async fn restore_closed_page(&self) -> Result<()> {
+    fn restore_closed_page(&self) {
         let imp = self.imp();
 
         let page_state = imp.closed_pages.borrow_mut().pop();
         if let Some(page_state) = page_state {
-            page_state.restore(self).await;
+            page_state.restore_on(self);
             self.update_undo_close_page_action();
         }
-
-        Ok(())
     }
 
     fn handle_tab_view_close_page(&self, tab_page: &adw::TabPage) -> glib::Propagation {

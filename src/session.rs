@@ -3,15 +3,15 @@ use std::{fs, path::PathBuf, time::Instant};
 use anyhow::Result;
 use gtk::{
     gio,
-    glib::{self, once_cell::sync::Lazy},
+    glib::{self, clone, once_cell::sync::Lazy},
     prelude::*,
     subclass::prelude::*,
 };
 use serde::{Deserialize, Serialize};
 
 use crate::{
-    config::APP_ID, document::Document, graph_view::LayoutEngine, page::Page, window::Window,
-    Application,
+    config::APP_ID, document::Document, graph_view::LayoutEngine, page::Page, utils,
+    window::Window, Application,
 };
 
 const DEFAULT_WINDOW_WIDTH: i32 = 1000;
@@ -67,16 +67,21 @@ impl PageState {
     }
 
     /// Restores the state into a page in the given window.
-    pub async fn restore(&self, window: &Window) -> Page {
+    pub fn restore_on(&self, window: &Window) -> Page {
         let page = window.add_new_page();
         page.set_paned_position(self.paned_position);
         page.set_layout_engine(self.layout_engine);
 
         if let Some(uri) = &self.uri {
             let file = gio::File::for_uri(uri);
-            if let Err(err) = page.load_file(file).await {
-                tracing::error!(uri = self.uri, "Failed to load file for page: {:?}", err);
-            }
+            utils::spawn(
+                glib::Priority::default(),
+                clone!(@weak page => async move {
+                    if let Err(err) = page.load_file(file).await {
+                        tracing::error!("Failed to load file for page: {:?}", err);
+                    }
+                }),
+            );
         }
 
         if let Some(SelectionState {
@@ -128,7 +133,7 @@ impl WindowState {
         }
     }
 
-    async fn restore(&self, session: &Session) -> Window {
+    fn restore_on(&self, session: &Session) -> Window {
         let window = session.add_new_raw_window();
         window.set_default_size(self.width, self.height);
         window.set_maximized(self.is_maximized);
@@ -136,7 +141,7 @@ impl WindowState {
 
         let mut active_page = None;
         for page_state in &self.pages {
-            let page = page_state.restore(&window).await;
+            let page = page_state.restore_on(&window);
 
             if page_state.is_active {
                 let prev_value = active_page.replace(page);
@@ -283,7 +288,7 @@ impl Session {
 
         let mut active_window = None;
         for window_state in &state.windows {
-            let window = window_state.restore(self).await;
+            let window = window_state.restore_on(self);
 
             if window_state.is_active {
                 let prev_value = active_window.replace(window);
