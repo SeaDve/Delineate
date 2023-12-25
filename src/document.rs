@@ -21,7 +21,10 @@ impl Drop for MarkBusyGuard<'_> {
     }
 }
 
-const IO_PRIORITY: glib::Priority = glib::Priority::DEFAULT_IDLE;
+const FILE_IO_PRIORITY: glib::Priority = glib::Priority::DEFAULT_IDLE;
+const FILE_SAVER_FLAGS: gtk_source::FileSaverFlags =
+    gtk_source::FileSaverFlags::IGNORE_INVALID_CHARS
+        .union(gtk_source::FileSaverFlags::IGNORE_MODIFICATION_TIME);
 
 mod imp {
     use std::{cell::Cell, marker::PhantomData};
@@ -201,7 +204,8 @@ impl Document {
         let _guard = self.mark_busy();
 
         let loader = gtk_source::FileLoader::new(self, &imp.source_file);
-        self.handle_file_io(loader.load_future(IO_PRIORITY)).await?;
+        self.handle_file_io(loader.load_future(FILE_IO_PRIORITY))
+            .await?;
 
         self.emit_text_changed();
 
@@ -216,8 +220,13 @@ impl Document {
 
         let _guard = self.mark_busy();
 
-        let saver = gtk_source::FileSaver::new(self, &imp.source_file);
-        self.handle_file_io(saver.save_future(IO_PRIORITY)).await?;
+        let saver = gtk_source::FileSaver::builder()
+            .buffer(self)
+            .file(&imp.source_file)
+            .flags(FILE_SAVER_FLAGS)
+            .build();
+        self.handle_file_io(saver.save_future(FILE_IO_PRIORITY))
+            .await?;
 
         self.set_modified(false);
 
@@ -233,8 +242,13 @@ impl Document {
 
         imp.source_file.set_location(Some(file));
 
-        let saver = gtk_source::FileSaver::new(self, &imp.source_file);
-        self.handle_file_io(saver.save_future(IO_PRIORITY)).await?;
+        let saver = gtk_source::FileSaver::builder()
+            .buffer(self)
+            .file(&imp.source_file)
+            .flags(FILE_SAVER_FLAGS)
+            .build();
+        self.handle_file_io(saver.save_future(FILE_IO_PRIORITY))
+            .await?;
 
         self.notify_file();
         self.notify_title();
