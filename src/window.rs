@@ -525,6 +525,8 @@ Or, press Ctrl+W to close the window.",
                                 }
                             }
 
+                            session.remove_window(&obj);
+
                             obj.destroy();
                         }
                     }),
@@ -534,13 +536,15 @@ Or, press Ctrl+W to close the window.",
 
             let session = Session::instance();
 
+            // If this is the last window, save the session before removing the window from
+            // the session. Otherwise, remove it immediately.
             if session.is_last_window(&obj) {
                 let app = Application::instance();
                 let hold_guard = app.hold();
 
                 utils::spawn(
                     glib::Priority::default(),
-                    clone!(@weak obj => async move {
+                    clone!(@weak obj, @weak session => async move {
                         tracing::debug!("Saving session on last window");
 
                         let _hold_guard = hold_guard;
@@ -551,8 +555,12 @@ Or, press Ctrl+W to close the window.",
                                 err
                             );
                         }
+
+                        session.remove_window(&obj);
                     }),
                 );
+            } else {
+                session.remove_window(&obj);
             }
 
             self.parent_close_request()
