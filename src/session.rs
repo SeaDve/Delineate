@@ -10,8 +10,8 @@ use gtk::{
 use serde::{Deserialize, Serialize};
 
 use crate::{
-    config::APP_ID, document::Document, graph_view::LayoutEngine, page::Page, window::Window,
-    Application,
+    config::APP_ID, document::Document, graph_view::LayoutEngine, page::Page, utils,
+    window::Window, Application,
 };
 
 const DEFAULT_WINDOW_WIDTH: i32 = 1000;
@@ -253,15 +253,20 @@ impl Session {
             imp.default_window_width.set(window.default_width());
             imp.default_window_height.set(window.default_height());
 
-            // FIXME This causes EntryError on close_request
-            let ctx = glib::MainContext::default();
-            ctx.block_on(clone!(@weak self as obj => async move {
-                tracing::debug!("Saving session on last window");
+            let app = Application::instance();
+            let hold_guard = app.hold();
+            utils::spawn(
+                glib::Priority::default(),
+                clone!(@weak self as obj => async move {
+                    tracing::debug!("Saving session on last window");
 
-                if let Err(err) = obj.save().await {
-                    tracing::error!("Failed to save session on last window: {:?}", err);
-                }
-            }));
+                    let _hold_guard = hold_guard;
+
+                    if let Err(err) = obj.save().await {
+                        tracing::error!("Failed to save session on last window: {:?}", err);
+                    }
+                }),
+            );
         }
 
         imp.windows.borrow_mut().retain(|w| w != window);
