@@ -21,6 +21,8 @@ impl Drop for MarkBusyGuard<'_> {
     }
 }
 
+const IO_PRIORITY: glib::Priority = glib::Priority::DEFAULT_IDLE;
+
 mod imp {
     use std::{cell::Cell, marker::PhantomData};
 
@@ -199,8 +201,7 @@ impl Document {
         let _guard = self.mark_busy();
 
         let loader = gtk_source::FileLoader::new(self, &imp.source_file);
-        self.handle_file_io(loader.load_future(glib::Priority::default()))
-            .await?;
+        self.handle_file_io(loader.load_future(IO_PRIORITY)).await?;
 
         self.emit_text_changed();
 
@@ -216,8 +217,7 @@ impl Document {
         let _guard = self.mark_busy();
 
         let saver = gtk_source::FileSaver::new(self, &imp.source_file);
-        self.handle_file_io(saver.save_future(glib::Priority::default()))
-            .await?;
+        self.handle_file_io(saver.save_future(IO_PRIORITY)).await?;
 
         self.set_modified(false);
 
@@ -234,8 +234,7 @@ impl Document {
         imp.source_file.set_location(Some(file));
 
         let saver = gtk_source::FileSaver::new(self, &imp.source_file);
-        self.handle_file_io(saver.save_future(glib::Priority::default()))
-            .await?;
+        self.handle_file_io(saver.save_future(IO_PRIORITY)).await?;
 
         self.notify_file();
         self.notify_title();
