@@ -195,14 +195,14 @@ fn display_file_parent(file: &gio::File) -> String {
 fn display_path(path: &Path) -> String {
     let home_dir = glib::home_dir();
 
-    let path_display = path.display().to_string();
-    let home_dir_display = home_dir.display().to_string();
-
     if path == home_dir {
         return "~/".to_string();
     }
 
+    let path_display = path.display().to_string();
+
     if path.starts_with(&home_dir) {
+        let home_dir_display = home_dir.display().to_string();
         return format!("~{}", &path_display[home_dir_display.len()..]);
     }
 
