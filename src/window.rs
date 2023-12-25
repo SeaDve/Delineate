@@ -201,7 +201,9 @@ mod imp {
                     let pages = obj.pages();
                     let pages_to_close =
                         pages.into_iter().filter(|p| p != &page).collect::<Vec<_>>();
-                    obj.request_close_pages(&pages_to_close).await;
+                    if !pages_to_close.is_empty() {
+                        obj.request_close_pages(&pages_to_close).await;
+                    }
                 }
             });
             klass.install_action_async("win.close-page", None, |obj, _, _| async move {
