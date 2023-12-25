@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dagger\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-17 19:03+0800\n"
+"POT-Creation-Date: 2023-12-25 20:57+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,10 +16,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: data/io.github.seadve.Dagger.desktop.in.in:3
-#: data/io.github.seadve.Dagger.metainfo.xml.in.in:6 src/about.rs:15
-#: src/main.rs:55
+#: data/io.github.seadve.Dagger.metainfo.xml.in.in:6 src/utils.rs:9
 msgid "Dagger"
 msgstr ""
 
@@ -31,26 +31,6 @@ msgstr ""
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/io.github.seadve.Dagger.desktop.in.in:10
 msgid "graphviz;dot;graphs;visualization;"
-msgstr ""
-
-#: data/io.github.seadve.Dagger.gschema.xml.in:6
-msgid "Window width"
-msgstr ""
-
-#: data/io.github.seadve.Dagger.gschema.xml.in:10
-msgid "Window height"
-msgstr ""
-
-#: data/io.github.seadve.Dagger.gschema.xml.in:14
-msgid "Window maximized state"
-msgstr ""
-
-#: data/io.github.seadve.Dagger.gschema.xml.in:18
-msgid "Position of the paned handle"
-msgstr ""
-
-#: data/io.github.seadve.Dagger.gschema.xml.in:22
-msgid "Last selected Graphviz layout engine"
 msgstr ""
 
 #: data/io.github.seadve.Dagger.metainfo.xml.in.in:9
@@ -80,8 +60,20 @@ msgstr ""
 msgid "📦 Export graph as PNG, SVG, or JPEG"
 msgstr ""
 
-#: data/io.github.seadve.Dagger.metainfo.xml.in.in:40 src/about.rs:16
+#: data/io.github.seadve.Dagger.metainfo.xml.in.in:40 src/about.rs:19
 msgid "Dave Patrick Caberto"
+msgstr ""
+
+#: data/resources/ui/page.ui:75
+msgid "Zoom Out"
+msgstr ""
+
+#: data/resources/ui/page.ui:82
+msgid "Reset Zoom"
+msgstr ""
+
+#: data/resources/ui/page.ui:88
+msgid "Zoom In"
 msgstr ""
 
 #: data/resources/ui/shortcuts.ui:11
@@ -116,187 +108,295 @@ msgstr ""
 
 #: data/resources/ui/shortcuts.ui:43
 msgctxt "shortcut window"
-msgid "Save Document"
+msgid "Save"
 msgstr ""
 
-#: data/resources/ui/window.ui:6
-msgid "_Save"
+#: data/resources/ui/shortcuts.ui:49
+msgctxt "shortcut window"
+msgid "Save As"
 msgstr ""
 
-#: data/resources/ui/window.ui:10
-msgid "Save _As…"
+#: data/resources/ui/shortcuts.ui:57
+msgctxt "shortcut window"
+msgid "Windows"
 msgstr ""
 
-#: data/resources/ui/window.ui:16
-msgid "_Export Graph"
+#: data/resources/ui/shortcuts.ui:60
+msgctxt "shortcut window"
+msgid "New Window"
 msgstr ""
 
-#: data/resources/ui/window.ui:18
-msgid "Export As PNG…"
+#: data/resources/ui/shortcuts.ui:66
+msgctxt "shortcut window"
+msgid "Move Document to New Window"
 msgstr ""
 
-#: data/resources/ui/window.ui:23
-msgid "Export As SVG…"
+#: data/resources/ui/shortcuts.ui:73
+msgctxt "shortcut window"
+msgid "Move to Next Tab"
 msgstr ""
 
-#: data/resources/ui/window.ui:28
-msgid "Export As JPEG…"
+#: data/resources/ui/shortcuts.ui:79
+msgctxt "shortcut window"
+msgid "Move to Previous Tab"
 msgstr ""
 
-#: data/resources/ui/window.ui:36
-msgid "_Keyboard Shortcuts"
+#: data/resources/ui/shortcuts.ui:85
+msgctxt "shortcut window"
+msgid "Reorder After Next Tab"
 msgstr ""
 
-#: data/resources/ui/window.ui:40
-msgid "_About Dagger"
+#: data/resources/ui/shortcuts.ui:91
+msgctxt "shortcut window"
+msgid "Reorder Before Previous Tab"
 msgstr ""
 
-#: data/resources/ui/window.ui:57
-msgid "Open"
+#: data/resources/ui/shortcuts.ui:97
+msgctxt "shortcut window"
+msgid "Restore Previously Closed Tab"
 msgstr ""
 
-#: data/resources/ui/window.ui:63
-msgid "New Document"
+#: data/resources/ui/shortcuts.ui:104
+msgctxt "shortcut window"
+msgid "Zoom"
 msgstr ""
 
-#: data/resources/ui/window.ui:92
-msgid "Main Menu"
-msgstr ""
-
-#: data/resources/ui/window.ui:170
-msgid "Zoom Out"
-msgstr ""
-
-#: data/resources/ui/window.ui:177
-msgid "Reset Zoom"
-msgstr ""
-
-#: data/resources/ui/window.ui:183
+#: data/resources/ui/shortcuts.ui:108
+msgctxt "shortcut window"
 msgid "Zoom In"
 msgstr ""
 
-#: src/about.rs:18
+#: data/resources/ui/shortcuts.ui:114
+msgctxt "shortcut window"
+msgid "Zoom Out"
+msgstr ""
+
+#: data/resources/ui/shortcuts.ui:120
+msgctxt "shortcut window"
+msgid "Reset Zoom"
+msgstr ""
+
+#: data/resources/ui/window.ui:6
+msgid "_New Window"
+msgstr ""
+
+#: data/resources/ui/window.ui:12 src/save_changes_dialog.rs:73
+#: src/save_changes_dialog.rs:147
+msgid "_Save"
+msgid_plural "_Save All"
+msgstr[0] ""
+msgstr[1] ""
+
+#: data/resources/ui/window.ui:16
+msgid "Save _As…"
+msgstr ""
+
+#: data/resources/ui/window.ui:20
+msgid "_Discard Changes"
+msgstr ""
+
+#: data/resources/ui/window.ui:26
+msgid "_Export Graph"
+msgstr ""
+
+#: data/resources/ui/window.ui:28
+msgid "Export As PNG…"
+msgstr ""
+
+#: data/resources/ui/window.ui:33
+msgid "Export As SVG…"
+msgstr ""
+
+#: data/resources/ui/window.ui:38
+msgid "Export As JPEG…"
+msgstr ""
+
+#: data/resources/ui/window.ui:44
+msgid "Open _Containing Folder"
+msgstr ""
+
+#: data/resources/ui/window.ui:50
+msgid "_Keyboard Shortcuts"
+msgstr ""
+
+#: data/resources/ui/window.ui:54
+msgid "_About Dagger"
+msgstr ""
+
+#: data/resources/ui/window.ui:62
+msgid "Move _Left"
+msgstr ""
+
+#: data/resources/ui/window.ui:66
+msgid "Move _Right"
+msgstr ""
+
+#: data/resources/ui/window.ui:72
+msgid "_Move to New Window"
+msgstr ""
+
+#: data/resources/ui/window.ui:78
+msgid "Close _Other Tabs"
+msgstr ""
+
+#: data/resources/ui/window.ui:82
+msgid "_Close"
+msgstr ""
+
+#: data/resources/ui/window.ui:104
+msgid "Open"
+msgstr ""
+
+#: data/resources/ui/window.ui:110
+msgid "New Document"
+msgstr ""
+
+#: data/resources/ui/window.ui:139
+msgid "Main Menu"
+msgstr ""
+
+#: data/resources/ui/window.ui:164
+msgid "Start or Open a Document"
+msgstr ""
+
+#: src/about.rs:21
 msgid "© 2023 Dave Patrick Caberto"
 msgstr ""
 
 #. Translators: Replace "translator-credits" with your names. Put a comma between.
-#: src/about.rs:21
+#: src/about.rs:24
 msgid "translator-credits"
 msgstr ""
 
-#: src/about.rs:28
+#: src/about.rs:31
 msgid "Donate"
 msgstr ""
 
-#: src/about.rs:30
+#: src/about.rs:33
 msgid "Donate (Buy Me a Coffee)"
 msgstr ""
 
-#: src/about.rs:33
+#: src/about.rs:36
 msgid "GitHub"
 msgstr ""
 
-#: src/about.rs:35
+#: src/about.rs:38
 msgid "Translate"
 msgstr ""
 
-#: src/window.rs:64
+#: src/export_format.rs:29
 msgid "SVG"
 msgstr ""
 
-#: src/window.rs:65
+#: src/export_format.rs:30
 msgid "PNG"
 msgstr ""
 
-#: src/window.rs:66
+#: src/export_format.rs:31
 msgid "JPEG"
 msgstr ""
 
-#: src/window.rs:154
-msgid "Failed to open document"
-msgstr ""
-
-#: src/window.rs:166
-msgid "Failed to save document"
-msgstr ""
-
-#: src/window.rs:178
-msgid "Failed to save document as"
-msgstr ""
-
-#: src/window.rs:199
-msgid "Failed to export graph"
-msgstr ""
-
-#: src/window.rs:240
+#: src/page.rs:126
 msgid "Failed to show in Files"
 msgstr ""
 
-#: src/window.rs:269 src/window.rs:709
+#: src/page.rs:319 src/save_changes_dialog.rs:114
 msgid "Untitled Document"
 msgstr ""
 
-#: src/window.rs:490
-msgid "Open Document"
-msgstr ""
-
-#: src/window.rs:506
+#: src/page.rs:375
 msgid "Save Document"
 msgstr ""
 
-#: src/window.rs:521
+#: src/page.rs:396
 msgid "Save Document As"
 msgstr ""
 
-#: src/window.rs:547
+#: src/page.rs:446
 msgid "Export Graph"
 msgstr ""
 
-#: src/window.rs:548
+#: src/page.rs:447
 msgid "_Export"
 msgstr ""
 
-#: src/window.rs:594
+#: src/page.rs:489
 msgid "Graph exported"
 msgstr ""
 
-#: src/window.rs:595
+#: src/page.rs:490
 msgid "Show in Files"
 msgstr ""
 
-#: src/window.rs:630
-msgid "Failed to load file"
-msgstr ""
-
-#: src/window.rs:667
+#: src/page.rs:647
 msgid "Failed to draw graph"
 msgstr ""
 
-#: src/window.rs:687
+#: src/save_changes_dialog.rs:44
 msgid "Failed to save changes to document"
 msgstr ""
 
-#: src/window.rs:713
+#: src/save_changes_dialog.rs:59
 msgid "Save Changes?"
 msgstr ""
 
-#: src/window.rs:723
+#: src/save_changes_dialog.rs:60
+msgid ""
+"Open documents contain unsaved changes. Changes which are not saved will be "
+"permanently lost."
+msgstr ""
+
+#: src/save_changes_dialog.rs:66
 msgid "Cancel"
 msgstr ""
 
-#: src/window.rs:725
-msgid "Discard"
-msgstr ""
-
-#: src/window.rs:729
-msgid "Save"
-msgstr ""
-
-#: src/window.rs:731
-msgid "Save As…"
-msgstr ""
+#: src/save_changes_dialog.rs:69
+msgid "_Discard"
+msgid_plural "_Discard All"
+msgstr[0] ""
+msgstr[1] ""
 
 #. Translators: DOT is an acronym, do not translate.
-#: src/window.rs:881
+#: src/utils.rs:38
 msgid "Graphviz DOT Files"
+msgstr ""
+
+#: src/window.rs:88
+msgid "Failed to open document"
+msgstr ""
+
+#: src/window.rs:103
+msgid "Failed to save document"
+msgstr ""
+
+#: src/window.rs:118
+msgid "Failed to save document as"
+msgstr ""
+
+#: src/window.rs:132
+msgid "Failed to discard document changes"
+msgstr ""
+
+#: src/window.rs:146
+msgid "Failed to open containing folder"
+msgstr ""
+
+#: src/window.rs:170
+msgid "Failed to export graph"
+msgstr ""
+
+#: src/window.rs:382
+msgid "• Press the Open button"
+msgstr ""
+
+#: src/window.rs:686
+msgid "Open Document"
+msgstr ""
+
+#: src/window.rs:797
+msgid "Failed to load file"
+msgstr ""
+
+#: src/window.rs:812
+msgid "There are unsaved documents"
 msgstr ""
