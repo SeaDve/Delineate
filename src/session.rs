@@ -82,9 +82,7 @@ impl PageState {
         }
     }
 
-    /// Restores the state into a page in the given window.
-    pub fn restore_on(&self, window: &Window) -> Page {
-        let page = window.add_new_page();
+    pub fn restore_on(&self, page: &Page) {
         page.set_paned_position(self.paned_position);
         page.set_layout_engine(self.layout_engine);
 
@@ -102,8 +100,6 @@ impl PageState {
                 }),
             );
         }
-
-        page
     }
 }
 
@@ -135,15 +131,15 @@ impl WindowState {
         }
     }
 
-    fn restore_on(&self, session: &Session) -> Window {
-        let window = session.add_new_raw_window();
+    fn restore_on(&self, window: &Window) {
         window.set_default_size(self.width, self.height);
         window.set_maximized(self.is_maximized);
         window.set_closed_pages(self.closed_pages.clone());
 
         let mut active_page = None;
         for page_state in &self.pages {
-            let page = page_state.restore_on(&window);
+            let page = window.add_new_page();
+            page_state.restore_on(&page);
 
             if page_state.is_active {
                 let prev_value = active_page.replace(page);
@@ -160,8 +156,6 @@ impl WindowState {
         if self.pages.is_empty() {
             window.add_new_page();
         }
-
-        window
     }
 }
 
@@ -302,7 +296,8 @@ impl Session {
 
         let mut active_window = None;
         for window_state in &state.windows {
-            let window = window_state.restore_on(self);
+            let window = self.add_new_raw_window();
+            window_state.restore_on(&window);
 
             if window_state.is_active {
                 let prev_value = active_window.replace(window);

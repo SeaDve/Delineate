@@ -735,7 +735,9 @@ impl Window {
 
         let page_state = imp.closed_pages.borrow_mut().pop();
         if let Some(page_state) = page_state {
-            page_state.restore_on(self);
+            let page = self.add_new_page();
+            page_state.restore_on(&page);
+
             self.update_undo_close_page_action();
         }
     }
