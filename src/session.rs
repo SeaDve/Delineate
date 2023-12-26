@@ -32,15 +32,19 @@ struct SelectionState {
 }
 
 impl SelectionState {
-    fn for_document(document: &Document) -> Option<Self> {
-        document
-            .selection_bounds()
-            .map(|(start, end)| SelectionState {
-                start_line: start.line(),
-                start_line_offset: start.line_offset(),
-                end_line: end.line(),
-                end_line_offset: end.line_offset(),
-            })
+    fn for_document(document: &Document) -> Self {
+        let insert = document.get_insert();
+        let start_iter = document.iter_at_mark(&insert);
+
+        let bound = document.selection_bound();
+        let end_iter = document.iter_at_mark(&bound);
+
+        SelectionState {
+            start_line: start_iter.line(),
+            start_line_offset: start_iter.line_offset(),
+            end_line: end_iter.line(),
+            end_line_offset: end_iter.line_offset(),
+        }
     }
 
     fn restore_on(&self, document: &Document) {
@@ -61,7 +65,7 @@ pub struct PageState {
     paned_position: i32,
     is_active: bool,
     uri: Option<String>,
-    selection: Option<SelectionState>,
+    selection: SelectionState,
     layout_engine: LayoutEngine,
 }
 
@@ -93,10 +97,8 @@ impl PageState {
                     }
 
                     // Only restore selection once we have fully loaded the page's document.
-                    if let Some(selection_state) = selection_state {
-                        let document = page.document();
-                        selection_state.restore_on(&document);
-                    }
+                    let document = page.document();
+                    selection_state.restore_on(&document);
                 }),
             );
         }
