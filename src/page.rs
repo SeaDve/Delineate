@@ -113,20 +113,6 @@ mod imp {
                 }
             });
 
-            klass.install_action_async("page.show-in-files", Some("s"), |obj, _, arg| async move {
-                let uri = arg.unwrap().get::<String>().unwrap();
-
-                let file = gio::File::for_uri(&uri);
-                let file_launcher = gtk::FileLauncher::new(Some(&file));
-                if let Err(err) = file_launcher
-                    .open_containing_folder_future(Some(&obj.window().unwrap()))
-                    .await
-                {
-                    tracing::error!("Failed to show in Files: {:?}", err);
-                    obj.add_message_toast(&gettext("Failed to show in Files"));
-                }
-            });
-
             klass.add_binding_action(
                 gdk::Key::plus,
                 gdk::ModifierType::CONTROL_MASK,
@@ -488,9 +474,19 @@ impl Page {
         let toast = adw::Toast::builder()
             .title(gettext("Graph exported"))
             .button_label(gettext("Show in Files"))
-            .action_name("page.show-in-files")
-            .action_target(&file.uri().to_variant())
             .build();
+        toast.connect_button_clicked(clone!(@weak self as obj, @strong file => move |_| {
+            let file_launcher = gtk::FileLauncher::new(Some(&file));
+            utils::spawn(async move {
+                if let Err(err) = file_launcher
+                    .open_containing_folder_future(Some(&obj.window().unwrap()))
+                    .await
+                {
+                    tracing::error!("Failed to show in Files: {:?}", err);
+                    obj.add_message_toast(&gettext("Failed to show in Files"));
+                }
+            });
+        }));
         self.add_toast(toast);
 
         tracing::debug!(uri = %file.uri(), "Graph exported");
