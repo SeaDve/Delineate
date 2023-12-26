@@ -772,22 +772,17 @@ impl Window {
             return false;
         }
 
-        utils::spawn(clone!(@weak self as obj => async move {
-            obj.handle_drop_inner(files).await;
-        }));
+        for file in files {
+            utils::spawn(clone!(@weak self as obj => async move {
+                let page = obj.add_new_page();
+                if let Err(err) = page.load_file(file).await {
+                    tracing::error!("Failed to load file: {:?}", err);
+                    obj.add_message_toast(&gettext("Failed to load file"));
+                }
+            }));
+        }
 
         true
-    }
-
-    async fn handle_drop_inner(&self, files: Vec<gio::File>) {
-        for file in files {
-            let page = self.add_new_page();
-
-            if let Err(err) = page.load_file(file).await {
-                tracing::error!("Failed to load file: {:?}", err);
-                self.add_message_toast(&gettext("Failed to load file"));
-            }
-        }
     }
 
     fn update_inhibit(&self) {
