@@ -24,7 +24,7 @@ static APP_DATA_DIR: Lazy<PathBuf> = Lazy::new(|| {
 });
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct SelectionState {
+struct SelectionState {
     start_line: i32,
     start_line_offset: i32,
     end_line: i32,
@@ -32,7 +32,7 @@ pub struct SelectionState {
 }
 
 impl SelectionState {
-    pub fn for_document(document: &Document) -> Option<Self> {
+    fn for_document(document: &Document) -> Option<Self> {
         document
             .selection_bounds()
             .map(|(start, end)| SelectionState {
@@ -41,6 +41,18 @@ impl SelectionState {
                 end_line: end.line(),
                 end_line_offset: end.line_offset(),
             })
+    }
+
+    fn restore_on(&self, document: &Document) {
+        let start = document.iter_at_line_offset(self.start_line, self.start_line_offset);
+        let end = document.iter_at_line_offset(self.end_line, self.end_line_offset);
+
+        match (start, end) {
+            (Some(start), Some(end)) => {
+                document.select_range(&start, &end);
+            }
+            _ => tracing::warn!("Failed to restore selection: missing start and end iters"),
+        }
     }
 }
 
@@ -74,28 +86,19 @@ impl PageState {
 
         if let Some(uri) = &self.uri {
             let file = gio::File::for_uri(uri);
-            utils::spawn(clone!(@weak page => async move {
-                if let Err(err) = page.load_file(file).await {
-                    tracing::error!("Failed to load file for page: {:?}", err);
-                }
-            }));
-        }
+            utils::spawn(
+                clone!(@weak page, @strong self.selection as selection_state  => async move {
+                    if let Err(err) = page.load_file(file).await {
+                        tracing::error!("Failed to load file for page: {:?}", err);
+                    }
 
-        if let Some(SelectionState {
-            start_line,
-            start_line_offset,
-            end_line,
-            end_line_offset,
-        }) = self.selection
-        {
-            let document = page.document();
-            let start_iter = document
-                .iter_at_line_offset(start_line, start_line_offset)
-                .unwrap();
-            let end_iter = document
-                .iter_at_line_offset(end_line, end_line_offset)
-                .unwrap();
-            document.select_range(&start_iter, &end_iter);
+                    // Only restore selection once we have fully loaded the page's document.
+                    if let Some(selection_state) = selection_state {
+                        let document = page.document();
+                        selection_state.restore_on(&document);
+                    }
+                }),
+            );
         }
 
         page
