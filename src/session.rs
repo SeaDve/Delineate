@@ -279,7 +279,7 @@ impl Session {
     pub fn open_files(&self, files: &[gio::File], window: &Window) {
         match files {
             [] => {
-                tracing::warn!("Tried to open empty list of files");
+                tracing::error!("Tried to open empty list of files");
             }
             [file] => {
                 // If the document is already loaded in other windows or pages, just present it.
