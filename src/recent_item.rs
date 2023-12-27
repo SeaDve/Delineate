@@ -59,6 +59,6 @@ impl RecentItem {
 
     pub fn fuzzy_match(&self, pattern: &str) -> Option<i64> {
         let choice = self.file().path().unwrap();
-        FUZZY_MATCHER.fuzzy_match(&choice.to_string_lossy(), pattern)
+        FUZZY_MATCHER.fuzzy_match(choice.to_string_lossy().trim_end_matches(".gv"), pattern)
     }
 }
