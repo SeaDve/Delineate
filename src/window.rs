@@ -678,33 +678,8 @@ impl Window {
             .build();
         let file = dialog.open_future(Some(self)).await?;
 
-        // Check if the document is already loaded in other windows or pages
         let session = Session::instance();
-        for window in session.windows() {
-            for page in window.pages() {
-                if page
-                    .document()
-                    .file()
-                    .is_some_and(|f| f.uri() == file.uri())
-                {
-                    window.set_selected_page(&page);
-                    window.present();
-                    return Ok(());
-                }
-            }
-        }
-
-        // Load the document in the current page if it is a draft and empty, otherwise
-        // create a new page and load the document there.
-        match self.selected_page() {
-            Some(page) if page.document().is_safely_discardable() => {
-                page.load_file(file).await?;
-            }
-            _ => {
-                let page = self.add_new_page();
-                page.load_file(file).await?;
-            }
-        }
+        session.open_files(&[file], self);
 
         Ok(())
     }
@@ -772,15 +747,8 @@ impl Window {
             return false;
         }
 
-        for file in files {
-            utils::spawn(clone!(@weak self as obj => async move {
-                let page = obj.add_new_page();
-                if let Err(err) = page.load_file(file).await {
-                    tracing::error!("Failed to load file: {:?}", err);
-                    obj.add_message_toast(&gettext("Failed to load file"));
-                }
-            }));
-        }
+        let session = Session::instance();
+        session.open_files(&files, self);
 
         true
     }

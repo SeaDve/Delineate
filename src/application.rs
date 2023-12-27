@@ -63,6 +63,19 @@ mod imp {
             obj.setup_gactions();
             obj.setup_accels();
         }
+
+        fn open(&self, files: &[gio::File], _hint: &str) {
+            let obj = self.obj();
+
+            let window = if let Some(active_window) = obj.active_window() {
+                active_window.downcast::<Window>().unwrap()
+            } else if let Some(window) = obj.windows().first() {
+                window.clone().downcast::<Window>().unwrap()
+            } else {
+                self.session.add_new_window()
+            };
+            self.session.open_files(files, &window);
+        }
     }
 
     impl GtkApplicationImpl for Application {}
@@ -80,6 +93,7 @@ impl Application {
         glib::Object::builder()
             .property("application-id", APP_ID)
             .property("resource-base-path", "/io/github/seadve/Dagger/")
+            .property("flags", gio::ApplicationFlags::HANDLES_OPEN)
             .build()
     }
 

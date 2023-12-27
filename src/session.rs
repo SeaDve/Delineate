@@ -1,6 +1,7 @@
 use std::{fs, path::PathBuf, time::Instant};
 
 use anyhow::Result;
+use gettextrs::gettext;
 use gtk::{
     gio,
     glib::{self, clone, once_cell::sync::Lazy},
@@ -273,6 +274,60 @@ impl Session {
         } else {
             self.remove_window_inner(window);
         }
+    }
+
+    pub fn open_files(&self, files: &[gio::File], window: &Window) {
+        match files {
+            [] => {
+                tracing::warn!("Tried to open empty list of files");
+            }
+            [file] => {
+                // If the document is already loaded in other windows or pages, just present it.
+                for window in self.windows() {
+                    for page in window.pages() {
+                        if page
+                            .document()
+                            .file()
+                            .is_some_and(|f| f.uri() == file.uri())
+                        {
+                            window.set_selected_page(&page);
+                            window.present();
+
+                            tracing::debug!("Shown file in an existing page");
+
+                            return;
+                        }
+                    }
+                }
+
+                // Load the document in the current page if it is a draft and empty, otherwise
+                // create a new page and load the document there.
+                let page = match window.selected_page() {
+                    Some(page) if page.document().is_safely_discardable() => page,
+                    _ => window.add_new_page(),
+                };
+                utils::spawn(clone!(@weak window, @strong file => async move {
+                    if let Err(err) = page.load_file(file).await {
+                        tracing::error!("Failed to open file: {:?}", err);
+                        window.add_message_toast(&gettext("Failed to open file"));
+                    }
+                }));
+            }
+            files => {
+                // If there are many files, simply load them to new pages.
+                for file in files {
+                    utils::spawn(clone!(@weak window, @strong file => async move {
+                        let page = window.add_new_page();
+                        if let Err(err) = page.load_file(file).await {
+                            tracing::error!("Failed to open file: {:?}", err);
+                            window.add_message_toast(&gettext("Failed to open file"));
+                        }
+                    }));
+                }
+            }
+        }
+
+        window.present();
     }
 
     pub async fn restore(&self) -> Result<()> {
