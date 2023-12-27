@@ -17,7 +17,6 @@ use crate::{
 };
 
 // TODO
-// * Recent files
 // * Find and replace
 // * Session autosave
 // * modified file on disk handling
@@ -31,7 +30,7 @@ const PAGE_IS_MODIFIED_HANDLER_ID_KEY: &str = "dagger-page-is-modified-handler-i
 mod imp {
     use std::cell::{OnceCell, RefCell};
 
-    use crate::drag_overlay::DragOverlay;
+    use crate::{drag_overlay::DragOverlay, recent_popover::RecentPopover};
 
     use super::*;
 
@@ -42,6 +41,8 @@ mod imp {
         pub(super) toast_overlay: TemplateChild<adw::ToastOverlay>,
         #[template_child]
         pub(super) tab_overview: TemplateChild<adw::TabOverview>,
+        #[template_child]
+        pub(super) recent_popover: TemplateChild<RecentPopover>,
         #[template_child]
         pub(super) document_modified_status: TemplateChild<gtk::Label>,
         #[template_child]
@@ -475,6 +476,20 @@ mod imp {
                 .sync_create()
                 .build();
 
+            self.recent_popover
+                .connect_item_activated(clone!(@weak obj => move |_, item| {
+                    let session = Session::instance();
+                    session.open_files(&[item.file()], &obj);
+                }));
+
+            utils::spawn(clone!(@weak obj => async move {
+                let imp = obj.imp();
+
+                let session = Session::instance();
+                let recents = session.recents().await;
+                imp.recent_popover.bind_model(recents);
+            }));
+
             obj.update_stack_page();
             obj.update_selected_page_signals_target();
             obj.update_undo_close_page_action();
@@ -482,6 +497,7 @@ mod imp {
     }
 
     impl WidgetImpl for Window {}
+
     impl WindowImpl for Window {
         fn close_request(&self) -> glib::Propagation {
             let obj = self.obj();

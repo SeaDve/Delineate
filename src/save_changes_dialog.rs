@@ -1,4 +1,4 @@
-use std::{cell::RefCell, error, fmt, path::Path, rc::Rc};
+use std::{cell::RefCell, error, fmt, rc::Rc};
 
 use adw::prelude::*;
 use anyhow::Result;
@@ -8,7 +8,7 @@ use gtk::{
     glib::{self, clone},
 };
 
-use crate::{document::Document, i18n::gettext_f, window::Window};
+use crate::{document::Document, i18n::gettext_f, utils, window::Window};
 
 const CANCEL_RESPONSE_ID: &str = "cancel";
 const DISCARD_RESPONSE_ID: &str = "discard";
@@ -102,7 +102,7 @@ async fn run_inner(parent: &impl IsA<gtk::Window>, unsaved: &[Document]) -> Resu
 
         let item = if let Some(file) = document.file() {
             row.set_title(&title);
-            row.set_subtitle(&display_file_parent(&file));
+            row.set_subtitle(&utils::display_file_parent(&file));
 
             SaveFileItem {
                 document,
@@ -122,7 +122,7 @@ async fn run_inner(parent: &impl IsA<gtk::Window>, unsaved: &[Document]) -> Resu
                     .unwrap_or_else(glib::home_dir);
                 gio::File::for_path(dir).child(format!("{}.gv", title))
             };
-            row.set_subtitle(&display_file_parent(&file));
+            row.set_subtitle(&utils::display_file_parent(&file));
 
             SaveFileItem {
                 document,
@@ -175,33 +175,4 @@ async fn run_inner(parent: &impl IsA<gtk::Window>, unsaved: &[Document]) -> Resu
         }
         _ => unreachable!(),
     }
-}
-
-fn display_file_parent(file: &gio::File) -> String {
-    if let Some(parent) = file.parent() {
-        if parent.is_native() {
-            display_path(&parent.path().unwrap())
-        } else {
-            parent.uri().to_string()
-        }
-    } else {
-        "/".to_string()
-    }
-}
-
-fn display_path(path: &Path) -> String {
-    let home_dir = glib::home_dir();
-
-    if path == home_dir {
-        return "~/".to_string();
-    }
-
-    let path_display = path.display().to_string();
-
-    if path.starts_with(&home_dir) {
-        let home_dir_display = home_dir.display().to_string();
-        return format!("~{}", &path_display[home_dir_display.len()..]);
-    }
-
-    path_display
 }

@@ -1,28 +1,22 @@
-use std::{fs, path::PathBuf, time::Instant};
+use std::time::Instant;
 
 use anyhow::Result;
 use gettextrs::gettext;
 use gtk::{
     gio,
-    glib::{self, clone, once_cell::sync::Lazy},
+    glib::{self, clone},
     prelude::*,
     subclass::prelude::*,
 };
 use serde::{Deserialize, Serialize};
 
 use crate::{
-    config::APP_ID, document::Document, graph_view::LayoutEngine, page::Page, utils,
-    window::Window, Application,
+    document::Document, graph_view::LayoutEngine, page::Page, recent_list::RecentList, utils,
+    window::Window, Application, APP_DATA_DIR,
 };
 
 const DEFAULT_WINDOW_WIDTH: i32 = 1000;
 const DEFAULT_WINDOW_HEIGHT: i32 = 600;
-
-static APP_DATA_DIR: Lazy<PathBuf> = Lazy::new(|| {
-    let mut path = glib::user_data_dir();
-    path.push(APP_ID);
-    path
-});
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 struct SelectionState {
@@ -170,6 +164,8 @@ struct State {
 mod imp {
     use std::cell::{Cell, RefCell};
 
+    use async_lock::OnceCell;
+
     use super::*;
 
     pub struct Session {
@@ -177,6 +173,7 @@ mod imp {
         pub(super) windows: RefCell<Vec<Window>>,
         pub(super) default_window_width: Cell<i32>,
         pub(super) default_window_height: Cell<i32>,
+        pub(super) recents: OnceCell<RecentList>,
     }
 
     #[glib::object_subclass]
@@ -190,6 +187,7 @@ mod imp {
                 windows: RefCell::new(Vec::new()),
                 default_window_width: Cell::new(DEFAULT_WINDOW_WIDTH),
                 default_window_height: Cell::new(DEFAULT_WINDOW_HEIGHT),
+                recents: OnceCell::new(),
             }
         }
     }
@@ -208,6 +206,19 @@ impl Session {
 
     pub fn instance() -> Self {
         Application::instance().session().clone()
+    }
+
+    pub async fn recents(&self) -> &RecentList {
+        let imp = self.imp();
+
+        imp.recents
+            .get_or_init(|| async {
+                RecentList::load().await.unwrap_or_else(|err| {
+                    tracing::error!("Failed to load recents: {:?}", err);
+                    RecentList::new()
+                })
+            })
+            .await
     }
 
     pub fn windows(&self) -> Vec<Window> {
@@ -276,6 +287,12 @@ impl Session {
         }
     }
 
+    fn remove_window_inner(&self, window: &Window) {
+        let imp = self.imp();
+
+        imp.windows.borrow_mut().retain(|w| w != window);
+    }
+
     pub fn open_files(&self, files: &[gio::File], window: &Window) {
         match files {
             [] => {
@@ -306,23 +323,13 @@ impl Session {
                     Some(page) if page.document().is_safely_discardable() => page,
                     _ => window.add_new_page(),
                 };
-                utils::spawn(clone!(@weak window, @strong file => async move {
-                    if let Err(err) = page.load_file(file).await {
-                        tracing::error!("Failed to open file: {:?}", err);
-                        window.add_message_toast(&gettext("Failed to open file"));
-                    }
-                }));
+                self.load_file(window, &page, file.clone());
             }
             files => {
                 // If there are many files, simply load them to new pages.
                 for file in files {
-                    utils::spawn(clone!(@weak window, @strong file => async move {
-                        let page = window.add_new_page();
-                        if let Err(err) = page.load_file(file).await {
-                            tracing::error!("Failed to open file: {:?}", err);
-                            window.add_message_toast(&gettext("Failed to open file"));
-                        }
-                    }));
+                    let page = window.add_new_page();
+                    self.load_file(window, &page, file.clone());
                 }
             }
         }
@@ -371,7 +378,6 @@ impl Session {
 
         tracing::debug!(
             elapsed = ?now.elapsed(),
-            path = %APP_DATA_DIR.display(),
             ?state,
             "Session restored"
         );
@@ -397,8 +403,6 @@ impl Session {
         };
         let bytes = bincode::serialize(&state)?;
 
-        fs::create_dir_all(APP_DATA_DIR.as_path())?;
-
         imp.state_file
             .replace_contents_future(
                 bytes,
@@ -409,9 +413,11 @@ impl Session {
             .await
             .map_err(|(_, err)| err)?;
 
+        let recents = self.recents().await;
+        recents.save().await?;
+
         tracing::debug!(
             elapsed = ?now.elapsed(),
-            path = %APP_DATA_DIR.display(),
             ?state,
             "Session saved"
         );
@@ -419,10 +425,18 @@ impl Session {
         Ok(())
     }
 
-    fn remove_window_inner(&self, window: &Window) {
-        let imp = self.imp();
+    fn load_file(&self, window: &Window, page: &Page, file: gio::File) {
+        utils::spawn(
+            clone!(@weak self as obj, @weak window, @weak page => async move {
+                // Add to recents immediately, so huge files won't be delayed in being added.
+                obj.recents().await.add(file.uri().to_string());
 
-        imp.windows.borrow_mut().retain(|w| w != window);
+                if let Err(err) = page.load_file(file.clone()).await {
+                    tracing::error!("Failed to open file: {:?}", err);
+                    window.add_message_toast(&gettext("Failed to open file"));
+                }
+            }),
+        );
     }
 }
 

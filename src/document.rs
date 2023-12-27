@@ -10,6 +10,8 @@ use gtk::{
 };
 use gtk_source::{prelude::*, subclass::prelude::*};
 
+use crate::utils;
+
 /// Unmarks the document as busy on drop.
 struct MarkBusyGuard<'a> {
     document: &'a Document,
@@ -149,12 +151,7 @@ mod imp {
             let obj = self.obj();
 
             if let Some(file) = obj.file() {
-                file.path()
-                    .unwrap()
-                    .file_stem()
-                    .unwrap_or_default()
-                    .to_string_lossy()
-                    .to_string()
+                utils::display_file_stem(&file)
             } else {
                 obj.parse_title()
             }

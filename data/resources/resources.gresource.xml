@@ -2,11 +2,16 @@
 <gresources>
   <gresource prefix="/io/github/seadve/Dagger/">
     <file compressed="true" preprocess="xml-stripblanks">icons/scalable/actions/tab-new-symbolic.svg</file>
+    <file compressed="true" preprocess="xml-stripblanks">icons/scalable/actions/window-close-symbolic.svg</file>
     <file compressed="true" preprocess="xml-stripblanks">icons/scalable/status/document-modified-symbolic.svg</file>
+    <file compressed="true" preprocess="xml-stripblanks">icons/scalable/status/document-open-recent-symbolic.svg</file>
     <file compressed="true" preprocess="xml-stripblanks">icons/scalable/status/error-symbolic.svg</file>
+    <file compressed="true" preprocess="xml-stripblanks">icons/scalable/status/system-search-symbolic.svg</file>
     <file compressed="true">style.css</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/drag_overlay.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/page.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/recent_popover.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/recent_row.ui</file>
     <file compressed="true" preprocess="xml-stripblanks" alias="gtk/help-overlay.ui">ui/shortcuts.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/window.ui</file>
   </gresource>

@@ -100,9 +100,13 @@
                 <child type="top">
                   <object class="GtkHeaderBar">
                     <child>
-                      <object class="GtkButton">
+                      <object class="AdwSplitButton">
                         <property name="label" translatable="yes">Open</property>
                         <property name="action-name">win.open-document</property>
+                        <property name="dropdown-tooltip" translatable="yes">Recents</property>
+                        <property name="popover">
+                          <object class="DaggerRecentPopover" id="recent_popover"/>
+                        </property>
                       </object>
                     </child>
                     <child>

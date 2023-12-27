@@ -10,6 +10,27 @@ dragoverlay .drag-area-highlight {
   margin: 24px;
 }
 
+/* RecentPopover */
+
+.recent-popover contents {
+  padding: 0;
+}
+
+.recent-popover list {
+  border-radius: 6px;
+  margin: 3px 6px;
+  background: none;
+}
+
+.recent-popover list row {
+  padding: 9px;
+  padding-left: 15px;
+
+  border-radius: 6px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
 /* SaveChangesDialog */
 
 .save-changes-dialog > windowhandle > box.vertical > box.message-area.vertical {

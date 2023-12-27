@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <template class="DaggerRecentPopover" parent="GtkPopover">
+    <property name="width-request">300</property>
+    <style>
+      <class name="recent-popover"/>
+    </style>
+    <property name="child">
+      <object class="GtkBox">
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkSearchEntry" id="search_entry">
+            <property name="margin-top">6</property>
+            <property name="margin-bottom">6</property>
+            <property name="margin-start">6</property>
+            <property name="margin-end">6</property>
+            <property name="placeholder-text" translatable="yes">Search documents</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator"/>
+        </child>
+        <child>
+          <object class="GtkStack" id="stack">
+            <child>
+              <object class="AdwStatusPage" id="empty_page">
+                <property name="icon-name">document-open-recent-symbolic</property>
+                <property name="title" translatable="yes">No Recent Documents</property>
+                <style>
+                  <class name="compact"/>
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="AdwStatusPage" id="empty_search_page">
+                <property name="icon-name">system-search-symbolic</property>
+                <property name="title" translatable="yes">No Results</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkScrolledWindow" id="list_page">
+                <property name="hscrollbar-policy">never</property>
+                <property name="propagate-natural-height">True</property>
+                <property name="max-content-height">600</property>
+                <property name="max-content-width">250</property>
+                <property name="child">
+                  <object class="GtkListBox" id="list_box">
+                    <property name="activate-on-single-click">True</property>
+                    <property name="selection-mode">none</property>
+                  </object>
+                </property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </property>
+  </template>
+</interface>

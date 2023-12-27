@@ -134,6 +134,7 @@ dependencies = [
  "futures-util",
  "gettext-rs",
  "gtk4",
+ "indexmap",
  "libadwaita",
  "regex",
  "serde",

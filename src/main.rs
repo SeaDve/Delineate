@@ -33,18 +33,35 @@ mod export_format;
 mod graph_view;
 mod i18n;
 mod page;
+mod recent_filter;
+mod recent_item;
+mod recent_list;
+mod recent_popover;
+mod recent_row;
+mod recent_sorter;
 mod save_changes_dialog;
 mod session;
 mod utils;
 mod window;
 
+use std::{fs, path::PathBuf};
+
 use gettextrs::LocaleCategory;
-use gtk::{gio, glib};
+use gtk::{
+    gio,
+    glib::{self, once_cell::sync::Lazy},
+};
 
 use self::{
     application::Application,
-    config::{GETTEXT_PACKAGE, LOCALEDIR, RESOURCES_FILE},
+    config::{APP_ID, GETTEXT_PACKAGE, LOCALEDIR, RESOURCES_FILE},
 };
+
+static APP_DATA_DIR: Lazy<PathBuf> = Lazy::new(|| {
+    let mut path = glib::user_data_dir();
+    path.push(APP_ID);
+    path
+});
 
 fn main() -> glib::ExitCode {
     tracing_subscriber::fmt::init();
@@ -60,6 +77,8 @@ fn main() -> glib::ExitCode {
 
     let res = gio::Resource::load(RESOURCES_FILE).expect("Could not load gresource file");
     gio::resources_register(&res);
+
+    fs::create_dir_all(APP_DATA_DIR.as_path()).unwrap();
 
     let app = Application::new();
     app.run()

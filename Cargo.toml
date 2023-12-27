@@ -17,6 +17,7 @@ futures-channel = "0.3.29"
 gettext-rs = { version = "0.7", features = ["gettext-system"] }
 gtk = { version = "0.7", package = "gtk4", features = ["gnome_45"] }
 gtk_source = { package = "sourceview5", version = "0.7", features = ["v5_10"] }
+indexmap = "2.1"
 regex = "1.10.2"
 serde = { version = "1", features = ["derive"] }
 tracing = "0.1.37"

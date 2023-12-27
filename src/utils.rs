@@ -1,7 +1,7 @@
-use std::future::Future;
+use std::{future::Future, path::Path};
 
 use gettextrs::gettext;
-use gtk::{gio, glib};
+use gtk::{gio, glib, prelude::*};
 
 use crate::config::PROFILE;
 
@@ -41,4 +41,46 @@ pub fn graphviz_file_filters() -> gio::ListStore {
     let filters = gio::ListStore::new::<gtk::FileFilter>();
     filters.append(&filter);
     filters
+}
+
+pub fn display_file_stem(file: &gio::File) -> String {
+    file.path()
+        .unwrap()
+        .file_stem()
+        .unwrap_or_default()
+        .to_string_lossy()
+        .to_string()
+}
+
+pub fn display_file_parent(file: &gio::File) -> String {
+    if let Some(parent) = file.parent() {
+        display_file(&parent)
+    } else {
+        "/".to_string()
+    }
+}
+
+pub fn display_file(file: &gio::File) -> String {
+    if file.is_native() {
+        display_path(&file.path().unwrap())
+    } else {
+        file.uri().to_string()
+    }
+}
+
+fn display_path(path: &Path) -> String {
+    let home_dir = glib::home_dir();
+
+    if path == home_dir {
+        return "~/".to_string();
+    }
+
+    let path_display = path.display().to_string();
+
+    if path.starts_with(&home_dir) {
+        let home_dir_display = home_dir.display().to_string();
+        return format!("~{}", &path_display[home_dir_display.len()..]);
+    }
+
+    path_display
 }
