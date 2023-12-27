@@ -1,10 +1,13 @@
+use std::time::Duration;
+
+use gettextrs::gettext;
 use gtk::{
-    glib::{self, closure_local},
+    glib::{self, clone, closure_local, TimeSpan},
     prelude::*,
     subclass::prelude::*,
 };
 
-use crate::{recent_item::RecentItem, utils};
+use crate::{i18n::ngettext_f, recent_item::RecentItem, utils};
 
 mod imp {
     use std::cell::OnceCell;
@@ -24,6 +27,8 @@ mod imp {
         pub(super) title_label: TemplateChild<gtk::Label>,
         #[template_child]
         pub(super) subtitle_label: TemplateChild<gtk::Label>,
+        #[template_child]
+        pub(super) age_label: TemplateChild<gtk::Label>,
     }
 
     #[glib::object_subclass]
@@ -59,6 +64,18 @@ mod imp {
             self.title_label.set_label(&utils::display_file_stem(&file));
             self.subtitle_label
                 .set_label(&utils::display_file_parent(&file));
+
+            // Update age label every 30 minutes.
+            glib::timeout_add_local_full(
+                Duration::from_secs(60 * 30),
+                glib::Priority::LOW,
+                clone!(@weak obj => @default-panic, move || {
+                    obj.update_age_label();
+                    glib::ControlFlow::Continue
+                }),
+            );
+
+            obj.update_age_label();
         }
 
         fn signals() -> &'static [Signal] {
@@ -94,5 +111,40 @@ impl RecentRow {
                 f(obj);
             }),
         )
+    }
+
+    fn update_age_label(&self) {
+        let imp = self.imp();
+
+        let added = self.item().added().unwrap();
+
+        let now = glib::DateTime::now_utc().unwrap();
+        let diff = now.difference(&added);
+
+        // Copied from GNOME Text Editor's `_editor_date_time_format`
+        let label = if diff < TimeSpan(0) {
+            "".to_string()
+        } else if diff < TimeSpan::from_minutes(45) {
+            gettext("Just Now")
+        } else if diff < TimeSpan::from_minutes(90) {
+            gettext("An hour ago")
+        } else if diff < TimeSpan::from_days(2) {
+            gettext("Yesterday")
+        } else if diff < TimeSpan::from_days(7) {
+            added.format("%A").unwrap().to_string()
+        } else if diff < TimeSpan::from_days(365) {
+            added.format("%B %e").unwrap().to_string()
+        } else if diff < TimeSpan::from_days(365 + 365 / 2) {
+            gettext("About a year ago")
+        } else {
+            let n_years = diff.as_days() / 365;
+            ngettext_f(
+                "About {n_years} year ago",
+                "About {n_years} years ago",
+                n_years as u32,
+                &[("n_years", &n_years.to_string())],
+            )
+        };
+        imp.age_label.set_label(&label);
     }
 }

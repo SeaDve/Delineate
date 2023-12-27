@@ -12,6 +12,7 @@
             <property name="ellipsize">end</property>
             <layout>
               <property name="column">0</property>
+              <property name="column-span">2</property>
               <property name="row">0</property>
             </layout>
           </object>
@@ -32,7 +33,23 @@
           </object>
         </child>
         <child>
+          <object class="GtkLabel" id="age_label">
+            <property name="halign">end</property>
+            <property name="xalign">1</property>
+            <property name="label">Just Now</property>
+            <style>
+              <class name="caption"/>
+              <class name="dim-label"/>
+            </style>
+            <layout>
+              <property name="column">1</property>
+              <property name="row">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
           <object class="GtkButton">
+            <property name="valign">center</property>
             <property name="tooltip-text" translatable="yes">Remove</property>
             <property name="icon-name">window-close-symbolic</property>
             <property name="action-name">recent-row.remove</property>
@@ -41,7 +58,7 @@
               <class name="flat"/>
             </style>
             <layout>
-              <property name="column">2</property>
+              <property name="column">3</property>
               <property name="row">0</property>
               <property name="row-span">2</property>
             </layout>

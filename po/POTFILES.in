@@ -9,6 +9,7 @@ data/resources/ui/window.ui
 src/about.rs
 src/export_format.rs
 src/page.rs
+src/recent_row.rs
 src/save_changes_dialog.rs
 src/session.rs
 src/utils.rs
