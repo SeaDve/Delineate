@@ -147,30 +147,30 @@ impl RecentList {
     pub fn add(&self, uri: String) {
         let imp = self.imp();
 
-        let index = match imp.list.borrow_mut().entry(uri) {
+        let (index, removed, added) = match imp.list.borrow_mut().entry(uri) {
             Entry::Vacant(entry) => {
-                let uri = entry.key();
                 let index = entry.index();
 
+                let uri = entry.key();
                 let item = RecentItem::new(
                     &gio::File::for_uri(uri),
                     &glib::DateTime::now_utc().unwrap(),
                 );
                 entry.insert(item);
 
-                Some(index)
+                (index, 0, 1)
             }
             Entry::Occupied(entry) => {
+                let index = entry.index();
+
                 let item = entry.get();
                 item.set_added(glib::DateTime::now_utc().unwrap());
 
-                None
+                (index, 1, 1)
             }
         };
 
-        if let Some(index) = index {
-            self.items_changed(index as u32, 0, 1);
-        }
+        self.items_changed(index as u32, removed, added);
     }
 
     pub fn remove(&self, uri: &str) {
