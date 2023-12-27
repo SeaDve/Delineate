@@ -84,7 +84,12 @@ mod imp {
     }
 
     impl WidgetImpl for RecentPopover {}
-    impl PopoverImpl for RecentPopover {}
+
+    impl PopoverImpl for RecentPopover {
+        fn closed(&self) {
+            self.search_entry.set_text("");
+        }
+    }
 }
 
 glib::wrapper! {
