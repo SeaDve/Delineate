@@ -2,11 +2,14 @@ data/io.github.seadve.Dagger.desktop.in.in
 data/io.github.seadve.Dagger.gschema.xml.in
 data/io.github.seadve.Dagger.metainfo.xml.in.in
 data/resources/ui/page.ui
+data/resources/ui/recent_popover.ui
+data/resources/ui/recent_row.ui
 data/resources/ui/shortcuts.ui
 data/resources/ui/window.ui
 src/about.rs
 src/export_format.rs
 src/page.rs
 src/save_changes_dialog.rs
+src/session.rs
 src/utils.rs
 src/window.rs
