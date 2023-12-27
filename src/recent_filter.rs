@@ -47,7 +47,7 @@ mod imp {
     }
 
     impl RecentFilter {
-        fn set_search(&self, search: &str) {
+        fn set_search(&self, search: String) {
             let obj = self.obj();
             let old_search = obj.search();
 
@@ -59,13 +59,13 @@ mod imp {
                 gtk::FilterChange::LessStrict
             } else if search.starts_with(&old_search) {
                 gtk::FilterChange::MoreStrict
-            } else if old_search.starts_with(search) {
+            } else if old_search.starts_with(&search) {
                 gtk::FilterChange::LessStrict
             } else {
                 gtk::FilterChange::Different
             };
 
-            self.search.replace(search.to_owned());
+            self.search.replace(search);
             obj.changed(change);
             obj.notify_search();
         }

@@ -1,4 +1,12 @@
-use gtk::{gio, glib, prelude::*, subclass::prelude::*};
+use fuzzy_matcher::{skim::SkimMatcherV2, FuzzyMatcher};
+use gtk::{
+    gio,
+    glib::{self, once_cell::sync::Lazy},
+    prelude::*,
+    subclass::prelude::*,
+};
+
+static FUZZY_MATCHER: Lazy<SkimMatcherV2> = Lazy::new(SkimMatcherV2::default);
 
 mod imp {
     use std::cell::{OnceCell, RefCell};
@@ -49,11 +57,8 @@ impl RecentItem {
             .build()
     }
 
-    pub fn fuzzy_match(&self, needle: &str) -> Option<u32> {
-        let haystack = self.file().path().unwrap();
-        gtk_source::Completion::fuzzy_match(
-            Some(&glib::casefold(haystack.to_string_lossy())),
-            &glib::casefold(needle),
-        )
+    pub fn fuzzy_match(&self, pattern: &str) -> Option<i64> {
+        let choice = self.file().path().unwrap();
+        FUZZY_MATCHER.fuzzy_match(&choice.to_string_lossy(), pattern)
     }
 }
