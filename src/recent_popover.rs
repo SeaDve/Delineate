@@ -79,6 +79,7 @@ mod imp {
                     }
                 }));
 
+            obj.update_search_entry_sensitivity();
             obj.update_stack();
         }
 
@@ -130,6 +131,7 @@ impl RecentPopover {
         let imp = self.imp();
 
         model.connect_items_changed(clone!(@weak self as obj => move |_, _, _, _| {
+            obj.update_search_entry_sensitivity();
             obj.update_stack();
         }));
         imp.model.set(model.clone()).unwrap();
@@ -161,6 +163,7 @@ impl RecentPopover {
             }),
         );
 
+        self.update_search_entry_sensitivity();
         self.update_stack();
     }
 
@@ -178,6 +181,13 @@ impl RecentPopover {
             imp.model.get().unwrap().remove(&uri);
         }));
         row.upcast()
+    }
+
+    fn update_search_entry_sensitivity(&self) {
+        let imp = self.imp();
+
+        let has_items = imp.model.get().is_some_and(|model| model.n_items() != 0);
+        imp.search_entry.set_sensitive(has_items);
     }
 
     fn update_stack(&self) {
