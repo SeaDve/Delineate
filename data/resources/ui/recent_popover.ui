@@ -22,6 +22,8 @@
         </child>
         <child>
           <object class="GtkStack" id="stack">
+            <property name="vhomogeneous">false</property>
+            <property name="hhomogeneous">false</property>
             <child>
               <object class="AdwStatusPage" id="empty_page">
                 <property name="icon-name">document-open-recent-symbolic</property>
@@ -35,6 +37,9 @@
               <object class="AdwStatusPage" id="empty_search_page">
                 <property name="icon-name">system-search-symbolic</property>
                 <property name="title" translatable="yes">No Results</property>
+                <style>
+                  <class name="compact"/>
+                </style>
               </object>
             </child>
             <child>
