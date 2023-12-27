@@ -64,6 +64,11 @@ mod imp {
                     obj.popdown();
                 }));
 
+            self.search_entry
+                .connect_stop_search(clone!(@weak obj => move |_| {
+                    obj.popdown();
+                }));
+
             obj.update_stack();
         }
 
