@@ -34,6 +34,7 @@ mod imp {
 
         pub(super) model: OnceCell<RecentList>,
         pub(super) filter_model: OnceCell<gtk::FilterListModel>,
+        pub(super) sort_model: OnceCell<gtk::SortListModel>,
     }
 
     #[glib::object_subclass]
@@ -60,13 +61,22 @@ mod imp {
             self.list_box
                 .connect_row_activated(clone!(@weak obj => move |_, row| {
                     let row = row.downcast_ref::<RecentRow>().unwrap();
-                    obj.emit_by_name::<()>("item-activated", &[&row.item()]);
+                    obj.emit_item_activated(&row.item());
                     obj.popdown();
                 }));
 
             self.search_entry
                 .connect_stop_search(clone!(@weak obj => move |_| {
                     obj.popdown();
+                }));
+            self.search_entry
+                .connect_activate(clone!(@weak obj => move |_| {
+                    let imp = obj.imp();
+                    if let Some(item) = imp.sort_model.get().and_then(|sort_model| sort_model.item(0)) {
+                        let item = item.downcast_ref().unwrap();
+                        obj.emit_item_activated(item);
+                        obj.popdown();
+                    }
                 }));
 
             obj.update_stack();
@@ -142,6 +152,7 @@ impl RecentPopover {
         imp.filter_model.set(filter_model.clone()).unwrap();
 
         let sort_model = gtk::SortListModel::new(Some(filter_model), Some(sorter));
+        imp.sort_model.set(sort_model.clone()).unwrap();
 
         imp.list_box.bind_model(
             Some(&sort_model),
@@ -151,6 +162,10 @@ impl RecentPopover {
         );
 
         self.update_stack();
+    }
+
+    fn emit_item_activated(&self, item: &RecentItem) {
+        self.emit_by_name::<()>("item-activated", &[item]);
     }
 
     fn create_row(&self, item: &RecentItem) -> RecentRow {
