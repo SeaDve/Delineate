@@ -50,7 +50,6 @@ mod imp {
         fn set_search(&self, search: &str) {
             let obj = self.obj();
             let old_search = obj.search();
-            let search = search.to_lowercase();
 
             if old_search == search {
                 return;
@@ -60,13 +59,13 @@ mod imp {
                 gtk::FilterChange::LessStrict
             } else if search.starts_with(&old_search) {
                 gtk::FilterChange::MoreStrict
-            } else if old_search.starts_with(&search) {
+            } else if old_search.starts_with(search) {
                 gtk::FilterChange::LessStrict
             } else {
                 gtk::FilterChange::Different
             };
 
-            self.search.replace(search);
+            self.search.replace(search.to_owned());
             obj.changed(change);
             obj.notify_search();
         }

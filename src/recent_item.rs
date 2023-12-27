@@ -51,6 +51,9 @@ impl RecentItem {
 
     pub fn fuzzy_match(&self, needle: &str) -> Option<u32> {
         let haystack = self.file().path().unwrap();
-        gtk_source::Completion::fuzzy_match(Some(&haystack.to_string_lossy()), needle)
+        gtk_source::Completion::fuzzy_match(
+            Some(&glib::casefold(haystack.to_string_lossy())),
+            &glib::casefold(needle),
+        )
     }
 }
