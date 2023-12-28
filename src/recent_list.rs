@@ -147,7 +147,7 @@ impl RecentList {
     pub fn add(&self, uri: String) {
         let imp = self.imp();
 
-        let (index, removed, added) = match imp.list.borrow_mut().entry(uri) {
+        let (index, n_removed, n_added) = match imp.list.borrow_mut().entry(uri) {
             Entry::Vacant(entry) => {
                 let index = entry.index();
 
@@ -170,7 +170,7 @@ impl RecentList {
             }
         };
 
-        self.items_changed(index as u32, removed, added);
+        self.items_changed(index as u32, n_removed, n_added);
     }
 
     pub fn remove(&self, uri: &str) {
