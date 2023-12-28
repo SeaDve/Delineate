@@ -13,26 +13,35 @@ mod imp {
 
     use super::*;
 
-    #[derive(Default, glib::Properties)]
+    #[derive(glib::Properties)]
     #[properties(wrapper_type = super::RecentItem)]
     pub struct RecentItem {
         #[property(get, set, construct_only)]
         pub(super) file: OnceCell<gio::File>,
         #[property(get, set = Self::set_added, explicit_notify, construct)]
-        pub(super) added: RefCell<Option<glib::DateTime>>,
+        pub(super) added: RefCell<glib::DateTime>,
     }
 
     #[glib::object_subclass]
     impl ObjectSubclass for RecentItem {
         const NAME: &'static str = "DaggerRecentItem";
         type Type = super::RecentItem;
+
+        fn new() -> Self {
+            Self {
+                file: OnceCell::new(),
+                // It would panic if RecentItem is constructed without `added`, so this
+                // is never actually used.
+                added: RefCell::new(glib::DateTime::from_unix_utc(0).unwrap()),
+            }
+        }
     }
 
     #[glib::derived_properties]
     impl ObjectImpl for RecentItem {}
 
     impl RecentItem {
-        fn set_added(&self, added: Option<glib::DateTime>) {
+        fn set_added(&self, added: glib::DateTime) {
             let obj = self.obj();
 
             if added == obj.added() {

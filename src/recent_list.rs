@@ -117,7 +117,7 @@ impl RecentList {
 
                 RecentItemState {
                     uri: uri.clone(),
-                    added: item.added().unwrap().format_iso8601().unwrap().to_string(),
+                    added: item.added().format_iso8601().unwrap().to_string(),
                 }
             })
             .collect::<Vec<_>>();

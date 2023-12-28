@@ -116,7 +116,7 @@ impl RecentRow {
     fn update_age_label(&self) {
         let imp = self.imp();
 
-        let added = self.item().added().unwrap();
+        let added = self.item().added();
 
         let now = glib::DateTime::now_utc().unwrap();
         let diff = now.difference(&added);
