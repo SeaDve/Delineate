@@ -87,6 +87,7 @@ impl PageState {
                 clone!(@weak page, @strong self.selection as selection_state  => async move {
                     if let Err(err) = page.load_file(file).await {
                         tracing::error!("Failed to load file for page: {:?}", err);
+                        page.add_message_toast(&gettext("Failed to open file"));
                     }
 
                     // Only restore selection once we have fully loaded the page's document.
@@ -321,13 +322,13 @@ impl Session {
                     Some(page) if page.document().is_safely_discardable() => page,
                     _ => window.add_new_page(),
                 };
-                self.load_file(window, &page, file.clone());
+                self.load_file(&page, file.clone());
             }
             files => {
                 // If there are many files, simply load them to new pages.
                 for file in files {
                     let page = window.add_new_page();
-                    self.load_file(window, &page, file.clone());
+                    self.load_file(&page, file.clone());
                 }
             }
         }
@@ -423,18 +424,16 @@ impl Session {
         Ok(())
     }
 
-    fn load_file(&self, window: &Window, page: &Page, file: gio::File) {
-        utils::spawn(
-            clone!(@weak self as obj, @weak window, @weak page => async move {
-                // Add to recents immediately, so huge files won't be delayed in being added.
-                obj.recents().await.add(file.uri().to_string());
+    fn load_file(&self, page: &Page, file: gio::File) {
+        utils::spawn(clone!(@weak self as obj, @weak page => async move {
+            // Add to recents immediately, so huge files won't be delayed in being added.
+            obj.recents().await.add(file.uri().to_string());
 
-                if let Err(err) = page.load_file(file.clone()).await {
-                    tracing::error!("Failed to open file: {:?}", err);
-                    window.add_message_toast(&gettext("Failed to open file"));
-                }
-            }),
-        );
+            if let Err(err) = page.load_file(file).await {
+                tracing::error!("Failed to open file: {:?}", err);
+                page.add_message_toast(&gettext("Failed to open file"));
+            }
+        }));
     }
 }
 

@@ -197,6 +197,12 @@ mod imp {
                 }),
             );
             document_signals.connect_notify_local(
+                Some("file"),
+                clone!(@weak obj => move |_, _| {
+                    obj.notify_can_open_containing_folder();
+                }),
+            );
+            document_signals.connect_notify_local(
                 Some("title"),
                 clone!(@weak obj => move |_, _| {
                     obj.notify_title();
@@ -529,8 +535,12 @@ impl Page {
             .is_some_and(|p| &p == self)
     }
 
-    fn window(&self) -> Option<Window> {
-        self.root().map(|r| r.downcast().unwrap())
+    pub fn add_message_toast(&self, message: &str) {
+        if let Some(window) = self.window() {
+            window.add_message_toast(message);
+        } else {
+            tracing::error!("Failed to show message toast: no root");
+        }
     }
 
     fn add_toast(&self, toast: adw::Toast) {
@@ -541,12 +551,8 @@ impl Page {
         }
     }
 
-    fn add_message_toast(&self, message: &str) {
-        if let Some(window) = self.window() {
-            window.add_message_toast(message);
-        } else {
-            tracing::error!("Failed to show message toast: no root");
-        }
+    fn window(&self) -> Option<Window> {
+        self.root().map(|r| r.downcast().unwrap())
     }
 
     fn set_document(&self, document: &Document) {
@@ -564,6 +570,7 @@ impl Page {
         self.notify_is_modified();
         self.notify_can_save();
         self.notify_can_discard_changes();
+        self.notify_can_open_containing_folder();
     }
 
     fn queue_draw_graph(&self) {
