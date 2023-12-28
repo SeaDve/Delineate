@@ -31,7 +31,7 @@ mod imp {
             Self {
                 file: OnceCell::new(),
                 // It would panic if RecentItem is constructed without `added`, so this
-                // is never actually used.
+                // is never actually accessed.
                 added: RefCell::new(glib::DateTime::from_unix_utc(0).unwrap()),
             }
         }
