@@ -86,18 +86,21 @@ impl RecentList {
             }
         };
 
-        let list = state
-            .recents
-            .iter()
-            .map(|recent_state| {
-                let uri = &recent_state.uri;
-                let item = RecentItem::new(
-                    &gio::File::for_uri(uri),
-                    &glib::DateTime::from_iso8601(&recent_state.added, None)?,
-                );
-                anyhow::Ok((uri.to_owned(), item))
-            })
-            .collect::<Result<IndexMap<_, _>>>()?;
+        let mut list = IndexMap::new();
+        for recent_state in &state.recents {
+            let uri = &recent_state.uri;
+            let file = gio::File::for_uri(uri);
+
+            if !file.query_exists(gio::Cancellable::NONE) {
+                tracing::debug!(?uri, "Recent file ignored as it does not exist");
+                continue;
+            }
+
+            let added = glib::DateTime::from_iso8601(&recent_state.added, None)?;
+            let item = RecentItem::new(&file, &added);
+
+            list.insert(uri.to_owned(), item);
+        }
         imp.list.replace(list);
 
         tracing::debug!(?state, "Recents loaded");
