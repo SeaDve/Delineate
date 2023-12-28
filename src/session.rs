@@ -18,6 +18,8 @@ use crate::{
 const DEFAULT_WINDOW_WIDTH: i32 = 1000;
 const DEFAULT_WINDOW_HEIGHT: i32 = 600;
 
+const AUTO_SAVE_DELAY_SECS: u32 = 3;
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 struct SelectionState {
     start_line: i32,
@@ -171,10 +173,15 @@ mod imp {
 
     pub struct Session {
         pub(super) state_file: gio::File,
-        pub(super) windows: RefCell<Vec<Window>>,
+
         pub(super) default_window_width: Cell<i32>,
         pub(super) default_window_height: Cell<i32>,
+
+        pub(super) windows: RefCell<Vec<Window>>,
         pub(super) recents: OnceCell<RecentList>,
+
+        pub(super) is_dirty: Cell<bool>,
+        pub(super) auto_save_source_id: RefCell<Option<glib::SourceId>>,
     }
 
     #[glib::object_subclass]
@@ -185,10 +192,12 @@ mod imp {
         fn new() -> Self {
             Self {
                 state_file: gio::File::for_path(APP_DATA_DIR.join("state.bin")),
-                windows: RefCell::new(Vec::new()),
                 default_window_width: Cell::new(DEFAULT_WINDOW_WIDTH),
                 default_window_height: Cell::new(DEFAULT_WINDOW_HEIGHT),
-                recents: OnceCell::new(),
+                windows: RefCell::default(),
+                recents: OnceCell::default(),
+                is_dirty: Cell::default(),
+                auto_save_source_id: RefCell::default(),
             }
         }
     }
@@ -237,6 +246,8 @@ impl Session {
 
         imp.windows.borrow_mut().push(window.clone());
 
+        self.mark_dirty();
+
         window
     }
 
@@ -254,6 +265,8 @@ impl Session {
         };
 
         window.add_new_page();
+
+        self.mark_dirty();
 
         window
     }
@@ -290,6 +303,8 @@ impl Session {
         let imp = self.imp();
 
         imp.windows.borrow_mut().retain(|w| w != window);
+
+        self.mark_dirty();
     }
 
     pub fn open_files(&self, files: &[gio::File], window: &Window) {
@@ -387,6 +402,8 @@ impl Session {
     pub async fn save(&self) -> Result<()> {
         let imp = self.imp();
 
+        imp.is_dirty.set(false);
+
         let now = Instant::now();
 
         let window_states = imp
@@ -424,6 +441,37 @@ impl Session {
         Ok(())
     }
 
+    // FIXME Ideally, this should be an internal method and called when State fields change.
+    pub fn mark_dirty(&self) {
+        let imp = self.imp();
+
+        if imp.is_dirty.get() {
+            return;
+        }
+
+        imp.is_dirty.set(true);
+
+        if let Some(source_id) = imp.auto_save_source_id.take() {
+            source_id.remove();
+        }
+
+        let source_id = glib::timeout_add_seconds_local_once(
+            AUTO_SAVE_DELAY_SECS,
+            clone!(@weak self as obj => move || {
+                let _ = obj.imp().auto_save_source_id.take();
+
+                utils::spawn(async move {
+                    tracing::debug!("Saving session on auto save");
+
+                    if let Err(err) = obj.save().await {
+                        tracing::debug!("Failed to save session on auto save: {:?}", err);
+                    }
+                });
+            }),
+        );
+        imp.auto_save_source_id.replace(Some(source_id));
+    }
+
     fn load_file(&self, page: &Page, file: gio::File) {
         utils::spawn(clone!(@weak self as obj, @weak page => async move {
             // Add to recents immediately, so huge files won't be delayed in being added.
@@ -433,6 +481,8 @@ impl Session {
                 tracing::error!("Failed to open file: {:?}", err);
                 page.add_message_toast(&gettext("Failed to open file"));
             }
+
+            obj.mark_dirty();
         }));
     }
 }

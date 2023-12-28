@@ -591,6 +591,9 @@ impl Window {
 
         imp.tab_view.set_selected_page(&tab_page);
 
+        let session = Session::instance();
+        session.mark_dirty();
+
         page
     }
 
@@ -718,6 +721,9 @@ impl Window {
             page.disconnect(is_modified_handler_id);
         }
 
+        let session = Session::instance();
+        session.mark_dirty();
+
         self.update_inhibit();
     }
 
@@ -728,6 +734,9 @@ impl Window {
         if let Some(page_state) = page_state {
             let page = self.add_new_page();
             page_state.restore_on(&page);
+
+            let session = Session::instance();
+            session.mark_dirty();
 
             self.update_undo_close_page_action();
         }

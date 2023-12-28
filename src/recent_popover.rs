@@ -6,7 +6,7 @@ use gtk::{
 
 use crate::{
     recent_filter::RecentFilter, recent_item::RecentItem, recent_list::RecentList,
-    recent_row::RecentRow, recent_sorter::RecentSorter,
+    recent_row::RecentRow, recent_sorter::RecentSorter, session::Session,
 };
 
 mod imp {
@@ -188,6 +188,9 @@ impl RecentPopover {
 
             let uri = row.item().file().uri();
             imp.model.get().unwrap().remove(&uri);
+
+            let session = Session::instance();
+            session.mark_dirty();
         }));
         row.upcast()
     }
