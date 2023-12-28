@@ -24,6 +24,8 @@ mod imp {
         #[template_child]
         pub(super) stack: TemplateChild<gtk::Stack>,
         #[template_child]
+        pub(super) loading_page: TemplateChild<gtk::Spinner>,
+        #[template_child]
         pub(super) empty_page: TemplateChild<adw::StatusPage>,
         #[template_child]
         pub(super) empty_search_page: TemplateChild<adw::StatusPage>,
@@ -165,6 +167,13 @@ impl RecentPopover {
 
         self.update_search_entry_sensitivity();
         self.update_stack();
+    }
+
+    /// Shows the loading page until the model is bound.
+    pub fn begin_loading(&self) {
+        let imp = self.imp();
+
+        imp.stack.set_visible_child(&*imp.loading_page);
     }
 
     fn emit_item_activated(&self, item: &RecentItem) {

@@ -482,9 +482,9 @@ mod imp {
                     session.open_files(&[item.file()], &obj);
                 }));
 
+            self.recent_popover.begin_loading();
             utils::spawn(clone!(@weak obj => async move {
                 let imp = obj.imp();
-
                 let session = Session::instance();
                 let recents = session.recents().await;
                 imp.recent_popover.bind_model(recents);
