@@ -156,8 +156,8 @@ impl WindowState {
 
 #[derive(Debug, Default, Serialize, Deserialize)]
 struct State {
-    window_width: i32,
-    window_height: i32,
+    default_window_width: i32,
+    default_window_height: i32,
     windows: Vec<WindowState>,
 }
 
@@ -244,17 +244,15 @@ impl Session {
 
         let window = self.add_new_raw_window();
 
-        let raw_default_width = imp.default_window_width.get();
-        let raw_default_height = imp.default_window_height.get();
-        let (default_width, default_height) = if raw_default_width > 0 && raw_default_height > 0 {
-            (raw_default_width, raw_default_height)
+        let default_width = imp.default_window_width.get();
+        let default_height = imp.default_window_height.get();
+        if default_width > 0 && default_height > 0 {
+            window.set_default_size(default_width, default_height);
         } else {
-            (DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT)
+            window.set_default_size(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
         };
-        window.set_default_size(default_width, default_height);
 
-        let page = window.add_new_page();
-        page.set_paned_position(default_width / 2);
+        window.add_new_page();
 
         window
     }
@@ -353,8 +351,8 @@ impl Session {
             }
         };
 
-        imp.default_window_width.set(state.window_width);
-        imp.default_window_height.set(state.window_height);
+        imp.default_window_width.set(state.default_window_width);
+        imp.default_window_height.set(state.default_window_height);
 
         let mut active_window = None;
         for window_state in &state.windows {
@@ -398,8 +396,8 @@ impl Session {
             .collect::<Vec<_>>();
         let state = State {
             windows: window_states,
-            window_width: imp.default_window_width.get(),
-            window_height: imp.default_window_height.get(),
+            default_window_width: imp.default_window_width.get(),
+            default_window_height: imp.default_window_height.get(),
         };
         let bytes = bincode::serialize(&state)?;
 
