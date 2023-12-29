@@ -121,7 +121,7 @@ impl RecentPopover {
     {
         self.connect_closure(
             "item-activated",
-            true,
+            false,
             closure_local!(|obj: &Self, item: &RecentItem| {
                 f(obj, item);
             }),

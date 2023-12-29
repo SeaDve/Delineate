@@ -106,7 +106,7 @@ impl RecentRow {
     {
         self.connect_closure(
             "remove-request",
-            true,
+            false,
             closure_local!(|obj: &Self| {
                 f(obj);
             }),

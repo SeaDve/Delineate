@@ -250,7 +250,7 @@ impl GraphView {
     {
         self.connect_closure(
             "error",
-            true,
+            false,
             closure_local!(|obj: &Self, message: &str| {
                 f(obj, message);
             }),
