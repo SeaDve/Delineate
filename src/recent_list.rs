@@ -34,7 +34,7 @@ mod imp {
 
         fn new() -> Self {
             Self {
-                state_file: gio::File::for_path(APP_DATA_DIR.join("recents.bin")),
+                state_file: gio::File::for_path(APP_DATA_DIR.join("recents.msgpack")),
                 list: RefCell::new(IndexMap::new()),
             }
         }
@@ -76,7 +76,7 @@ impl RecentList {
         let imp = this.imp();
 
         let state = match imp.state_file.load_bytes_future().await {
-            Ok((bytes, _)) => bincode::deserialize::<State>(&bytes)?,
+            Ok((bytes, _)) => rmp_serde::from_slice::<State>(&bytes)?,
             Err(err) => {
                 if !err.matches(gio::IOErrorEnum::NotFound) {
                     return Err(err.into());
@@ -128,7 +128,7 @@ impl RecentList {
         let state = State {
             recents: recent_states,
         };
-        let bytes = bincode::serialize(&state)?;
+        let bytes = rmp_serde::to_vec_named(&state)?;
 
         imp.state_file
             .replace_contents_future(

@@ -11,7 +11,6 @@ lto = true
 adw = { package = "libadwaita", version = "0.5", features = ["v1_4"] }
 anyhow = "1.0.75"
 async-lock = "3.2"
-bincode = "1"
 futures-util = { version = "0.3.29", features = ["io"] }
 futures-channel = "0.3.29"
 fuzzy-matcher = "0.3.7"
@@ -20,6 +19,7 @@ gtk = { version = "0.7", package = "gtk4", features = ["gnome_45"] }
 gtk_source = { package = "sourceview5", version = "0.7", features = ["v5_10"] }
 indexmap = "2.1"
 regex = "1.10.2"
+rmp-serde = "1.1.2"
 serde = { version = "1", features = ["derive"] }
 tracing = "0.1.37"
 tracing-subscriber = "0.3"
