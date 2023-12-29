@@ -1,3 +1,5 @@
+use std::time::Instant;
+
 use anyhow::Result;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 use indexmap::{map::Entry, IndexMap};
@@ -75,6 +77,8 @@ impl RecentList {
         let this = Self::new();
         let imp = this.imp();
 
+        let now = Instant::now();
+
         let state = match imp.state_file.load_bytes_future().await {
             Ok((bytes, _)) => rmp_serde::from_slice::<State>(&bytes)?,
             Err(err) => {
@@ -103,13 +107,15 @@ impl RecentList {
         }
         imp.list.replace(list);
 
-        tracing::debug!(?state, "Recents loaded");
+        tracing::debug!(elapsed = ?now.elapsed(), ?state, "Recents loaded");
 
         Ok(this)
     }
 
     pub async fn save(&self) -> Result<()> {
         let imp = self.imp();
+
+        let now = Instant::now();
 
         let recent_states = imp
             .list
@@ -140,7 +146,7 @@ impl RecentList {
             .await
             .map_err(|(_, err)| err)?;
 
-        tracing::debug!(?state, "Recents saved");
+        tracing::debug!(elapsed = ?now.elapsed(), ?state, "Recents saved");
 
         Ok(())
     }
