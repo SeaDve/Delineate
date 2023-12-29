@@ -366,6 +366,7 @@ impl Session {
                 State::default()
             }
         };
+        tracing::trace!(?state, "State loaded");
 
         imp.default_window_width.set(state.default_window_width);
         imp.default_window_height.set(state.default_window_height);
@@ -390,11 +391,7 @@ impl Session {
             window.present();
         }
 
-        tracing::debug!(
-            elapsed = ?now.elapsed(),
-            ?state,
-            "Session restored"
-        );
+        tracing::debug!(elapsed = ?now.elapsed(), "Session restored");
 
         Ok(())
     }
@@ -417,8 +414,9 @@ impl Session {
             default_window_width: imp.default_window_width.get(),
             default_window_height: imp.default_window_height.get(),
         };
-        let bytes = rmp_serde::to_vec_named(&state)?;
+        tracing::trace!(?state, "State stored");
 
+        let bytes = rmp_serde::to_vec_named(&state)?;
         imp.state_file
             .replace_contents_future(
                 bytes,
@@ -432,11 +430,7 @@ impl Session {
         let recents = self.recents().await;
         recents.save().await?;
 
-        tracing::debug!(
-            elapsed = ?now.elapsed(),
-            ?state,
-            "Session saved"
-        );
+        tracing::debug!(elapsed = ?now.elapsed(), "Session saved");
 
         Ok(())
     }

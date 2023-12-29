@@ -89,6 +89,7 @@ impl RecentList {
                 State::default()
             }
         };
+        tracing::trace!(?state, "State loaded");
 
         let mut list = IndexMap::new();
         for recent_state in &state.recents {
@@ -107,7 +108,7 @@ impl RecentList {
         }
         imp.list.replace(list);
 
-        tracing::debug!(elapsed = ?now.elapsed(), ?state, "Recents loaded");
+        tracing::debug!(elapsed = ?now.elapsed(), "Recents loaded");
 
         Ok(this)
     }
@@ -130,12 +131,12 @@ impl RecentList {
                 }
             })
             .collect::<Vec<_>>();
-
         let state = State {
             recents: recent_states,
         };
-        let bytes = rmp_serde::to_vec_named(&state)?;
+        tracing::trace!(?state, "State stored");
 
+        let bytes = rmp_serde::to_vec_named(&state)?;
         imp.state_file
             .replace_contents_future(
                 bytes,
@@ -146,7 +147,7 @@ impl RecentList {
             .await
             .map_err(|(_, err)| err)?;
 
-        tracing::debug!(elapsed = ?now.elapsed(), ?state, "Recents saved");
+        tracing::debug!(elapsed = ?now.elapsed(), "Recents saved");
 
         Ok(())
     }
