@@ -18,7 +18,6 @@ use crate::{
 
 // TODO
 // * Find and replace
-// * Session autosave
 // * modified file on disk handling
 // * Bird's eye view of graph
 // * Full screen view of graph

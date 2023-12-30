@@ -427,8 +427,7 @@ impl Session {
             .await
             .map_err(|(_, err)| err)?;
 
-        let recents = self.recents().await;
-        recents.save().await?;
+        self.recents().await.save().await?;
 
         tracing::debug!(elapsed = ?now.elapsed(), "Session saved");
 
