@@ -90,6 +90,7 @@ impl PageState {
                     if let Err(err) = page.load_file(file).await {
                         tracing::error!("Failed to load file for page: {:?}", err);
                         page.add_message_toast(&gettext("Failed to open file"));
+                        return;
                     }
 
                     // Only restore selection once we have fully loaded the page's document.
