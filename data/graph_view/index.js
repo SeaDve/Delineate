@@ -4,6 +4,7 @@
 // - highlight bidirectional, upstream, or downstream references
 // - improve packaging
 // - show proper cursors when dragging etc.
+// - add support for rendering mermaid diagrams
 
 const ZOOM_TRANSITION_DURATION_MS = 200;
 const TRANSITION_DURATION_MS = 400;
