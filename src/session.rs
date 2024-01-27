@@ -89,7 +89,7 @@ impl PageState {
                 clone!(@weak page, @strong self.selection as selection_state  => async move {
                     if let Err(err) = page.load_file(file).await {
                         tracing::error!("Failed to load file for page: {:?}", err);
-                        page.add_message_toast(&gettext("Failed to open file"));
+                        page.add_message_toast(&gettext("Failed to load file"));
                         return;
                     }
 
