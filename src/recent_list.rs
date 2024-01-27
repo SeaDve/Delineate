@@ -36,7 +36,7 @@ mod imp {
 
         fn new() -> Self {
             Self {
-                state_file: gio::File::for_path(APP_DATA_DIR.join("recents.cbor")),
+                state_file: gio::File::for_path(APP_DATA_DIR.join("recents.json")),
                 list: RefCell::new(IndexMap::new()),
             }
         }
@@ -80,7 +80,7 @@ impl RecentList {
         let now = Instant::now();
 
         let state = match imp.state_file.load_bytes_future().await {
-            Ok((bytes, _)) => serde_cbor::from_slice::<State>(&bytes)?,
+            Ok((bytes, _)) => serde_json::from_slice::<State>(&bytes)?,
             Err(err) => {
                 if !err.matches(gio::IOErrorEnum::NotFound) {
                     return Err(err.into());
@@ -136,7 +136,7 @@ impl RecentList {
         };
         tracing::trace!(?state, "State stored");
 
-        let bytes = serde_cbor::to_vec(&state)?;
+        let bytes = serde_json::to_vec(&state)?;
         imp.state_file
             .replace_contents_future(
                 bytes,
