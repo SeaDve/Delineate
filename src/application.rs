@@ -47,8 +47,12 @@ mod imp {
 
                 let _hold_guard = hold_guard;
 
-                if let Err(err) = obj.session().restore().await {
+                let session = obj.session();
+                if let Err(err) = session.restore().await {
                     tracing::error!("Failed to restore session: {:?}", err);
+
+                    let window = session.add_new_window();
+                    window.present();
                 }
             }));
         }
