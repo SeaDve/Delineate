@@ -17,6 +17,8 @@ pub fn present_window(transient_for: Option<&impl IsA<gtk::Window>>) {
         .version(VERSION)
         .copyright(gettext("© 2023 Dave Patrick Caberto"))
         .license_type(gtk::License::Gpl30)
+        .developers(["Dave Patrick Caberto https://seadve.github.io"])
+        .artists(["Brage Fuglseth https://bragefuglseth.dev"])
         // Translators: Replace "translator-credits" with your names. Put a comma between.
         .translator_credits(gettext("translator-credits"))
         .issue_url("https://github.com/SeaDve/Dagger/issues")
