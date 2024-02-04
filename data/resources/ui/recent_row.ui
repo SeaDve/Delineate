@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <template class="DaggerRecentRow" parent="GtkListBoxRow">
+  <template class="DelineateRecentRow" parent="GtkListBoxRow">
     <property name="child">
       <object class="GtkGrid">
         <property name="row-spacing">3</property>

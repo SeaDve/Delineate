@@ -11,7 +11,7 @@ mod imp {
 
     #[derive(Default, glib::Properties, gtk::CompositeTemplate)]
     #[properties(wrapper_type = super::DragOverlay)]
-    #[template(resource = "/io/github/seadve/Dagger/ui/drag_overlay.ui")]
+    #[template(resource = "/io/github/seadve/Delineate/ui/drag_overlay.ui")]
     pub struct DragOverlay {
         #[property(get = Self::child, set = Self::set_child, nullable)]
         pub(super) child: PhantomData<Option<gtk::Widget>>,
@@ -28,7 +28,7 @@ mod imp {
 
     #[glib::object_subclass]
     impl ObjectSubclass for DragOverlay {
-        const NAME: &'static str = "DaggerDragOverlay";
+        const NAME: &'static str = "DelineateDragOverlay";
         type Type = super::DragOverlay;
         type ParentType = gtk::Widget;
 

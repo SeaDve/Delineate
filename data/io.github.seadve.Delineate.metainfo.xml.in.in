@@ -3,11 +3,11 @@
   <id>@app-id@</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
-  <name>Dagger</name>
-  <summary>View and edit Graphviz DOT graphs</summary>
+  <name>Delineate</name>
+  <summary>View and edit graphs</summary>
   <description>
-    <p>Dagger provides facilities to edit and draw graphs specified in the DOT language It is designed to be a simple and intuitive tool for creating and editing graphs, with a focus on the user experience.</p>
-    <p>The main features of Dagger include the following:</p>
+    <p>Delineate provides facilities to edit and draw graphs specified in the DOT language It is designed to be a simple and intuitive tool for creating and editing graphs, with a focus on the user experience.</p>
+    <p>The main features of Delineate include the following:</p>
     <ul>
       <li>🖼️ Live and interactive preview of the graph as you type</li>
       <li>⏺️ Multiple Graphviz layout engines support</li>
@@ -17,12 +17,12 @@
   </description>
   <screenshots>
     <screenshot type="default">
-      <image>https://gitlab.gnome.org/bilelmoussaoui/dagger/raw/master/data/resources/screenshots/screenshot1.png</image>
+      <image>https://gitlab.gnome.org/bilelmoussaoui/delineate/raw/master/data/resources/screenshots/screenshot1.png</image>
     </screenshot>
   </screenshots>
-  <url type="homepage">https://github.com/SeaDve/dagger</url>
-  <url type="bugtracker">https://github.com/SeaDve/dagger/issues</url>
-  <url type="translate">https://hosted.weblate.org/projects/kooha/dagger</url>
+  <url type="homepage">https://github.com/SeaDve/delineate</url>
+  <url type="bugtracker">https://github.com/SeaDve/delineate/issues</url>
+  <url type="translate">https://hosted.weblate.org/projects/kooha/delineate</url>
   <url type="vcs-browser">https://github.com/SeaDve/Mousai</url>
   <url type="donation">https://seadve.github.io/donate</url>
   <content_rating type="oars-1.0"/>

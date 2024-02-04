@@ -6,5 +6,5 @@ option(
     'development'
   ],
   value: 'default',
-  description: 'The build profile for Dagger. One of "default" or "development".'
+  description: 'The build profile for Delineate. One of "default" or "development".'
 )

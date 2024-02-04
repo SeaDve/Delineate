@@ -16,7 +16,7 @@ mod imp {
 
     #[glib::object_subclass]
     impl ObjectSubclass for RecentSorter {
-        const NAME: &'static str = "DaggerRecentSorter";
+        const NAME: &'static str = "DelineateRecentSorter";
         type Type = super::RecentSorter;
         type ParentType = gtk::Sorter;
     }

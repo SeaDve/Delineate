@@ -23,7 +23,7 @@ mod imp {
 
     #[glib::object_subclass]
     impl ObjectSubclass for Application {
-        const NAME: &'static str = "DaggerApplication";
+        const NAME: &'static str = "DelineateApplication";
         type Type = super::Application;
         type ParentType = adw::Application;
     }
@@ -96,7 +96,7 @@ impl Application {
     pub fn new() -> Self {
         glib::Object::builder()
             .property("application-id", APP_ID)
-            .property("resource-base-path", "/io/github/seadve/Dagger/")
+            .property("resource-base-path", "/io/github/seadve/Delineate/")
             .property("flags", gio::ApplicationFlags::HANDLES_OPEN)
             .build()
     }
@@ -119,7 +119,7 @@ impl Application {
     }
 
     pub fn run(&self) -> glib::ExitCode {
-        tracing::info!("Dagger ({})", APP_ID);
+        tracing::info!("Delineate ({})", APP_ID);
         tracing::info!("Version: {} ({})", VERSION, PROFILE);
         tracing::info!("Datadir: {}", PKGDATADIR);
 

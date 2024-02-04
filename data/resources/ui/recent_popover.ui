@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <template class="DaggerRecentPopover" parent="GtkPopover">
+  <template class="DelineateRecentPopover" parent="GtkPopover">
     <property name="width-request">300</property>
     <style>
       <class name="recent-popover"/>

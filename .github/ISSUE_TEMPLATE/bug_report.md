@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Create a bug report to help Dagger improve.
+about: Create a bug report to help Delineate improve.
 title: ''
 labels: ''
 assignees: ''
@@ -9,7 +9,7 @@ assignees: ''
 **Affected version**
 
 <!--
-Open Dagger's Main Menu, click on About Dagger, go to
+Open Delineate's Main Menu, click on About Delineate, go to
 Troubleshooting > Debugging Information, copy the text, and paste it here.
 
 If there are other relevant version information, please include them here.
@@ -32,7 +32,7 @@ Provide a short summary of the bug you encountered.
 **Expected behavior**
 
 <!--
-What did you expect Dagger should do?
+What did you expect Delineate should do?
 -->
 
 **Relevant logs, screenshots, screencasts, etc.**
@@ -41,7 +41,7 @@ What did you expect Dagger should do?
 If you have further information, such as technical documentation, logs,
 screenshots or screencasts related, please provide them here.
 
-If applicable, please attach the logs from running Dagger in the
-terminal with the following environment variables: `RUST_BACKTRACE=1 RUST_LOG=dagger=debug`
-(e.g., `RUST_BACKTRACE=1 RUST_LOG=dagger=debug flatpak run io.github.seadve.Dagger`).
+If applicable, please attach the logs from running Delineate in the
+terminal with the following environment variables: `RUST_BACKTRACE=1 RUST_LOG=delineate=debug`
+(e.g., `RUST_BACKTRACE=1 RUST_LOG=delineate=debug flatpak run io.github.seadve.Delineate`).
 -->

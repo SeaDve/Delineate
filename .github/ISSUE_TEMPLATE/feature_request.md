@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest a feature to help Dagger improve.
+about: Suggest a feature to help Delineate improve.
 title: ''
 labels: ''
 assignees: ''
@@ -9,14 +9,14 @@ assignees: ''
 **Feature summary**
 
 <!--
-Describe what you would like to be able to do with Dagger that you
+Describe what you would like to be able to do with Delineate that you
 currently cannot do.
 -->
 
 **How would you like it to work**
 
 <!--
-If you can think of a way Dagger might be able to do this, let us know
+If you can think of a way Delineate might be able to do this, let us know
 here.
 -->
 

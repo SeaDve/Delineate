@@ -30,7 +30,7 @@ mod imp {
 
     #[glib::object_subclass]
     impl ObjectSubclass for RecentList {
-        const NAME: &'static str = "DaggerRecentList";
+        const NAME: &'static str = "DelineateRecentList";
         type Type = super::RecentList;
         type Interfaces = (gio::ListModel,);
 

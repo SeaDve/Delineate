@@ -32,7 +32,7 @@ mod imp {
 
     #[glib::object_subclass]
     impl ObjectSubclass for ErrorGutterRenderer {
-        const NAME: &'static str = "DaggerErrorGutterRenderer";
+        const NAME: &'static str = "DelineateErrorGutterRenderer";
         type Type = super::ErrorGutterRenderer;
         type ParentType = gtk_source::GutterRenderer;
     }

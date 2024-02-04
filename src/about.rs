@@ -21,10 +21,10 @@ pub fn present_window(transient_for: Option<&impl IsA<gtk::Window>>) {
         .artists(["Brage Fuglseth https://bragefuglseth.dev"])
         // Translators: Replace "translator-credits" with your names. Put a comma between.
         .translator_credits(gettext("translator-credits"))
-        .issue_url("https://github.com/SeaDve/Dagger/issues")
-        .support_url("https://github.com/SeaDve/Dagger/discussions")
+        .issue_url("https://github.com/SeaDve/Delineate/issues")
+        .support_url("https://github.com/SeaDve/Delineate/discussions")
         .debug_info(debug_info())
-        .debug_info_filename("dagger-debug-info")
+        .debug_info_filename("delineate-debug-info")
         .build();
 
     win.add_link(&gettext("Donate"), "https://seadve.github.io/donate/");
@@ -32,10 +32,10 @@ pub fn present_window(transient_for: Option<&impl IsA<gtk::Window>>) {
         &gettext("Donate (Buy Me a Coffee)"),
         "https://www.buymeacoffee.com/seadve",
     );
-    win.add_link(&gettext("GitHub"), "https://github.com/SeaDve/Dagger");
+    win.add_link(&gettext("GitHub"), "https://github.com/SeaDve/Delineate");
     win.add_link(
         &gettext("Translate"),
-        "https://hosted.weblate.org/projects/kooha/dagger",
+        "https://hosted.weblate.org/projects/kooha/delineate",
     );
 
     win.set_transient_for(transient_for);

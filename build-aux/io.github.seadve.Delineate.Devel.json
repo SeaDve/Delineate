@@ -1,5 +1,5 @@
 {
-    "id": "io.github.seadve.Dagger.Devel",
+    "id": "io.github.seadve.Delineate.Devel",
     "runtime": "org.gnome.Platform",
     "runtime-version": "master",
     "sdk": "org.gnome.Sdk",
@@ -8,13 +8,13 @@
         "org.freedesktop.Sdk.Extension.llvm16",
         "org.freedesktop.Sdk.Extension.node18"
     ],
-    "command": "dagger",
+    "command": "delineate",
     "finish-args": [
         "--share=ipc",
         "--socket=fallback-x11",
         "--socket=wayland",
         "--device=dri",
-        "--env=RUST_LOG=dagger=debug",
+        "--env=RUST_LOG=delineate=debug",
         "--env=G_MESSAGES_DEBUG=none",
         "--env=RUST_BACKTRACE=1"
     ],
@@ -39,9 +39,9 @@
             "build-commands": [
                 "npm install",
                 "npm run build",
-                "mkdir -p $FLATPAK_DEST/src/dagger/graph_view/d3-graphviz",
-                "cp -r node_modules $FLATPAK_DEST/src/dagger/graph_view/d3-graphviz",
-                "cp -r build $FLATPAK_DEST/src/dagger/graph_view/d3-graphviz"
+                "mkdir -p $FLATPAK_DEST/src/delineate/graph_view/d3-graphviz",
+                "cp -r node_modules $FLATPAK_DEST/src/delineate/graph_view/d3-graphviz",
+                "cp -r build $FLATPAK_DEST/src/delineate/graph_view/d3-graphviz"
             ],
             "sources": [
                 {
@@ -52,7 +52,7 @@
             ]
         },
         {
-            "name": "dagger",
+            "name": "delineate",
             "buildsystem": "meson",
             "run-tests": true,
             "config-opts": [

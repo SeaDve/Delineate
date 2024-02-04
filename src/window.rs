@@ -24,7 +24,7 @@ use crate::{
 // * Drag and drop on tabs
 // * dot language server, hover info, color picker, autocompletion, snippets, renames, etc.
 
-const PAGE_IS_MODIFIED_HANDLER_ID_KEY: &str = "dagger-page-is-modified-handler-id";
+const PAGE_IS_MODIFIED_HANDLER_ID_KEY: &str = "delineate-page-is-modified-handler-id";
 
 mod imp {
     use std::cell::{OnceCell, RefCell};
@@ -34,7 +34,7 @@ mod imp {
     use super::*;
 
     #[derive(Debug, Default, gtk::CompositeTemplate)]
-    #[template(resource = "/io/github/seadve/Dagger/ui/window.ui")]
+    #[template(resource = "/io/github/seadve/Delineate/ui/window.ui")]
     pub struct Window {
         #[template_child]
         pub(super) toast_overlay: TemplateChild<adw::ToastOverlay>,
@@ -65,7 +65,7 @@ mod imp {
 
     #[glib::object_subclass]
     impl ObjectSubclass for Window {
-        const NAME: &'static str = "DaggerWindow";
+        const NAME: &'static str = "DelineateWindow";
         type Type = super::Window;
         type ParentType = adw::ApplicationWindow;
 

@@ -1,5 +1,5 @@
 [package]
-name = "dagger"
+name = "delineate"
 version = "0.1.0"
 authors = ["Dave Patrick Caberto"]
 edition = "2021"
