@@ -3,6 +3,7 @@
 /_build/
 /builddir/
 /build-aux/app
+/.flatpak-builder/
 /build-aux/.flatpak-builder/
 /src/config.rs
 *.ui.in~
