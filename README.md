@@ -20,8 +20,8 @@
  <a href="https://hosted.weblate.org/engage/seadve">
     <img alt="Translation status" src="https://hosted.weblate.org/widgets/seadve/-/delineate/svg-badge.svg"/>
   </a>
-  <a href="https://github.com/SeaDve/delineate/actions/workflows/ci.yml">
-    <img alt="CI status" src="https://github.com/SeaDve/delineate/actions/workflows/ci.yml/badge.svg"/>
+  <a href="https://github.com/SeaDve/Delineate/actions/workflows/ci.yml">
+    <img alt="CI status" src="https://github.com/SeaDve/Delineate/actions/workflows/ci.yml/badge.svg"/>
   </a>
 </p>
 
@@ -43,13 +43,13 @@ The main features of Delineate include the following:
 GNOME Builder is the environment used for developing this application. It can use Flatpak manifests to create a consistent building and running environment cross-distro. Thus, it is highly recommended you use it.
 
 1. Download [GNOME Builder](https://flathub.org/apps/details/org.gnome.Builder).
-2. In Builder, click the "Clone Repository" button at the bottom, using `https://github.com/SeaDve/delineate.git` as the URL.
+2. In Builder, click the "Clone Repository" button at the bottom, using `https://github.com/SeaDve/Delineate.git` as the URL.
 3. Click the build button at the top once the project is loaded.
 
 ### Meson
 ```
-git clone https://github.com/SeaDve/delineate.git
-cd delineate
+git clone https://github.com/SeaDve/Delineate.git
+cd Delineate
 meson _build --prefix=/usr/local
 ninja -C _build install
 ```
@@ -81,6 +81,6 @@ for making Delineate possible.
 I'd also acknowledge GNOME Text Editor as the session and document architecture is heavily inspired by it,
 and also Brage Fuglseth for the name and icon design.
 
-Finally, I would like to thank the [contributors](https://github.com/SeaDve/delineate/graphs/contributors)
+Finally, I would like to thank the [contributors](https://github.com/SeaDve/Delineate/graphs/contributors)
 and [translators](https://hosted.weblate.org/engage/seadve/) of the project for helping Delineate
 to grow and improve.
