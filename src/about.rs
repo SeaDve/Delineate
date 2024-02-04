@@ -35,7 +35,7 @@ pub fn present_window(transient_for: Option<&impl IsA<gtk::Window>>) {
     win.add_link(&gettext("GitHub"), "https://github.com/SeaDve/Delineate");
     win.add_link(
         &gettext("Translate"),
-        "https://hosted.weblate.org/projects/kooha/delineate",
+        "https://hosted.weblate.org/projects/seadve/delineate",
     );
 
     win.set_transient_for(transient_for);

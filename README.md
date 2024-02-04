@@ -17,8 +17,8 @@
 <br>
 
 <p align="center">
- <a href="https://hosted.weblate.org/engage/kooha">
-    <img alt="Translation status" src="https://hosted.weblate.org/widgets/kooha/-/delineate/svg-badge.svg"/>
+ <a href="https://hosted.weblate.org/engage/seadve">
+    <img alt="Translation status" src="https://hosted.weblate.org/widgets/seadve/-/delineate/svg-badge.svg"/>
   </a>
   <a href="https://github.com/SeaDve/delineate/actions/workflows/ci.yml">
     <img alt="CI status" src="https://github.com/SeaDve/delineate/actions/workflows/ci.yml/badge.svg"/>
@@ -65,7 +65,7 @@ You can also check out other third-party packages on [Repology](https://repology
 ## 🙌 Help translate
 
 You can help Delineate translate into your native language. If you find any typos
-or think you can improve a translation, you can use the [Weblate](https://hosted.weblate.org/engage/kooha/) platform.
+or think you can improve a translation, you can use the [Weblate](https://hosted.weblate.org/engage/seadve/) platform.
 
 ## ☕ Support me and the project
 
@@ -82,5 +82,5 @@ I'd also acknowledge GNOME Text Editor as the session and document architecture 
 and also Brage Fuglseth for the name and icon design.
 
 Finally, I would like to thank the [contributors](https://github.com/SeaDve/delineate/graphs/contributors)
-and [translators](https://hosted.weblate.org/engage/kooha/) of the project for helping Delineate
+and [translators](https://hosted.weblate.org/engage/seadve/) of the project for helping Delineate
 to grow and improve.
