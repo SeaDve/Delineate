@@ -18,7 +18,7 @@ mod imp {
 
     #[derive(Default, glib::Properties, gtk::CompositeTemplate)]
     #[properties(wrapper_type = super::RecentRow)]
-    #[template(resource = "/io/github/seadve/Dagger/ui/recent_row.ui")]
+    #[template(resource = "/io/github/seadve/Delineate/ui/recent_row.ui")]
     pub struct RecentRow {
         #[property(get, set, construct)]
         pub(super) item: OnceCell<RecentItem>,
@@ -33,7 +33,7 @@ mod imp {
 
     #[glib::object_subclass]
     impl ObjectSubclass for RecentRow {
-        const NAME: &'static str = "DaggerRecentRow";
+        const NAME: &'static str = "DelineateRecentRow";
         type Type = super::RecentRow;
         type ParentType = gtk::ListBoxRow;
 

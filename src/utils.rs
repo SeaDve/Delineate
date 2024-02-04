@@ -6,7 +6,7 @@ use gtk::{gio, glib, prelude::*};
 use crate::config::PROFILE;
 
 pub fn application_name() -> String {
-    gettext("Dagger")
+    gettext("Delineate")
 }
 
 pub fn is_devel_profile() -> bool {

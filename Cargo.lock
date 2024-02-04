@@ -115,7 +115,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "dagger"
+name = "delineate"
 version = "0.1.0"
 dependencies = [
  "anyhow",

@@ -1,11 +1,11 @@
 <h1 align="center">
-  <img src="data/icons/io.github.seadve.Dagger.svg" alt="Dagger" width="192" height="192"/>
+  <img src="data/icons/io.github.seadve.Delineate.svg" alt="Delineate" width="192" height="192"/>
   <br>
-  Dagger
+  Delineate
 </h1>
 
 <p align="center">
-  <strong>View and edit Graphviz DOT graphs</strong>
+  <strong>View and edit graphs</strong>
 </p>
 
 <p align="center">
@@ -18,10 +18,10 @@
 
 <p align="center">
  <a href="https://hosted.weblate.org/engage/kooha">
-    <img alt="Translation status" src="https://hosted.weblate.org/widgets/kooha/-/dagger/svg-badge.svg"/>
+    <img alt="Translation status" src="https://hosted.weblate.org/widgets/kooha/-/delineate/svg-badge.svg"/>
   </a>
-  <a href="https://github.com/SeaDve/dagger/actions/workflows/ci.yml">
-    <img alt="CI status" src="https://github.com/SeaDve/dagger/actions/workflows/ci.yml/badge.svg"/>
+  <a href="https://github.com/SeaDve/delineate/actions/workflows/ci.yml">
+    <img alt="CI status" src="https://github.com/SeaDve/delineate/actions/workflows/ci.yml/badge.svg"/>
   </a>
 </p>
 
@@ -29,9 +29,9 @@
   <img src="data/resources/screenshots/preview.png" alt="Preview"/>
 </p>
 
-Dagger provides facilities to edit and draw graphs specified in the [DOT language](https://graphviz.org/doc/info/lang.html). It is designed to be a simple and intuitive tool for creating and editing graphs, with a focus on the user experience.
+Delineate provides facilities to edit and draw graphs specified in the [DOT language](https://graphviz.org/doc/info/lang.html). It is designed to be a simple and intuitive tool for creating and editing graphs, with a focus on the user experience.
 
-The main features of Dagger include the following:
+The main features of Delineate include the following:
 - 🖼️ Live and interactive preview of the graph as you type
 - ⏺️ Multiple Graphviz layout engines support
 - 📝 Fully-featured DOT language editor
@@ -43,13 +43,13 @@ The main features of Dagger include the following:
 GNOME Builder is the environment used for developing this application. It can use Flatpak manifests to create a consistent building and running environment cross-distro. Thus, it is highly recommended you use it.
 
 1. Download [GNOME Builder](https://flathub.org/apps/details/org.gnome.Builder).
-2. In Builder, click the "Clone Repository" button at the bottom, using `https://github.com/SeaDve/Dagger.git` as the URL.
+2. In Builder, click the "Clone Repository" button at the bottom, using `https://github.com/SeaDve/Delineate.git` as the URL.
 3. Click the build button at the top once the project is loaded.
 
 ### Meson
 ```
-git clone https://github.com/SeaDve/Dagger.git
-cd Dagger
+git clone https://github.com/SeaDve/delineate.git
+cd delineate
 meson _build --prefix=/usr/local
 ninja -C _build install
 ```
@@ -60,26 +60,27 @@ Unlike Flatpak, take note that these packages are not officially supported by th
 
 ### Repology
 
-You can also check out other third-party packages on [Repology](https://repology.org/project/dagger/versions).
+You can also check out other third-party packages on [Repology](https://repology.org/project/delineate/versions).
 
 ## 🙌 Help translate
 
-You can help Dagger translate into your native language. If you find any typos
+You can help Delineate translate into your native language. If you find any typos
 or think you can improve a translation, you can use the [Weblate](https://hosted.weblate.org/engage/kooha/) platform.
 
 ## ☕ Support me and the project
 
-Dagger is free and will always be for everyone to use. If you like the project and
+Delineate is free and will always be for everyone to use. If you like the project and
 would like to support it, you may [buy me a coffee](https://www.buymeacoffee.com/seadve).
 
 ## 💝 Acknowledgment
 
 I would like to express my gratitude to the open-source software projects, libraries, and APIs that were
 used in developing this app, such as GStreamer, GTK, LibAdwaita, `d3-graphviz`, etc.,
-for making Dagger possible.
+for making Delineate possible.
 
-I'd also acknowledge GNOME Text Editor as the session and document architecture is heavily inspired by it.
+I'd also acknowledge GNOME Text Editor as the session and document architecture is heavily inspired by it,
+and also Brage Fuglseth for the name and icon design.
 
-Finally, I would like to thank the [contributors](https://github.com/SeaDve/dagger/graphs/contributors)
-and [translators](https://hosted.weblate.org/engage/kooha/) of the project for helping Dagger
+Finally, I would like to thank the [contributors](https://github.com/SeaDve/delineate/graphs/contributors)
+and [translators](https://hosted.weblate.org/engage/kooha/) of the project for helping Delineate
 to grow and improve.

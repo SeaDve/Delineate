@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <template class="DaggerPage">
+  <template class="DelineatePage">
     <property name="layout-manager">
       <object class="GtkBinLayout"/>
     </property>
@@ -61,7 +61,7 @@
           <object class="AdwToolbarView">
             <property name="bottom-bar-style">raised</property>
             <property name="content">
-              <object class="DaggerGraphView" id="graph_view"/>
+              <object class="DelineateGraphView" id="graph_view"/>
             </property>
             <child type="bottom">
               <object class="GtkActionBar">

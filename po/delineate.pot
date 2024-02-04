@@ -1,12 +1,12 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the dagger package.
+# This file is distributed under the same license as the delineate package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: dagger\n"
+"Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-25 21:10+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
@@ -18,49 +18,49 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: data/io.github.seadve.Dagger.desktop.in.in:3
-#: data/io.github.seadve.Dagger.metainfo.xml.in.in:6 src/utils.rs:9
-msgid "Dagger"
+#: data/io.github.seadve.Delineate.desktop.in.in:3
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:6 src/utils.rs:9
+msgid "Delineate"
 msgstr ""
 
-#: data/io.github.seadve.Dagger.desktop.in.in:4
-#: data/io.github.seadve.Dagger.metainfo.xml.in.in:7
-msgid "View and edit Graphviz DOT graphs"
+#: data/io.github.seadve.Delineate.desktop.in.in:4
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:7
+msgid "View and edit graphs"
 msgstr ""
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/io.github.seadve.Dagger.desktop.in.in:10
+#: data/io.github.seadve.Delineate.desktop.in.in:10
 msgid "graphviz;dot;graphs;visualization;"
 msgstr ""
 
-#: data/io.github.seadve.Dagger.metainfo.xml.in.in:9
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:9
 msgid ""
-"Dagger provides facilities to edit and draw graphs specified in the DOT "
+"Delineate provides facilities to edit and draw graphs specified in the DOT "
 "language It is designed to be a simple and intuitive tool for creating and "
 "editing graphs, with a focus on the user experience."
 msgstr ""
 
-#: data/io.github.seadve.Dagger.metainfo.xml.in.in:10
-msgid "The main features of Dagger include the following:"
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:10
+msgid "The main features of Delineate include the following:"
 msgstr ""
 
-#: data/io.github.seadve.Dagger.metainfo.xml.in.in:12
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:12
 msgid "🖼️ Live and interactive preview of the graph as you type"
 msgstr ""
 
-#: data/io.github.seadve.Dagger.metainfo.xml.in.in:13
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:13
 msgid "⏺️ Multiple Graphviz layout engines support"
 msgstr ""
 
-#: data/io.github.seadve.Dagger.metainfo.xml.in.in:14
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:14
 msgid "📝 Fully-featured DOT language editor"
 msgstr ""
 
-#: data/io.github.seadve.Dagger.metainfo.xml.in.in:15
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:15
 msgid "📦 Export graph as PNG, SVG, or JPEG"
 msgstr ""
 
-#: data/io.github.seadve.Dagger.metainfo.xml.in.in:40 src/about.rs:19
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:40 src/about.rs:19
 msgid "Dave Patrick Caberto"
 msgstr ""
 
@@ -220,7 +220,7 @@ msgid "_Keyboard Shortcuts"
 msgstr ""
 
 #: data/resources/ui/window.ui:54
-msgid "_About Dagger"
+msgid "_About Delineate"
 msgstr ""
 
 #: data/resources/ui/window.ui:62

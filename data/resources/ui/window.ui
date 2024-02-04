@@ -51,7 +51,7 @@
         <attribute name="action">win.show-help-overlay</attribute>
       </item>
       <item>
-        <attribute name="label" translatable="yes">_About Dagger</attribute>
+        <attribute name="label" translatable="yes">_About Delineate</attribute>
         <attribute name="action">app.about</attribute>
       </item>
     </section>
@@ -85,7 +85,7 @@
       </item>
     </section>
   </menu>
-  <template class="DaggerWindow" parent="AdwApplicationWindow">
+  <template class="DelineateWindow" parent="AdwApplicationWindow">
     <property name="width-request">360</property>
     <property name="height-request">294</property>
     <property name="content">
@@ -105,7 +105,7 @@
                         <property name="action-name">win.open-document</property>
                         <property name="dropdown-tooltip" translatable="yes">Recent Documents</property>
                         <property name="popover">
-                          <object class="DaggerRecentPopover" id="recent_popover"/>
+                          <object class="DelineateRecentPopover" id="recent_popover"/>
                         </property>
                       </object>
                     </child>
@@ -160,7 +160,7 @@
                   </object>
                 </child>
                 <property name="content">
-                  <object class="DaggerDragOverlay" id="drag_overlay">
+                  <object class="DelineateDragOverlay" id="drag_overlay">
                     <property name="child">
                       <object class="GtkStack" id="stack">
                         <child>

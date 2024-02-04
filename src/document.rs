@@ -54,7 +54,7 @@ mod imp {
 
     #[glib::object_subclass]
     impl ObjectSubclass for Document {
-        const NAME: &'static str = "DaggerDocument";
+        const NAME: &'static str = "DelineateDocument";
         type Type = super::Document;
         type ParentType = gtk_source::Buffer;
     }

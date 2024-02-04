@@ -17,7 +17,7 @@ mod imp {
     use super::*;
 
     #[derive(Default, gtk::CompositeTemplate)]
-    #[template(resource = "/io/github/seadve/Dagger/ui/recent_popover.ui")]
+    #[template(resource = "/io/github/seadve/Delineate/ui/recent_popover.ui")]
     pub struct RecentPopover {
         #[template_child]
         pub(super) search_entry: TemplateChild<gtk::SearchEntry>,
@@ -41,7 +41,7 @@ mod imp {
 
     #[glib::object_subclass]
     impl ObjectSubclass for RecentPopover {
-        const NAME: &'static str = "DaggerRecentPopover";
+        const NAME: &'static str = "DelineateRecentPopover";
         type Type = super::RecentPopover;
         type ParentType = gtk::Popover;
 

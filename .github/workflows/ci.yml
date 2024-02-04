@@ -45,7 +45,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
-          bundle: dagger.flatpak
-          manifest-path: build-aux/io.github.seadve.Dagger.Devel.json
+          bundle: delineate.flatpak
+          manifest-path: build-aux/io.github.seadve.Delineate.Devel.json
           run-tests: true
           cache-key: flatpak-builder-${{ github.sha }}

@@ -1,6 +1,6 @@
-data/io.github.seadve.Dagger.desktop.in.in
-data/io.github.seadve.Dagger.gschema.xml.in
-data/io.github.seadve.Dagger.metainfo.xml.in.in
+data/io.github.seadve.Delineate.desktop.in.in
+data/io.github.seadve.Delineate.gschema.xml.in
+data/io.github.seadve.Delineate.metainfo.xml.in.in
 data/resources/ui/page.ui
 data/resources/ui/recent_popover.ui
 data/resources/ui/recent_row.ui

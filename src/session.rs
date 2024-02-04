@@ -187,7 +187,7 @@ mod imp {
 
     #[glib::object_subclass]
     impl ObjectSubclass for Session {
-        const NAME: &'static str = "DaggerSession";
+        const NAME: &'static str = "DelineateSession";
         type Type = super::Session;
 
         fn new() -> Self {

@@ -25,7 +25,7 @@ const MAX_ZOOM_LEVEL: f64 = 100.0;
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize, glib::Enum)]
 #[repr(i32)]
-#[enum_type(name = "DaggerGraphViewEngine")]
+#[enum_type(name = "DelineateGraphViewEngine")]
 pub enum LayoutEngine {
     Dot,
     Circo,
@@ -90,7 +90,7 @@ mod imp {
 
     #[glib::object_subclass]
     impl ObjectSubclass for GraphView {
-        const NAME: &'static str = "DaggerGraphView";
+        const NAME: &'static str = "DelineateGraphView";
         type Type = super::GraphView;
         type ParentType = gtk::Widget;
 

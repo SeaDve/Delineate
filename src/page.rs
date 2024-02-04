@@ -34,7 +34,7 @@ mod imp {
 
     #[derive(Default, glib::Properties, gtk::CompositeTemplate)]
     #[properties(wrapper_type = super::Page)]
-    #[template(resource = "/io/github/seadve/Dagger/ui/page.ui")]
+    #[template(resource = "/io/github/seadve/Delineate/ui/page.ui")]
     pub struct Page {
         #[property(get = Self::title)]
         pub(super) title: PhantomData<String>,
@@ -80,7 +80,7 @@ mod imp {
 
     #[glib::object_subclass]
     impl ObjectSubclass for Page {
-        const NAME: &'static str = "DaggerPage";
+        const NAME: &'static str = "DelineatePage";
         type Type = super::Page;
         type ParentType = gtk::Widget;
 

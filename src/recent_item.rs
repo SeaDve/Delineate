@@ -24,7 +24,7 @@ mod imp {
 
     #[glib::object_subclass]
     impl ObjectSubclass for RecentItem {
-        const NAME: &'static str = "DaggerRecentItem";
+        const NAME: &'static str = "DelineateRecentItem";
         type Type = super::RecentItem;
 
         fn new() -> Self {

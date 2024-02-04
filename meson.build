@@ -1,5 +1,5 @@
 project(
-  'dagger',
+  'delineate',
   'rust',
   version: '0.1.0',
   meson_version: '>= 0.59',
@@ -9,7 +9,7 @@ project(
 i18n = import('i18n')
 gnome = import('gnome')
 
-base_id = 'io.github.seadve.Dagger'
+base_id = 'io.github.seadve.Delineate'
 
 dependency('glib-2.0', version: '>= 2.66')
 dependency('gio-2.0', version: '>= 2.66')
@@ -26,7 +26,7 @@ version = meson.project_version()
 prefix = get_option('prefix')
 bindir = prefix / get_option('bindir')
 localedir = prefix / get_option('localedir')
-graphviewsrcdir = prefix / 'src/dagger/graph_view'
+graphviewsrcdir = prefix / 'src/delineate/graph_view'
 
 datadir = prefix / get_option('datadir')
 pkgdatadir = datadir / meson.project_name()
