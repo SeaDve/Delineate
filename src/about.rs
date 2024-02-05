@@ -9,7 +9,7 @@ use crate::{
     utils,
 };
 
-pub fn present_window(parent: &impl IsA<gtk::Widget>) {
+pub fn present_dialog(parent: &impl IsA<gtk::Widget>) {
     let win = adw::AboutDialog::builder()
         .application_icon(APP_ID)
         .application_name(utils::application_name())

@@ -172,7 +172,7 @@ impl Application {
         let action_about = gio::ActionEntry::builder("about")
             .activate(|obj: &Self, _, _| {
                 if let Some(window) = obj.active_window() {
-                    about::present_window(&window);
+                    about::present_dialog(&window);
                 } else {
                     tracing::warn!("Can't present about dialog without an active window");
                 }
