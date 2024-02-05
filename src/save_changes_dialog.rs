@@ -50,18 +50,15 @@ pub async fn run(window: &Window, unsaved: &[Document]) -> glib::Propagation {
 
 /// Returns `Ok` if unsaved changes are handled and can proceed, `Err` if
 /// the next operation should be aborted.
-async fn run_inner(parent: &impl IsA<gtk::Window>, unsaved: &[Document]) -> Result<()> {
+async fn run_inner(parent: &impl IsA<gtk::Widget>, unsaved: &[Document]) -> Result<()> {
     debug_assert!(!unsaved.is_empty());
 
-    let dialog = adw::MessageDialog::builder()
-        .modal(true)
-        .transient_for(parent)
+    let dialog = adw::AlertDialog::builder()
         .heading(gettext("Save Changes?"))
         .body(gettext("Open documents contain unsaved changes. Changes which are not saved will be permanently lost."))
         .close_response(CANCEL_RESPONSE_ID)
         .default_response(SAVE_RESPONSE_ID)
         .build();
-    dialog.add_css_class("save-changes-dialog");
 
     dialog.add_response(CANCEL_RESPONSE_ID, &gettext("Cancel"));
     dialog.add_response(
@@ -76,11 +73,9 @@ async fn run_inner(parent: &impl IsA<gtk::Window>, unsaved: &[Document]) -> Resu
     dialog.set_response_appearance(DISCARD_RESPONSE_ID, adw::ResponseAppearance::Destructive);
     dialog.set_response_appearance(SAVE_RESPONSE_ID, adw::ResponseAppearance::Suggested);
 
-    let page = adw::PreferencesPage::new();
-    dialog.set_extra_child(Some(&page));
-
-    let group = adw::PreferencesGroup::new();
-    page.add(&group);
+    let list_box = gtk::ListBox::new();
+    list_box.add_css_class("boxed-list");
+    dialog.set_extra_child(Some(&list_box));
 
     let mut items = Vec::new();
     let check_buttons = Rc::new(RefCell::new(Vec::new()));
@@ -88,7 +83,7 @@ async fn run_inner(parent: &impl IsA<gtk::Window>, unsaved: &[Document]) -> Resu
         debug_assert!(document.is_modified());
 
         let row = adw::ActionRow::new();
-        group.add(&row);
+        list_box.append(&row);
 
         let check_button = gtk::CheckButton::builder()
             .valign(gtk::Align::Center)
@@ -149,7 +144,7 @@ async fn run_inner(parent: &impl IsA<gtk::Window>, unsaved: &[Document]) -> Resu
         }));
     }
 
-    match dialog.choose_future().await.as_str() {
+    match dialog.choose_future(parent).await.as_str() {
         CANCEL_RESPONSE_ID => Err(Cancelled.into()),
         DISCARD_RESPONSE_ID => Ok(()),
         SAVE_RESPONSE_ID => {

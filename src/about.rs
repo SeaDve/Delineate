@@ -1,5 +1,6 @@
+use adw::prelude::*;
 use gettextrs::gettext;
-use gtk::{glib, prelude::*};
+use gtk::glib;
 
 use std::{env, path::Path};
 
@@ -8,9 +9,8 @@ use crate::{
     utils,
 };
 
-pub fn present_window(transient_for: Option<&impl IsA<gtk::Window>>) {
-    let win = adw::AboutWindow::builder()
-        .modal(true)
+pub fn present_window(parent: &impl IsA<gtk::Widget>) {
+    let win = adw::AboutDialog::builder()
         .application_icon(APP_ID)
         .application_name(utils::application_name())
         .developer_name(gettext("Dave Patrick Caberto"))
@@ -38,8 +38,7 @@ pub fn present_window(transient_for: Option<&impl IsA<gtk::Window>>) {
         "https://hosted.weblate.org/projects/seadve/delineate",
     );
 
-    win.set_transient_for(transient_for);
-    win.present();
+    win.present(parent);
 }
 
 fn debug_info() -> String {

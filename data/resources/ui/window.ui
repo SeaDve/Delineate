@@ -98,7 +98,7 @@
               <object class="AdwToolbarView">
                 <property name="top-bar-style">raised</property>
                 <child type="top">
-                  <object class="GtkHeaderBar">
+                  <object class="AdwHeaderBar">
                     <child>
                       <object class="AdwSplitButton">
                         <property name="label" translatable="yes">Open</property>
