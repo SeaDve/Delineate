@@ -47,10 +47,8 @@ mod window;
 use std::{fs, path::PathBuf};
 
 use gettextrs::LocaleCategory;
-use gtk::{
-    gio,
-    glib::{self, once_cell::sync::Lazy},
-};
+use gtk::{gio, glib};
+use once_cell::sync::Lazy;
 
 use self::{
     application::Application,

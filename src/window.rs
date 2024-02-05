@@ -146,38 +146,46 @@ mod imp {
                 },
             );
 
-            klass.install_action_async("win.export-graph", Some("s"), |obj, _, arg| async move {
-                let raw_format = arg.unwrap().get::<String>().unwrap();
+            klass.install_action_async(
+                "win.export-graph",
+                Some(glib::VariantTy::STRING),
+                |obj, _, arg| async move {
+                    let raw_format = arg.unwrap().get::<String>().unwrap();
 
-                let format = match raw_format.as_str() {
-                    "svg" => ExportFormat::Svg,
-                    "png" => ExportFormat::Png,
-                    "jpeg" => ExportFormat::Jpeg,
-                    _ => unreachable!("unknown format `{}`", raw_format),
-                };
+                    let format = match raw_format.as_str() {
+                        "svg" => ExportFormat::Svg,
+                        "png" => ExportFormat::Png,
+                        "jpeg" => ExportFormat::Jpeg,
+                        _ => unreachable!("unknown format `{}`", raw_format),
+                    };
 
-                let page = obj.selected_page().unwrap();
-                debug_assert!(page.can_export_graph());
+                    let page = obj.selected_page().unwrap();
+                    debug_assert!(page.can_export_graph());
 
-                if let Err(err) = page.export_graph(format).await {
-                    if !err
-                        .downcast_ref::<glib::Error>()
-                        .is_some_and(|error| error.matches(gtk::DialogError::Dismissed))
-                    {
-                        tracing::error!("Failed to export graph: {:?}", err);
-                        obj.add_message_toast(&gettext("Failed to export graph"));
+                    if let Err(err) = page.export_graph(format).await {
+                        if !err
+                            .downcast_ref::<glib::Error>()
+                            .is_some_and(|error| error.matches(gtk::DialogError::Dismissed))
+                        {
+                            tracing::error!("Failed to export graph: {:?}", err);
+                            obj.add_message_toast(&gettext("Failed to export graph"));
+                        }
                     }
-                }
-            });
+                },
+            );
 
-            klass.install_action("win.select-page", Some("i"), |obj, _, args| {
-                let index = args.unwrap().get::<i32>().unwrap();
+            klass.install_action(
+                "win.select-page",
+                Some(glib::VariantTy::INT32),
+                |obj, _, args| {
+                    let index = args.unwrap().get::<i32>().unwrap();
 
-                if index < obj.n_pages() {
-                    let page = obj.nth_page(index);
-                    obj.set_selected_page(&page);
-                }
-            });
+                    if index < obj.n_pages() {
+                        let page = obj.nth_page(index);
+                        obj.set_selected_page(&page);
+                    }
+                },
+            );
 
             klass.install_action("win.move-page-to-left", None, |obj, _, _| {
                 let imp = obj.imp();
@@ -239,124 +247,68 @@ mod imp {
                 gdk::Key::T,
                 gdk::ModifierType::CONTROL_MASK,
                 "win.new-document",
-                None,
             );
             klass.add_binding_action(
                 gdk::Key::O,
                 gdk::ModifierType::CONTROL_MASK,
                 "win.open-document",
-                None,
             );
             klass.add_binding_action(
                 gdk::Key::S,
                 gdk::ModifierType::CONTROL_MASK,
                 "win.save-document",
-                None,
             );
             klass.add_binding_action(
                 gdk::Key::S,
                 gdk::ModifierType::CONTROL_MASK | gdk::ModifierType::SHIFT_MASK,
                 "win.save-document-as",
-                None,
             );
 
-            klass.add_binding_action(
-                gdk::Key::_1,
-                gdk::ModifierType::CONTROL_MASK,
-                "win.select-page",
-                Some(&0.into()),
-            );
-            klass.add_binding_action(
-                gdk::Key::_2,
-                gdk::ModifierType::CONTROL_MASK,
-                "win.select-page",
-                Some(&1.into()),
-            );
-            klass.add_binding_action(
-                gdk::Key::_3,
-                gdk::ModifierType::CONTROL_MASK,
-                "win.select-page",
-                Some(&2.into()),
-            );
-            klass.add_binding_action(
-                gdk::Key::_4,
-                gdk::ModifierType::CONTROL_MASK,
-                "win.select-page",
-                Some(&3.into()),
-            );
-            klass.add_binding_action(
-                gdk::Key::_5,
-                gdk::ModifierType::CONTROL_MASK,
-                "win.select-page",
-                Some(&4.into()),
-            );
-            klass.add_binding_action(
-                gdk::Key::_6,
-                gdk::ModifierType::CONTROL_MASK,
-                "win.select-page",
-                Some(&5.into()),
-            );
-            klass.add_binding_action(
-                gdk::Key::_7,
-                gdk::ModifierType::CONTROL_MASK,
-                "win.select-page",
-                Some(&6.into()),
-            );
-            klass.add_binding_action(
-                gdk::Key::_8,
-                gdk::ModifierType::CONTROL_MASK,
-                "win.select-page",
-                Some(&7.into()),
-            );
-            klass.add_binding_action(
-                gdk::Key::_9,
-                gdk::ModifierType::CONTROL_MASK,
-                "win.select-page",
-                Some(&8.into()),
-            );
+            add_select_page_action(klass, gdk::Key::_1, 0);
+            add_select_page_action(klass, gdk::Key::_2, 1);
+            add_select_page_action(klass, gdk::Key::_3, 2);
+            add_select_page_action(klass, gdk::Key::_4, 3);
+            add_select_page_action(klass, gdk::Key::_5, 4);
+            add_select_page_action(klass, gdk::Key::_6, 5);
+            add_select_page_action(klass, gdk::Key::_7, 6);
+            add_select_page_action(klass, gdk::Key::_8, 7);
+            add_select_page_action(klass, gdk::Key::_9, 8);
 
             klass.add_binding_action(
                 gdk::Key::Page_Up,
                 gdk::ModifierType::CONTROL_MASK | gdk::ModifierType::SHIFT_MASK,
                 "win.move-page-to-left",
-                None,
             );
             klass.add_binding_action(
                 gdk::Key::KP_Page_Up,
                 gdk::ModifierType::CONTROL_MASK | gdk::ModifierType::SHIFT_MASK,
                 "win.move-page-to-left",
-                None,
             );
             klass.add_binding_action(
                 gdk::Key::Page_Down,
                 gdk::ModifierType::CONTROL_MASK | gdk::ModifierType::SHIFT_MASK,
                 "win.move-page-to-right",
-                None,
             );
             klass.add_binding_action(
                 gdk::Key::KP_Page_Down,
                 gdk::ModifierType::CONTROL_MASK | gdk::ModifierType::SHIFT_MASK,
                 "win.move-page-to-right",
-                None,
             );
             klass.add_binding_action(
                 gdk::Key::N,
                 gdk::ModifierType::CONTROL_MASK | gdk::ModifierType::SHIFT_MASK,
                 "win.move-page-to-new-window",
-                None,
             );
             klass.add_binding_action(
                 gdk::Key::W,
                 gdk::ModifierType::CONTROL_MASK,
                 "win.close-page-or-window",
-                None,
             );
 
             klass.add_binding_action(
                 gdk::Key::T,
                 gdk::ModifierType::CONTROL_MASK | gdk::ModifierType::SHIFT_MASK,
                 "win.undo-close-page",
-                None,
             );
         }
 
@@ -882,4 +834,21 @@ impl Window {
         let is_empty = self.imp().closed_pages.borrow().is_empty();
         self.action_set_enabled("win.undo-close-page", !is_empty);
     }
+}
+
+fn add_select_page_action(
+    klass: &mut <imp::Window as ObjectSubclass>::Class,
+    key: gdk::Key,
+    page_index: i32,
+) {
+    klass.add_shortcut(
+        &gtk::Shortcut::builder()
+            .trigger(&gtk::KeyvalTrigger::new(
+                key,
+                gdk::ModifierType::CONTROL_MASK,
+            ))
+            .action(&gtk::NamedAction::new("win.select-page"))
+            .arguments(&page_index.into())
+            .build(),
+    );
 }

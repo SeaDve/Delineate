@@ -5,10 +5,11 @@ use anyhow::{Context, Result};
 use gettextrs::gettext;
 use gtk::{
     gdk, gdk_pixbuf, gio,
-    glib::{self, clone, closure, once_cell::sync::Lazy},
+    glib::{self, clone, closure},
     subclass::prelude::*,
 };
 use gtk_source::prelude::*;
+use once_cell::sync::Lazy;
 use regex::Regex;
 
 use crate::{
@@ -117,43 +118,36 @@ mod imp {
                 gdk::Key::plus,
                 gdk::ModifierType::CONTROL_MASK,
                 "page.zoom-graph-in",
-                None,
             );
             klass.add_binding_action(
                 gdk::Key::KP_Add,
                 gdk::ModifierType::CONTROL_MASK,
                 "page.zoom-graph-in",
-                None,
             );
             klass.add_binding_action(
                 gdk::Key::equal,
                 gdk::ModifierType::CONTROL_MASK,
                 "page.zoom-graph-in",
-                None,
             );
             klass.add_binding_action(
                 gdk::Key::minus,
                 gdk::ModifierType::CONTROL_MASK,
                 "page.zoom-graph-out",
-                None,
             );
             klass.add_binding_action(
                 gdk::Key::KP_Subtract,
                 gdk::ModifierType::CONTROL_MASK,
                 "page.zoom-graph-out",
-                None,
             );
             klass.add_binding_action(
                 gdk::Key::_0,
                 gdk::ModifierType::CONTROL_MASK,
                 "page.reset-graph-zoom",
-                None,
             );
             klass.add_binding_action(
                 gdk::Key::KP_0,
                 gdk::ModifierType::CONTROL_MASK,
                 "page.reset-graph-zoom",
-                None,
             );
         }
 

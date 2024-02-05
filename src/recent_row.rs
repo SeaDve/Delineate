@@ -12,7 +12,8 @@ use crate::{i18n::ngettext_f, recent_item::RecentItem, utils};
 mod imp {
     use std::cell::OnceCell;
 
-    use glib::{once_cell::sync::Lazy, subclass::Signal};
+    use glib::subclass::Signal;
+    use once_cell::sync::Lazy;
 
     use super::*;
 

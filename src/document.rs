@@ -31,7 +31,8 @@ const FILE_SAVER_FLAGS: gtk_source::FileSaverFlags =
 mod imp {
     use std::{cell::Cell, marker::PhantomData};
 
-    use glib::{once_cell::sync::Lazy, subclass::Signal};
+    use glib::subclass::Signal;
+    use once_cell::sync::Lazy;
 
     use super::*;
 
