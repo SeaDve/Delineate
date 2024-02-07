@@ -732,7 +732,7 @@ impl Window {
     fn update_inhibit(&self) {
         let imp = self.imp();
 
-        let app = Application::instance();
+        let app = Application::get();
         let has_modified = self.pages().iter().any(|page| page.is_modified());
 
         if has_modified && imp.inhibit_cookie.borrow().is_none() {

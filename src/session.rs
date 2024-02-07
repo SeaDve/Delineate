@@ -216,7 +216,7 @@ impl Session {
     }
 
     pub fn instance() -> Self {
-        Application::instance().session().clone()
+        Application::get().session().clone()
     }
 
     pub async fn recents(&self) -> &RecentList {
@@ -239,7 +239,7 @@ impl Session {
     pub fn add_new_raw_window(&self) -> Window {
         let imp = self.imp();
 
-        let app = Application::instance();
+        let app = Application::get();
         let window = Window::new(&app);
 
         let group = gtk::WindowGroup::new();
@@ -281,7 +281,7 @@ impl Session {
             imp.default_window_width.set(window.default_width());
             imp.default_window_height.set(window.default_height());
 
-            let app = Application::instance();
+            let app = Application::get();
             let hold_guard = app.hold();
 
             utils::spawn(clone!(@weak self as obj, @weak window => async move {

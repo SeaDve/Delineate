@@ -105,7 +105,7 @@ impl Application {
     ///
     /// # Panics
     /// Panics if the app is not running or if this is called on a non-main thread.
-    pub fn instance() -> Self {
+    pub fn get() -> Self {
         debug_assert!(
             gtk::is_initialized_main_thread(),
             "application must only be accessed in the main thread"
