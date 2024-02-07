@@ -264,15 +264,15 @@ mod imp {
                 "win.save-document-as",
             );
 
-            add_select_page_action(klass, gdk::Key::_1, 0);
-            add_select_page_action(klass, gdk::Key::_2, 1);
-            add_select_page_action(klass, gdk::Key::_3, 2);
-            add_select_page_action(klass, gdk::Key::_4, 3);
-            add_select_page_action(klass, gdk::Key::_5, 4);
-            add_select_page_action(klass, gdk::Key::_6, 5);
-            add_select_page_action(klass, gdk::Key::_7, 6);
-            add_select_page_action(klass, gdk::Key::_8, 7);
-            add_select_page_action(klass, gdk::Key::_9, 8);
+            add_select_page_binding(klass, gdk::Key::_1, 0);
+            add_select_page_binding(klass, gdk::Key::_2, 1);
+            add_select_page_binding(klass, gdk::Key::_3, 2);
+            add_select_page_binding(klass, gdk::Key::_4, 3);
+            add_select_page_binding(klass, gdk::Key::_5, 4);
+            add_select_page_binding(klass, gdk::Key::_6, 5);
+            add_select_page_binding(klass, gdk::Key::_7, 6);
+            add_select_page_binding(klass, gdk::Key::_8, 7);
+            add_select_page_binding(klass, gdk::Key::_9, 8);
 
             klass.add_binding_action(
                 gdk::Key::Page_Up,
@@ -836,7 +836,7 @@ impl Window {
     }
 }
 
-fn add_select_page_action(
+fn add_select_page_binding(
     klass: &mut <imp::Window as ObjectSubclass>::Class,
     key: gdk::Key,
     page_index: i32,
