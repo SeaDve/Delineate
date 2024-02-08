@@ -10,7 +10,6 @@ use crate::{
     save_changes_dialog,
     session::Session,
     utils,
-    window::Window,
 };
 
 mod imp {
@@ -69,15 +68,7 @@ mod imp {
         }
 
         fn open(&self, files: &[gio::File], _hint: &str) {
-            let obj = self.obj();
-
-            let window = if let Some(active_window) = obj.active_window() {
-                active_window.downcast::<Window>().unwrap()
-            } else if let Some(window) = obj.windows().first() {
-                window.clone().downcast::<Window>().unwrap()
-            } else {
-                self.session.add_new_window()
-            };
+            let window = self.session.active_window();
             self.session.open_files(files, &window);
         }
     }
@@ -142,6 +133,8 @@ impl Application {
 
     /// Returns `Proceed` if quit process shall proceed, `Stop` if it shall be aborted.
     async fn quit_request(&self) -> glib::Propagation {
+        let imp = self.imp();
+
         let unsaved_documents = self
             .session()
             .windows()
@@ -155,8 +148,8 @@ impl Application {
             return glib::Propagation::Proceed;
         }
 
-        let active_window = self.active_window().unwrap().downcast::<Window>().unwrap();
-        save_changes_dialog::run(&active_window, &unsaved_documents).await
+        let window = imp.session.active_window();
+        save_changes_dialog::run(&window, &unsaved_documents).await
     }
 
     fn setup_gactions(&self) {
@@ -171,11 +164,9 @@ impl Application {
             .build();
         let action_about = gio::ActionEntry::builder("about")
             .activate(|obj: &Self, _, _| {
-                if let Some(window) = obj.active_window() {
-                    about::present_dialog(&window);
-                } else {
-                    tracing::warn!("Can't present about dialog without an active window");
-                }
+                let imp = obj.imp();
+                let window = imp.session.active_window();
+                about::present_dialog(&window);
             })
             .build();
         self.add_action_entries([action_new_window, action_quit, action_about]);

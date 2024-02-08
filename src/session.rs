@@ -232,6 +232,19 @@ impl Session {
             .await
     }
 
+    /// Returns the active window or creates a new one if there are no windows.
+    pub fn active_window(&self) -> Window {
+        let app = Application::get();
+
+        if let Some(active_window) = app.active_window() {
+            active_window.downcast::<Window>().unwrap()
+        } else if let Some(window) = app.windows().first() {
+            window.clone().downcast::<Window>().unwrap()
+        } else {
+            self.add_new_window()
+        }
+    }
+
     pub fn windows(&self) -> Vec<Window> {
         self.imp().windows.borrow().clone()
     }
