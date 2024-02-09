@@ -13,7 +13,10 @@ base_id = 'io.github.seadve.Delineate'
 
 dependency('glib-2.0', version: '>= 2.66')
 dependency('gio-2.0', version: '>= 2.66')
-dependency('gtk4', version: '>= 4.0.0')
+dependency('gtk4', version: '>= 4.13')
+dependency('gtksourceview-5', version: '>= 5.11')
+dependency('libadwaita-1', version: '>= 1.5')
+dependency('webkitgtk-6.0', version: '>= 2.43')
 
 glib_compile_resources = find_program('glib-compile-resources', required: true)
 glib_compile_schemas = find_program('glib-compile-schemas', required: true)
