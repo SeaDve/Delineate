@@ -10,7 +10,7 @@ use crate::{
 };
 
 pub fn present_dialog(parent: &impl IsA<gtk::Widget>) {
-    let win = adw::AboutDialog::builder()
+    let dialog = adw::AboutDialog::builder()
         .application_icon(APP_ID)
         .application_name(utils::application_name())
         .developer_name(gettext("Dave Patrick Caberto"))
@@ -27,18 +27,18 @@ pub fn present_dialog(parent: &impl IsA<gtk::Widget>) {
         .debug_info_filename("delineate-debug-info")
         .build();
 
-    win.add_link(&gettext("Donate"), "https://seadve.github.io/donate/");
-    win.add_link(
+    dialog.add_link(&gettext("Donate"), "https://seadve.github.io/donate/");
+    dialog.add_link(
         &gettext("Donate (Buy Me a Coffee)"),
         "https://www.buymeacoffee.com/seadve",
     );
-    win.add_link(&gettext("GitHub"), "https://github.com/SeaDve/Delineate");
-    win.add_link(
+    dialog.add_link(&gettext("GitHub"), "https://github.com/SeaDve/Delineate");
+    dialog.add_link(
         &gettext("Translate"),
         "https://hosted.weblate.org/projects/seadve/delineate",
     );
 
-    win.present(parent);
+    dialog.present(parent);
 }
 
 fn debug_info() -> String {
