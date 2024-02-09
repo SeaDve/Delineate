@@ -148,7 +148,7 @@ mod imp {
 
             klass.install_action_async(
                 "win.export-graph",
-                Some(glib::VariantTy::STRING),
+                Some(&String::static_variant_type()),
                 |obj, _, arg| async move {
                     let raw_format = arg.unwrap().get::<String>().unwrap();
 
@@ -176,7 +176,7 @@ mod imp {
 
             klass.install_action(
                 "win.select-page",
-                Some(glib::VariantTy::INT32),
+                Some(&i32::static_variant_type()),
                 |obj, _, args| {
                     let index = args.unwrap().get::<i32>().unwrap();
 
