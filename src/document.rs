@@ -10,7 +10,7 @@ use gtk::{
 };
 use gtk_source::{prelude::*, subclass::prelude::*};
 
-use crate::utils;
+use crate::{cancelled::Cancelled, utils};
 
 /// Unmarks the document as busy on drop.
 struct MarkBusyGuard<'a> {
@@ -29,7 +29,10 @@ const FILE_SAVER_FLAGS: gtk_source::FileSaverFlags =
         .union(gtk_source::FileSaverFlags::IGNORE_MODIFICATION_TIME);
 
 mod imp {
-    use std::{cell::Cell, marker::PhantomData};
+    use std::{
+        cell::{Cell, RefCell},
+        marker::PhantomData,
+    };
 
     use glib::subclass::Signal;
     use once_cell::sync::Lazy;
@@ -51,6 +54,7 @@ mod imp {
         pub(super) is_busy: Cell<bool>,
 
         pub(super) source_file: gtk_source::File,
+        pub(super) load_cancellable: RefCell<Option<gio::Cancellable>>,
     }
 
     #[glib::object_subclass]
@@ -201,10 +205,16 @@ impl Document {
 
         let _guard = self.mark_busy();
 
+        let cancellable = gio::Cancellable::new();
+        imp.load_cancellable.replace(Some(cancellable.clone()));
+
         let loader = gtk_source::FileLoader::new(self, &imp.source_file);
         let (io_fut, progress_stream) = loader.load_future(FILE_IO_PRIORITY);
-        let (io_res, _) = join!(io_fut, self.handle_progress_stream(progress_stream));
-        io_res?;
+        let (io_res, _) = join!(
+            gio::CancellableFuture::new(io_fut, cancellable),
+            self.handle_progress_stream(progress_stream)
+        );
+        io_res.map_err(|_| Cancelled)??;
 
         self.emit_text_changed();
 
