@@ -165,12 +165,8 @@ mod imp {
 
             self.document_bindings
                 .bind("loading", &*self.view, "editable")
-                .transform_to(|_, value| {
-                    let loading = value.get::<bool>().unwrap();
-                    let sensitive = !loading;
-                    Some(sensitive.into())
-                })
                 .sync_create()
+                .invert_boolean()
                 .build();
             self.document_bindings
                 .bind("busy-progress", &*self.progress_bar, "fraction")
