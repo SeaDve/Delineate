@@ -164,7 +164,7 @@ mod imp {
             let obj = self.obj();
 
             self.document_bindings
-                .bind("loading", &*self.view, "sensitive")
+                .bind("loading", &*self.view, "editable")
                 .transform_to(|_, value| {
                     let loading = value.get::<bool>().unwrap();
                     let sensitive = !loading;
