@@ -15,7 +15,7 @@ pub fn present_dialog(parent: &impl IsA<gtk::Widget>) {
         .application_name(utils::application_name())
         .developer_name("Dave Patrick Caberto")
         .version(VERSION)
-        .copyright("© 2023 Dave Patrick Caberto")
+        .copyright("© 2024 Dave Patrick Caberto")
         .license_type(gtk::License::Gpl30)
         .developers(["Dave Patrick Caberto https://seadve.github.io"])
         .artists(["Brage Fuglseth https://bragefuglseth.dev"])
