@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-25 21:10+0800\n"
+"POT-Creation-Date: 2024-03-10 09:40+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,12 +19,12 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: data/io.github.seadve.Delineate.desktop.in.in:3
-#: data/io.github.seadve.Delineate.metainfo.xml.in.in:6 src/utils.rs:9
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
 msgid "Delineate"
 msgstr ""
 
 #: data/io.github.seadve.Delineate.desktop.in.in:4
-#: data/io.github.seadve.Delineate.metainfo.xml.in.in:7
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:8
 msgid "View and edit graphs"
 msgstr ""
 
@@ -33,35 +33,31 @@ msgstr ""
 msgid "graphviz;dot;graphs;visualization;"
 msgstr ""
 
-#: data/io.github.seadve.Delineate.metainfo.xml.in.in:9
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:10
 msgid ""
 "Delineate provides facilities to edit and draw graphs specified in the DOT "
 "language It is designed to be a simple and intuitive tool for creating and "
 "editing graphs, with a focus on the user experience."
 msgstr ""
 
-#: data/io.github.seadve.Delineate.metainfo.xml.in.in:10
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:11
 msgid "The main features of Delineate include the following:"
 msgstr ""
 
-#: data/io.github.seadve.Delineate.metainfo.xml.in.in:12
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:13
 msgid "🖼️ Live and interactive preview of the graph as you type"
 msgstr ""
 
-#: data/io.github.seadve.Delineate.metainfo.xml.in.in:13
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:14
 msgid "⏺️ Multiple Graphviz layout engines support"
 msgstr ""
 
-#: data/io.github.seadve.Delineate.metainfo.xml.in.in:14
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:15
 msgid "📝 Fully-featured DOT language editor"
 msgstr ""
 
-#: data/io.github.seadve.Delineate.metainfo.xml.in.in:15
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:16
 msgid "📦 Export graph as PNG, SVG, or JPEG"
-msgstr ""
-
-#: data/io.github.seadve.Delineate.metainfo.xml.in.in:40 src/about.rs:19
-msgid "Dave Patrick Caberto"
 msgstr ""
 
 #: data/resources/ui/page.ui:75
@@ -74,6 +70,22 @@ msgstr ""
 
 #: data/resources/ui/page.ui:88
 msgid "Zoom In"
+msgstr ""
+
+#: data/resources/ui/recent_popover.ui:17
+msgid "Search documents"
+msgstr ""
+
+#: data/resources/ui/recent_popover.ui:39
+msgid "No Recent Documents"
+msgstr ""
+
+#: data/resources/ui/recent_popover.ui:48
+msgid "No Results"
+msgstr ""
+
+#: data/resources/ui/recent_row.ui:53
+msgid "Remove"
 msgstr ""
 
 #: data/resources/ui/shortcuts.ui:11
@@ -180,8 +192,8 @@ msgstr ""
 msgid "_New Window"
 msgstr ""
 
-#: data/resources/ui/window.ui:12 src/save_changes_dialog.rs:73
-#: src/save_changes_dialog.rs:147
+#: data/resources/ui/window.ui:12 src/save_changes_dialog.rs:70
+#: src/save_changes_dialog.rs:142
 msgid "_Save"
 msgid_plural "_Save All"
 msgstr[0] ""
@@ -247,19 +259,23 @@ msgstr ""
 msgid "Open"
 msgstr ""
 
-#: data/resources/ui/window.ui:110
+#: data/resources/ui/window.ui:106
+msgid "Recent Documents"
+msgstr ""
+
+#: data/resources/ui/window.ui:114
 msgid "New Document"
 msgstr ""
 
-#: data/resources/ui/window.ui:139
+#: data/resources/ui/window.ui:143
 msgid "Main Menu"
 msgstr ""
 
-#: data/resources/ui/window.ui:164
+#: data/resources/ui/window.ui:168
 msgid "Start or Open a Document"
 msgstr ""
 
-#: data/resources/ui/window.ui:170
+#: data/resources/ui/window.ui:174
 msgid ""
 "• Press the Open button\n"
 "• Press the New Tab Button\n"
@@ -270,28 +286,24 @@ msgid ""
 "Or, press Ctrl+W to close the window."
 msgstr ""
 
-#: src/about.rs:21
-msgid "© 2023 Dave Patrick Caberto"
-msgstr ""
-
 #. Translators: Replace "translator-credits" with your names. Put a comma between.
-#: src/about.rs:24
+#: src/about.rs:23
 msgid "translator-credits"
 msgstr ""
 
-#: src/about.rs:31
+#: src/about.rs:30
 msgid "Donate"
 msgstr ""
 
-#: src/about.rs:33
+#: src/about.rs:32
 msgid "Donate (Buy Me a Coffee)"
 msgstr ""
 
-#: src/about.rs:36
+#: src/about.rs:35
 msgid "GitHub"
 msgstr ""
 
-#: src/about.rs:38
+#: src/about.rs:37
 msgid "Translate"
 msgstr ""
 
@@ -307,65 +319,89 @@ msgstr ""
 msgid "JPEG"
 msgstr ""
 
-#: src/page.rs:126
-msgid "Failed to show in Files"
-msgstr ""
-
-#: src/page.rs:319 src/save_changes_dialog.rs:114
+#: src/page.rs:301 src/save_changes_dialog.rs:109
 msgid "Untitled Document"
 msgstr ""
 
-#: src/page.rs:375
+#: src/page.rs:357
 msgid "Save Document"
 msgstr ""
 
-#: src/page.rs:396
+#: src/page.rs:378
 msgid "Save Document As"
 msgstr ""
 
-#: src/page.rs:446
+#: src/page.rs:428
 msgid "Export Graph"
 msgstr ""
 
-#: src/page.rs:447
+#: src/page.rs:429
 msgid "_Export"
 msgstr ""
 
-#: src/page.rs:489
+#: src/page.rs:471
 msgid "Graph exported"
 msgstr ""
 
-#: src/page.rs:490
+#: src/page.rs:472
 msgid "Show in Files"
 msgstr ""
 
-#: src/page.rs:647
+#: src/page.rs:482
+msgid "Failed to show in Files"
+msgstr ""
+
+#: src/page.rs:640
 msgid "Failed to draw graph"
+msgstr ""
+
+#: src/recent_row.rs:129
+msgid "Just Now"
+msgstr ""
+
+#: src/recent_row.rs:131
+msgid "An hour ago"
+msgstr ""
+
+#: src/recent_row.rs:133
+msgid "Yesterday"
+msgstr ""
+
+#: src/recent_row.rs:139
+msgid "About a year ago"
 msgstr ""
 
 #: src/save_changes_dialog.rs:44
 msgid "Failed to save changes to document"
 msgstr ""
 
-#: src/save_changes_dialog.rs:59
+#: src/save_changes_dialog.rs:57
 msgid "Save Changes?"
 msgstr ""
 
-#: src/save_changes_dialog.rs:60
+#: src/save_changes_dialog.rs:58
 msgid ""
 "Open documents contain unsaved changes. Changes which are not saved will be "
 "permanently lost."
 msgstr ""
 
-#: src/save_changes_dialog.rs:66
+#: src/save_changes_dialog.rs:63
 msgid "Cancel"
 msgstr ""
 
-#: src/save_changes_dialog.rs:69
+#: src/save_changes_dialog.rs:66
 msgid "_Discard"
 msgid_plural "_Discard All"
 msgstr[0] ""
 msgstr[1] ""
+
+#: src/session.rs:92
+msgid "Failed to load file"
+msgstr ""
+
+#: src/session.rs:489
+msgid "Failed to open file"
+msgstr ""
 
 #. Translators: DOT is an acronym, do not translate.
 #: src/utils.rs:38
@@ -392,18 +428,14 @@ msgstr ""
 msgid "Failed to open containing folder"
 msgstr ""
 
-#: src/window.rs:168
+#: src/window.rs:171
 msgid "Failed to export graph"
 msgstr ""
 
-#: src/window.rs:675
+#: src/window.rs:645
 msgid "Open Document"
 msgstr ""
 
-#: src/window.rs:786
-msgid "Failed to load file"
-msgstr ""
-
-#: src/window.rs:801
+#: src/window.rs:742
 msgid "There are unsaved documents"
 msgstr ""
