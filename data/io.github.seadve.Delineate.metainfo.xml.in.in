@@ -28,6 +28,10 @@
       <image>https://raw.githubusercontent.com/SeaDve/Delineate/main/data/resources/screenshots/screenshot3.png</image>
     </screenshot>
   </screenshots>
+  <branding>
+    <color type="primary" scheme_preference="light">#ff00ff</color>
+    <color type="primary" scheme_preference="dark">#993d3d</color>
+  </branding>
   <url type="bugtracker">https://github.com/SeaDve/Delineate/issues</url>
   <url type="homepage">https://github.com/SeaDve/Delineate</url>
   <url type="donation">https://seadve.github.io/donate/</url>
