@@ -1,0 +1,460 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the delineate package.
+# Philip Goto <philip.goto@gmail.com>, 2024.
+msgid ""
+msgstr ""
+"Project-Id-Version: delineate\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-03-10 09:40+0800\n"
+"PO-Revision-Date: 2024-06-12 03:13+0000\n"
+"Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/seadve/delineate/"
+"nl/>\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.6-dev\n"
+
+#: data/io.github.seadve.Delineate.desktop.in.in:3
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
+msgid "Delineate"
+msgstr "Delineate"
+
+#: data/io.github.seadve.Delineate.desktop.in.in:4
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:8
+msgid "View and edit graphs"
+msgstr "Bekĳk en bewerk grafen"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/io.github.seadve.Delineate.desktop.in.in:10
+msgid "graphviz;dot;graphs;visualization;"
+msgstr "graphviz;dot;graphs;visualization;graaf;grafen;visualisatie;"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:10
+msgid ""
+"Delineate provides facilities to edit and draw graphs specified in the DOT "
+"language It is designed to be a simple and intuitive tool for creating and "
+"editing graphs, with a focus on the user experience."
+msgstr ""
+"Delineate biedt faciliteiten voor het bewerken en tekenen van grafen die zĳn "
+"gespecificeerd in de DOT-taal. Het is ontworpen als een eenvoudig en "
+"intuïtief hulp­middel voor het maken en bewerken van grafen, met de nadruk "
+"op de gebruikers­ervaring."
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:11
+msgid "The main features of Delineate include the following:"
+msgstr "De belang­rĳkste ken­merken van Delineate zĳn onder meer:"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:13
+msgid "🖼️ Live and interactive preview of the graph as you type"
+msgstr "🖼️ Live en inter­actief voorbeeld van de graaf terwĳl u typt"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:14
+msgid "⏺️ Multiple Graphviz layout engines support"
+msgstr "⏺️ Onder­steuning voor meerdere Graphviz-layout-engines"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:15
+msgid "📝 Fully-featured DOT language editor"
+msgstr "📝 Volledig functionele DOT-taal­editor"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:16
+msgid "📦 Export graph as PNG, SVG, or JPEG"
+msgstr "📦 Exporteer grafieken als PNG, SVG of JPEG"
+
+#: data/resources/ui/page.ui:75
+msgid "Zoom Out"
+msgstr "Uit­zoomen"
+
+#: data/resources/ui/page.ui:82
+msgid "Reset Zoom"
+msgstr "Zoom resetten"
+
+#: data/resources/ui/page.ui:88
+msgid "Zoom In"
+msgstr "Inzoomen"
+
+#: data/resources/ui/recent_popover.ui:17
+msgid "Search documents"
+msgstr "Documenten zoeken"
+
+#: data/resources/ui/recent_popover.ui:39
+msgid "No Recent Documents"
+msgstr "Geen recente documenten"
+
+#: data/resources/ui/recent_popover.ui:48
+msgid "No Results"
+msgstr "Geen resultaten"
+
+#: data/resources/ui/recent_row.ui:53
+msgid "Remove"
+msgstr "Verwĳderen"
+
+#: data/resources/ui/shortcuts.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Algemeen"
+
+#: data/resources/ui/shortcuts.ui:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Snel­toetsen tonen"
+
+#: data/resources/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Afsluiten"
+
+#: data/resources/ui/shortcuts.ui:28
+msgctxt "shortcut window"
+msgid "Documents"
+msgstr "Documenten"
+
+#: data/resources/ui/shortcuts.ui:31
+msgctxt "shortcut window"
+msgid "New Document"
+msgstr "Nieuw document"
+
+#: data/resources/ui/shortcuts.ui:37
+msgctxt "shortcut window"
+msgid "Open Document"
+msgstr "Document openen"
+
+#: data/resources/ui/shortcuts.ui:43
+msgctxt "shortcut window"
+msgid "Save"
+msgstr "Opslaan"
+
+#: data/resources/ui/shortcuts.ui:49
+msgctxt "shortcut window"
+msgid "Save As"
+msgstr "Opslaan als"
+
+#: data/resources/ui/shortcuts.ui:57
+msgctxt "shortcut window"
+msgid "Windows"
+msgstr "Vensters"
+
+#: data/resources/ui/shortcuts.ui:60
+msgctxt "shortcut window"
+msgid "New Window"
+msgstr "Nieuw venster"
+
+#: data/resources/ui/shortcuts.ui:66
+msgctxt "shortcut window"
+msgid "Move Document to New Window"
+msgstr "Document naar nieuw venster verplaatsen"
+
+#: data/resources/ui/shortcuts.ui:73
+msgctxt "shortcut window"
+msgid "Move to Next Tab"
+msgstr "Naar volgend tabblad verplaatsen"
+
+#: data/resources/ui/shortcuts.ui:79
+msgctxt "shortcut window"
+msgid "Move to Previous Tab"
+msgstr "Naar vorig tabblad verplaatsen"
+
+#: data/resources/ui/shortcuts.ui:85
+msgctxt "shortcut window"
+msgid "Reorder After Next Tab"
+msgstr "Naar na volgend tabblad verplaatsen"
+
+#: data/resources/ui/shortcuts.ui:91
+msgctxt "shortcut window"
+msgid "Reorder Before Previous Tab"
+msgstr "Naar voor vorig tabblad verplaatsen"
+
+#: data/resources/ui/shortcuts.ui:97
+msgctxt "shortcut window"
+msgid "Restore Previously Closed Tab"
+msgstr "Hiervoor gesloten tabblad opnieuw openen"
+
+#: data/resources/ui/shortcuts.ui:104
+msgctxt "shortcut window"
+msgid "Zoom"
+msgstr "Zoomen"
+
+#: data/resources/ui/shortcuts.ui:108
+msgctxt "shortcut window"
+msgid "Zoom In"
+msgstr "Inzoomen"
+
+#: data/resources/ui/shortcuts.ui:114
+msgctxt "shortcut window"
+msgid "Zoom Out"
+msgstr "Uitzoomen"
+
+#: data/resources/ui/shortcuts.ui:120
+msgctxt "shortcut window"
+msgid "Reset Zoom"
+msgstr "Zoom resetten"
+
+#: data/resources/ui/window.ui:6
+msgid "_New Window"
+msgstr "_Nieuw venster"
+
+#: data/resources/ui/window.ui:12 src/save_changes_dialog.rs:70
+#: src/save_changes_dialog.rs:142
+msgid "_Save"
+msgid_plural "_Save All"
+msgstr[0] "_Opslaan"
+msgstr[1] "Alles _opslaan"
+
+#: data/resources/ui/window.ui:16
+msgid "Save _As…"
+msgstr "Opslaan _als…"
+
+#: data/resources/ui/window.ui:20
+msgid "_Discard Changes"
+msgstr "Wĳzigingen _verwerpen"
+
+#: data/resources/ui/window.ui:26
+msgid "_Export Graph"
+msgstr "Graaf exporteren"
+
+#: data/resources/ui/window.ui:28
+msgid "Export As PNG…"
+msgstr "Exporteren als PNG…"
+
+#: data/resources/ui/window.ui:33
+msgid "Export As SVG…"
+msgstr "Exporteren als SVG…"
+
+#: data/resources/ui/window.ui:38
+msgid "Export As JPEG…"
+msgstr "Exporteren als JPEG…"
+
+#: data/resources/ui/window.ui:44
+msgid "Open _Containing Folder"
+msgstr "_Boven­liggende map openen"
+
+#: data/resources/ui/window.ui:50
+msgid "_Keyboard Shortcuts"
+msgstr "_Snel­toetsen"
+
+#: data/resources/ui/window.ui:54
+msgid "_About Delineate"
+msgstr "_Over Delineate"
+
+#: data/resources/ui/window.ui:62
+msgid "Move _Left"
+msgstr "Naar _links verplaatsen"
+
+#: data/resources/ui/window.ui:66
+msgid "Move _Right"
+msgstr "Naar _rechts verplaatsen"
+
+#: data/resources/ui/window.ui:72
+msgid "_Move to New Window"
+msgstr "_Verplaatsen naar nieuw venster"
+
+#: data/resources/ui/window.ui:78
+msgid "Close _Other Tabs"
+msgstr "_Andere tab­bladen sluiten"
+
+#: data/resources/ui/window.ui:82
+msgid "_Close"
+msgstr "_Sluiten"
+
+#: data/resources/ui/window.ui:104
+msgid "Open"
+msgstr "Openen"
+
+#: data/resources/ui/window.ui:106
+msgid "Recent Documents"
+msgstr "Recente documenten"
+
+#: data/resources/ui/window.ui:114
+msgid "New Document"
+msgstr "Nieuw document"
+
+#: data/resources/ui/window.ui:143
+msgid "Main Menu"
+msgstr "Hoofdmenu"
+
+#: data/resources/ui/window.ui:168
+msgid "Start or Open a Document"
+msgstr "Document starten of openen"
+
+#: data/resources/ui/window.ui:174
+msgid ""
+"• Press the Open button\n"
+"• Press the New Tab Button\n"
+"• Press Ctrl+N to start a new document\n"
+"• Press Ctrl+O to browse for a document\n"
+"• Drag a file into the window\n"
+"\n"
+"Or, press Ctrl+W to close the window."
+msgstr ""
+"• Druk op de knop ‘Openen’\n"
+"• Druk op de knop ‘Nieuw tabblad’\n"
+"• Druk op Ctrl+N om een nieuw document te starten\n"
+"• Druk op Ctrl+O om naar een document te bladeren\n"
+"• Sleep een bestand naar het venster\n"
+"\n"
+"Of druk op Ctrl+W om het venster te sluiten."
+
+#. Translators: Replace "translator-credits" with your names. Put a comma between.
+#: src/about.rs:23
+msgid "translator-credits"
+msgstr "Philip Goto https://flipflop97.github.io/"
+
+#: src/about.rs:30
+msgid "Donate"
+msgstr "Doneren"
+
+#: src/about.rs:32
+msgid "Donate (Buy Me a Coffee)"
+msgstr "Doneren (trakteer me op een kopje koffie)"
+
+#: src/about.rs:35
+msgid "GitHub"
+msgstr "GitHub"
+
+#: src/about.rs:37
+msgid "Translate"
+msgstr "Meehelpen vertalen"
+
+#: src/export_format.rs:29
+msgid "SVG"
+msgstr "SVG"
+
+#: src/export_format.rs:30
+msgid "PNG"
+msgstr "PNG"
+
+#: src/export_format.rs:31
+msgid "JPEG"
+msgstr "JPEG"
+
+#: src/page.rs:301 src/save_changes_dialog.rs:109
+msgid "Untitled Document"
+msgstr "Naam­loos document"
+
+#: src/page.rs:357
+msgid "Save Document"
+msgstr "Document opslaan"
+
+#: src/page.rs:378
+msgid "Save Document As"
+msgstr "Document opslaan als"
+
+#: src/page.rs:428
+msgid "Export Graph"
+msgstr "Graaf exporteren"
+
+#: src/page.rs:429
+msgid "_Export"
+msgstr "_Exporteren"
+
+#: src/page.rs:471
+msgid "Graph exported"
+msgstr "Graaf geëxporteerd"
+
+#: src/page.rs:472
+msgid "Show in Files"
+msgstr "Tonen in bestanden"
+
+#: src/page.rs:482
+msgid "Failed to show in Files"
+msgstr "Kan niet worden weer­gegeven in Bestanden"
+
+#: src/page.rs:640
+msgid "Failed to draw graph"
+msgstr "Graaf tekenen mislukt"
+
+#: src/recent_row.rs:129
+msgid "Just Now"
+msgstr "Zojuist"
+
+#: src/recent_row.rs:131
+msgid "An hour ago"
+msgstr "Een uur geleden"
+
+#: src/recent_row.rs:133
+msgid "Yesterday"
+msgstr "Gisteren"
+
+#: src/recent_row.rs:139
+msgid "About a year ago"
+msgstr "Een jaar geleden"
+
+#: src/save_changes_dialog.rs:44
+msgid "Failed to save changes to document"
+msgstr "Wĳzigingen opslaan naar document mislukt"
+
+#: src/save_changes_dialog.rs:57
+msgid "Save Changes?"
+msgstr "Wĳzigingen opslaan?"
+
+#: src/save_changes_dialog.rs:58
+msgid ""
+"Open documents contain unsaved changes. Changes which are not saved will be "
+"permanently lost."
+msgstr ""
+"Geopende documenten bevatten niet-opgeslagen wĳzigingen. Wĳzigingen die niet "
+"worden opgeslagen, gaan permanent verloren."
+
+#: src/save_changes_dialog.rs:63
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: src/save_changes_dialog.rs:66
+msgid "_Discard"
+msgid_plural "_Discard All"
+msgstr[0] "_Verwerpen"
+msgstr[1] "Alles _verwerpen"
+
+#: src/session.rs:92
+msgid "Failed to load file"
+msgstr "Bestand laden mislukt"
+
+#: src/session.rs:489
+msgid "Failed to open file"
+msgstr "Bestand openen mislukt"
+
+#. Translators: DOT is an acronym, do not translate.
+#: src/utils.rs:38
+msgid "Graphviz DOT Files"
+msgstr "Graphviz DOT-bestanden"
+
+#: src/window.rs:86
+msgid "Failed to open document"
+msgstr "Document openen mislukt"
+
+#: src/window.rs:101
+msgid "Failed to save document"
+msgstr "Document opslaan mislukt"
+
+#: src/window.rs:116
+msgid "Failed to save document as"
+msgstr "Document opslaan mislukt"
+
+#: src/window.rs:130
+msgid "Failed to discard document changes"
+msgstr "Document­wĳzigingen verwerpen mislukt"
+
+#: src/window.rs:144
+msgid "Failed to open containing folder"
+msgstr "Boven­liggende map openen mislukt"
+
+#: src/window.rs:171
+msgid "Failed to export graph"
+msgstr "Graaf exporteren mislukt"
+
+#: src/window.rs:645
+msgid "Open Document"
+msgstr "Document openen"
+
+#: src/window.rs:742
+msgid "There are unsaved documents"
+msgstr "Er zĳn niet-opgeslagen documenten"
+
+#~ msgid "Dave Patrick Caberto"
+#~ msgstr "Dave Patrick Caberto"
+
+#~ msgid "© 2023 Dave Patrick Caberto"
+#~ msgstr "© 2023, Dave Patrick Caberto"

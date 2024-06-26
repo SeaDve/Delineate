@@ -1,0 +1,461 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the dagger package.
+# Sabri Ünal <libreajans@gmail.com>, 2024.
+# Oğuz Ersen <oguz@ersen.moe>, 2024.
+# Sabri Ünal <yakushabb@gmail.com>, 2024.
+msgid ""
+msgstr ""
+"Project-Id-Version: dagger\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-03-10 09:40+0800\n"
+"PO-Revision-Date: 2024-03-12 14:02+0000\n"
+"Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
+"Language-Team: Turkish <https://hosted.weblate.org/projects/seadve/delineate/"
+"tr/>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.5-dev\n"
+
+#: data/io.github.seadve.Delineate.desktop.in.in:3
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
+msgid "Delineate"
+msgstr "Delineate"
+
+#: data/io.github.seadve.Delineate.desktop.in.in:4
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:8
+msgid "View and edit graphs"
+msgstr "Grafikleri görüntüle ve düzenle"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/io.github.seadve.Delineate.desktop.in.in:10
+msgid "graphviz;dot;graphs;visualization;"
+msgstr "graphviz;dot;graphs;visualization;sanallaştırma;grafikler;grafik;"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:10
+msgid ""
+"Delineate provides facilities to edit and draw graphs specified in the DOT "
+"language It is designed to be a simple and intuitive tool for creating and "
+"editing graphs, with a focus on the user experience."
+msgstr ""
+"Delineate, DOT dilinde belirtilen grafikleri düzenleme ve çizme olanağı "
+"sağlar. Kullanıcı deneyimine odaklanan grafik oluşturmak ve düzenlemek için "
+"basit ve sezgisel bir araç olarak tasarlanmıştır."
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:11
+msgid "The main features of Delineate include the following:"
+msgstr "Delineateʼin temel özellikleri şunlardır:"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:13
+msgid "🖼️ Live and interactive preview of the graph as you type"
+msgstr "🖼️ Yazarken grafiğin canlı ve etkileşimli ön izlemesi"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:14
+msgid "⏺️ Multiple Graphviz layout engines support"
+msgstr "⏺️ Çoklu Graphviz düzen motoru desteği"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:15
+msgid "📝 Fully-featured DOT language editor"
+msgstr "📝 Tam özellikli DOT dil düzenleyici"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:16
+msgid "📦 Export graph as PNG, SVG, or JPEG"
+msgstr "📦 Grafiği PNG, SVG ya da JPEG olarak dışa aktarma"
+
+#: data/resources/ui/page.ui:75
+msgid "Zoom Out"
+msgstr "Uzaklaştır"
+
+#: data/resources/ui/page.ui:82
+msgid "Reset Zoom"
+msgstr "Yakınlaştırmayı Sıfırla"
+
+#: data/resources/ui/page.ui:88
+msgid "Zoom In"
+msgstr "Yakınlaştır"
+
+#: data/resources/ui/recent_popover.ui:17
+msgid "Search documents"
+msgstr "Belge ara"
+
+#: data/resources/ui/recent_popover.ui:39
+msgid "No Recent Documents"
+msgstr "Yeni Belge Yok"
+
+#: data/resources/ui/recent_popover.ui:48
+msgid "No Results"
+msgstr "Sonuç Yok"
+
+#: data/resources/ui/recent_row.ui:53
+msgid "Remove"
+msgstr "Kaldır"
+
+#: data/resources/ui/shortcuts.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Genel"
+
+#: data/resources/ui/shortcuts.ui:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Kısayolları Göster"
+
+#: data/resources/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Çık"
+
+#: data/resources/ui/shortcuts.ui:28
+msgctxt "shortcut window"
+msgid "Documents"
+msgstr "Belgeler"
+
+#: data/resources/ui/shortcuts.ui:31
+msgctxt "shortcut window"
+msgid "New Document"
+msgstr "Yeni Belge"
+
+#: data/resources/ui/shortcuts.ui:37
+msgctxt "shortcut window"
+msgid "Open Document"
+msgstr "Belge Aç"
+
+#: data/resources/ui/shortcuts.ui:43
+msgctxt "shortcut window"
+msgid "Save"
+msgstr "Kaydet"
+
+#: data/resources/ui/shortcuts.ui:49
+msgctxt "shortcut window"
+msgid "Save As"
+msgstr "Farklı Kaydet"
+
+#: data/resources/ui/shortcuts.ui:57
+msgctxt "shortcut window"
+msgid "Windows"
+msgstr "Pencereler"
+
+#: data/resources/ui/shortcuts.ui:60
+msgctxt "shortcut window"
+msgid "New Window"
+msgstr "Yeni Pencere"
+
+#: data/resources/ui/shortcuts.ui:66
+msgctxt "shortcut window"
+msgid "Move Document to New Window"
+msgstr "Belgeyi Yeni Pencereye Taşı"
+
+#: data/resources/ui/shortcuts.ui:73
+msgctxt "shortcut window"
+msgid "Move to Next Tab"
+msgstr "Sonraki Sekmeye Geç"
+
+#: data/resources/ui/shortcuts.ui:79
+msgctxt "shortcut window"
+msgid "Move to Previous Tab"
+msgstr "Önceki Sekmeye Geç"
+
+#: data/resources/ui/shortcuts.ui:85
+msgctxt "shortcut window"
+msgid "Reorder After Next Tab"
+msgstr "Sonraki Sekmeden Sonra Yeniden Sırala"
+
+#: data/resources/ui/shortcuts.ui:91
+msgctxt "shortcut window"
+msgid "Reorder Before Previous Tab"
+msgstr "Önceki Sekmeden Önce Yeniden Sırala"
+
+#: data/resources/ui/shortcuts.ui:97
+msgctxt "shortcut window"
+msgid "Restore Previously Closed Tab"
+msgstr "Kapatılmış Sekmeyi Geri Yükle"
+
+#: data/resources/ui/shortcuts.ui:104
+msgctxt "shortcut window"
+msgid "Zoom"
+msgstr "Yaklaştırma"
+
+#: data/resources/ui/shortcuts.ui:108
+msgctxt "shortcut window"
+msgid "Zoom In"
+msgstr "Yakınlaştır"
+
+#: data/resources/ui/shortcuts.ui:114
+msgctxt "shortcut window"
+msgid "Zoom Out"
+msgstr "Uzaklaştır"
+
+#: data/resources/ui/shortcuts.ui:120
+msgctxt "shortcut window"
+msgid "Reset Zoom"
+msgstr "Yakınlaştırmayı Sıfırla"
+
+#: data/resources/ui/window.ui:6
+msgid "_New Window"
+msgstr "Ye_ni Pencere"
+
+#: data/resources/ui/window.ui:12 src/save_changes_dialog.rs:70
+#: src/save_changes_dialog.rs:142
+msgid "_Save"
+msgid_plural "_Save All"
+msgstr[0] "_Kaydet"
+msgstr[1] "Tümünü _Kaydet"
+
+#: data/resources/ui/window.ui:16
+msgid "Save _As…"
+msgstr "_Farklı Kaydet…"
+
+#: data/resources/ui/window.ui:20
+msgid "_Discard Changes"
+msgstr "Değişiklikleri _Gözden Çıkar"
+
+#: data/resources/ui/window.ui:26
+msgid "_Export Graph"
+msgstr "_Grafiği Dışa Aktar"
+
+#: data/resources/ui/window.ui:28
+msgid "Export As PNG…"
+msgstr "PNG Olarak Dışa Aktar…"
+
+#: data/resources/ui/window.ui:33
+msgid "Export As SVG…"
+msgstr "SVG Olarak Dışa Aktar…"
+
+#: data/resources/ui/window.ui:38
+msgid "Export As JPEG…"
+msgstr "JPEG Olarak Dışa Aktar…"
+
+#: data/resources/ui/window.ui:44
+msgid "Open _Containing Folder"
+msgstr "İçere_n Klasörü Aç"
+
+#: data/resources/ui/window.ui:50
+msgid "_Keyboard Shortcuts"
+msgstr "_Klavye Kısayolları"
+
+#: data/resources/ui/window.ui:54
+msgid "_About Delineate"
+msgstr "Delineate _Hakkında"
+
+#: data/resources/ui/window.ui:62
+msgid "Move _Left"
+msgstr "S_ola Taşı"
+
+#: data/resources/ui/window.ui:66
+msgid "Move _Right"
+msgstr "_Sağa Taşı"
+
+#: data/resources/ui/window.ui:72
+msgid "_Move to New Window"
+msgstr "Yeni Pencereye _Taşı"
+
+#: data/resources/ui/window.ui:78
+msgid "Close _Other Tabs"
+msgstr "D_iğer Sekmeleri Kapat"
+
+#: data/resources/ui/window.ui:82
+msgid "_Close"
+msgstr "_Kapat"
+
+#: data/resources/ui/window.ui:104
+msgid "Open"
+msgstr "Aç"
+
+#: data/resources/ui/window.ui:106
+msgid "Recent Documents"
+msgstr "Yeni Belgeler"
+
+#: data/resources/ui/window.ui:114
+msgid "New Document"
+msgstr "Yeni Belge"
+
+#: data/resources/ui/window.ui:143
+msgid "Main Menu"
+msgstr "Ana Menü"
+
+#: data/resources/ui/window.ui:168
+msgid "Start or Open a Document"
+msgstr "Başlat ya da Belge Aç"
+
+#: data/resources/ui/window.ui:174
+msgid ""
+"• Press the Open button\n"
+"• Press the New Tab Button\n"
+"• Press Ctrl+N to start a new document\n"
+"• Press Ctrl+O to browse for a document\n"
+"• Drag a file into the window\n"
+"\n"
+"Or, press Ctrl+W to close the window."
+msgstr ""
+"• Aç düğmesine basın\n"
+"• Yeni Sekme düğmesine basın\n"
+"• Yeni belge oluşturmak için Ctrl+N kısayolunu kullanın\n"
+"• Belge aramak için Ctrl+O kısayolunu kullanın\n"
+"• Bir dosyayı pencereye sürükleyin\n"
+"\n"
+"Ya da, pencereyi kapatmak için Ctrl+W kısayolunu kullanın."
+
+#. Translators: Replace "translator-credits" with your names. Put a comma between.
+#: src/about.rs:23
+msgid "translator-credits"
+msgstr "Sabri Ünal (yakushabb@gmail.com), Oğuz Ersen"
+
+#: src/about.rs:30
+msgid "Donate"
+msgstr "Bağış Yap"
+
+#: src/about.rs:32
+msgid "Donate (Buy Me a Coffee)"
+msgstr "Bağış Yap (Buy Me a Coffee)"
+
+#: src/about.rs:35
+msgid "GitHub"
+msgstr "GitHub"
+
+#: src/about.rs:37
+msgid "Translate"
+msgstr "Çevir"
+
+#: src/export_format.rs:29
+msgid "SVG"
+msgstr "SVG"
+
+#: src/export_format.rs:30
+msgid "PNG"
+msgstr "PNG"
+
+#: src/export_format.rs:31
+msgid "JPEG"
+msgstr "JPEG"
+
+#: src/page.rs:301 src/save_changes_dialog.rs:109
+msgid "Untitled Document"
+msgstr "Adsız Belge"
+
+#: src/page.rs:357
+msgid "Save Document"
+msgstr "Belgeyi Kaydet"
+
+#: src/page.rs:378
+msgid "Save Document As"
+msgstr "Belgeyi Farklı Kaydet"
+
+#: src/page.rs:428
+msgid "Export Graph"
+msgstr "Grafiği Dışa Aktar"
+
+#: src/page.rs:429
+msgid "_Export"
+msgstr "_Dışa Aktar"
+
+#: src/page.rs:471
+msgid "Graph exported"
+msgstr "Grafik dışa aktarıldı"
+
+#: src/page.rs:472
+msgid "Show in Files"
+msgstr "Dosyalarʼda Göster"
+
+#: src/page.rs:482
+msgid "Failed to show in Files"
+msgstr "Dosyalarʼda gösterilemedi"
+
+#: src/page.rs:640
+msgid "Failed to draw graph"
+msgstr "Grafik çizilemedi"
+
+#: src/recent_row.rs:129
+msgid "Just Now"
+msgstr "Az Önce"
+
+#: src/recent_row.rs:131
+msgid "An hour ago"
+msgstr "1 saat önce"
+
+#: src/recent_row.rs:133
+msgid "Yesterday"
+msgstr "Dün"
+
+#: src/recent_row.rs:139
+msgid "About a year ago"
+msgstr "Yaklaşık bir yıl önce"
+
+#: src/save_changes_dialog.rs:44
+msgid "Failed to save changes to document"
+msgstr "Değişiklikler belgeye kaydedilemedi"
+
+#: src/save_changes_dialog.rs:57
+msgid "Save Changes?"
+msgstr "Değişiklikler Kaydedilsin Mi?"
+
+#: src/save_changes_dialog.rs:58
+msgid ""
+"Open documents contain unsaved changes. Changes which are not saved will be "
+"permanently lost."
+msgstr ""
+"Açık belgeler kaydedilmemiş değişiklikler içeriyor. Kaydedilmeyen "
+"değişiklikler kalıcı olarak yitirilecek."
+
+#: src/save_changes_dialog.rs:63
+msgid "Cancel"
+msgstr "İptal"
+
+#: src/save_changes_dialog.rs:66
+msgid "_Discard"
+msgid_plural "_Discard All"
+msgstr[0] "_Gözden Çıkar"
+msgstr[1] "Tümünü _Gözden Çıkar"
+
+#: src/session.rs:92
+msgid "Failed to load file"
+msgstr "Dosya yüklenemedi"
+
+#: src/session.rs:489
+msgid "Failed to open file"
+msgstr "Dosya açılamadı"
+
+#. Translators: DOT is an acronym, do not translate.
+#: src/utils.rs:38
+msgid "Graphviz DOT Files"
+msgstr "Graphviz DOT Dosyaları"
+
+#: src/window.rs:86
+msgid "Failed to open document"
+msgstr "Belge açılamadı"
+
+#: src/window.rs:101
+msgid "Failed to save document"
+msgstr "Belge kaydedilemedi"
+
+#: src/window.rs:116
+msgid "Failed to save document as"
+msgstr "Belge farklı kaydedilemedi"
+
+#: src/window.rs:130
+msgid "Failed to discard document changes"
+msgstr "Belgedeki değişiklikler gözden çıkarılamadı"
+
+#: src/window.rs:144
+msgid "Failed to open containing folder"
+msgstr "İçeren klasör açılamadı"
+
+#: src/window.rs:171
+msgid "Failed to export graph"
+msgstr "Grafik dışa aktarılamadı"
+
+#: src/window.rs:645
+msgid "Open Document"
+msgstr "Belge Aç"
+
+#: src/window.rs:742
+msgid "There are unsaved documents"
+msgstr "Kaydedilmemiş belgeler var"
+
+#~ msgid "Dave Patrick Caberto"
+#~ msgstr "Dave Patrick Caberto"
+
+#~ msgid "© 2023 Dave Patrick Caberto"
+#~ msgstr "© 2023 Dave Patrick Caberto"

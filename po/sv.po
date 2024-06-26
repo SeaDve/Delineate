@@ -1,0 +1,460 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the delineate package.
+# bittin1ddc447d824349b2 <bittin@reimu.nl>, 2024.
+msgid ""
+msgstr ""
+"Project-Id-Version: delineate\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-03-10 09:40+0800\n"
+"PO-Revision-Date: 2024-03-12 14:02+0000\n"
+"Last-Translator: bittin1ddc447d824349b2 <bittin@reimu.nl>\n"
+"Language-Team: Swedish <https://hosted.weblate.org/projects/seadve/delineate/"
+"sv/>\n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.5-dev\n"
+
+#: data/io.github.seadve.Delineate.desktop.in.in:3
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
+msgid "Delineate"
+msgstr "Delineate"
+
+#: data/io.github.seadve.Delineate.desktop.in.in:4
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:8
+msgid "View and edit graphs"
+msgstr "Visa och redigera grafer"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/io.github.seadve.Delineate.desktop.in.in:10
+msgid "graphviz;dot;graphs;visualization;"
+msgstr "graphviz;dot;grafer;visualisering;"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:10
+msgid ""
+"Delineate provides facilities to edit and draw graphs specified in the DOT "
+"language It is designed to be a simple and intuitive tool for creating and "
+"editing graphs, with a focus on the user experience."
+msgstr ""
+"Delineate tillhandahåller faciliteter för att redigera och rita grafer "
+"specificerade i DOT-språket. Det är utformat för att vara ett enkelt och "
+"intuitivt verktyg för att skapa och redigera grafer, med fokus på "
+"användarupplevelsen."
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:11
+msgid "The main features of Delineate include the following:"
+msgstr "Huvudfunktionerna i Delineate inkluderar följande:"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:13
+msgid "🖼️ Live and interactive preview of the graph as you type"
+msgstr "🖼️ Live och interaktiv förhandsvisning av grafen medan du skriver"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:14
+msgid "⏺️ Multiple Graphviz layout engines support"
+msgstr "⏺️ Stöd för flera Graphviz-layoutmotorer"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:15
+msgid "📝 Fully-featured DOT language editor"
+msgstr "📝 Fullt utrustad DOT-språkredigerare"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:16
+msgid "📦 Export graph as PNG, SVG, or JPEG"
+msgstr "📦 Exportera grafer som PNG, SVG, eller JPEG"
+
+#: data/resources/ui/page.ui:75
+msgid "Zoom Out"
+msgstr "Zooma ut"
+
+#: data/resources/ui/page.ui:82
+msgid "Reset Zoom"
+msgstr "Återställ zoom"
+
+#: data/resources/ui/page.ui:88
+msgid "Zoom In"
+msgstr "Zooma in"
+
+#: data/resources/ui/recent_popover.ui:17
+msgid "Search documents"
+msgstr "Sök dokument"
+
+#: data/resources/ui/recent_popover.ui:39
+msgid "No Recent Documents"
+msgstr "Inga senaste dokument"
+
+#: data/resources/ui/recent_popover.ui:48
+msgid "No Results"
+msgstr "Inga resultat"
+
+#: data/resources/ui/recent_row.ui:53
+msgid "Remove"
+msgstr "Ta bort"
+
+#: data/resources/ui/shortcuts.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Allmänt"
+
+#: data/resources/ui/shortcuts.ui:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Visa genvägar"
+
+#: data/resources/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Avsluta"
+
+#: data/resources/ui/shortcuts.ui:28
+msgctxt "shortcut window"
+msgid "Documents"
+msgstr "Dokument"
+
+#: data/resources/ui/shortcuts.ui:31
+msgctxt "shortcut window"
+msgid "New Document"
+msgstr "Nytt dokument"
+
+#: data/resources/ui/shortcuts.ui:37
+msgctxt "shortcut window"
+msgid "Open Document"
+msgstr "Öppna dokument"
+
+#: data/resources/ui/shortcuts.ui:43
+msgctxt "shortcut window"
+msgid "Save"
+msgstr "Spara"
+
+#: data/resources/ui/shortcuts.ui:49
+msgctxt "shortcut window"
+msgid "Save As"
+msgstr "Spara som"
+
+#: data/resources/ui/shortcuts.ui:57
+msgctxt "shortcut window"
+msgid "Windows"
+msgstr "Fönster"
+
+#: data/resources/ui/shortcuts.ui:60
+msgctxt "shortcut window"
+msgid "New Window"
+msgstr "Nytt fönster"
+
+#: data/resources/ui/shortcuts.ui:66
+msgctxt "shortcut window"
+msgid "Move Document to New Window"
+msgstr "Flytta dokument till nytt fönster"
+
+#: data/resources/ui/shortcuts.ui:73
+msgctxt "shortcut window"
+msgid "Move to Next Tab"
+msgstr "Flytta till nästa flik"
+
+#: data/resources/ui/shortcuts.ui:79
+msgctxt "shortcut window"
+msgid "Move to Previous Tab"
+msgstr "Flytta till föregående flik"
+
+#: data/resources/ui/shortcuts.ui:85
+msgctxt "shortcut window"
+msgid "Reorder After Next Tab"
+msgstr "Ordna om efter nästa flik"
+
+#: data/resources/ui/shortcuts.ui:91
+msgctxt "shortcut window"
+msgid "Reorder Before Previous Tab"
+msgstr "Ordna om före föregående flik"
+
+#: data/resources/ui/shortcuts.ui:97
+msgctxt "shortcut window"
+msgid "Restore Previously Closed Tab"
+msgstr "Återställ tidigare stängd flik"
+
+#: data/resources/ui/shortcuts.ui:104
+msgctxt "shortcut window"
+msgid "Zoom"
+msgstr "Zooma"
+
+#: data/resources/ui/shortcuts.ui:108
+msgctxt "shortcut window"
+msgid "Zoom In"
+msgstr "Zooma in"
+
+#: data/resources/ui/shortcuts.ui:114
+msgctxt "shortcut window"
+msgid "Zoom Out"
+msgstr "Zooma ut"
+
+#: data/resources/ui/shortcuts.ui:120
+msgctxt "shortcut window"
+msgid "Reset Zoom"
+msgstr "Återställ zoom"
+
+#: data/resources/ui/window.ui:6
+msgid "_New Window"
+msgstr "_Nytt fönster"
+
+#: data/resources/ui/window.ui:12 src/save_changes_dialog.rs:70
+#: src/save_changes_dialog.rs:142
+msgid "_Save"
+msgid_plural "_Save All"
+msgstr[0] "_Spara"
+msgstr[1] "_Spara alla"
+
+#: data/resources/ui/window.ui:16
+msgid "Save _As…"
+msgstr "Spara _som…"
+
+#: data/resources/ui/window.ui:20
+msgid "_Discard Changes"
+msgstr "_Förkasta ändringar"
+
+#: data/resources/ui/window.ui:26
+msgid "_Export Graph"
+msgstr "_Exportera graf"
+
+#: data/resources/ui/window.ui:28
+msgid "Export As PNG…"
+msgstr "Exportera som PNG…"
+
+#: data/resources/ui/window.ui:33
+msgid "Export As SVG…"
+msgstr "Exportera som SVG…"
+
+#: data/resources/ui/window.ui:38
+msgid "Export As JPEG…"
+msgstr "Exportera som JPEG…"
+
+#: data/resources/ui/window.ui:44
+msgid "Open _Containing Folder"
+msgstr "Öppna _innehållande mapp"
+
+#: data/resources/ui/window.ui:50
+msgid "_Keyboard Shortcuts"
+msgstr "_Tangentbordsgenvägar"
+
+#: data/resources/ui/window.ui:54
+msgid "_About Delineate"
+msgstr "_Om Delineate"
+
+#: data/resources/ui/window.ui:62
+msgid "Move _Left"
+msgstr "Flytta _vänster"
+
+#: data/resources/ui/window.ui:66
+msgid "Move _Right"
+msgstr "Flytta _höger"
+
+#: data/resources/ui/window.ui:72
+msgid "_Move to New Window"
+msgstr "_Flytta till nytt fönster"
+
+#: data/resources/ui/window.ui:78
+msgid "Close _Other Tabs"
+msgstr "Stäng _andra flikar"
+
+#: data/resources/ui/window.ui:82
+msgid "_Close"
+msgstr "_Stäng"
+
+#: data/resources/ui/window.ui:104
+msgid "Open"
+msgstr "Öppna"
+
+#: data/resources/ui/window.ui:106
+msgid "Recent Documents"
+msgstr "Senaste dokument"
+
+#: data/resources/ui/window.ui:114
+msgid "New Document"
+msgstr "Nytt dokument"
+
+#: data/resources/ui/window.ui:143
+msgid "Main Menu"
+msgstr "Huvudmeny"
+
+#: data/resources/ui/window.ui:168
+msgid "Start or Open a Document"
+msgstr "Starta eller öppna ett dokument"
+
+#: data/resources/ui/window.ui:174
+msgid ""
+"• Press the Open button\n"
+"• Press the New Tab Button\n"
+"• Press Ctrl+N to start a new document\n"
+"• Press Ctrl+O to browse for a document\n"
+"• Drag a file into the window\n"
+"\n"
+"Or, press Ctrl+W to close the window."
+msgstr ""
+"• Tryck på öppna knappen\n"
+"• Tryck på ny flik knappen\n"
+"• Tryck Ctrl+N för att starta ett nytt dokument\n"
+"• Tryck Ctrl+O för att bläddra efter ett dokument\n"
+"• Dra en fil till fönstret\n"
+"\n"
+"eller, tryck Ctrl+W för att stänga fönstret."
+
+#. Translators: Replace "translator-credits" with your names. Put a comma between.
+#: src/about.rs:23
+msgid "translator-credits"
+msgstr "Luna Jernberg"
+
+#: src/about.rs:30
+msgid "Donate"
+msgstr "Donera"
+
+#: src/about.rs:32
+msgid "Donate (Buy Me a Coffee)"
+msgstr "Donera (köp mig en kaffe)"
+
+#: src/about.rs:35
+msgid "GitHub"
+msgstr "GitHub"
+
+#: src/about.rs:37
+msgid "Translate"
+msgstr "Översätt"
+
+#: src/export_format.rs:29
+msgid "SVG"
+msgstr "SVG"
+
+#: src/export_format.rs:30
+msgid "PNG"
+msgstr "PNG"
+
+#: src/export_format.rs:31
+msgid "JPEG"
+msgstr "JPEG"
+
+#: src/page.rs:301 src/save_changes_dialog.rs:109
+msgid "Untitled Document"
+msgstr "Namnlöst dokument"
+
+#: src/page.rs:357
+msgid "Save Document"
+msgstr "Spara dokument"
+
+#: src/page.rs:378
+msgid "Save Document As"
+msgstr "Spara dokument som"
+
+#: src/page.rs:428
+msgid "Export Graph"
+msgstr "Exportera graf"
+
+#: src/page.rs:429
+msgid "_Export"
+msgstr "_Exportera"
+
+#: src/page.rs:471
+msgid "Graph exported"
+msgstr "Graf exporterad"
+
+#: src/page.rs:472
+msgid "Show in Files"
+msgstr "Visa i Filer"
+
+#: src/page.rs:482
+msgid "Failed to show in Files"
+msgstr "Misslyckades att visa i Filer"
+
+#: src/page.rs:640
+msgid "Failed to draw graph"
+msgstr "Misslyckades att rita graf"
+
+#: src/recent_row.rs:129
+msgid "Just Now"
+msgstr "Precis nu"
+
+#: src/recent_row.rs:131
+msgid "An hour ago"
+msgstr "En timme sedan"
+
+#: src/recent_row.rs:133
+msgid "Yesterday"
+msgstr "Igår"
+
+#: src/recent_row.rs:139
+msgid "About a year ago"
+msgstr "För ungefär ett år sedan"
+
+#: src/save_changes_dialog.rs:44
+msgid "Failed to save changes to document"
+msgstr "Misslyckades att spara ändringar till dokument"
+
+#: src/save_changes_dialog.rs:57
+msgid "Save Changes?"
+msgstr "Spara ändringar?"
+
+#: src/save_changes_dialog.rs:58
+msgid ""
+"Open documents contain unsaved changes. Changes which are not saved will be "
+"permanently lost."
+msgstr ""
+"Öppna dokument innehåller osparade ändringar. Ändringar som inte sparas "
+"kommer att gå förlorade permanent."
+
+#: src/save_changes_dialog.rs:63
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: src/save_changes_dialog.rs:66
+msgid "_Discard"
+msgid_plural "_Discard All"
+msgstr[0] "_Förkasta"
+msgstr[1] "_Förkasta alla"
+
+#: src/session.rs:92
+msgid "Failed to load file"
+msgstr "Misslyckades att ladda fil"
+
+#: src/session.rs:489
+msgid "Failed to open file"
+msgstr "Misslyckades med att öppna fil"
+
+#. Translators: DOT is an acronym, do not translate.
+#: src/utils.rs:38
+msgid "Graphviz DOT Files"
+msgstr "Graphviz DOT filer"
+
+#: src/window.rs:86
+msgid "Failed to open document"
+msgstr "Misslyckades att öppna dokument"
+
+#: src/window.rs:101
+msgid "Failed to save document"
+msgstr "Misslyckades att spara dokument"
+
+#: src/window.rs:116
+msgid "Failed to save document as"
+msgstr "Misslyckades att spara dokument som"
+
+#: src/window.rs:130
+msgid "Failed to discard document changes"
+msgstr "Misslyckades att förkasta dokument ändringar"
+
+#: src/window.rs:144
+msgid "Failed to open containing folder"
+msgstr "Misslyckades att öppna innehållande mapp"
+
+#: src/window.rs:171
+msgid "Failed to export graph"
+msgstr "Misslyckades att exportera graf"
+
+#: src/window.rs:645
+msgid "Open Document"
+msgstr "Öppna dokument"
+
+#: src/window.rs:742
+msgid "There are unsaved documents"
+msgstr "Det finns osparade dokument"
+
+#~ msgid "Dave Patrick Caberto"
+#~ msgstr "Dave Patrick Caberto"
+
+#~ msgid "© 2023 Dave Patrick Caberto"
+#~ msgstr "© 2023 Dave Patrick Caberto"

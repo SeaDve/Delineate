@@ -1,0 +1,456 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the delineate package.
+# Scrambled777 <weblate.scrambled777@simplelogin.com>, 2024.
+msgid ""
+msgstr ""
+"Project-Id-Version: delineate\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-03-10 09:40+0800\n"
+"PO-Revision-Date: 2024-05-11 05:00+0000\n"
+"Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
+"Language-Team: Hindi <https://hosted.weblate.org/projects/seadve/delineate/"
+"hi/>\n"
+"Language: hi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.5.4\n"
+
+#: data/io.github.seadve.Delineate.desktop.in.in:3
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
+msgid "Delineate"
+msgstr "Delineate"
+
+#: data/io.github.seadve.Delineate.desktop.in.in:4
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:8
+msgid "View and edit graphs"
+msgstr "लेखाचित्र देखें और संपादित करें"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/io.github.seadve.Delineate.desktop.in.in:10
+msgid "graphviz;dot;graphs;visualization;"
+msgstr "graphviz;dot;लेखाचित्र;प्रत्योक्षकरण;"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:10
+msgid ""
+"Delineate provides facilities to edit and draw graphs specified in the DOT "
+"language It is designed to be a simple and intuitive tool for creating and "
+"editing graphs, with a focus on the user experience."
+msgstr ""
+"Delineate DOT भाषा में निर्दिष्ट लेखाचित्र को संपादित करने और खींचने की "
+"सुविधाएं प्रदान करता है। इसे उपयोक्ता अनुभव पर ध्यान देने के साथ लेखाचित्र "
+"बनाने और संपादित करने के लिए एक सरल और सहज उपकरण के रूप में डिज़ाइन किया गया "
+"है।"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:11
+msgid "The main features of Delineate include the following:"
+msgstr "Delineate की मुख्य विशेषताओं में निम्नलिखित शामिल हैं:"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:13
+msgid "🖼️ Live and interactive preview of the graph as you type"
+msgstr "🖼️ आपके लिखते ही लेखाचित्र का सीधा और अंतर्क्रियात्मक पूर्वावलोकन"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:14
+msgid "⏺️ Multiple Graphviz layout engines support"
+msgstr "⏺️ एकाधिक Graphviz अभिन्यास इंजन का समर्थन"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:15
+msgid "📝 Fully-featured DOT language editor"
+msgstr "📝 पूर्ण-विशेषीकृत DOT भाषा संपादक"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:16
+msgid "📦 Export graph as PNG, SVG, or JPEG"
+msgstr "📦 लेखाचित्र को PNG, SVG, या JPEG के रूप में निर्यात करें"
+
+#: data/resources/ui/page.ui:75
+msgid "Zoom Out"
+msgstr "जूम आउट"
+
+#: data/resources/ui/page.ui:82
+msgid "Reset Zoom"
+msgstr "जूम रीसेट करें"
+
+#: data/resources/ui/page.ui:88
+msgid "Zoom In"
+msgstr "जूम इन"
+
+#: data/resources/ui/recent_popover.ui:17
+msgid "Search documents"
+msgstr "दस्तावेज खोजें"
+
+#: data/resources/ui/recent_popover.ui:39
+msgid "No Recent Documents"
+msgstr "कोई हालिया दस्तावेज नहीं"
+
+#: data/resources/ui/recent_popover.ui:48
+msgid "No Results"
+msgstr "कोई परिणाम नहीं"
+
+#: data/resources/ui/recent_row.ui:53
+msgid "Remove"
+msgstr "हटाएं"
+
+#: data/resources/ui/shortcuts.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "सामान्य"
+
+#: data/resources/ui/shortcuts.ui:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "शॉर्टकट दिखाएं"
+
+#: data/resources/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "बंद करें"
+
+#: data/resources/ui/shortcuts.ui:28
+msgctxt "shortcut window"
+msgid "Documents"
+msgstr "दस्तावेज"
+
+#: data/resources/ui/shortcuts.ui:31
+msgctxt "shortcut window"
+msgid "New Document"
+msgstr "नया दस्तावेज"
+
+#: data/resources/ui/shortcuts.ui:37
+msgctxt "shortcut window"
+msgid "Open Document"
+msgstr "दस्तावेज खोलें"
+
+#: data/resources/ui/shortcuts.ui:43
+msgctxt "shortcut window"
+msgid "Save"
+msgstr "सहेजें"
+
+#: data/resources/ui/shortcuts.ui:49
+msgctxt "shortcut window"
+msgid "Save As"
+msgstr "ऐसे सहेजें"
+
+#: data/resources/ui/shortcuts.ui:57
+msgctxt "shortcut window"
+msgid "Windows"
+msgstr "खिड़कियां"
+
+#: data/resources/ui/shortcuts.ui:60
+msgctxt "shortcut window"
+msgid "New Window"
+msgstr "नई खिड़की"
+
+#: data/resources/ui/shortcuts.ui:66
+msgctxt "shortcut window"
+msgid "Move Document to New Window"
+msgstr "दस्तावेज को नई खिड़की में ले जाएं"
+
+#: data/resources/ui/shortcuts.ui:73
+msgctxt "shortcut window"
+msgid "Move to Next Tab"
+msgstr "अगले टैब पर जाएं"
+
+#: data/resources/ui/shortcuts.ui:79
+msgctxt "shortcut window"
+msgid "Move to Previous Tab"
+msgstr "पिछले टैब पर जाएं"
+
+#: data/resources/ui/shortcuts.ui:85
+msgctxt "shortcut window"
+msgid "Reorder After Next Tab"
+msgstr "अगले टैब के बाद पुनः क्रमित करें"
+
+#: data/resources/ui/shortcuts.ui:91
+msgctxt "shortcut window"
+msgid "Reorder Before Previous Tab"
+msgstr "पिछले टैब से पहले पुनः क्रमित करें"
+
+#: data/resources/ui/shortcuts.ui:97
+msgctxt "shortcut window"
+msgid "Restore Previously Closed Tab"
+msgstr "पहले बंद किए गए टैब को पुनर्स्थापित करें"
+
+#: data/resources/ui/shortcuts.ui:104
+msgctxt "shortcut window"
+msgid "Zoom"
+msgstr "जूम"
+
+#: data/resources/ui/shortcuts.ui:108
+msgctxt "shortcut window"
+msgid "Zoom In"
+msgstr "जूम इन"
+
+#: data/resources/ui/shortcuts.ui:114
+msgctxt "shortcut window"
+msgid "Zoom Out"
+msgstr "जूम आउट"
+
+#: data/resources/ui/shortcuts.ui:120
+msgctxt "shortcut window"
+msgid "Reset Zoom"
+msgstr "जूम रीसेट करें"
+
+#: data/resources/ui/window.ui:6
+msgid "_New Window"
+msgstr "नई खिड़की (_N)"
+
+#: data/resources/ui/window.ui:12 src/save_changes_dialog.rs:70
+#: src/save_changes_dialog.rs:142
+msgid "_Save"
+msgid_plural "_Save All"
+msgstr[0] "सहेजें (_S)"
+msgstr[1] "सभी सहेजें (_S)"
+
+#: data/resources/ui/window.ui:16
+msgid "Save _As…"
+msgstr "ऐसे सहेजें (_A)…"
+
+#: data/resources/ui/window.ui:20
+msgid "_Discard Changes"
+msgstr "परिवर्तनों को त्यागें (_D)"
+
+#: data/resources/ui/window.ui:26
+msgid "_Export Graph"
+msgstr "लेखाचित्र निर्यात करें (_E)"
+
+#: data/resources/ui/window.ui:28
+msgid "Export As PNG…"
+msgstr "PNG के रूप में निर्यात करें…"
+
+#: data/resources/ui/window.ui:33
+msgid "Export As SVG…"
+msgstr "SVG के रूप में निर्यात करें…"
+
+#: data/resources/ui/window.ui:38
+msgid "Export As JPEG…"
+msgstr "JPEG के रूप में निर्यात करें…"
+
+#: data/resources/ui/window.ui:44
+msgid "Open _Containing Folder"
+msgstr "धारक फोल्डर खोलें (_C)"
+
+#: data/resources/ui/window.ui:50
+msgid "_Keyboard Shortcuts"
+msgstr "कीबोर्ड शॉर्टकट (_K)"
+
+#: data/resources/ui/window.ui:54
+msgid "_About Delineate"
+msgstr "Delineate के बारे में (_A)"
+
+#: data/resources/ui/window.ui:62
+msgid "Move _Left"
+msgstr "बाएं जाएं (_L)"
+
+#: data/resources/ui/window.ui:66
+msgid "Move _Right"
+msgstr "दाएं जाएं (_R)"
+
+#: data/resources/ui/window.ui:72
+msgid "_Move to New Window"
+msgstr "नई खिड़की पर जाएं (_M)"
+
+#: data/resources/ui/window.ui:78
+msgid "Close _Other Tabs"
+msgstr "अन्य टैब बंद करें (_O)"
+
+#: data/resources/ui/window.ui:82
+msgid "_Close"
+msgstr "बंद करें (_C)"
+
+#: data/resources/ui/window.ui:104
+msgid "Open"
+msgstr "खोलें"
+
+#: data/resources/ui/window.ui:106
+msgid "Recent Documents"
+msgstr "हालिया दस्तावेज"
+
+#: data/resources/ui/window.ui:114
+msgid "New Document"
+msgstr "नया दस्तावेज"
+
+#: data/resources/ui/window.ui:143
+msgid "Main Menu"
+msgstr "मुख्य मेनू"
+
+#: data/resources/ui/window.ui:168
+msgid "Start or Open a Document"
+msgstr "दस्तावेज प्रारंभ करें या खोलें"
+
+#: data/resources/ui/window.ui:174
+msgid ""
+"• Press the Open button\n"
+"• Press the New Tab Button\n"
+"• Press Ctrl+N to start a new document\n"
+"• Press Ctrl+O to browse for a document\n"
+"• Drag a file into the window\n"
+"\n"
+"Or, press Ctrl+W to close the window."
+msgstr ""
+"• \"खोलें\" बटन दबाएं\n"
+"• \"नया टैब\" बटन दबाएं\n"
+"• नया दस्तावेज शुरू करने के लिए Ctrl+N दबाएं\n"
+"• किसी दस्तावेज को देखने हेतु Ctrl+O दबाएं\n"
+"• किसी फाइल को खिड़की में खींचें\n"
+"\n"
+"या, फाइल बंद करने के लिए Ctrl+W दबाएं।"
+
+#. Translators: Replace "translator-credits" with your names. Put a comma between.
+#: src/about.rs:23
+msgid "translator-credits"
+msgstr ""
+"Hemish &lt;hemish04082005@gmail.com&gt;\n"
+"Scrambled777 &lt;weblate.scrambled777@simplelogin.com&gt;"
+
+#: src/about.rs:30
+msgid "Donate"
+msgstr "दान करें"
+
+#: src/about.rs:32
+msgid "Donate (Buy Me a Coffee)"
+msgstr "दान करें (मेरे लिए कॉफी खरीदें)"
+
+#: src/about.rs:35
+msgid "GitHub"
+msgstr "GitHub"
+
+#: src/about.rs:37
+msgid "Translate"
+msgstr "अनुवाद करें"
+
+#: src/export_format.rs:29
+msgid "SVG"
+msgstr "SVG"
+
+#: src/export_format.rs:30
+msgid "PNG"
+msgstr "PNG"
+
+#: src/export_format.rs:31
+msgid "JPEG"
+msgstr "JPEG"
+
+#: src/page.rs:301 src/save_changes_dialog.rs:109
+msgid "Untitled Document"
+msgstr "अनाम दस्तावेज"
+
+#: src/page.rs:357
+msgid "Save Document"
+msgstr "दस्तावेज सहेजें"
+
+#: src/page.rs:378
+msgid "Save Document As"
+msgstr "दस्तावेज ऐसे सहेजें"
+
+#: src/page.rs:428
+msgid "Export Graph"
+msgstr "लेखाचित्र निर्यात करें"
+
+#: src/page.rs:429
+msgid "_Export"
+msgstr "निर्यात करें (_E)"
+
+#: src/page.rs:471
+msgid "Graph exported"
+msgstr "ग्राफ निर्यातित"
+
+#: src/page.rs:472
+msgid "Show in Files"
+msgstr "फाइलों में दिखाएं"
+
+#: src/page.rs:482
+msgid "Failed to show in Files"
+msgstr "फाइलों में प्रदर्शित करने में विफल"
+
+#: src/page.rs:640
+msgid "Failed to draw graph"
+msgstr "लेखाचित्र बनाने में विफल"
+
+#: src/recent_row.rs:129
+msgid "Just Now"
+msgstr "बस अब"
+
+#: src/recent_row.rs:131
+msgid "An hour ago"
+msgstr "एक घंटा पहले"
+
+#: src/recent_row.rs:133
+msgid "Yesterday"
+msgstr "बिता कल"
+
+#: src/recent_row.rs:139
+msgid "About a year ago"
+msgstr "लगभग एक वर्ष पहले"
+
+#: src/save_changes_dialog.rs:44
+msgid "Failed to save changes to document"
+msgstr "दस्तावेज में परिवर्तन सहेजने में विफल"
+
+#: src/save_changes_dialog.rs:57
+msgid "Save Changes?"
+msgstr "परिवर्तन सहेजें?"
+
+#: src/save_changes_dialog.rs:58
+msgid ""
+"Open documents contain unsaved changes. Changes which are not saved will be "
+"permanently lost."
+msgstr ""
+"खुले दस्तावेज़ों में सहेजे न गए परिवर्तन होते हैं। जो परिवर्तन सहेजे नहीं गए "
+"वे स्थायी रूप से नष्ट हो जाएंगे।"
+
+#: src/save_changes_dialog.rs:63
+msgid "Cancel"
+msgstr "रद्द करें"
+
+#: src/save_changes_dialog.rs:66
+msgid "_Discard"
+msgid_plural "_Discard All"
+msgstr[0] "त्यागें (_D)"
+msgstr[1] "सभी त्यागें (_D)"
+
+#: src/session.rs:92
+msgid "Failed to load file"
+msgstr "फाइल लोड करने में विफल"
+
+#: src/session.rs:489
+msgid "Failed to open file"
+msgstr "फाइल खोलने में असफल"
+
+#. Translators: DOT is an acronym, do not translate.
+#: src/utils.rs:38
+msgid "Graphviz DOT Files"
+msgstr "Graphviz DOT फाइलें"
+
+#: src/window.rs:86
+msgid "Failed to open document"
+msgstr "दस्तावेज खोलने में विफल"
+
+#: src/window.rs:101
+msgid "Failed to save document"
+msgstr "दस्तावेज सहेजने में विफल"
+
+#: src/window.rs:116
+msgid "Failed to save document as"
+msgstr "दस्तावेज को ऐसे सहेजने में विफल"
+
+#: src/window.rs:130
+msgid "Failed to discard document changes"
+msgstr "दस्तावेज परिवर्तनों को त्यागने में विफल"
+
+#: src/window.rs:144
+msgid "Failed to open containing folder"
+msgstr "युक्त फोल्डर खोलने में विफल"
+
+#: src/window.rs:171
+msgid "Failed to export graph"
+msgstr "लेखाचित्र निर्यात करने में विफल"
+
+#: src/window.rs:645
+msgid "Open Document"
+msgstr "दस्तावेज खोलें"
+
+#: src/window.rs:742
+msgid "There are unsaved documents"
+msgstr "सहेजे न गए दस्तावेज हैं"

@@ -1,0 +1,467 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the delineate package.
+# "Mathieu B." <mathieu.bousquet2@gmail.com>, 2024.
+# p h <phhens@gmail.com>, 2024.
+# Wedone <cafh62@gmail.com>, 2024.
+# Clyhtsuriva <aimeric@adjutor.xyz>, 2024.
+msgid ""
+msgstr ""
+"Project-Id-Version: delineate\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-03-10 09:40+0800\n"
+"PO-Revision-Date: 2024-06-26 22:09+0000\n"
+"Last-Translator: Clyhtsuriva <aimeric@adjutor.xyz>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/seadve/delineate/"
+"fr/>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.6-rc\n"
+
+#: data/io.github.seadve.Delineate.desktop.in.in:3
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
+msgid "Delineate"
+msgstr "Delineate"
+
+#: data/io.github.seadve.Delineate.desktop.in.in:4
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:8
+msgid "View and edit graphs"
+msgstr "Voir et éditer des graphiques"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/io.github.seadve.Delineate.desktop.in.in:10
+msgid "graphviz;dot;graphs;visualization;"
+msgstr "graphviz;dot;graphes;visualisation;"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:10
+msgid ""
+"Delineate provides facilities to edit and draw graphs specified in the DOT "
+"language It is designed to be a simple and intuitive tool for creating and "
+"editing graphs, with a focus on the user experience."
+msgstr ""
+"Delineate offre des fonctionnalités pour éditer et dessiner des graphiques "
+"spécifiés dans le langage DOT. Il est conçu pour être un outil simple et "
+"intuitif pour créer et éditer les graphiques, avec un accent sur "
+"l'expérience utilisateur."
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:11
+msgid "The main features of Delineate include the following:"
+msgstr "Les fonctions principales de Delineate sont les suivantes :"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:13
+msgid "🖼️ Live and interactive preview of the graph as you type"
+msgstr ""
+"🖼️ Prévisualisation temps réelle et interactive du graphique au cours de la "
+"saisie"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:14
+msgid "⏺️ Multiple Graphviz layout engines support"
+msgstr "⏺️ Support de multiples moteurs de rendu Graphviz"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:15
+msgid "📝 Fully-featured DOT language editor"
+msgstr "📝 Éditeur complet du langage DOT"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:16
+msgid "📦 Export graph as PNG, SVG, or JPEG"
+msgstr "📦 Export de graphiques aux formats PNG, SVG, ou JPEG"
+
+#: data/resources/ui/page.ui:75
+msgid "Zoom Out"
+msgstr "Dézoomer"
+
+#: data/resources/ui/page.ui:82
+msgid "Reset Zoom"
+msgstr "Réinitialiser le zoom"
+
+#: data/resources/ui/page.ui:88
+msgid "Zoom In"
+msgstr "Zoomer"
+
+#: data/resources/ui/recent_popover.ui:17
+msgid "Search documents"
+msgstr "Rechercher des documents"
+
+#: data/resources/ui/recent_popover.ui:39
+msgid "No Recent Documents"
+msgstr "Pas de documents récents"
+
+#: data/resources/ui/recent_popover.ui:48
+msgid "No Results"
+msgstr "Aucun résultats"
+
+#: data/resources/ui/recent_row.ui:53
+msgid "Remove"
+msgstr "Supprimer"
+
+#: data/resources/ui/shortcuts.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Général"
+
+#: data/resources/ui/shortcuts.ui:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Afficher les raccourcis"
+
+#: data/resources/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Quitter"
+
+#: data/resources/ui/shortcuts.ui:28
+msgctxt "shortcut window"
+msgid "Documents"
+msgstr "Documents"
+
+#: data/resources/ui/shortcuts.ui:31
+msgctxt "shortcut window"
+msgid "New Document"
+msgstr "Nouveau Document"
+
+#: data/resources/ui/shortcuts.ui:37
+msgctxt "shortcut window"
+msgid "Open Document"
+msgstr "Ouvrir Document"
+
+#: data/resources/ui/shortcuts.ui:43
+msgctxt "shortcut window"
+msgid "Save"
+msgstr "Enregistrer"
+
+#: data/resources/ui/shortcuts.ui:49
+msgctxt "shortcut window"
+msgid "Save As"
+msgstr "Enregistrer sous"
+
+#: data/resources/ui/shortcuts.ui:57
+msgctxt "shortcut window"
+msgid "Windows"
+msgstr "Fenêtres"
+
+#: data/resources/ui/shortcuts.ui:60
+msgctxt "shortcut window"
+msgid "New Window"
+msgstr "Nouvelle Fenêtre"
+
+#: data/resources/ui/shortcuts.ui:66
+msgctxt "shortcut window"
+msgid "Move Document to New Window"
+msgstr "Déplacer le document vers une nouvelle fenêtre"
+
+#: data/resources/ui/shortcuts.ui:73
+msgctxt "shortcut window"
+msgid "Move to Next Tab"
+msgstr "Aller à l'onglet suivant"
+
+#: data/resources/ui/shortcuts.ui:79
+msgctxt "shortcut window"
+msgid "Move to Previous Tab"
+msgstr "Aller à l'onglet précédent"
+
+#: data/resources/ui/shortcuts.ui:85
+msgctxt "shortcut window"
+msgid "Reorder After Next Tab"
+msgstr "Réorganiser après l'onglet suivant"
+
+#: data/resources/ui/shortcuts.ui:91
+msgctxt "shortcut window"
+msgid "Reorder Before Previous Tab"
+msgstr "Réorganiser avant l'onglet précédent"
+
+#: data/resources/ui/shortcuts.ui:97
+msgctxt "shortcut window"
+msgid "Restore Previously Closed Tab"
+msgstr "Restaurer l'onglet fermé précédemment"
+
+#: data/resources/ui/shortcuts.ui:104
+msgctxt "shortcut window"
+msgid "Zoom"
+msgstr "Zoom"
+
+#: data/resources/ui/shortcuts.ui:108
+msgctxt "shortcut window"
+msgid "Zoom In"
+msgstr "Zoomer"
+
+#: data/resources/ui/shortcuts.ui:114
+msgctxt "shortcut window"
+msgid "Zoom Out"
+msgstr "Dézoomer"
+
+#: data/resources/ui/shortcuts.ui:120
+msgctxt "shortcut window"
+msgid "Reset Zoom"
+msgstr "Réinitialiser le zoom"
+
+#: data/resources/ui/window.ui:6
+msgid "_New Window"
+msgstr "_Nouvelle fenêtre"
+
+#: data/resources/ui/window.ui:12 src/save_changes_dialog.rs:70
+#: src/save_changes_dialog.rs:142
+msgid "_Save"
+msgid_plural "_Save All"
+msgstr[0] "_Enregistrer"
+msgstr[1] "_Enregistrer tout"
+
+#: data/resources/ui/window.ui:16
+msgid "Save _As…"
+msgstr "Enregistrer _sous…"
+
+#: data/resources/ui/window.ui:20
+msgid "_Discard Changes"
+msgstr "_Annuler les modifications"
+
+#: data/resources/ui/window.ui:26
+msgid "_Export Graph"
+msgstr "_Exporter le graphique"
+
+#: data/resources/ui/window.ui:28
+msgid "Export As PNG…"
+msgstr "Export au format PNG…"
+
+#: data/resources/ui/window.ui:33
+msgid "Export As SVG…"
+msgstr "Exporter au format SVG…"
+
+#: data/resources/ui/window.ui:38
+msgid "Export As JPEG…"
+msgstr "Exporter au format JPEG…"
+
+#: data/resources/ui/window.ui:44
+msgid "Open _Containing Folder"
+msgstr "Ouvrir le dossier _parent"
+
+#: data/resources/ui/window.ui:50
+msgid "_Keyboard Shortcuts"
+msgstr "_Raccourcis clavier"
+
+#: data/resources/ui/window.ui:54
+msgid "_About Delineate"
+msgstr "_À Propos de Delineate"
+
+#: data/resources/ui/window.ui:62
+msgid "Move _Left"
+msgstr "Déplacer à _gauche"
+
+#: data/resources/ui/window.ui:66
+msgid "Move _Right"
+msgstr "Déplacer à _droite"
+
+#: data/resources/ui/window.ui:72
+msgid "_Move to New Window"
+msgstr "_Déplacer vers une nouvelle fenêtre"
+
+#: data/resources/ui/window.ui:78
+msgid "Close _Other Tabs"
+msgstr "Fermer les _autres onglets"
+
+#: data/resources/ui/window.ui:82
+msgid "_Close"
+msgstr "_Fermer"
+
+#: data/resources/ui/window.ui:104
+msgid "Open"
+msgstr "Ouvrir"
+
+#: data/resources/ui/window.ui:106
+msgid "Recent Documents"
+msgstr "Documents Récents"
+
+#: data/resources/ui/window.ui:114
+msgid "New Document"
+msgstr "Nouveau Document"
+
+#: data/resources/ui/window.ui:143
+msgid "Main Menu"
+msgstr "Menu principal"
+
+#: data/resources/ui/window.ui:168
+msgid "Start or Open a Document"
+msgstr "Créer ou Ouvrir un Document"
+
+#: data/resources/ui/window.ui:174
+msgid ""
+"• Press the Open button\n"
+"• Press the New Tab Button\n"
+"• Press Ctrl+N to start a new document\n"
+"• Press Ctrl+O to browse for a document\n"
+"• Drag a file into the window\n"
+"\n"
+"Or, press Ctrl+W to close the window."
+msgstr ""
+"• Appuyer sur le bouton Ouvrir\n"
+"• Appuyer sur le bouton Nouvel Onglet\n"
+"• Appuyer sur Ctrl+N pour créer un nouveau document\n"
+"• Appuyer sur Ctrl+O pour chercher un document\n"
+"• Glisser un fichier dans la fenêtre\n"
+"\n"
+"Ou, appuyer sur Ctrl+W pour fermer la fenêtre."
+
+#. Translators: Replace "translator-credits" with your names. Put a comma between.
+#: src/about.rs:23
+msgid "translator-credits"
+msgstr "J. Lavoie, M. Bousquet, Irénée Thirion, Wedone, Clyhtsuriva"
+
+#: src/about.rs:30
+msgid "Donate"
+msgstr "Faire un don"
+
+#: src/about.rs:32
+msgid "Donate (Buy Me a Coffee)"
+msgstr "Faire un don (Buy Me a Coffee)"
+
+#: src/about.rs:35
+msgid "GitHub"
+msgstr "GitHub"
+
+#: src/about.rs:37
+msgid "Translate"
+msgstr "Traduire"
+
+#: src/export_format.rs:29
+msgid "SVG"
+msgstr "SVG"
+
+#: src/export_format.rs:30
+msgid "PNG"
+msgstr "PNG"
+
+#: src/export_format.rs:31
+msgid "JPEG"
+msgstr "JPEG"
+
+#: src/page.rs:301 src/save_changes_dialog.rs:109
+msgid "Untitled Document"
+msgstr "Document Sans Titre"
+
+#: src/page.rs:357
+msgid "Save Document"
+msgstr "Enregistrer le document"
+
+#: src/page.rs:378
+msgid "Save Document As"
+msgstr "Enregistrer le document sous"
+
+#: src/page.rs:428
+msgid "Export Graph"
+msgstr "Exporter le graphique"
+
+#: src/page.rs:429
+msgid "_Export"
+msgstr "_Exporter"
+
+#: src/page.rs:471
+msgid "Graph exported"
+msgstr "Graphique exporté"
+
+#: src/page.rs:472
+msgid "Show in Files"
+msgstr "Afficher dans les fichiers"
+
+#: src/page.rs:482
+msgid "Failed to show in Files"
+msgstr "Echec de l'affichage dans les fichiers"
+
+#: src/page.rs:640
+msgid "Failed to draw graph"
+msgstr "Échec lors du dessin du graphique"
+
+#: src/recent_row.rs:129
+msgid "Just Now"
+msgstr "À l'instant"
+
+#: src/recent_row.rs:131
+msgid "An hour ago"
+msgstr "Il y a une heure"
+
+#: src/recent_row.rs:133
+msgid "Yesterday"
+msgstr "Hier"
+
+#: src/recent_row.rs:139
+msgid "About a year ago"
+msgstr "Il y a un an"
+
+#: src/save_changes_dialog.rs:44
+msgid "Failed to save changes to document"
+msgstr "Échec de l'enregistrement des modifications du document"
+
+#: src/save_changes_dialog.rs:57
+msgid "Save Changes?"
+msgstr "Sauvegarder les modifications ?"
+
+#: src/save_changes_dialog.rs:58
+msgid ""
+"Open documents contain unsaved changes. Changes which are not saved will be "
+"permanently lost."
+msgstr ""
+"Les documents ouverts contiennent des modifications non enregistrées. Ces "
+"modifications non enregistrées seront définitivement perdues."
+
+#: src/save_changes_dialog.rs:63
+msgid "Cancel"
+msgstr "Annuler"
+
+#: src/save_changes_dialog.rs:66
+msgid "_Discard"
+msgid_plural "_Discard All"
+msgstr[0] "_Annuler"
+msgstr[1] "_Annuler tous"
+
+#: src/session.rs:92
+msgid "Failed to load file"
+msgstr "Échec du chargement du fichier"
+
+#: src/session.rs:489
+msgid "Failed to open file"
+msgstr "Échec de l'ouverture du fichier"
+
+#. Translators: DOT is an acronym, do not translate.
+#: src/utils.rs:38
+msgid "Graphviz DOT Files"
+msgstr "Fichier DOT Graphviz"
+
+#: src/window.rs:86
+msgid "Failed to open document"
+msgstr "Échec de l'ouverture du document"
+
+#: src/window.rs:101
+msgid "Failed to save document"
+msgstr "Échec de l'enregistrement du document"
+
+#: src/window.rs:116
+msgid "Failed to save document as"
+msgstr "Échec de l'enregistrement du document sous"
+
+#: src/window.rs:130
+msgid "Failed to discard document changes"
+msgstr "Échec de l'annulation des modifications du document"
+
+#: src/window.rs:144
+msgid "Failed to open containing folder"
+msgstr "Échec de l'ouverture du dossier parent"
+
+#: src/window.rs:171
+msgid "Failed to export graph"
+msgstr "Échec de l'export du graphique"
+
+#: src/window.rs:645
+msgid "Open Document"
+msgstr "Ouvrir un document"
+
+#: src/window.rs:742
+msgid "There are unsaved documents"
+msgstr "Il y a des documents non enregistrés"
+
+#, fuzzy
+#~ msgid "Dave Patrick Caberto"
+#~ msgstr "Dave Patrick Caberto"
+
+#, fuzzy
+#~ msgid "© 2023 Dave Patrick Caberto"
+#~ msgstr "© 2023 Dave Patrick Caberto"

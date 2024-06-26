@@ -1,0 +1,456 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the delineate package.
+# Milo Ivir <mail@milotype.de>, 2024.
+msgid ""
+msgstr ""
+"Project-Id-Version: delineate\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-03-10 09:40+0800\n"
+"PO-Revision-Date: 2024-04-24 12:17+0000\n"
+"Last-Translator: Milo Ivir <mail@milotype.de>\n"
+"Language-Team: Croatian <https://hosted.weblate.org/projects/seadve/"
+"delineate/hr/>\n"
+"Language: hr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Weblate 5.5.1-dev\n"
+
+#: data/io.github.seadve.Delineate.desktop.in.in:3
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
+msgid "Delineate"
+msgstr "Delineate"
+
+#: data/io.github.seadve.Delineate.desktop.in.in:4
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:8
+msgid "View and edit graphs"
+msgstr "Prikaži i uredi grafikone"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/io.github.seadve.Delineate.desktop.in.in:10
+msgid "graphviz;dot;graphs;visualization;"
+msgstr "graphviz;dot;graf;grafikon;dijagram;vizualizacija;"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:10
+msgid ""
+"Delineate provides facilities to edit and draw graphs specified in the DOT "
+"language It is designed to be a simple and intuitive tool for creating and "
+"editing graphs, with a focus on the user experience."
+msgstr ""
+"Aplikacija „Delineate” pruža mogućnosti za uređivanje i crtanje grafikona u "
+"DOT jeziku. Dizajniran je kao jednostavan i intuitivan alat za generiranje i "
+"uređivanje grafikona."
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:11
+msgid "The main features of Delineate include the following:"
+msgstr "Glavne značajke aplikacije „Delineate”:"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:13
+msgid "🖼️ Live and interactive preview of the graph as you type"
+msgstr "🖼️ Interaktivni prikaz grafikona uživo tijekom unosa podataka"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:14
+msgid "⏺️ Multiple Graphviz layout engines support"
+msgstr "⏺️ Podrška za višestruke Graphviz mehanizme"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:15
+msgid "📝 Fully-featured DOT language editor"
+msgstr "📝 Potpuno opremljen uređivač DOT jezika"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:16
+msgid "📦 Export graph as PNG, SVG, or JPEG"
+msgstr "📦 Izvoz grafikona kao PNG, SVG ili JPEG"
+
+#: data/resources/ui/page.ui:75
+msgid "Zoom Out"
+msgstr "Smanji prikaz"
+
+#: data/resources/ui/page.ui:82
+msgid "Reset Zoom"
+msgstr "Obnovi uvećanje"
+
+#: data/resources/ui/page.ui:88
+msgid "Zoom In"
+msgstr "Uvećaj prikaz"
+
+#: data/resources/ui/recent_popover.ui:17
+msgid "Search documents"
+msgstr "Traži dokumente"
+
+#: data/resources/ui/recent_popover.ui:39
+msgid "No Recent Documents"
+msgstr "Nema nedavnih dokumenata"
+
+#: data/resources/ui/recent_popover.ui:48
+msgid "No Results"
+msgstr "Nema rezultata"
+
+#: data/resources/ui/recent_row.ui:53
+msgid "Remove"
+msgstr "Ukloni"
+
+#: data/resources/ui/shortcuts.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Općenito"
+
+#: data/resources/ui/shortcuts.ui:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Pokaži prečace"
+
+#: data/resources/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Zatvori program"
+
+#: data/resources/ui/shortcuts.ui:28
+msgctxt "shortcut window"
+msgid "Documents"
+msgstr "Dokumenti"
+
+#: data/resources/ui/shortcuts.ui:31
+msgctxt "shortcut window"
+msgid "New Document"
+msgstr "Novi dokument"
+
+#: data/resources/ui/shortcuts.ui:37
+msgctxt "shortcut window"
+msgid "Open Document"
+msgstr "Otvori dokument"
+
+#: data/resources/ui/shortcuts.ui:43
+msgctxt "shortcut window"
+msgid "Save"
+msgstr "Spremi"
+
+#: data/resources/ui/shortcuts.ui:49
+msgctxt "shortcut window"
+msgid "Save As"
+msgstr "Spremi kao"
+
+#: data/resources/ui/shortcuts.ui:57
+msgctxt "shortcut window"
+msgid "Windows"
+msgstr "Prozori"
+
+#: data/resources/ui/shortcuts.ui:60
+msgctxt "shortcut window"
+msgid "New Window"
+msgstr "Novi prozor"
+
+#: data/resources/ui/shortcuts.ui:66
+msgctxt "shortcut window"
+msgid "Move Document to New Window"
+msgstr "Premjesti dokument u novi prozor"
+
+#: data/resources/ui/shortcuts.ui:73
+msgctxt "shortcut window"
+msgid "Move to Next Tab"
+msgstr "Prijeđi na sljedeću karticu"
+
+#: data/resources/ui/shortcuts.ui:79
+msgctxt "shortcut window"
+msgid "Move to Previous Tab"
+msgstr "Prijeđi na prethodnu karticu"
+
+#: data/resources/ui/shortcuts.ui:85
+msgctxt "shortcut window"
+msgid "Reorder After Next Tab"
+msgstr "Postavi nakon sljedeće kartice"
+
+#: data/resources/ui/shortcuts.ui:91
+msgctxt "shortcut window"
+msgid "Reorder Before Previous Tab"
+msgstr "Postavi prije prethodne kartice"
+
+#: data/resources/ui/shortcuts.ui:97
+msgctxt "shortcut window"
+msgid "Restore Previously Closed Tab"
+msgstr "Obnovi prethodno zatvorenu karticu"
+
+#: data/resources/ui/shortcuts.ui:104
+msgctxt "shortcut window"
+msgid "Zoom"
+msgstr "Uvećanje"
+
+#: data/resources/ui/shortcuts.ui:108
+msgctxt "shortcut window"
+msgid "Zoom In"
+msgstr "Uvećaj prikaz"
+
+#: data/resources/ui/shortcuts.ui:114
+msgctxt "shortcut window"
+msgid "Zoom Out"
+msgstr "Smanji prikaz"
+
+#: data/resources/ui/shortcuts.ui:120
+msgctxt "shortcut window"
+msgid "Reset Zoom"
+msgstr "Obnovi uvećanje"
+
+#: data/resources/ui/window.ui:6
+msgid "_New Window"
+msgstr "_Novi prozor"
+
+#: data/resources/ui/window.ui:12 src/save_changes_dialog.rs:70
+#: src/save_changes_dialog.rs:142
+msgid "_Save"
+msgid_plural "_Save All"
+msgstr[0] "_Spremi"
+msgstr[1] "_Spremi sve"
+msgstr[2] "_Spremi sve"
+
+#: data/resources/ui/window.ui:16
+msgid "Save _As…"
+msgstr "Spremi _kao …"
+
+#: data/resources/ui/window.ui:20
+msgid "_Discard Changes"
+msgstr "_Odbaci promjene"
+
+#: data/resources/ui/window.ui:26
+msgid "_Export Graph"
+msgstr "_Izvezi grafikon"
+
+#: data/resources/ui/window.ui:28
+msgid "Export As PNG…"
+msgstr "Izvezi kao PNG …"
+
+#: data/resources/ui/window.ui:33
+msgid "Export As SVG…"
+msgstr "Izvezi kao SVG …"
+
+#: data/resources/ui/window.ui:38
+msgid "Export As JPEG…"
+msgstr "Izvezi kao JPEG …"
+
+#: data/resources/ui/window.ui:44
+msgid "Open _Containing Folder"
+msgstr "Otvori mapu koja sadrži _datoteku"
+
+#: data/resources/ui/window.ui:50
+msgid "_Keyboard Shortcuts"
+msgstr "_Tipkovni prečaci"
+
+#: data/resources/ui/window.ui:54
+msgid "_About Delineate"
+msgstr "_O aplikaciji Delineate"
+
+#: data/resources/ui/window.ui:62
+msgid "Move _Left"
+msgstr "Pomakni stranicu u _lijevo"
+
+#: data/resources/ui/window.ui:66
+msgid "Move _Right"
+msgstr "Pomakni stranicu u _desno"
+
+#: data/resources/ui/window.ui:72
+msgid "_Move to New Window"
+msgstr "_Premjesti stranicu u novi prozor"
+
+#: data/resources/ui/window.ui:78
+msgid "Close _Other Tabs"
+msgstr "Zatvori _druge kartice"
+
+#: data/resources/ui/window.ui:82
+msgid "_Close"
+msgstr "_Zatvori"
+
+#: data/resources/ui/window.ui:104
+msgid "Open"
+msgstr "Otvori"
+
+#: data/resources/ui/window.ui:106
+msgid "Recent Documents"
+msgstr "Nedavni dokumenti"
+
+#: data/resources/ui/window.ui:114
+msgid "New Document"
+msgstr "Novi dokument"
+
+#: data/resources/ui/window.ui:143
+msgid "Main Menu"
+msgstr "Glavni izbornik"
+
+#: data/resources/ui/window.ui:168
+msgid "Start or Open a Document"
+msgstr "Izradi novi ili otvori postojeći dokument"
+
+#: data/resources/ui/window.ui:174
+msgid ""
+"• Press the Open button\n"
+"• Press the New Tab Button\n"
+"• Press Ctrl+N to start a new document\n"
+"• Press Ctrl+O to browse for a document\n"
+"• Drag a file into the window\n"
+"\n"
+"Or, press Ctrl+W to close the window."
+msgstr ""
+"• Pritisni gumb „Otvori”\n"
+"• Pritisni gumb „Nova kartica”\n"
+"• Pritisni Ctrl+N za izradu novog dokumenta\n"
+"• Pritisni Ctrl+O za pretraživanje dokumenta\n"
+"• Povuci datoteku u prozor\n"
+"\n"
+"Ili pritisni Ctrl+W za zatvaranje prozora."
+
+#. Translators: Replace "translator-credits" with your names. Put a comma between.
+#: src/about.rs:23
+msgid "translator-credits"
+msgstr "Milo Ivir &lt;mail@milotype.de&gt;"
+
+#: src/about.rs:30
+msgid "Donate"
+msgstr "Doniraj"
+
+#: src/about.rs:32
+msgid "Donate (Buy Me a Coffee)"
+msgstr "Doniraj (kupi mi kavu)"
+
+#: src/about.rs:35
+msgid "GitHub"
+msgstr "GitHub"
+
+#: src/about.rs:37
+msgid "Translate"
+msgstr "Prevedi"
+
+#: src/export_format.rs:29
+msgid "SVG"
+msgstr "SVG"
+
+#: src/export_format.rs:30
+msgid "PNG"
+msgstr "PNG"
+
+#: src/export_format.rs:31
+msgid "JPEG"
+msgstr "JPEG"
+
+#: src/page.rs:301 src/save_changes_dialog.rs:109
+msgid "Untitled Document"
+msgstr "Neimenovani dokument"
+
+#: src/page.rs:357
+msgid "Save Document"
+msgstr "Spremi dokument"
+
+#: src/page.rs:378
+msgid "Save Document As"
+msgstr "Spremi dokument kao"
+
+#: src/page.rs:428
+msgid "Export Graph"
+msgstr "Izvezi grafikon"
+
+#: src/page.rs:429
+msgid "_Export"
+msgstr "_Izvezi"
+
+#: src/page.rs:471
+msgid "Graph exported"
+msgstr "Grafikon je izvezen"
+
+#: src/page.rs:472
+msgid "Show in Files"
+msgstr "Prikaži u mapi „Datoteke”"
+
+#: src/page.rs:482
+msgid "Failed to show in Files"
+msgstr "Neuspjelo prikazivanje u mapi „Datoteke”"
+
+#: src/page.rs:640
+msgid "Failed to draw graph"
+msgstr "Neuspjelo crtanje grafikona"
+
+#: src/recent_row.rs:129
+msgid "Just Now"
+msgstr "Upravo sada"
+
+#: src/recent_row.rs:131
+msgid "An hour ago"
+msgstr "Prije sat vremena"
+
+#: src/recent_row.rs:133
+msgid "Yesterday"
+msgstr "Jučer"
+
+#: src/recent_row.rs:139
+msgid "About a year ago"
+msgstr "Otprilike prije godinu dana"
+
+#: src/save_changes_dialog.rs:44
+msgid "Failed to save changes to document"
+msgstr "Neuspjelo spremanje promjena u dokument"
+
+#: src/save_changes_dialog.rs:57
+msgid "Save Changes?"
+msgstr "Spremiti promjene?"
+
+#: src/save_changes_dialog.rs:58
+msgid ""
+"Open documents contain unsaved changes. Changes which are not saved will be "
+"permanently lost."
+msgstr ""
+"Otvoreni dokumenti sadrže nespremljene promjene. Promjene koje nisu "
+"spremljene će se zauvijek izgubiti."
+
+#: src/save_changes_dialog.rs:63
+msgid "Cancel"
+msgstr "Odustani"
+
+#: src/save_changes_dialog.rs:66
+msgid "_Discard"
+msgid_plural "_Discard All"
+msgstr[0] "_Odbaci"
+msgstr[1] "_Odbaci sve"
+msgstr[2] "_Odbaci sve"
+
+#: src/session.rs:92
+msgid "Failed to load file"
+msgstr "Neuspjelo učitavanje datoteke"
+
+#: src/session.rs:489
+msgid "Failed to open file"
+msgstr "Neuspjelo otvaranje datoteke"
+
+#. Translators: DOT is an acronym, do not translate.
+#: src/utils.rs:38
+msgid "Graphviz DOT Files"
+msgstr "Graphviz DOT datoteke"
+
+#: src/window.rs:86
+msgid "Failed to open document"
+msgstr "Neuspjelo otvaranje dokumenta"
+
+#: src/window.rs:101
+msgid "Failed to save document"
+msgstr "Neuspjelo spremanje dokumenta"
+
+#: src/window.rs:116
+msgid "Failed to save document as"
+msgstr "Neuspjelo spremanje dokumenta kao"
+
+#: src/window.rs:130
+msgid "Failed to discard document changes"
+msgstr "Neuspjelo odbacivanje promjena u dokumentu"
+
+#: src/window.rs:144
+msgid "Failed to open containing folder"
+msgstr "Neuspjelo otvaranje mape koja sadrži datoteku"
+
+#: src/window.rs:171
+msgid "Failed to export graph"
+msgstr "Neuspio izvoz grafikona"
+
+#: src/window.rs:645
+msgid "Open Document"
+msgstr "Otvori dokument"
+
+#: src/window.rs:742
+msgid "There are unsaved documents"
+msgstr "Postoje nespremljeni dokumenti"

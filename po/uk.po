@@ -1,0 +1,464 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the delineate package.
+# Сергій <sergiy.goncharuk.1@gmail.com>, 2024.
+# Ihor Hordiichuk <igor_ck@outlook.com>, 2024.
+msgid ""
+msgstr ""
+"Project-Id-Version: delineate\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-03-10 09:40+0800\n"
+"PO-Revision-Date: 2024-03-16 01:01+0000\n"
+"Last-Translator: Ihor Hordiichuk <igor_ck@outlook.com>\n"
+"Language-Team: Ukrainian <https://hosted.weblate.org/projects/seadve/"
+"delineate/uk/>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Weblate 5.5-dev\n"
+
+#: data/io.github.seadve.Delineate.desktop.in.in:3
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
+msgid "Delineate"
+msgstr "Delineate"
+
+#: data/io.github.seadve.Delineate.desktop.in.in:4
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:8
+msgid "View and edit graphs"
+msgstr "Перегляд та редагування графіків"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: data/io.github.seadve.Delineate.desktop.in.in:10
+msgid "graphviz;dot;graphs;visualization;"
+msgstr "graphviz;dot;графіки;візуалізація;graphs;visualization;"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:10
+msgid ""
+"Delineate provides facilities to edit and draw graphs specified in the DOT "
+"language It is designed to be a simple and intuitive tool for creating and "
+"editing graphs, with a focus on the user experience."
+msgstr ""
+"Delineate надає засоби для редагування та малювання графіків, визначених "
+"мовою DOT. Він розроблений як простий та інтуїтивно зрозумілий інструмент "
+"для створення та редагування графіків, з акцентом на зручність використання."
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:11
+msgid "The main features of Delineate include the following:"
+msgstr "Основні особливості Delineate:"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:13
+msgid "🖼️ Live and interactive preview of the graph as you type"
+msgstr ""
+"🖼️ Інтерактивний перегляд графіка в реальному часі під час введення даних"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:14
+msgid "⏺️ Multiple Graphviz layout engines support"
+msgstr "⏺️ Підтримка декількох механізмів верстки Graphviz"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:15
+msgid "📝 Fully-featured DOT language editor"
+msgstr "📝 Повнофункціональний редактор мови DOT"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:16
+msgid "📦 Export graph as PNG, SVG, or JPEG"
+msgstr "📦 Експорт графіку у форматі PNG, SVG або JPEG"
+
+#: data/resources/ui/page.ui:75
+msgid "Zoom Out"
+msgstr "Зменшити масштаб"
+
+#: data/resources/ui/page.ui:82
+msgid "Reset Zoom"
+msgstr "Скинути масштаб"
+
+#: data/resources/ui/page.ui:88
+msgid "Zoom In"
+msgstr "Збільшити масштаб"
+
+#: data/resources/ui/recent_popover.ui:17
+msgid "Search documents"
+msgstr "Шукати документи"
+
+#: data/resources/ui/recent_popover.ui:39
+msgid "No Recent Documents"
+msgstr "Немає недавніх документів"
+
+#: data/resources/ui/recent_popover.ui:48
+msgid "No Results"
+msgstr "Нічого не знайдено"
+
+#: data/resources/ui/recent_row.ui:53
+msgid "Remove"
+msgstr "Вилучити"
+
+#: data/resources/ui/shortcuts.ui:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Загальні"
+
+#: data/resources/ui/shortcuts.ui:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Показати комбінації"
+
+#: data/resources/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Вийти"
+
+#: data/resources/ui/shortcuts.ui:28
+msgctxt "shortcut window"
+msgid "Documents"
+msgstr "Документи"
+
+#: data/resources/ui/shortcuts.ui:31
+msgctxt "shortcut window"
+msgid "New Document"
+msgstr "Новий документ"
+
+#: data/resources/ui/shortcuts.ui:37
+msgctxt "shortcut window"
+msgid "Open Document"
+msgstr "Відкрити документ"
+
+#: data/resources/ui/shortcuts.ui:43
+msgctxt "shortcut window"
+msgid "Save"
+msgstr "Зберегти"
+
+#: data/resources/ui/shortcuts.ui:49
+msgctxt "shortcut window"
+msgid "Save As"
+msgstr "Зберегти як"
+
+#: data/resources/ui/shortcuts.ui:57
+msgctxt "shortcut window"
+msgid "Windows"
+msgstr "Вікна"
+
+#: data/resources/ui/shortcuts.ui:60
+msgctxt "shortcut window"
+msgid "New Window"
+msgstr "Нове вікно"
+
+#: data/resources/ui/shortcuts.ui:66
+msgctxt "shortcut window"
+msgid "Move Document to New Window"
+msgstr "Перенести документ у нове вікно"
+
+#: data/resources/ui/shortcuts.ui:73
+msgctxt "shortcut window"
+msgid "Move to Next Tab"
+msgstr "Перехід до наступної вкладки"
+
+#: data/resources/ui/shortcuts.ui:79
+msgctxt "shortcut window"
+msgid "Move to Previous Tab"
+msgstr "Перехід до попередньої вкладки"
+
+#: data/resources/ui/shortcuts.ui:85
+msgctxt "shortcut window"
+msgid "Reorder After Next Tab"
+msgstr "Перевпорядкувати після наступної вкладки"
+
+#: data/resources/ui/shortcuts.ui:91
+msgctxt "shortcut window"
+msgid "Reorder Before Previous Tab"
+msgstr "Перевпорядкувати перед попередньою вкладкою"
+
+#: data/resources/ui/shortcuts.ui:97
+msgctxt "shortcut window"
+msgid "Restore Previously Closed Tab"
+msgstr "Відкрити раніше закриту вкладку"
+
+#: data/resources/ui/shortcuts.ui:104
+msgctxt "shortcut window"
+msgid "Zoom"
+msgstr "Масштаб"
+
+#: data/resources/ui/shortcuts.ui:108
+msgctxt "shortcut window"
+msgid "Zoom In"
+msgstr "Збільшити масштаб"
+
+#: data/resources/ui/shortcuts.ui:114
+msgctxt "shortcut window"
+msgid "Zoom Out"
+msgstr "Зменшити масштаб"
+
+#: data/resources/ui/shortcuts.ui:120
+msgctxt "shortcut window"
+msgid "Reset Zoom"
+msgstr "Скинути масштаб"
+
+#: data/resources/ui/window.ui:6
+msgid "_New Window"
+msgstr "_Нове вікно"
+
+#: data/resources/ui/window.ui:12 src/save_changes_dialog.rs:70
+#: src/save_changes_dialog.rs:142
+msgid "_Save"
+msgid_plural "_Save All"
+msgstr[0] "_Зберегти"
+msgstr[1] "_Зберегти все"
+msgstr[2] "_Зберегти все"
+
+#: data/resources/ui/window.ui:16
+msgid "Save _As…"
+msgstr "Зберегти _як…"
+
+#: data/resources/ui/window.ui:20
+msgid "_Discard Changes"
+msgstr "_Відхилити зміни"
+
+#: data/resources/ui/window.ui:26
+msgid "_Export Graph"
+msgstr "_Експортувати графік"
+
+#: data/resources/ui/window.ui:28
+msgid "Export As PNG…"
+msgstr "Експорт як PNG…"
+
+#: data/resources/ui/window.ui:33
+msgid "Export As SVG…"
+msgstr "Експорт як SVG…"
+
+#: data/resources/ui/window.ui:38
+msgid "Export As JPEG…"
+msgstr "Експорт як JPEG…"
+
+#: data/resources/ui/window.ui:44
+msgid "Open _Containing Folder"
+msgstr "Відкрити _розташування файлу"
+
+#: data/resources/ui/window.ui:50
+msgid "_Keyboard Shortcuts"
+msgstr "_Сполучення клавіш"
+
+#: data/resources/ui/window.ui:54
+msgid "_About Delineate"
+msgstr "_Про Delineate"
+
+#: data/resources/ui/window.ui:62
+msgid "Move _Left"
+msgstr "Перемістити _вліво"
+
+#: data/resources/ui/window.ui:66
+msgid "Move _Right"
+msgstr "Перемістити _вправо"
+
+#: data/resources/ui/window.ui:72
+msgid "_Move to New Window"
+msgstr "_Перемістити в нове вікно"
+
+#: data/resources/ui/window.ui:78
+msgid "Close _Other Tabs"
+msgstr "Закрити _інші вкладки"
+
+#: data/resources/ui/window.ui:82
+msgid "_Close"
+msgstr "_Закрити"
+
+#: data/resources/ui/window.ui:104
+msgid "Open"
+msgstr "Відкрити"
+
+#: data/resources/ui/window.ui:106
+msgid "Recent Documents"
+msgstr "Недавні документи"
+
+#: data/resources/ui/window.ui:114
+msgid "New Document"
+msgstr "Новий документ"
+
+#: data/resources/ui/window.ui:143
+msgid "Main Menu"
+msgstr "Головне меню"
+
+#: data/resources/ui/window.ui:168
+msgid "Start or Open a Document"
+msgstr "Запустити або відкрити документ"
+
+#: data/resources/ui/window.ui:174
+msgid ""
+"• Press the Open button\n"
+"• Press the New Tab Button\n"
+"• Press Ctrl+N to start a new document\n"
+"• Press Ctrl+O to browse for a document\n"
+"• Drag a file into the window\n"
+"\n"
+"Or, press Ctrl+W to close the window."
+msgstr ""
+"• Натисніть кнопку Відкрити\n"
+"• Натисніть кнопку Нова вкладка\n"
+"• Натисніть Ctrl+N, щоб створити новий документ\n"
+"• Натисніть Ctrl+O, щоб вибрати документ\n"
+"• Перетягніть файл у вікно\n"
+"\n"
+"Або натисніть Ctrl+W, щоб закрити вікно."
+
+#. Translators: Replace "translator-credits" with your names. Put a comma between.
+#: src/about.rs:23
+msgid "translator-credits"
+msgstr "Ihor Hordiichuk, Serhii Honcharuk"
+
+#: src/about.rs:30
+msgid "Donate"
+msgstr "Підтримати"
+
+#: src/about.rs:32
+msgid "Donate (Buy Me a Coffee)"
+msgstr "Підтримати (Buy Me a Coffee)"
+
+#: src/about.rs:35
+msgid "GitHub"
+msgstr "GitHub"
+
+#: src/about.rs:37
+msgid "Translate"
+msgstr "Перекласти"
+
+#: src/export_format.rs:29
+msgid "SVG"
+msgstr "SVG"
+
+#: src/export_format.rs:30
+msgid "PNG"
+msgstr "PNG"
+
+#: src/export_format.rs:31
+msgid "JPEG"
+msgstr "JPEG"
+
+#: src/page.rs:301 src/save_changes_dialog.rs:109
+msgid "Untitled Document"
+msgstr "Документ без назви"
+
+#: src/page.rs:357
+msgid "Save Document"
+msgstr "Зберегти документ"
+
+#: src/page.rs:378
+msgid "Save Document As"
+msgstr "Зберегти документ як"
+
+#: src/page.rs:428
+msgid "Export Graph"
+msgstr "Експортувати графік"
+
+#: src/page.rs:429
+msgid "_Export"
+msgstr "_Експорт"
+
+#: src/page.rs:471
+msgid "Graph exported"
+msgstr "Графік експортовано"
+
+#: src/page.rs:472
+msgid "Show in Files"
+msgstr "Показати у Файлах"
+
+#: src/page.rs:482
+msgid "Failed to show in Files"
+msgstr "Не вдалося показати у Файлах"
+
+#: src/page.rs:640
+msgid "Failed to draw graph"
+msgstr "Не вдалося відобразити графік"
+
+#: src/recent_row.rs:129
+msgid "Just Now"
+msgstr "Щойно"
+
+#: src/recent_row.rs:131
+msgid "An hour ago"
+msgstr "Годину тому"
+
+#: src/recent_row.rs:133
+msgid "Yesterday"
+msgstr "Учора"
+
+#: src/recent_row.rs:139
+msgid "About a year ago"
+msgstr "Понад рік тому"
+
+#: src/save_changes_dialog.rs:44
+msgid "Failed to save changes to document"
+msgstr "Не вдалося зберегти зміни в документі"
+
+#: src/save_changes_dialog.rs:57
+msgid "Save Changes?"
+msgstr "Зберегти зміни?"
+
+#: src/save_changes_dialog.rs:58
+msgid ""
+"Open documents contain unsaved changes. Changes which are not saved will be "
+"permanently lost."
+msgstr ""
+"Відкриті документи містять незбережені зміни. Зміни, які не будуть "
+"збережені, будуть безповоротно втрачені."
+
+#: src/save_changes_dialog.rs:63
+msgid "Cancel"
+msgstr "Скасувати"
+
+#: src/save_changes_dialog.rs:66
+msgid "_Discard"
+msgid_plural "_Discard All"
+msgstr[0] "_Відхилити"
+msgstr[1] "_Відхилити все"
+msgstr[2] "_Відхилити все"
+
+#: src/session.rs:92
+msgid "Failed to load file"
+msgstr "Не вдалося завантажити файл"
+
+#: src/session.rs:489
+msgid "Failed to open file"
+msgstr "Не вдалося відкрити файл"
+
+#. Translators: DOT is an acronym, do not translate.
+#: src/utils.rs:38
+msgid "Graphviz DOT Files"
+msgstr "Файли Graphviz DOT"
+
+#: src/window.rs:86
+msgid "Failed to open document"
+msgstr "Не вдалося відкрити документ"
+
+#: src/window.rs:101
+msgid "Failed to save document"
+msgstr "Не вдалося зберегти документ"
+
+#: src/window.rs:116
+msgid "Failed to save document as"
+msgstr "Не вдалося зберегти документ як"
+
+#: src/window.rs:130
+msgid "Failed to discard document changes"
+msgstr "Не вдалося відхилити зміни в документі"
+
+#: src/window.rs:144
+msgid "Failed to open containing folder"
+msgstr "Не вдалося відкрити розташування файлу"
+
+#: src/window.rs:171
+msgid "Failed to export graph"
+msgstr "Не вдалося експортувати графік"
+
+#: src/window.rs:645
+msgid "Open Document"
+msgstr "Відкрити документ"
+
+#: src/window.rs:742
+msgid "There are unsaved documents"
+msgstr "Є незбережені документи"
+
+#~ msgid "Dave Patrick Caberto"
+#~ msgstr "Dave Patrick Caberto"
+
+#~ msgid "© 2023 Dave Patrick Caberto"
+#~ msgstr "© 2023 Dave Patrick Caberto"
