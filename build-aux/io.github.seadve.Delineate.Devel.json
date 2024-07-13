@@ -35,6 +35,22 @@
     },
     "modules": [
         {
+            "name": "icu74",
+            "subdir": "source",
+            "config-opts": [
+                "--disable-static",
+                "--enable-shared",
+                "--disable-samples"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/unicode-org/icu/releases/download/release-74-2/icu4c-74_2-src.tgz",
+                    "sha512": "e6c7876c0f3d756f3a6969cad9a8909e535eeaac352f3a721338b9cbd56864bf7414469d29ec843462997815d2ca9d0dab06d38c37cdd4d8feb28ad04d8781b0"
+                }
+            ]
+        },
+        {
             "name": "d3-graphviz",
             "buildsystem": "simple",
             "build-commands": [
@@ -48,7 +64,7 @@
                 {
                     "type": "git",
                     "url": "https://github.com/magjac/d3-graphviz.git",
-                    "tag": "v5.3.0"
+                    "tag": "v5.4.0"
                 }
             ]
         },
