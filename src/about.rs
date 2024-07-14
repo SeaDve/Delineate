@@ -38,7 +38,7 @@ pub fn present_dialog(parent: &impl IsA<gtk::Widget>) {
         "https://hosted.weblate.org/projects/seadve/delineate",
     );
 
-    dialog.present(parent);
+    dialog.present(Some(parent));
 }
 
 fn debug_info() -> String {

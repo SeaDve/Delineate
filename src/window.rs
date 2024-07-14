@@ -414,7 +414,7 @@ mod imp {
 
             let tab_view_close_page_handler_id = self.tab_view.connect_close_page(
                 clone!(@weak obj => @default-panic, move |_, tab_page| {
-                    obj.handle_tab_view_close_page(tab_page).into()
+                    obj.handle_tab_view_close_page(tab_page)
                 }),
             );
             self.tab_view_close_page_handler_id
