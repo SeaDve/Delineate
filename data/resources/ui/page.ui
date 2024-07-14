@@ -100,12 +100,10 @@
                     <property name="can-target">False</property>
                     <property name="transition-type">crossfade</property>
                     <property name="child">
-                      <object class="GtkSpinner">
-                        <property name="width-request">18</property>
-                        <property name="height-request">18</property>
+                      <object class="AdwSpinner">
                         <property name="margin-start">6</property>
                         <property name="margin-end">6</property>
-                        <property name="spinning">True</property>
+                        <property name="size">18</property>
                       </object>
                     </property>
                   </object>

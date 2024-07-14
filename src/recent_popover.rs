@@ -25,7 +25,7 @@ mod imp {
         #[template_child]
         pub(super) stack: TemplateChild<gtk::Stack>,
         #[template_child]
-        pub(super) loading_page: TemplateChild<gtk::Spinner>,
+        pub(super) loading_page: TemplateChild<adw::Spinner>,
         #[template_child]
         pub(super) empty_page: TemplateChild<adw::StatusPage>,
         #[template_child]

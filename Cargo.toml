@@ -8,7 +8,7 @@ edition = "2021"
 lto = true
 
 [dependencies]
-adw = { package = "libadwaita", version = "0.7", features = ["v1_5"] }
+adw = { package = "libadwaita", version = "0.7", features = ["v1_6"] }
 anyhow = "1.0.75"
 async-lock = "3.2"
 futures-util = { version = "0.3.29", features = ["io"] }
