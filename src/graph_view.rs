@@ -144,56 +144,74 @@ mod imp {
                     tracing::warn!("Web process is unresponsive");
                 }
             });
-            self.view.connect_context_menu(
-                clone!(@weak obj => @default-panic, move |_, ctx_menu, _| {
-                    for item in ctx_menu.items() {
-                        if !matches!(item.stock_action(), ContextMenuAction::InspectElement) {
-                            ctx_menu.remove(&item);
-                        }
+            self.view.connect_context_menu(move |_, ctx_menu, _| {
+                for item in ctx_menu.items() {
+                    if !matches!(item.stock_action(), ContextMenuAction::InspectElement) {
+                        ctx_menu.remove(&item);
                     }
+                }
 
-                    if ctx_menu.n_items() == 0 {
-                        return true;
-                    }
+                if ctx_menu.n_items() == 0 {
+                    return true;
+                }
 
-                    false
-                }),
-            );
+                false
+            });
 
             obj.connect_script_message_received(
                 ERROR_MESSAGE_ID,
-                clone!(@weak obj => move |_, value| {
-                    let message = value.to_str();
-                    obj.emit_by_name::<()>("error", &[&message]);
-                }),
+                clone!(
+                    #[weak]
+                    obj,
+                    move |_, value| {
+                        let message = value.to_str();
+                        obj.emit_by_name::<()>("error", &[&message]);
+                    }
+                ),
             );
             obj.connect_script_message_received(
                 IS_GRAPH_LOADED_CHANGED_MESSAGE_ID,
-                clone!(@weak obj => move |_, value| {
-                    let is_graph_loaded = value.to_boolean();
-                    obj.set_graph_loaded(is_graph_loaded);
-                }),
+                clone!(
+                    #[weak]
+                    obj,
+                    move |_, value| {
+                        let is_graph_loaded = value.to_boolean();
+                        obj.set_graph_loaded(is_graph_loaded);
+                    }
+                ),
             );
             obj.connect_script_message_received(
                 IS_RENDERING_CHANGED_MESSAGE_ID,
-                clone!(@weak obj => move |_, value| {
-                    let is_rendering = value.to_boolean();
-                    obj.set_rendering(is_rendering);
-                }),
+                clone!(
+                    #[weak]
+                    obj,
+                    move |_, value| {
+                        let is_rendering = value.to_boolean();
+                        obj.set_rendering(is_rendering);
+                    }
+                ),
             );
             obj.connect_script_message_received(
                 ZOOM_LEVEL_CHANGED_MESSAGE_ID,
-                clone!(@weak obj => move |_, value| {
-                    let zoom_level = value.to_double();
-                    obj.set_zoom_level(zoom_level);
-                }),
+                clone!(
+                    #[weak]
+                    obj,
+                    move |_, value| {
+                        let zoom_level = value.to_double();
+                        obj.set_zoom_level(zoom_level);
+                    }
+                ),
             );
 
-            utils::spawn(clone!(@weak obj => async move {
-                if let Err(err) = obj.ensure_view_initialized().await {
-                    tracing::error!("Failed to initialize view: {:?}", err);
+            utils::spawn(clone!(
+                #[weak]
+                obj,
+                async move {
+                    if let Err(err) = obj.ensure_view_initialized().await {
+                        tracing::error!("Failed to initialize view: {:?}", err);
+                    }
                 }
-            }));
+            ));
         }
 
         fn dispose(&self) {

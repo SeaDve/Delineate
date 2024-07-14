@@ -72,12 +72,15 @@ mod imp {
             }
 
             if let Some(ref target) = target {
-                let handler_id =
-                    target.connect_current_drop_notify(clone!(@weak obj => move |target| {
+                let handler_id = target.connect_current_drop_notify(clone!(
+                    #[weak]
+                    obj,
+                    move |target| {
                         obj.imp()
                             .revealer
                             .set_reveal_child(target.current_drop().is_some());
-                    }));
+                    }
+                ));
                 self.target_handler_id.replace(Some(handler_id));
 
                 obj.add_controller(target.clone());

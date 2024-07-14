@@ -77,14 +77,22 @@ mod imp {
             // FIXME Disable when https://gitlab.gnome.org/World/Rust/sourceview5-rs/-/issues/11 is fixed
             obj.set_highlight_matching_brackets(false);
 
-            obj.connect_loading_notify(clone!(@weak obj => move |_| {
-                obj.notify_is_modified();
-            }));
+            obj.connect_loading_notify(clone!(
+                #[weak]
+                obj,
+                move |_| {
+                    obj.notify_is_modified();
+                }
+            ));
 
             let style_manager = adw::StyleManager::default();
-            style_manager.connect_dark_notify(clone!(@weak obj => move |_| {
-                obj.update_style_scheme();
-            }));
+            style_manager.connect_dark_notify(clone!(
+                #[weak]
+                obj,
+                move |_| {
+                    obj.update_style_scheme();
+                }
+            ));
 
             obj.update_style_scheme();
         }

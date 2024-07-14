@@ -181,36 +181,57 @@ mod imp {
             document_signals.connect_local(
                 "text-changed",
                 false,
-                clone!(@weak obj => @default-panic, move |_| {
-                    obj.handle_document_text_changed();
-                    None
-                }),
+                clone!(
+                    #[weak]
+                    obj,
+                    #[upgrade_or_panic]
+                    move |_| {
+                        obj.handle_document_text_changed();
+                        None
+                    }
+                ),
             );
             document_signals.connect_notify_local(
                 Some("file"),
-                clone!(@weak obj => move |_, _| {
-                    obj.notify_can_open_containing_folder();
-                }),
+                clone!(
+                    #[weak]
+                    obj,
+                    move |_, _| {
+                        obj.notify_can_open_containing_folder();
+                    }
+                ),
             );
             document_signals.connect_notify_local(
                 Some("title"),
-                clone!(@weak obj => move |_, _| {
-                    obj.notify_title();
-                }),
+                clone!(
+                    #[weak]
+                    obj,
+                    move |_, _| {
+                        obj.notify_title();
+                    }
+                ),
             );
             document_signals.connect_notify_local(
                 Some("is-modified"),
-                clone!(@weak obj => move |_, _| {
-                    obj.notify_is_modified();
-                    obj.notify_can_discard_changes();
-                }),
+                clone!(
+                    #[weak]
+                    obj,
+                    move |_, _| {
+                        obj.notify_is_modified();
+                        obj.notify_can_discard_changes();
+                    }
+                ),
             );
             document_signals.connect_notify_local(
                 Some("is-busy"),
-                clone!(@weak obj => move |_, _| {
-                    obj.notify_is_busy();
-                    obj.notify_can_save();
-                }),
+                clone!(
+                    #[weak]
+                    obj,
+                    move |_, _| {
+                        obj.notify_is_busy();
+                        obj.notify_can_save();
+                    }
+                ),
             );
             self.document_signals.set(document_signals).unwrap();
 
@@ -221,60 +242,96 @@ mod imp {
                 )));
             self.layout_engine_drop_down
                 .set_model(Some(&adw::EnumListModel::new(LayoutEngine::static_type())));
-            self.layout_engine_drop_down
-                .connect_selected_notify(clone!(@weak obj => move |_| {
+            self.layout_engine_drop_down.connect_selected_notify(clone!(
+                #[weak]
+                obj,
+                move |_| {
                     obj.queue_draw_graph();
-                }));
+                }
+            ));
 
             let gutter = ViewExt::gutter(&*self.view, gtk::TextWindowType::Left);
             let was_inserted = gutter.insert(&self.error_gutter_renderer, 0);
             debug_assert!(was_inserted);
 
             self.go_to_error_revealer
-                .connect_child_revealed_notify(clone!(@weak obj => move |_| {
-                    obj.update_go_to_error_revealer_can_target();
-                }));
+                .connect_child_revealed_notify(clone!(
+                    #[weak]
+                    obj,
+                    move |_| {
+                        obj.update_go_to_error_revealer_can_target();
+                    }
+                ));
             self.error_gutter_renderer
-                .connect_has_visible_errors_notify(clone!(@weak obj => move |_| {
-                    obj.update_go_to_error_revealer_reveal_child();
-                }));
+                .connect_has_visible_errors_notify(clone!(
+                    #[weak]
+                    obj,
+                    move |_| {
+                        obj.update_go_to_error_revealer_reveal_child();
+                    }
+                ));
 
-            self.graph_view
-                .connect_is_graph_loaded_notify(clone!(@weak obj => move |_| {
+            self.graph_view.connect_is_graph_loaded_notify(clone!(
+                #[weak]
+                obj,
+                move |_| {
                     obj.notify_can_export_graph();
-                }));
-            self.graph_view
-                .connect_error(clone!(@weak obj => move |_, message| {
+                }
+            ));
+            self.graph_view.connect_error(clone!(
+                #[weak]
+                obj,
+                move |_, message| {
                     obj.handle_graph_view_error(message);
-                }));
-            self.graph_view
-                .connect_is_rendering_notify(clone!(@weak obj => move |graph_view| {
+                }
+            ));
+            self.graph_view.connect_is_rendering_notify(clone!(
+                #[weak]
+                obj,
+                move |graph_view| {
                     if !graph_view.is_rendering() {
                         obj.imp().spinner_revealer.set_reveal_child(false);
                     }
-                }));
-            self.graph_view
-                .connect_zoom_level_notify(clone!(@weak obj => move |_| {
+                }
+            ));
+            self.graph_view.connect_zoom_level_notify(clone!(
+                #[weak]
+                obj,
+                move |_| {
                     obj.update_zoom_level_button();
-                }));
-            self.graph_view
-                .connect_can_zoom_in_notify(clone!(@weak obj => move |_| {
+                }
+            ));
+            self.graph_view.connect_can_zoom_in_notify(clone!(
+                #[weak]
+                obj,
+                move |_| {
                     obj.update_zoom_in_action();
-                }));
-            self.graph_view
-                .connect_can_zoom_out_notify(clone!(@weak obj => move |_| {
+                }
+            ));
+            self.graph_view.connect_can_zoom_out_notify(clone!(
+                #[weak]
+                obj,
+                move |_| {
                     obj.update_zoom_out_action();
-                }));
-            self.graph_view
-                .connect_can_reset_zoom_notify(clone!(@weak obj => move |_| {
+                }
+            ));
+            self.graph_view.connect_can_reset_zoom_notify(clone!(
+                #[weak]
+                obj,
+                move |_| {
                     obj.update_reset_zoom_action();
-                }));
+                }
+            ));
 
             utils::spawn_with_priority(
                 DRAW_GRAPH_PRIORITY,
-                clone!(@weak obj => async move {
-                    obj.start_draw_graph_loop().await;
-                }),
+                clone!(
+                    #[weak]
+                    obj,
+                    async move {
+                        obj.start_draw_graph_loop().await;
+                    }
+                ),
             );
 
             obj.set_document(&Document::new());
@@ -471,18 +528,24 @@ impl Page {
             .title(gettext("Graph exported"))
             .button_label(gettext("Show in Files"))
             .build();
-        toast.connect_button_clicked(clone!(@weak self as obj, @strong file => move |_| {
-            let file_launcher = gtk::FileLauncher::new(Some(&file));
-            utils::spawn(async move {
-                if let Err(err) = file_launcher
-                    .open_containing_folder_future(Some(&obj.window().unwrap()))
-                    .await
-                {
-                    tracing::error!("Failed to show in Files: {:?}", err);
-                    obj.add_message_toast(&gettext("Failed to show in Files"));
-                }
-            });
-        }));
+        toast.connect_button_clicked(clone!(
+            #[weak(rename_to = obj)]
+            self,
+            #[strong]
+            file,
+            move |_| {
+                let file_launcher = gtk::FileLauncher::new(Some(&file));
+                utils::spawn(async move {
+                    if let Err(err) = file_launcher
+                        .open_containing_folder_future(Some(&obj.window().unwrap()))
+                        .await
+                    {
+                        tracing::error!("Failed to show in Files: {:?}", err);
+                        obj.add_message_toast(&gettext("Failed to show in Files"));
+                    }
+                });
+            }
+        ));
         self.add_toast(toast);
 
         tracing::debug!(uri = %file.uri(), "Graph exported");

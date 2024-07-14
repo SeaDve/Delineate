@@ -61,26 +61,39 @@ mod imp {
 
             let obj = self.obj();
 
-            self.list_box
-                .connect_row_activated(clone!(@weak obj => move |_, row| {
+            self.list_box.connect_row_activated(clone!(
+                #[weak]
+                obj,
+                move |_, row| {
                     let row = row.downcast_ref::<RecentRow>().unwrap();
                     obj.emit_item_activated(&row.item());
                     obj.popdown();
-                }));
+                }
+            ));
 
-            self.search_entry
-                .connect_stop_search(clone!(@weak obj => move |_| {
+            self.search_entry.connect_stop_search(clone!(
+                #[weak]
+                obj,
+                move |_| {
                     obj.popdown();
-                }));
-            self.search_entry
-                .connect_activate(clone!(@weak obj => move |_| {
+                }
+            ));
+            self.search_entry.connect_activate(clone!(
+                #[weak]
+                obj,
+                move |_| {
                     let imp = obj.imp();
-                    if let Some(item) = imp.sort_model.get().and_then(|sort_model| sort_model.item(0)) {
+                    if let Some(item) = imp
+                        .sort_model
+                        .get()
+                        .and_then(|sort_model| sort_model.item(0))
+                    {
                         let item = item.downcast_ref().unwrap();
                         obj.emit_item_activated(item);
                         obj.popdown();
                     }
-                }));
+                }
+            ));
 
             obj.update_search_entry_sensitivity();
             obj.update_stack();
@@ -133,27 +146,41 @@ impl RecentPopover {
     pub fn bind_model(&self, model: &RecentList) {
         let imp = self.imp();
 
-        model.connect_items_changed(clone!(@weak self as obj => move |_, _, _, _| {
-            obj.update_search_entry_sensitivity();
-            obj.update_stack();
-        }));
+        model.connect_items_changed(clone!(
+            #[weak(rename_to = obj)]
+            self,
+            move |_, _, _, _| {
+                obj.update_search_entry_sensitivity();
+                obj.update_stack();
+            }
+        ));
         imp.model.set(model.clone()).unwrap();
 
         let filter = RecentFilter::new();
         let sorter = RecentSorter::new();
-        imp.search_entry.connect_search_changed(
-            clone!(@weak self as obj, @weak filter, @weak sorter => move |search_entry| {
+        imp.search_entry.connect_search_changed(clone!(
+            #[weak(rename_to = obj)]
+            self,
+            #[weak]
+            filter,
+            #[weak]
+            sorter,
+            move |search_entry| {
                 let text = search_entry.text();
                 filter.set_search(text.trim());
                 sorter.set_search(text.trim());
                 obj.update_stack();
-            }),
-        );
+            }
+        ));
 
         let filter_model = gtk::FilterListModel::new(Some(model.clone()), Some(filter));
-        filter_model.connect_items_changed(clone!(@weak self as obj => move |_, _, _, _| {
-            obj.update_stack();
-        }));
+        filter_model.connect_items_changed(clone!(
+            #[weak(rename_to = obj)]
+            self,
+            move |_, _, _, _| {
+                obj.update_stack();
+            }
+        ));
         imp.filter_model.set(filter_model.clone()).unwrap();
 
         let sort_model = gtk::SortListModel::new(Some(filter_model), Some(sorter));
@@ -161,9 +188,12 @@ impl RecentPopover {
 
         imp.list_box.bind_model(
             Some(&sort_model),
-            clone!(@weak self as obj => @default-panic, move |item| {
-                obj.create_row(item.downcast_ref().unwrap()).upcast()
-            }),
+            clone!(
+                #[weak(rename_to = obj)]
+                self,
+                #[upgrade_or_panic]
+                move |item| obj.create_row(item.downcast_ref().unwrap()).upcast()
+            ),
         );
 
         self.update_search_entry_sensitivity();
@@ -184,15 +214,19 @@ impl RecentPopover {
     fn create_row(&self, item: &RecentItem) -> RecentRow {
         let item = item.downcast_ref().unwrap();
         let row = RecentRow::new(item);
-        row.connect_remove_request(clone!(@weak self as obj => move |row| {
-            let imp = obj.imp();
+        row.connect_remove_request(clone!(
+            #[weak(rename_to = obj)]
+            self,
+            move |row| {
+                let imp = obj.imp();
 
-            let uri = row.item().file().uri();
-            imp.model.get().unwrap().remove(&uri);
+                let uri = row.item().file().uri();
+                imp.model.get().unwrap().remove(&uri);
 
-            let session = Session::instance();
-            session.mark_dirty();
-        }));
+                let session = Session::instance();
+                session.mark_dirty();
+            }
+        ));
         row.upcast()
     }
 

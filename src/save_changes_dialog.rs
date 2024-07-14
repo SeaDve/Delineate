@@ -130,18 +130,24 @@ async fn run_inner(parent: &impl IsA<gtk::Widget>, unsaved: &[Document]) -> Resu
     }
 
     for button in check_buttons.borrow().iter() {
-        button.connect_active_notify(clone!(@weak dialog, @weak check_buttons => move |_| {
-            let n_active = check_buttons
-                .borrow()
-                .iter()
-                .filter(|b| b.is_active())
-                .count();
-            dialog.set_response_enabled(SAVE_RESPONSE_ID, n_active != 0);
-            dialog.set_response_label(
-                SAVE_RESPONSE_ID,
-                &ngettext("_Save", "_Save All", n_active as u32),
-            );
-        }));
+        button.connect_active_notify(clone!(
+            #[weak]
+            dialog,
+            #[weak]
+            check_buttons,
+            move |_| {
+                let n_active = check_buttons
+                    .borrow()
+                    .iter()
+                    .filter(|b| b.is_active())
+                    .count();
+                dialog.set_response_enabled(SAVE_RESPONSE_ID, n_active != 0);
+                dialog.set_response_label(
+                    SAVE_RESPONSE_ID,
+                    &ngettext("_Save", "_Save All", n_active as u32),
+                );
+            }
+        ));
     }
 
     match dialog.choose_future(parent).await.as_str() {

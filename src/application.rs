@@ -41,19 +41,23 @@ mod imp {
             }
 
             let hold_guard = obj.hold();
-            utils::spawn(clone!(@weak obj => async move {
-                tracing::debug!("Restoring session on activate");
+            utils::spawn(clone!(
+                #[weak]
+                obj,
+                async move {
+                    tracing::debug!("Restoring session on activate");
 
-                let _hold_guard = hold_guard;
+                    let _hold_guard = hold_guard;
 
-                let session = obj.session();
-                if let Err(err) = session.restore().await {
-                    tracing::error!("Failed to restore session: {:?}", err);
+                    let session = obj.session();
+                    if let Err(err) = session.restore().await {
+                        tracing::error!("Failed to restore session: {:?}", err);
 
-                    let window = session.add_new_window();
-                    window.present();
+                        let window = session.add_new_window();
+                        window.present();
+                    }
                 }
-            }));
+            ));
         }
 
         fn startup(&self) {
@@ -118,17 +122,21 @@ impl Application {
     }
 
     pub fn quit(&self) {
-        utils::spawn(clone!(@weak self as obj => async move {
-            if obj.quit_request().await.is_proceed() {
-                tracing::debug!("Saving session on quit");
+        utils::spawn(clone!(
+            #[weak(rename_to = obj)]
+            self,
+            async move {
+                if obj.quit_request().await.is_proceed() {
+                    tracing::debug!("Saving session on quit");
 
-                if let Err(err) = obj.session().save().await {
-                    tracing::error!("Failed to save session on quit: {:?}", err);
+                    if let Err(err) = obj.session().save().await {
+                        tracing::error!("Failed to save session on quit: {:?}", err);
+                    }
+
+                    ApplicationExt::quit(&obj);
                 }
-
-                ApplicationExt::quit(&obj);
             }
-        }));
+        ));
     }
 
     /// Returns `Proceed` if quit process shall proceed, `Stop` if it shall be aborted.

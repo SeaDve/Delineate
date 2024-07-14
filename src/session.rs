@@ -85,8 +85,12 @@ impl PageState {
 
         if let Some(uri) = &self.uri {
             let file = gio::File::for_uri(uri);
-            utils::spawn(
-                clone!(@weak page, @strong self.selection as selection_state  => async move {
+            utils::spawn(clone!(
+                #[weak]
+                page,
+                #[strong(rename_to = selection_state)]
+                self.selection,
+                async move {
                     if let Err(err) = page.load_file(file).await {
                         tracing::error!("Failed to load file for page: {:?}", err);
                         page.add_message_toast(&gettext("Failed to load file"));
@@ -96,8 +100,8 @@ impl PageState {
                     // Only restore selection once we have fully loaded the page's document.
                     let document = page.document();
                     selection_state.restore_on(&document);
-                }),
-            );
+                }
+            ));
         }
     }
 }
@@ -297,17 +301,23 @@ impl Session {
             let app = Application::get();
             let hold_guard = app.hold();
 
-            utils::spawn(clone!(@weak self as obj, @weak window => async move {
-                tracing::debug!("Saving session on last window");
+            utils::spawn(clone!(
+                #[weak(rename_to = obj)]
+                self,
+                #[weak]
+                window,
+                async move {
+                    tracing::debug!("Saving session on last window");
 
-                let _hold_guard = hold_guard;
+                    let _hold_guard = hold_guard;
 
-                if let Err(err) = obj.save().await {
-                    tracing::debug!("Failed to save session on last window: {:?}", err);
+                    if let Err(err) = obj.save().await {
+                        tracing::debug!("Failed to save session on last window: {:?}", err);
+                    }
+
+                    obj.remove_window_inner(&window);
                 }
-
-                obj.remove_window_inner(&window);
-            }));
+            ));
         } else {
             self.remove_window_inner(window);
         }
@@ -464,33 +474,43 @@ impl Session {
 
         let source_id = glib::timeout_add_seconds_local_once(
             AUTO_SAVE_DELAY_SECS,
-            clone!(@weak self as obj => move || {
-                let _ = obj.imp().auto_save_source_id.take();
+            clone!(
+                #[weak(rename_to = obj)]
+                self,
+                move || {
+                    let _ = obj.imp().auto_save_source_id.take();
 
-                utils::spawn(async move {
-                    tracing::debug!("Saving session on auto save");
+                    utils::spawn(async move {
+                        tracing::debug!("Saving session on auto save");
 
-                    if let Err(err) = obj.save().await {
-                        tracing::debug!("Failed to save session on auto save: {:?}", err);
-                    }
-                });
-            }),
+                        if let Err(err) = obj.save().await {
+                            tracing::debug!("Failed to save session on auto save: {:?}", err);
+                        }
+                    });
+                }
+            ),
         );
         imp.auto_save_source_id.replace(Some(source_id));
     }
 
     fn load_file(&self, page: &Page, file: gio::File) {
-        utils::spawn(clone!(@weak self as obj, @weak page => async move {
-            // Add to recents immediately, so huge files won't be delayed in being added.
-            obj.recents().await.add(file.uri().to_string());
+        utils::spawn(clone!(
+            #[weak(rename_to = obj)]
+            self,
+            #[weak]
+            page,
+            async move {
+                // Add to recents immediately, so huge files won't be delayed in being added.
+                obj.recents().await.add(file.uri().to_string());
 
-            if let Err(err) = page.load_file(file).await {
-                tracing::error!("Failed to open file: {:?}", err);
-                page.add_message_toast(&gettext("Failed to open file"));
+                if let Err(err) = page.load_file(file).await {
+                    tracing::error!("Failed to open file: {:?}", err);
+                    page.add_message_toast(&gettext("Failed to open file"));
+                }
+
+                obj.mark_dirty();
             }
-
-            obj.mark_dirty();
-        }));
+        ));
     }
 }
 

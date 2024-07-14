@@ -46,14 +46,21 @@ mod imp {
             obj.set_has_tooltip(true);
             obj.set_yalign(0.5);
 
-            obj.connect_scale_factor_notify(clone!(@weak obj => move |_| {
-                obj.cache_paintable();
-            }));
-
-            obj.settings()
-                .connect_gtk_xft_dpi_notify(clone!(@weak obj => move |_| {
+            obj.connect_scale_factor_notify(clone!(
+                #[weak]
+                obj,
+                move |_| {
                     obj.cache_paintable();
-                }));
+                }
+            ));
+
+            obj.settings().connect_gtk_xft_dpi_notify(clone!(
+                #[weak]
+                obj,
+                move |_| {
+                    obj.cache_paintable();
+                }
+            ));
 
             obj.cache_paintable();
         }

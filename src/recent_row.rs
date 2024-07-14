@@ -70,10 +70,15 @@ mod imp {
             glib::timeout_add_local_full(
                 Duration::from_secs(60 * 30),
                 glib::Priority::LOW,
-                clone!(@weak obj => @default-panic, move || {
-                    obj.update_age_label();
-                    glib::ControlFlow::Continue
-                }),
+                clone!(
+                    #[weak]
+                    obj,
+                    #[upgrade_or_panic]
+                    move || {
+                        obj.update_age_label();
+                        glib::ControlFlow::Continue
+                    }
+                ),
             );
 
             obj.update_age_label();

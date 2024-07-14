@@ -332,39 +332,63 @@ mod imp {
             let selected_page_signals = glib::SignalGroup::new::<Page>();
             selected_page_signals.connect_notify_local(
                 Some("title"),
-                clone!(@weak obj => move |_, _| {
-                    obj.update_title();
-                }),
+                clone!(
+                    #[weak]
+                    obj,
+                    move |_, _| {
+                        obj.update_title();
+                    }
+                ),
             );
             selected_page_signals.connect_notify_local(
                 Some("is-modified"),
-                clone!(@weak obj => move |_, _| {
-                    obj.update_modified_status();
-                }),
+                clone!(
+                    #[weak]
+                    obj,
+                    move |_, _| {
+                        obj.update_modified_status();
+                    }
+                ),
             );
             selected_page_signals.connect_notify_local(
                 Some("can-save"),
-                clone!(@weak obj => move |_, _| {
-                    obj.update_save_action();
-                }),
+                clone!(
+                    #[weak]
+                    obj,
+                    move |_, _| {
+                        obj.update_save_action();
+                    }
+                ),
             );
             selected_page_signals.connect_notify_local(
                 Some("can-discard-changes"),
-                clone!(@weak obj => move |_, _| {
-                    obj.update_discard_changes_action();
-                }),
+                clone!(
+                    #[weak]
+                    obj,
+                    move |_, _| {
+                        obj.update_discard_changes_action();
+                    }
+                ),
             );
             selected_page_signals.connect_notify_local(
                 Some("can-export-graph"),
-                clone!(@weak obj => move |_, _| {
-                    obj.update_export_graph_action();
-                }),
+                clone!(
+                    #[weak]
+                    obj,
+                    move |_, _| {
+                        obj.update_export_graph_action();
+                    }
+                ),
             );
             selected_page_signals.connect_notify_local(
                 Some("can-open-containing-folder"),
-                clone!(@weak obj => move |_, _| {
-                    obj.update_open_containing_folder_action();
-                }),
+                clone!(
+                    #[weak]
+                    obj,
+                    move |_, _| {
+                        obj.update_open_containing_folder_action();
+                    }
+                ),
             );
             self.selected_page_signals
                 .set(selected_page_signals)
@@ -375,25 +399,38 @@ mod imp {
                 .actions(gdk::DragAction::COPY)
                 .formats(&gdk::ContentFormats::for_type(gdk::FileList::static_type()))
                 .build();
-            drop_target.connect_drop(clone!(@weak obj => @default-panic, move |_, value, _, _| {
-                obj.handle_drop(&value.get::<gdk::FileList>().unwrap())
-            }));
+            drop_target.connect_drop(clone!(
+                #[weak]
+                obj,
+                #[upgrade_or_panic]
+                move |_, value, _, _| obj.handle_drop(&value.get::<gdk::FileList>().unwrap())
+            ));
             self.drag_overlay.set_target(Some(&drop_target));
 
-            self.tab_overview
-                .connect_create_tab(clone!(@weak obj => @default-panic, move |_| {
+            self.tab_overview.connect_create_tab(clone!(
+                #[weak]
+                obj,
+                #[upgrade_or_panic]
+                move |_| {
                     let imp = obj.imp();
                     let page = obj.add_new_page();
                     imp.tab_view.page(&page)
-                }));
+                }
+            ));
 
-            self.tab_view
-                .connect_selected_page_notify(clone!(@weak obj => move |_| {
+            self.tab_view.connect_selected_page_notify(clone!(
+                #[weak]
+                obj,
+                move |_| {
                     obj.update_stack_page();
                     obj.update_selected_page_signals_target();
-                }));
-            self.tab_view
-                .connect_create_window(clone!(@weak obj => @default-panic, move |_| {
+                }
+            ));
+            self.tab_view.connect_create_window(clone!(
+                #[weak]
+                obj,
+                #[upgrade_or_panic]
+                move |_| {
                     let session = Session::instance();
 
                     let new_window = session.add_new_raw_window();
@@ -403,20 +440,25 @@ mod imp {
 
                     let tab_view = new_window.imp().tab_view.get();
                     Some(tab_view)
-                }));
-            self.tab_view
-                .connect_setup_menu(clone!(@weak obj => move |_, tab_page| {
+                }
+            ));
+            self.tab_view.connect_setup_menu(clone!(
+                #[weak]
+                obj,
+                move |_, tab_page| {
                     if let Some(tab_page) = tab_page {
                         let page = tab_page.child().downcast::<Page>().unwrap();
                         obj.set_selected_page(&page);
                     }
-                }));
+                }
+            ));
 
-            let tab_view_close_page_handler_id = self.tab_view.connect_close_page(
-                clone!(@weak obj => @default-panic, move |_, tab_page| {
-                    obj.handle_tab_view_close_page(tab_page)
-                }),
-            );
+            let tab_view_close_page_handler_id = self.tab_view.connect_close_page(clone!(
+                #[weak]
+                obj,
+                #[upgrade_or_panic]
+                move |_, tab_page| obj.handle_tab_view_close_page(tab_page)
+            ));
             self.tab_view_close_page_handler_id
                 .set(tab_view_close_page_handler_id)
                 .unwrap();
@@ -427,19 +469,26 @@ mod imp {
                 .sync_create()
                 .build();
 
-            self.recent_popover
-                .connect_item_activated(clone!(@weak obj => move |_, item| {
+            self.recent_popover.connect_item_activated(clone!(
+                #[weak]
+                obj,
+                move |_, item| {
                     let session = Session::instance();
                     session.open_files(&[item.file()], &obj);
-                }));
+                }
+            ));
 
             self.recent_popover.begin_loading();
-            utils::spawn(clone!(@weak obj => async move {
-                let imp = obj.imp();
-                let session = Session::instance();
-                let recents = session.recents().await;
-                imp.recent_popover.bind_model(recents);
-            }));
+            utils::spawn(clone!(
+                #[weak]
+                obj,
+                async move {
+                    let imp = obj.imp();
+                    let session = Session::instance();
+                    let recents = session.recents().await;
+                    imp.recent_popover.bind_model(recents);
+                }
+            ));
 
             obj.update_stack_page();
             obj.update_selected_page_signals_target();
@@ -461,17 +510,21 @@ mod imp {
                 .collect::<Vec<_>>();
 
             if !unsaved_documents.is_empty() {
-                utils::spawn(clone!(@weak obj => async move {
-                    if save_changes_dialog::run(&obj, &unsaved_documents)
-                        .await
-                        .is_proceed()
-                    {
-                        let session = Session::instance();
-                        session.remove_window(&obj);
+                utils::spawn(clone!(
+                    #[weak]
+                    obj,
+                    async move {
+                        if save_changes_dialog::run(&obj, &unsaved_documents)
+                            .await
+                            .is_proceed()
+                        {
+                            let session = Session::instance();
+                            session.remove_window(&obj);
 
-                        obj.destroy();
+                            obj.destroy();
+                        }
                     }
-                }));
+                ));
                 return glib::Propagation::Stop;
             }
 
@@ -531,10 +584,13 @@ impl Window {
             .build();
 
         unsafe {
-            let is_modified_handler_id =
-                page.connect_is_modified_notify(clone!(@weak self as obj => move |_| {
+            let is_modified_handler_id = page.connect_is_modified_notify(clone!(
+                #[weak(rename_to = obj)]
+                self,
+                move |_| {
                     obj.update_inhibit();
-                }));
+                }
+            ));
             page.set_data(PAGE_IS_MODIFIED_HANDLER_ID_KEY, is_modified_handler_id);
         }
 
@@ -698,15 +754,24 @@ impl Window {
 
         let document = page.document();
         if document.is_modified() {
-            utils::spawn(clone!(@weak self as obj, @weak tab_page => async move {
-                let imp = obj.imp();
-                if save_changes_dialog::run(&obj, &[document]).await.is_proceed() {
-                    imp.tab_view.close_page_finish(&tab_page, true);
-                    obj.remove_page(&page);
-                } else {
-                    imp.tab_view.close_page_finish(&tab_page, false);
+            utils::spawn(clone!(
+                #[weak(rename_to = obj)]
+                self,
+                #[weak]
+                tab_page,
+                async move {
+                    let imp = obj.imp();
+                    if save_changes_dialog::run(&obj, &[document])
+                        .await
+                        .is_proceed()
+                    {
+                        imp.tab_view.close_page_finish(&tab_page, true);
+                        obj.remove_page(&page);
+                    } else {
+                        imp.tab_view.close_page_finish(&tab_page, false);
+                    }
                 }
-            }));
+            ));
             return glib::Propagation::Stop;
         }
 
