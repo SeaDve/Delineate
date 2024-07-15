@@ -28,7 +28,8 @@
               <object class="AdwSpinner" id="loading_page">
                 <property name="margin-top">24</property>
                 <property name="margin-bottom">24</property>
-                <property name="size">24</property>
+                <property name="width-request">24</property>
+                <property name="height-request">24</property>
               </object>
             </child>
             <child>

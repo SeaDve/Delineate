@@ -103,7 +103,8 @@
                       <object class="AdwSpinner">
                         <property name="margin-start">6</property>
                         <property name="margin-end">6</property>
-                        <property name="size">18</property>
+                        <property name="width-request">18</property>
+                        <property name="height-request">18</property>
                       </object>
                     </property>
                   </object>
