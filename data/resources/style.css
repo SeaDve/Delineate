@@ -6,7 +6,7 @@ dragoverlay {
 
 dragoverlay .drag-area-highlight {
   border-radius: 8px;
-  background-color: alpha(var(--blue-2), 0.35);
+  background-color: color-mix(in srgb, var(--blue-2) 35%, transparent);
   margin: 24px;
 }
 
