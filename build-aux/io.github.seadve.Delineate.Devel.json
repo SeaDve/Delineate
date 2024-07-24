@@ -20,7 +20,7 @@
         "--env=RUST_LIB_BACKTRACE=0"
     ],
     "build-options": {
-        "append-path": "/usr/lib/sdk/rust-stable/bin:/usr/lib/sdk/llvm18/bin:/usr/lib/sdk/node20/bin",
+        "append-path": "/usr/lib/sdk/rust-stable/bin:/usr/lib/sdk/llvm18/bin",
         "build-args": [
             "--share=network"
         ],
@@ -49,6 +49,9 @@
         {
             "name": "d3-graphviz",
             "buildsystem": "simple",
+            "build-options": {
+                "append-path": "/usr/lib/sdk/node20/bin"
+            },
             "build-commands": [
                 "npm install",
                 "npm run build",
