@@ -58,6 +58,7 @@ async fn run_inner(parent: &impl IsA<gtk::Widget>, unsaved: &[Document]) -> Resu
         .body(gettext("Open documents contain unsaved changes. Changes which are not saved will be permanently lost."))
         .close_response(CANCEL_RESPONSE_ID)
         .default_response(SAVE_RESPONSE_ID)
+        .prefer_wide_layout(true)
         .build();
 
     dialog.add_response(CANCEL_RESPONSE_ID, &gettext("Cancel"));
