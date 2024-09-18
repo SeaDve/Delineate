@@ -63,7 +63,7 @@
                 {
                     "type": "git",
                     "url": "https://github.com/magjac/d3-graphviz.git",
-                    "tag": "v5.4.0"
+                    "tag": "v5.6.0"
                 }
             ]
         },
