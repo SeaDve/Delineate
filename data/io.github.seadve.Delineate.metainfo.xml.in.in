@@ -18,7 +18,13 @@
   </description>
   <screenshots>
     <screenshot type="default">
-      <image>https://gitlab.gnome.org/bilelmoussaoui/delineate/raw/master/data/resources/screenshots/screenshot1.png</image>
+      <image>https://raw.githubusercontent.com/SeaDve/Delineate/main/data/resources/screenshots/screenshot1.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/SeaDve/Delineate/main/data/resources/screenshots/screenshot2.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/SeaDve/Delineate/main/data/resources/screenshots/screenshot3.png</image>
     </screenshot>
   </screenshots>
   <url type="bugtracker">https://github.com/SeaDve/Delineate/issues</url>
@@ -28,7 +34,7 @@
   <url type="vcs-browser">https://github.com/SeaDve/Delineate</url>
   <content_rating type="oars-1.1"/>
   <releases>
-    <release version="0.1.0" date="2023-12-16">
+    <release version="0.1.0" date="2024-09-22">
       <description translatable="no">
         <p>Initial release.</p>
       </description>
