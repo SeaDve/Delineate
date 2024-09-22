@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-10 09:40+0800\n"
+"POT-Creation-Date: 2024-09-22 12:05+0800\n"
 "PO-Revision-Date: 2024-03-12 14:02+0000\n"
 "Last-Translator: bittin1ddc447d824349b2 <bittin@reimu.nl>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/seadve/delineate/"
@@ -80,11 +80,11 @@ msgstr "Zooma in"
 msgid "Search documents"
 msgstr "Sök dokument"
 
-#: data/resources/ui/recent_popover.ui:39
+#: data/resources/ui/recent_popover.ui:38
 msgid "No Recent Documents"
 msgstr "Inga senaste dokument"
 
-#: data/resources/ui/recent_popover.ui:48
+#: data/resources/ui/recent_popover.ui:47
 msgid "No Results"
 msgstr "Inga resultat"
 
@@ -196,8 +196,8 @@ msgstr "Återställ zoom"
 msgid "_New Window"
 msgstr "_Nytt fönster"
 
-#: data/resources/ui/window.ui:12 src/save_changes_dialog.rs:70
-#: src/save_changes_dialog.rs:142
+#: data/resources/ui/window.ui:12 src/save_changes_dialog.rs:71
+#: src/save_changes_dialog.rs:148
 msgid "_Save"
 msgid_plural "_Save All"
 msgstr[0] "_Spara"
@@ -330,55 +330,55 @@ msgstr "PNG"
 msgid "JPEG"
 msgstr "JPEG"
 
-#: src/page.rs:301 src/save_changes_dialog.rs:109
+#: src/page.rs:358 src/save_changes_dialog.rs:110
 msgid "Untitled Document"
 msgstr "Namnlöst dokument"
 
-#: src/page.rs:357
+#: src/page.rs:414
 msgid "Save Document"
 msgstr "Spara dokument"
 
-#: src/page.rs:378
+#: src/page.rs:435
 msgid "Save Document As"
 msgstr "Spara dokument som"
 
-#: src/page.rs:428
+#: src/page.rs:485
 msgid "Export Graph"
 msgstr "Exportera graf"
 
-#: src/page.rs:429
+#: src/page.rs:486
 msgid "_Export"
 msgstr "_Exportera"
 
-#: src/page.rs:471
+#: src/page.rs:528
 msgid "Graph exported"
 msgstr "Graf exporterad"
 
-#: src/page.rs:472
+#: src/page.rs:529
 msgid "Show in Files"
 msgstr "Visa i Filer"
 
-#: src/page.rs:482
+#: src/page.rs:544
 msgid "Failed to show in Files"
 msgstr "Misslyckades att visa i Filer"
 
-#: src/page.rs:640
+#: src/page.rs:703
 msgid "Failed to draw graph"
 msgstr "Misslyckades att rita graf"
 
-#: src/recent_row.rs:129
+#: src/recent_row.rs:134
 msgid "Just Now"
 msgstr "Precis nu"
 
-#: src/recent_row.rs:131
+#: src/recent_row.rs:136
 msgid "An hour ago"
 msgstr "En timme sedan"
 
-#: src/recent_row.rs:133
+#: src/recent_row.rs:138
 msgid "Yesterday"
 msgstr "Igår"
 
-#: src/recent_row.rs:139
+#: src/recent_row.rs:144
 msgid "About a year ago"
 msgstr "För ungefär ett år sedan"
 
@@ -398,21 +398,21 @@ msgstr ""
 "Öppna dokument innehåller osparade ändringar. Ändringar som inte sparas "
 "kommer att gå förlorade permanent."
 
-#: src/save_changes_dialog.rs:63
+#: src/save_changes_dialog.rs:64
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: src/save_changes_dialog.rs:66
+#: src/save_changes_dialog.rs:67
 msgid "_Discard"
 msgid_plural "_Discard All"
 msgstr[0] "_Förkasta"
 msgstr[1] "_Förkasta alla"
 
-#: src/session.rs:92
+#: src/session.rs:96
 msgid "Failed to load file"
 msgstr "Misslyckades att ladda fil"
 
-#: src/session.rs:489
+#: src/session.rs:508
 msgid "Failed to open file"
 msgstr "Misslyckades med att öppna fil"
 
@@ -445,11 +445,11 @@ msgstr "Misslyckades att öppna innehållande mapp"
 msgid "Failed to export graph"
 msgstr "Misslyckades att exportera graf"
 
-#: src/window.rs:645
+#: src/window.rs:701
 msgid "Open Document"
 msgstr "Öppna dokument"
 
-#: src/window.rs:742
+#: src/window.rs:807
 msgid "There are unsaved documents"
 msgstr "Det finns osparade dokument"
 

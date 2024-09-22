@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-10 09:40+0800\n"
+"POT-Creation-Date: 2024-09-22 12:05+0800\n"
 "PO-Revision-Date: 2024-06-12 03:13+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/seadve/delineate/"
@@ -41,8 +41,8 @@ msgid ""
 msgstr ""
 "Delineate biedt faciliteiten voor het bewerken en tekenen van grafen die zĳn "
 "gespecificeerd in de DOT-taal. Het is ontworpen als een eenvoudig en "
-"intuïtief hulp­middel voor het maken en bewerken van grafen, met de nadruk "
-"op de gebruikers­ervaring."
+"intuïtief hulp­middel voor het maken en bewerken van grafen, met de nadruk op "
+"de gebruikers­ervaring."
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:11
 msgid "The main features of Delineate include the following:"
@@ -80,11 +80,11 @@ msgstr "Inzoomen"
 msgid "Search documents"
 msgstr "Documenten zoeken"
 
-#: data/resources/ui/recent_popover.ui:39
+#: data/resources/ui/recent_popover.ui:38
 msgid "No Recent Documents"
 msgstr "Geen recente documenten"
 
-#: data/resources/ui/recent_popover.ui:48
+#: data/resources/ui/recent_popover.ui:47
 msgid "No Results"
 msgstr "Geen resultaten"
 
@@ -196,8 +196,8 @@ msgstr "Zoom resetten"
 msgid "_New Window"
 msgstr "_Nieuw venster"
 
-#: data/resources/ui/window.ui:12 src/save_changes_dialog.rs:70
-#: src/save_changes_dialog.rs:142
+#: data/resources/ui/window.ui:12 src/save_changes_dialog.rs:71
+#: src/save_changes_dialog.rs:148
 msgid "_Save"
 msgid_plural "_Save All"
 msgstr[0] "_Opslaan"
@@ -330,55 +330,55 @@ msgstr "PNG"
 msgid "JPEG"
 msgstr "JPEG"
 
-#: src/page.rs:301 src/save_changes_dialog.rs:109
+#: src/page.rs:358 src/save_changes_dialog.rs:110
 msgid "Untitled Document"
 msgstr "Naam­loos document"
 
-#: src/page.rs:357
+#: src/page.rs:414
 msgid "Save Document"
 msgstr "Document opslaan"
 
-#: src/page.rs:378
+#: src/page.rs:435
 msgid "Save Document As"
 msgstr "Document opslaan als"
 
-#: src/page.rs:428
+#: src/page.rs:485
 msgid "Export Graph"
 msgstr "Graaf exporteren"
 
-#: src/page.rs:429
+#: src/page.rs:486
 msgid "_Export"
 msgstr "_Exporteren"
 
-#: src/page.rs:471
+#: src/page.rs:528
 msgid "Graph exported"
 msgstr "Graaf geëxporteerd"
 
-#: src/page.rs:472
+#: src/page.rs:529
 msgid "Show in Files"
 msgstr "Tonen in bestanden"
 
-#: src/page.rs:482
+#: src/page.rs:544
 msgid "Failed to show in Files"
 msgstr "Kan niet worden weer­gegeven in Bestanden"
 
-#: src/page.rs:640
+#: src/page.rs:703
 msgid "Failed to draw graph"
 msgstr "Graaf tekenen mislukt"
 
-#: src/recent_row.rs:129
+#: src/recent_row.rs:134
 msgid "Just Now"
 msgstr "Zojuist"
 
-#: src/recent_row.rs:131
+#: src/recent_row.rs:136
 msgid "An hour ago"
 msgstr "Een uur geleden"
 
-#: src/recent_row.rs:133
+#: src/recent_row.rs:138
 msgid "Yesterday"
 msgstr "Gisteren"
 
-#: src/recent_row.rs:139
+#: src/recent_row.rs:144
 msgid "About a year ago"
 msgstr "Een jaar geleden"
 
@@ -398,21 +398,21 @@ msgstr ""
 "Geopende documenten bevatten niet-opgeslagen wĳzigingen. Wĳzigingen die niet "
 "worden opgeslagen, gaan permanent verloren."
 
-#: src/save_changes_dialog.rs:63
+#: src/save_changes_dialog.rs:64
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: src/save_changes_dialog.rs:66
+#: src/save_changes_dialog.rs:67
 msgid "_Discard"
 msgid_plural "_Discard All"
 msgstr[0] "_Verwerpen"
 msgstr[1] "Alles _verwerpen"
 
-#: src/session.rs:92
+#: src/session.rs:96
 msgid "Failed to load file"
 msgstr "Bestand laden mislukt"
 
-#: src/session.rs:489
+#: src/session.rs:508
 msgid "Failed to open file"
 msgstr "Bestand openen mislukt"
 
@@ -445,11 +445,11 @@ msgstr "Boven­liggende map openen mislukt"
 msgid "Failed to export graph"
 msgstr "Graaf exporteren mislukt"
 
-#: src/window.rs:645
+#: src/window.rs:701
 msgid "Open Document"
 msgstr "Document openen"
 
-#: src/window.rs:742
+#: src/window.rs:807
 msgid "There are unsaved documents"
 msgstr "Er zĳn niet-opgeslagen documenten"
 

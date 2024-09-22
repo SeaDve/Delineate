@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-10 09:40+0800\n"
+"POT-Creation-Date: 2024-09-22 12:05+0800\n"
 "PO-Revision-Date: 2024-06-26 22:09+0000\n"
 "Last-Translator: Clyhtsuriva <aimeric@adjutor.xyz>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/seadve/delineate/"
@@ -85,11 +85,11 @@ msgstr "Zoomer"
 msgid "Search documents"
 msgstr "Rechercher des documents"
 
-#: data/resources/ui/recent_popover.ui:39
+#: data/resources/ui/recent_popover.ui:38
 msgid "No Recent Documents"
 msgstr "Pas de documents récents"
 
-#: data/resources/ui/recent_popover.ui:48
+#: data/resources/ui/recent_popover.ui:47
 msgid "No Results"
 msgstr "Aucun résultats"
 
@@ -201,8 +201,8 @@ msgstr "Réinitialiser le zoom"
 msgid "_New Window"
 msgstr "_Nouvelle fenêtre"
 
-#: data/resources/ui/window.ui:12 src/save_changes_dialog.rs:70
-#: src/save_changes_dialog.rs:142
+#: data/resources/ui/window.ui:12 src/save_changes_dialog.rs:71
+#: src/save_changes_dialog.rs:148
 msgid "_Save"
 msgid_plural "_Save All"
 msgstr[0] "_Enregistrer"
@@ -335,55 +335,55 @@ msgstr "PNG"
 msgid "JPEG"
 msgstr "JPEG"
 
-#: src/page.rs:301 src/save_changes_dialog.rs:109
+#: src/page.rs:358 src/save_changes_dialog.rs:110
 msgid "Untitled Document"
 msgstr "Document Sans Titre"
 
-#: src/page.rs:357
+#: src/page.rs:414
 msgid "Save Document"
 msgstr "Enregistrer le document"
 
-#: src/page.rs:378
+#: src/page.rs:435
 msgid "Save Document As"
 msgstr "Enregistrer le document sous"
 
-#: src/page.rs:428
+#: src/page.rs:485
 msgid "Export Graph"
 msgstr "Exporter le graphique"
 
-#: src/page.rs:429
+#: src/page.rs:486
 msgid "_Export"
 msgstr "_Exporter"
 
-#: src/page.rs:471
+#: src/page.rs:528
 msgid "Graph exported"
 msgstr "Graphique exporté"
 
-#: src/page.rs:472
+#: src/page.rs:529
 msgid "Show in Files"
 msgstr "Afficher dans les fichiers"
 
-#: src/page.rs:482
+#: src/page.rs:544
 msgid "Failed to show in Files"
 msgstr "Echec de l'affichage dans les fichiers"
 
-#: src/page.rs:640
+#: src/page.rs:703
 msgid "Failed to draw graph"
 msgstr "Échec lors du dessin du graphique"
 
-#: src/recent_row.rs:129
+#: src/recent_row.rs:134
 msgid "Just Now"
 msgstr "À l'instant"
 
-#: src/recent_row.rs:131
+#: src/recent_row.rs:136
 msgid "An hour ago"
 msgstr "Il y a une heure"
 
-#: src/recent_row.rs:133
+#: src/recent_row.rs:138
 msgid "Yesterday"
 msgstr "Hier"
 
-#: src/recent_row.rs:139
+#: src/recent_row.rs:144
 msgid "About a year ago"
 msgstr "Il y a un an"
 
@@ -403,21 +403,21 @@ msgstr ""
 "Les documents ouverts contiennent des modifications non enregistrées. Ces "
 "modifications non enregistrées seront définitivement perdues."
 
-#: src/save_changes_dialog.rs:63
+#: src/save_changes_dialog.rs:64
 msgid "Cancel"
 msgstr "Annuler"
 
-#: src/save_changes_dialog.rs:66
+#: src/save_changes_dialog.rs:67
 msgid "_Discard"
 msgid_plural "_Discard All"
 msgstr[0] "_Annuler"
 msgstr[1] "_Annuler tous"
 
-#: src/session.rs:92
+#: src/session.rs:96
 msgid "Failed to load file"
 msgstr "Échec du chargement du fichier"
 
-#: src/session.rs:489
+#: src/session.rs:508
 msgid "Failed to open file"
 msgstr "Échec de l'ouverture du fichier"
 
@@ -450,11 +450,11 @@ msgstr "Échec de l'ouverture du dossier parent"
 msgid "Failed to export graph"
 msgstr "Échec de l'export du graphique"
 
-#: src/window.rs:645
+#: src/window.rs:701
 msgid "Open Document"
 msgstr "Ouvrir un document"
 
-#: src/window.rs:742
+#: src/window.rs:807
 msgid "There are unsaved documents"
 msgstr "Il y a des documents non enregistrés"
 

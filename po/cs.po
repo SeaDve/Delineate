@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-10 09:40+0800\n"
+"POT-Creation-Date: 2024-09-22 12:05+0800\n"
 "PO-Revision-Date: 2024-04-25 13:07+0000\n"
 "Last-Translator: Fjuro <fjuro@alius.cz>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/seadve/delineate/"
@@ -79,11 +79,11 @@ msgstr "Přiblížit"
 msgid "Search documents"
 msgstr "Hledat dokumenty"
 
-#: data/resources/ui/recent_popover.ui:39
+#: data/resources/ui/recent_popover.ui:38
 msgid "No Recent Documents"
 msgstr "Žádné nedávné dokumenty"
 
-#: data/resources/ui/recent_popover.ui:48
+#: data/resources/ui/recent_popover.ui:47
 msgid "No Results"
 msgstr "Žádné výsledky"
 
@@ -195,8 +195,8 @@ msgstr "Obnovit přiblížení"
 msgid "_New Window"
 msgstr "_Nové okno"
 
-#: data/resources/ui/window.ui:12 src/save_changes_dialog.rs:70
-#: src/save_changes_dialog.rs:142
+#: data/resources/ui/window.ui:12 src/save_changes_dialog.rs:71
+#: src/save_changes_dialog.rs:148
 msgid "_Save"
 msgid_plural "_Save All"
 msgstr[0] "_Uložit"
@@ -334,55 +334,55 @@ msgstr "PNG"
 msgid "JPEG"
 msgstr "JPEG"
 
-#: src/page.rs:301 src/save_changes_dialog.rs:109
+#: src/page.rs:358 src/save_changes_dialog.rs:110
 msgid "Untitled Document"
 msgstr "Nepojmenovaný dokument"
 
-#: src/page.rs:357
+#: src/page.rs:414
 msgid "Save Document"
 msgstr "Uložit dokument"
 
-#: src/page.rs:378
+#: src/page.rs:435
 msgid "Save Document As"
 msgstr "Uložit dokument jako"
 
-#: src/page.rs:428
+#: src/page.rs:485
 msgid "Export Graph"
 msgstr "Exportovat graf"
 
-#: src/page.rs:429
+#: src/page.rs:486
 msgid "_Export"
 msgstr "_Exportovat"
 
-#: src/page.rs:471
+#: src/page.rs:528
 msgid "Graph exported"
 msgstr "Graf exportován"
 
-#: src/page.rs:472
+#: src/page.rs:529
 msgid "Show in Files"
 msgstr "Zobrazit v souborech"
 
-#: src/page.rs:482
+#: src/page.rs:544
 msgid "Failed to show in Files"
 msgstr "Nepodařilo se zobrazit v souborech"
 
-#: src/page.rs:640
+#: src/page.rs:703
 msgid "Failed to draw graph"
 msgstr "Nepodařilo se nakreslit graf"
 
-#: src/recent_row.rs:129
+#: src/recent_row.rs:134
 msgid "Just Now"
 msgstr "Právě teď"
 
-#: src/recent_row.rs:131
+#: src/recent_row.rs:136
 msgid "An hour ago"
 msgstr "Před hodinou"
 
-#: src/recent_row.rs:133
+#: src/recent_row.rs:138
 msgid "Yesterday"
 msgstr "Včera"
 
-#: src/recent_row.rs:139
+#: src/recent_row.rs:144
 msgid "About a year ago"
 msgstr "Před rokem"
 
@@ -402,22 +402,22 @@ msgstr ""
 "Otevřené dokumenty obsahují neuložené změny. Změny, které nejsou uložené, "
 "budou nenávratně ztraceny."
 
-#: src/save_changes_dialog.rs:63
+#: src/save_changes_dialog.rs:64
 msgid "Cancel"
 msgstr "Zrušit"
 
-#: src/save_changes_dialog.rs:66
+#: src/save_changes_dialog.rs:67
 msgid "_Discard"
 msgid_plural "_Discard All"
 msgstr[0] "_Zahodit"
 msgstr[1] "_Zahodit vše"
 msgstr[2] "_Zahodit vše"
 
-#: src/session.rs:92
+#: src/session.rs:96
 msgid "Failed to load file"
 msgstr "Nepodařilo se načíst soubor"
 
-#: src/session.rs:489
+#: src/session.rs:508
 msgid "Failed to open file"
 msgstr "Nepodařilo se otevřít soubor"
 
@@ -450,10 +450,10 @@ msgstr "Nepodařilo se otevřít složku s obsahem"
 msgid "Failed to export graph"
 msgstr "Nepodařilo se exportovat graf"
 
-#: src/window.rs:645
+#: src/window.rs:701
 msgid "Open Document"
 msgstr "Otevřít dokument"
 
-#: src/window.rs:742
+#: src/window.rs:807
 msgid "There are unsaved documents"
 msgstr "Máte neuložené dokumenty"
