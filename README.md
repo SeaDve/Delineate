@@ -9,6 +9,10 @@
 </p>
 
 <p align="center">
+  <a href="https://flathub.org/apps/details/io.github.seadve.Delineate">
+    <img alt="Download on Flathub" src="https://flathub.org/api/badge?svg&locale=en&light" width="200"/>
+  </a>
+  <br>
   <a href="https://www.buymeacoffee.com/seadve">
     <img alt="Buy Me a Coffee" src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=seadve&button_colour=FFDD00&font_colour=000000&font_family=Inter&outline_colour=000000&coffee_colour=ffffff" width="150"/>
   </a>
@@ -20,10 +24,15 @@
  <a href="https://hosted.weblate.org/engage/seadve">
     <img alt="Translation status" src="https://hosted.weblate.org/widgets/seadve/-/delineate/svg-badge.svg"/>
   </a>
+  <a href="https://flathub.org/apps/details/io.github.seadve.Delineate">
+    <img alt="Flathub downloads" src="https://img.shields.io/badge/dynamic/json?color=informational&label=downloads&logo=flathub&logoColor=white&query=%24.installs_total&url=https%3A%2F%2Fflathub.org%2Fapi%2Fv2%2Fstats%2Fio.github.seadve.Delineate"/>
+  </a>
   <a href="https://github.com/SeaDve/Delineate/actions/workflows/ci.yml">
     <img alt="CI status" src="https://github.com/SeaDve/Delineate/actions/workflows/ci.yml/badge.svg"/>
   </a>
 </p>
+
+<br>
 
 <p align="center">
   <img src="data/resources/screenshots/preview.png" alt="Preview"/>
