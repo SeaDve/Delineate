@@ -19,13 +19,15 @@
   <screenshots>
     <screenshot type="default">
       <image>https://raw.githubusercontent.com/SeaDve/Delineate/main/data/resources/screenshots/screenshot1.png</image>
-      <caption>Main window in light mode</caption>
+      <caption>Editor and viewer</caption>
     </screenshot>
     <screenshot>
       <image>https://raw.githubusercontent.com/SeaDve/Delineate/main/data/resources/screenshots/screenshot2.png</image>
+      <caption>Editor collapsed</caption>
     </screenshot>
     <screenshot>
       <image>https://raw.githubusercontent.com/SeaDve/Delineate/main/data/resources/screenshots/screenshot3.png</image>
+      <caption>Tab overview</caption>
     </screenshot>
   </screenshots>
   <branding>
