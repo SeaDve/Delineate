@@ -2,13 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the delineate package.
 # gallegonovato <fran-carro@hotmail.es>, 2024.
+# Óscar Fernández Díaz <oscfdezdz@tuta.io>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-22 12:05+0800\n"
-"PO-Revision-Date: 2024-03-11 09:01+0000\n"
-"Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
+"PO-Revision-Date: 2024-09-28 21:16+0000\n"
+"Last-Translator: Óscar Fernández Díaz <oscfdezdz@tuta.io>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/seadve/delineate/"
 "es/>\n"
 "Language: es\n"
@@ -16,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.8-dev\n"
 
 #: data/io.github.seadve.Delineate.desktop.in.in:3
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
@@ -31,7 +32,7 @@ msgstr "Ver y editar gráficos"
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/io.github.seadve.Delineate.desktop.in.in:10
 msgid "graphviz;dot;graphs;visualization;"
-msgstr "graphviz;dot;graphs;visualization;"
+msgstr "graphviz;dot;graphs;visualization;gráficos;visualización;"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:10
 msgid ""
@@ -115,7 +116,7 @@ msgstr "Documentos"
 #: data/resources/ui/shortcuts.ui:31
 msgctxt "shortcut window"
 msgid "New Document"
-msgstr "Nuevo documento"
+msgstr "Documento nuevo"
 
 #: data/resources/ui/shortcuts.ui:37
 msgctxt "shortcut window"
@@ -140,12 +141,12 @@ msgstr "Ventanas"
 #: data/resources/ui/shortcuts.ui:60
 msgctxt "shortcut window"
 msgid "New Window"
-msgstr "Nueva ventana"
+msgstr "Ventana nueva"
 
 #: data/resources/ui/shortcuts.ui:66
 msgctxt "shortcut window"
 msgid "Move Document to New Window"
-msgstr "Mover el documento a una nueva ventana"
+msgstr "Mover el documento a una ventana nueva"
 
 #: data/resources/ui/shortcuts.ui:73
 msgctxt "shortcut window"
@@ -194,7 +195,7 @@ msgstr "Reiniciar zoom"
 
 #: data/resources/ui/window.ui:6
 msgid "_New Window"
-msgstr "_Nueva ventana"
+msgstr "_Ventana nueva"
 
 #: data/resources/ui/window.ui:12 src/save_changes_dialog.rs:71
 #: src/save_changes_dialog.rs:148
@@ -233,7 +234,7 @@ msgstr "Abrir _carpeta con el archivo"
 
 #: data/resources/ui/window.ui:50
 msgid "_Keyboard Shortcuts"
-msgstr "_Atajos del teclado"
+msgstr "Atajos del _teclado"
 
 #: data/resources/ui/window.ui:54
 msgid "_About Delineate"
@@ -249,7 +250,7 @@ msgstr "Mover a la _derecha"
 
 #: data/resources/ui/window.ui:72
 msgid "_Move to New Window"
-msgstr "_Mover a una nueva ventana"
+msgstr "_Mover a una ventana nueva"
 
 #: data/resources/ui/window.ui:78
 msgid "Close _Other Tabs"
@@ -269,7 +270,7 @@ msgstr "Últimos documentos"
 
 #: data/resources/ui/window.ui:114
 msgid "New Document"
-msgstr "Nuevo documento"
+msgstr "Documento nuevo"
 
 #: data/resources/ui/window.ui:143
 msgid "Main Menu"
@@ -290,8 +291,8 @@ msgid ""
 "Or, press Ctrl+W to close the window."
 msgstr ""
 "• Pulse el botón Abrir\n"
-"• Pulse el botón Nueva pestaña\n"
-"• Pulse Ctrl+N para iniciar un nuevo documento\n"
+"• Pulse el botón Pestaña nueva\n"
+"• Pulse Ctrl+N para iniciar un documento nuevo\n"
 "• Pulse Ctrl+O para buscar un documento\n"
 "• Arrastre un archivo a la ventana\n"
 "\n"
@@ -358,7 +359,7 @@ msgstr "Gráfico exportado"
 
 #: src/page.rs:529
 msgid "Show in Files"
-msgstr "Mostrar en archivos"
+msgstr "Mostrar en Archivos"
 
 #: src/page.rs:544
 msgid "Failed to show in Files"
