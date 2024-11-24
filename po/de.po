@@ -1,38 +1,35 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the delineate package.
-# Aindriú Mac Giolla Eoin <aindriu80@gmail.com>, 2024.
+# Thomas Staudacher <thomas-staudacher@posteo.de>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-22 12:05+0800\n"
-"PO-Revision-Date: 2024-11-24 14:55+0000\n"
-"Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
-"Language-Team: Irish <https://hosted.weblate.org/projects/seadve/delineate/"
-"ga/>\n"
-"Language: ga\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : (n>2 && n<7) ? 2 :("
-"n>6 && n<11) ? 3 : 4;\n"
-"X-Generator: Weblate 5.9-dev\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: data/io.github.seadve.Delineate.desktop.in.in:3
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
 msgid "Delineate"
-msgstr "Delineate"
+msgstr ""
 
 #: data/io.github.seadve.Delineate.desktop.in.in:4
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:8
 msgid "View and edit graphs"
-msgstr "Féach ar agus cuir in eagar graif"
+msgstr ""
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/io.github.seadve.Delineate.desktop.in.in:10
 msgid "graphviz;dot;graphs;visualization;"
-msgstr "grafviz; ponc; graif; léirshamhlú;"
+msgstr ""
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:10
 msgid ""
@@ -40,248 +37,241 @@ msgid ""
 "language It is designed to be a simple and intuitive tool for creating and "
 "editing graphs, with a focus on the user experience."
 msgstr ""
-"Soláthraíonn Delineate áiseanna chun graif atá sonraithe sa teanga DOT a "
-"chur in eagar agus a tharraingt. Tá sé deartha le bheith ina uirlis shimplí "
-"iomasach chun graif a chruthú agus a chur in eagar, ag díriú ar thaithí an "
-"úsáideora."
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:11
 msgid "The main features of Delineate include the following:"
-msgstr "Áirítear iad seo a leanas ar phríomhghnéithe Delineate:"
+msgstr ""
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:13
 msgid "🖼️ Live and interactive preview of the graph as you type"
-msgstr "🖼️ Réamhamharc beo agus idirghníomhach den ghraf agus tú ag clóscríobh"
+msgstr ""
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:14
 msgid "⏺️ Multiple Graphviz layout engines support"
-msgstr "⏺️ Tacaíonn innill leagan amach Il Graphviz"
+msgstr ""
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:15
 msgid "📝 Fully-featured DOT language editor"
-msgstr "📝 Eagarthóir teanga DOT lán-feiceáil"
+msgstr ""
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:16
 msgid "📦 Export graph as PNG, SVG, or JPEG"
-msgstr "📦 Easpórtáil an graf mar PNG, SVG, nó JPEG"
+msgstr ""
 
 #: data/resources/ui/page.ui:75
 msgid "Zoom Out"
-msgstr "Súmáil Amach"
+msgstr ""
 
 #: data/resources/ui/page.ui:82
 msgid "Reset Zoom"
-msgstr "Athshocraigh Zúmáil"
+msgstr ""
 
 #: data/resources/ui/page.ui:88
 msgid "Zoom In"
-msgstr "Súmáil Isteach"
+msgstr ""
 
 #: data/resources/ui/recent_popover.ui:17
 msgid "Search documents"
-msgstr "Cuardaigh doiciméid"
+msgstr ""
 
 #: data/resources/ui/recent_popover.ui:38
 msgid "No Recent Documents"
-msgstr "Gan Doiciméid le Déanaí"
+msgstr ""
 
 #: data/resources/ui/recent_popover.ui:47
 msgid "No Results"
-msgstr "Uimh Torthaí"
+msgstr ""
 
 #: data/resources/ui/recent_row.ui:53
 msgid "Remove"
-msgstr "Bain"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:11
 msgctxt "shortcut window"
 msgid "General"
-msgstr "Ginearálta"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:14
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
-msgstr "Taispeáin Aicearraí"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:20
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr "Scoir"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:28
 msgctxt "shortcut window"
 msgid "Documents"
-msgstr "Doiciméid"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:31
 msgctxt "shortcut window"
 msgid "New Document"
-msgstr "Doiciméad Nua"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:37
 msgctxt "shortcut window"
 msgid "Open Document"
-msgstr "Doiciméad Oscailte"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:43
 msgctxt "shortcut window"
 msgid "Save"
-msgstr "Sábháil"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:49
 msgctxt "shortcut window"
 msgid "Save As"
-msgstr "Sábháil Mar"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:57
 msgctxt "shortcut window"
 msgid "Windows"
-msgstr "Windows"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:60
 msgctxt "shortcut window"
 msgid "New Window"
-msgstr "Fuinneog Nua"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:66
 msgctxt "shortcut window"
 msgid "Move Document to New Window"
-msgstr "Bog Doiciméad go Fuinneog Nua"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:73
 msgctxt "shortcut window"
 msgid "Move to Next Tab"
-msgstr "Bog go dtí an Chéad Chluaisín Eile"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:79
 msgctxt "shortcut window"
 msgid "Move to Previous Tab"
-msgstr "Bog go dtí an Cluaisín Roimhe Seo"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:85
 msgctxt "shortcut window"
 msgid "Reorder After Next Tab"
-msgstr "Athordú Tar éis an Chéad Chluaisín Eile"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:91
 msgctxt "shortcut window"
 msgid "Reorder Before Previous Tab"
-msgstr "Athordú Roimh an gCluaisín Roimhe Seo"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:97
 msgctxt "shortcut window"
 msgid "Restore Previously Closed Tab"
-msgstr "Athchóirigh an Cluaisín a Dúnta Roimhe Seo"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:104
 msgctxt "shortcut window"
 msgid "Zoom"
-msgstr "Súmáil"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:108
 msgctxt "shortcut window"
 msgid "Zoom In"
-msgstr "Súmáil Isteach"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:114
 msgctxt "shortcut window"
 msgid "Zoom Out"
-msgstr "Súmáil Amach"
+msgstr ""
 
 #: data/resources/ui/shortcuts.ui:120
 msgctxt "shortcut window"
 msgid "Reset Zoom"
-msgstr "Athshocraigh Zúmáil"
+msgstr ""
 
 #: data/resources/ui/window.ui:6
 msgid "_New Window"
-msgstr "_Fuinneog Nua"
+msgstr ""
 
 #: data/resources/ui/window.ui:12 src/save_changes_dialog.rs:71
 #: src/save_changes_dialog.rs:148
 msgid "_Save"
 msgid_plural "_Save All"
-msgstr[0] "_Sábháil"
-msgstr[1] "_Sábháil Uile"
-msgstr[2] "_Sábháil Uile"
-msgstr[3] "_Sábháil Uile"
-msgstr[4] "_Sábháil Uile"
+msgstr[0] ""
+msgstr[1] ""
 
 #: data/resources/ui/window.ui:16
 msgid "Save _As…"
-msgstr "Sábháil _Mar…"
+msgstr ""
 
 #: data/resources/ui/window.ui:20
 msgid "_Discard Changes"
-msgstr "_Scaoil Athruithe"
+msgstr ""
 
 #: data/resources/ui/window.ui:26
 msgid "_Export Graph"
-msgstr "_Easpórtáil Graf"
+msgstr ""
 
 #: data/resources/ui/window.ui:28
 msgid "Export As PNG…"
-msgstr "Easpórtáil Mar PNG…"
+msgstr ""
 
 #: data/resources/ui/window.ui:33
 msgid "Export As SVG…"
-msgstr "Easpórtáil Mar SVG…"
+msgstr ""
 
 #: data/resources/ui/window.ui:38
 msgid "Export As JPEG…"
-msgstr "Easpórtáil Mar JPEG…"
+msgstr ""
 
 #: data/resources/ui/window.ui:44
 msgid "Open _Containing Folder"
-msgstr "Oscail _Fillteán ina bhfuil"
+msgstr ""
 
 #: data/resources/ui/window.ui:50
 msgid "_Keyboard Shortcuts"
-msgstr "_Aicearraí méarchláir"
+msgstr ""
 
 #: data/resources/ui/window.ui:54
 msgid "_About Delineate"
-msgstr "_Maidir le Delineate"
+msgstr ""
 
 #: data/resources/ui/window.ui:62
 msgid "Move _Left"
-msgstr "Bog _Clé"
+msgstr ""
 
 #: data/resources/ui/window.ui:66
 msgid "Move _Right"
-msgstr "Bog _Ar dheis"
+msgstr ""
 
 #: data/resources/ui/window.ui:72
 msgid "_Move to New Window"
-msgstr "_Bog go Fuinneog Nua"
+msgstr ""
 
 #: data/resources/ui/window.ui:78
 msgid "Close _Other Tabs"
-msgstr "Dún Cluaisíní Eile"
+msgstr ""
 
 #: data/resources/ui/window.ui:82
 msgid "_Close"
-msgstr "_Dún"
+msgstr ""
 
 #: data/resources/ui/window.ui:104
 msgid "Open"
-msgstr "Oscail"
+msgstr ""
 
 #: data/resources/ui/window.ui:106
 msgid "Recent Documents"
-msgstr "Doiciméid le Déanaí"
+msgstr ""
 
 #: data/resources/ui/window.ui:114
 msgid "New Document"
-msgstr "Doiciméad Nua"
+msgstr ""
 
 #: data/resources/ui/window.ui:143
 msgid "Main Menu"
-msgstr "Príomh-Roghchlár"
+msgstr ""
 
 #: data/resources/ui/window.ui:168
 msgid "Start or Open a Document"
-msgstr "Tosaigh nó Oscail Doiciméad"
+msgstr ""
 
 #: data/resources/ui/window.ui:174
 msgid ""
@@ -293,169 +283,157 @@ msgid ""
 "\n"
 "Or, press Ctrl+W to close the window."
 msgstr ""
-"• Brúigh an cnaipe Oscailte\n"
-"• Brúigh an Cluaisín Nua\n"
-"• Brúigh Ctrl+N chun doiciméad nua a thosú\n"
-"• Brúigh Ctrl+O chun doiciméad a bhrabhsáil\n"
-"• Tarraing comhad isteach san fhuinneog\n"
-"\n"
-"Nó, brúigh Ctrl+W chun an fhuinneog a dhúnadh."
 
 #. Translators: Replace "translator-credits" with your names. Put a comma between.
 #: src/about.rs:23
 msgid "translator-credits"
-msgstr "aistritheoir-creidmheasa"
+msgstr ""
 
 #: src/about.rs:30
 msgid "Donate"
-msgstr "Síntiúis"
+msgstr ""
 
 #: src/about.rs:32
 msgid "Donate (Buy Me a Coffee)"
-msgstr "Deonaigh (Ceannaigh caife dom)"
+msgstr ""
 
 #: src/about.rs:35
 msgid "GitHub"
-msgstr "GitHub"
+msgstr ""
 
 #: src/about.rs:37
 msgid "Translate"
-msgstr "Aistrigh"
+msgstr ""
 
 #: src/export_format.rs:29
 msgid "SVG"
-msgstr "SVG"
+msgstr ""
 
 #: src/export_format.rs:30
 msgid "PNG"
-msgstr "PNG"
+msgstr ""
 
 #: src/export_format.rs:31
 msgid "JPEG"
-msgstr "JPEG"
+msgstr ""
 
 #: src/page.rs:358 src/save_changes_dialog.rs:110
 msgid "Untitled Document"
-msgstr "Doiciméad Gan Teideal"
+msgstr ""
 
 #: src/page.rs:414
 msgid "Save Document"
-msgstr "Sábháil Doiciméad"
+msgstr ""
 
 #: src/page.rs:435
 msgid "Save Document As"
-msgstr "Sábháil Doiciméad Mar"
+msgstr ""
 
 #: src/page.rs:485
 msgid "Export Graph"
-msgstr "Graf Easpórtála"
+msgstr ""
 
 #: src/page.rs:486
 msgid "_Export"
-msgstr "_Easpórtáil"
+msgstr ""
 
 #: src/page.rs:528
 msgid "Graph exported"
-msgstr "Graf easpórtáilte"
+msgstr ""
 
 #: src/page.rs:529
 msgid "Show in Files"
-msgstr "Taispeáin i gComhaid"
+msgstr ""
 
 #: src/page.rs:544
 msgid "Failed to show in Files"
-msgstr "Theip ar thaispeáint i gComhaid"
+msgstr ""
 
 #: src/page.rs:703
 msgid "Failed to draw graph"
-msgstr "Theip ar tharraingt graf"
+msgstr ""
 
 #: src/recent_row.rs:134
 msgid "Just Now"
-msgstr "Díreach Anois"
+msgstr ""
 
 #: src/recent_row.rs:136
 msgid "An hour ago"
-msgstr "Uair an chloig ó shin"
+msgstr ""
 
 #: src/recent_row.rs:138
 msgid "Yesterday"
-msgstr "Inné"
+msgstr ""
 
 #: src/recent_row.rs:144
 msgid "About a year ago"
-msgstr "Timpeall bliain ó shin"
+msgstr ""
 
 #: src/save_changes_dialog.rs:44
 msgid "Failed to save changes to document"
-msgstr "Theip ar shábháil na n-athruithe ar an doiciméad"
+msgstr ""
 
 #: src/save_changes_dialog.rs:57
 msgid "Save Changes?"
-msgstr "Sábháil Athruithe?"
+msgstr ""
 
 #: src/save_changes_dialog.rs:58
 msgid ""
 "Open documents contain unsaved changes. Changes which are not saved will be "
 "permanently lost."
 msgstr ""
-"Bíonn athruithe gan sábháil i ndoiciméid oscailte. Caillfear go buan "
-"athruithe nach sábhálfar."
 
 #: src/save_changes_dialog.rs:64
 msgid "Cancel"
-msgstr "Cealaigh"
+msgstr ""
 
 #: src/save_changes_dialog.rs:67
 msgid "_Discard"
 msgid_plural "_Discard All"
-msgstr[0] "_Scaoil"
-msgstr[1] "_Scaoil Uile"
-msgstr[2] "_Scaoil Uile"
-msgstr[3] "_Scaoil Uile"
-msgstr[4] "_Scaoil Uile"
+msgstr[0] ""
+msgstr[1] ""
 
 #: src/session.rs:96
 msgid "Failed to load file"
-msgstr "Theip ar lódáil an chomhaid"
+msgstr ""
 
 #: src/session.rs:508
 msgid "Failed to open file"
-msgstr "Theip ar an gcomhad a oscailt"
+msgstr ""
 
 #. Translators: DOT is an acronym, do not translate.
 #: src/utils.rs:38
 msgid "Graphviz DOT Files"
-msgstr "Graphviz Comhaid DOT"
+msgstr ""
 
 #: src/window.rs:86
 msgid "Failed to open document"
-msgstr "Theip ar an doiciméad a oscailt"
+msgstr ""
 
 #: src/window.rs:101
 msgid "Failed to save document"
-msgstr "Theip ar an doiciméad a shábháil"
+msgstr ""
 
 #: src/window.rs:116
 msgid "Failed to save document as"
-msgstr "Theip ar an doiciméad a shábháil mar"
+msgstr ""
 
 #: src/window.rs:130
 msgid "Failed to discard document changes"
-msgstr "Theip ar scriosadh na n-athruithe doiciméad"
+msgstr ""
 
 #: src/window.rs:144
 msgid "Failed to open containing folder"
-msgstr "Theip ar oscailt fillteán ina bhfuil"
+msgstr ""
 
 #: src/window.rs:171
 msgid "Failed to export graph"
-msgstr "Theip ar easpórtáil an ghraf"
+msgstr ""
 
 #: src/window.rs:701
 msgid "Open Document"
-msgstr "Doiciméad Oscailte"
+msgstr ""
 
 #: src/window.rs:807
 msgid "There are unsaved documents"
-msgstr "Tá doiciméid nach bhfuil sábháilte"
+msgstr ""
