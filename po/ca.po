@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-22 12:05+0800\n"
-"PO-Revision-Date: 2024-11-16 19:00+0000\n"
+"PO-Revision-Date: 2024-12-18 11:00+0000\n"
 "Last-Translator: Joan Aymà <joanayma@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/seadve/delineate/"
 "ca/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9-dev\n"
+"X-Generator: Weblate 5.9.2-dev\n"
 
 #: data/io.github.seadve.Delineate.desktop.in.in:3
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
@@ -54,27 +54,27 @@ msgstr "🖼️ vista prèvia en directe i interactiva del graf a mesures que es
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:14
 msgid "⏺️ Multiple Graphviz layout engines support"
-msgstr ""
+msgstr "⏺️ Suport per múltiples motors de visualització de grafs"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:15
 msgid "📝 Fully-featured DOT language editor"
-msgstr ""
+msgstr "📝 Editor de llenguatge DOT amb totes les funcionalitats"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:16
 msgid "📦 Export graph as PNG, SVG, or JPEG"
-msgstr ""
+msgstr "📦 Exporta el graf a PNG, SVG o JPEG"
 
 #: data/resources/ui/page.ui:75
 msgid "Zoom Out"
-msgstr ""
+msgstr "Reduïr"
 
 #: data/resources/ui/page.ui:82
 msgid "Reset Zoom"
-msgstr ""
+msgstr "Reinicia el zoom"
 
 #: data/resources/ui/page.ui:88
 msgid "Zoom In"
-msgstr ""
+msgstr "Ampliar"
 
 #: data/resources/ui/recent_popover.ui:17
 msgid "Search documents"
@@ -295,7 +295,7 @@ msgstr ""
 "• Prem control+O per navegar a un document\n"
 "• Arrossega un arxiu dins la finestra\n"
 "\n"
-"O prem control+W per tancar la finestra"
+"O prem control+W per tancar la finestra."
 
 #. Translators: Replace "translator-credits" with your names. Put a comma between.
 #: src/about.rs:23
