@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the delineate package.
-# Thomas Staudacher <thomas-staudacher@posteo.de>, 2024.
+# Thomas Staudacher <thomas-staudacher@posteo.de>, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-22 12:05+0800\n"
-"PO-Revision-Date: 2024-12-04 12:00+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2025-01-06 17:01+0000\n"
+"Last-Translator: Thomas Staudacher <thomas-staudacher@posteo.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/seadve/delineate/"
 "de/>\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9-dev\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: data/io.github.seadve.Delineate.desktop.in.in:3
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
@@ -329,9 +329,8 @@ msgid "Donate"
 msgstr "Spenden"
 
 #: src/about.rs:32
-#, fuzzy
 msgid "Donate (Buy Me a Coffee)"
-msgstr "Spenden (Kauf mir einen Kaffee)"
+msgstr "Spenden (Spendier mir einen Kaffee)"
 
 #: src/about.rs:35
 #, fuzzy
@@ -356,9 +355,8 @@ msgid "JPEG"
 msgstr "JPEG"
 
 #: src/page.rs:358 src/save_changes_dialog.rs:110
-#, fuzzy
 msgid "Untitled Document"
-msgstr "Unbezeichnetes Dokument"
+msgstr "Unbenanntes Dokument"
 
 #: src/page.rs:414
 msgid "Save Document"
@@ -397,9 +395,8 @@ msgid "Failed to draw graph"
 msgstr "Graph konnte nicht gezeichnet werden"
 
 #: src/recent_row.rs:134
-#, fuzzy
 msgid "Just Now"
-msgstr "Gerade jetzt"
+msgstr "Jetzt"
 
 #: src/recent_row.rs:136
 msgid "An hour ago"
@@ -410,9 +407,8 @@ msgid "Yesterday"
 msgstr "Gestern"
 
 #: src/recent_row.rs:144
-#, fuzzy
 msgid "About a year ago"
-msgstr "Vor einem Jahr"
+msgstr "Vor etwa einem Jahr"
 
 #: src/save_changes_dialog.rs:44
 msgid "Failed to save changes to document"
