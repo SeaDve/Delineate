@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-22 12:05+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-01-21 02:50+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"Language-Team: Interlingua <https://hosted.weblate.org/projects/seadve/"
+"delineate/ia/>\n"
 "Language: ia\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10-dev\n"
 
 #: data/io.github.seadve.Delineate.desktop.in.in:3
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
@@ -79,17 +81,19 @@ msgid "No Recent Documents"
 msgstr ""
 
 #: data/resources/ui/recent_popover.ui:47
+#, fuzzy
 msgid "No Results"
-msgstr ""
+msgstr "Necun resultatos"
 
 #: data/resources/ui/recent_row.ui:53
 msgid "Remove"
 msgstr ""
 
 #: data/resources/ui/shortcuts.ui:11
+#, fuzzy
 msgctxt "shortcut window"
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #: data/resources/ui/shortcuts.ui:14
 msgctxt "shortcut window"
@@ -97,9 +101,10 @@ msgid "Show Shortcuts"
 msgstr ""
 
 #: data/resources/ui/shortcuts.ui:20
+#, fuzzy
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr ""
+msgstr "Quitar"
 
 #: data/resources/ui/shortcuts.ui:28
 msgctxt "shortcut window"
@@ -226,8 +231,9 @@ msgid "Open _Containing Folder"
 msgstr ""
 
 #: data/resources/ui/window.ui:50
+#, fuzzy
 msgid "_Keyboard Shortcuts"
-msgstr ""
+msgstr "_Commandos curte de claviero"
 
 #: data/resources/ui/window.ui:54
 msgid "_About Delineate"
@@ -266,8 +272,9 @@ msgid "New Document"
 msgstr ""
 
 #: data/resources/ui/window.ui:143
+#, fuzzy
 msgid "Main Menu"
-msgstr ""
+msgstr "Menu principal"
 
 #: data/resources/ui/window.ui:168
 msgid "Start or Open a Document"
@@ -298,12 +305,14 @@ msgid "Donate (Buy Me a Coffee)"
 msgstr ""
 
 #: src/about.rs:35
+#, fuzzy
 msgid "GitHub"
-msgstr ""
+msgstr "GitHub"
 
 #: src/about.rs:37
+#, fuzzy
 msgid "Translate"
-msgstr ""
+msgstr "Traducer"
 
 #: src/export_format.rs:29
 msgid "SVG"
