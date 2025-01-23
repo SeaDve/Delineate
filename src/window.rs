@@ -604,7 +604,7 @@ impl Window {
         page
     }
 
-    pub async fn request_close_pages<'a>(&self, pages: &[Page]) {
+    pub async fn request_close_pages(&self, pages: &[Page]) {
         debug_assert!(!pages.is_empty());
 
         let imp = self.imp();
