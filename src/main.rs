@@ -44,18 +44,17 @@ mod session;
 mod utils;
 mod window;
 
-use std::{fs, path::PathBuf};
+use std::{fs, path::PathBuf, sync::LazyLock};
 
 use gettextrs::LocaleCategory;
 use gtk::{gio, glib};
-use once_cell::sync::Lazy;
 
 use self::{
     application::Application,
     config::{APP_ID, GETTEXT_PACKAGE, LOCALEDIR, RESOURCES_FILE},
 };
 
-static APP_DATA_DIR: Lazy<PathBuf> = Lazy::new(|| {
+static APP_DATA_DIR: LazyLock<PathBuf> = LazyLock::new(|| {
     let mut path = glib::user_data_dir();
     path.push(APP_ID);
     path

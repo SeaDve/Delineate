@@ -1,4 +1,4 @@
-use std::time::Duration;
+use std::{sync::LazyLock, time::Duration};
 
 use adw::prelude::*;
 use anyhow::{Context, Result};
@@ -9,7 +9,6 @@ use gtk::{
     subclass::prelude::*,
 };
 use gtk_source::prelude::*;
-use once_cell::sync::Lazy;
 use regex::Regex;
 
 use crate::{
@@ -20,8 +19,8 @@ use crate::{
 const DRAW_GRAPH_PRIORITY: glib::Priority = glib::Priority::DEFAULT_IDLE;
 const DRAW_GRAPH_INTERVAL: Duration = Duration::from_secs(1);
 
-static SYNTAX_ERROR_REGEX: Lazy<Regex> =
-    Lazy::new(|| Regex::new(r"syntax error in line (\d+)").expect("Failed to compile regex"));
+static SYNTAX_ERROR_REGEX: LazyLock<Regex> =
+    LazyLock::new(|| Regex::new(r"syntax error in line (\d+)").expect("Failed to compile regex"));
 
 mod imp {
     use std::{

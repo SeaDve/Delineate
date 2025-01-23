@@ -1,8 +1,9 @@
+use std::sync::LazyLock;
+
 use fuzzy_matcher::{skim::SkimMatcherV2, FuzzyMatcher};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
-use once_cell::sync::Lazy;
 
-static FUZZY_MATCHER: Lazy<SkimMatcherV2> = Lazy::new(SkimMatcherV2::default);
+static FUZZY_MATCHER: LazyLock<SkimMatcherV2> = LazyLock::new(SkimMatcherV2::default);
 
 mod imp {
     use std::cell::{OnceCell, RefCell};

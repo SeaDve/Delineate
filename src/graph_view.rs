@@ -61,11 +61,10 @@ impl LayoutEngine {
 }
 
 mod imp {
-    use std::{cell::Cell, marker::PhantomData};
+    use std::{cell::Cell, marker::PhantomData, sync::LazyLock};
 
     use async_lock::OnceCell;
     use glib::subclass::Signal;
-    use once_cell::sync::Lazy;
 
     use super::*;
 
@@ -219,7 +218,7 @@ mod imp {
         }
 
         fn signals() -> &'static [Signal] {
-            static SIGNALS: Lazy<Vec<Signal>> = Lazy::new(|| {
+            static SIGNALS: LazyLock<Vec<Signal>> = LazyLock::new(|| {
                 vec![Signal::builder("error")
                     .param_types([String::static_type()])
                     .build()]

@@ -29,10 +29,9 @@ const FILE_SAVER_FLAGS: gtk_source::FileSaverFlags =
         .union(gtk_source::FileSaverFlags::IGNORE_MODIFICATION_TIME);
 
 mod imp {
-    use std::{cell::Cell, marker::PhantomData};
+    use std::{cell::Cell, marker::PhantomData, sync::LazyLock};
 
     use glib::subclass::Signal;
-    use once_cell::sync::Lazy;
 
     use super::*;
 
@@ -98,8 +97,8 @@ mod imp {
         }
 
         fn signals() -> &'static [Signal] {
-            static SIGNALS: Lazy<Vec<Signal>> =
-                Lazy::new(|| vec![Signal::builder("text-changed").build()]);
+            static SIGNALS: LazyLock<Vec<Signal>> =
+                LazyLock::new(|| vec![Signal::builder("text-changed").build()]);
 
             SIGNALS.as_ref()
         }
