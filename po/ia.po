@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-22 12:05+0800\n"
-"PO-Revision-Date: 2025-01-29 11:43+0000\n"
+"PO-Revision-Date: 2025-01-29 12:23+0000\n"
 "Last-Translator: \"Emilio S.\" <emism.translations@gmail.com>\n"
 "Language-Team: Interlingua <https://hosted.weblate.org/projects/seadve/"
 "delineate/ia/>\n"
@@ -434,7 +434,7 @@ msgstr ""
 
 #: src/window.rs:701
 msgid "Open Document"
-msgstr ""
+msgstr "Aperir documento"
 
 #: src/window.rs:807
 msgid "There are unsaved documents"
