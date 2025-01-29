@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-22 12:05+0800\n"
-"PO-Revision-Date: 2025-01-21 02:50+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2025-01-29 11:43+0000\n"
+"Last-Translator: \"Emilio S.\" <emism.translations@gmail.com>\n"
 "Language-Team: Interlingua <https://hosted.weblate.org/projects/seadve/"
 "delineate/ia/>\n"
 "Language: ia\n"
@@ -81,7 +81,6 @@ msgid "No Recent Documents"
 msgstr ""
 
 #: data/resources/ui/recent_popover.ui:47
-#, fuzzy
 msgid "No Results"
 msgstr "Necun resultatos"
 
@@ -90,7 +89,6 @@ msgid "Remove"
 msgstr ""
 
 #: data/resources/ui/shortcuts.ui:11
-#, fuzzy
 msgctxt "shortcut window"
 msgid "General"
 msgstr "General"
@@ -98,10 +96,9 @@ msgstr "General"
 #: data/resources/ui/shortcuts.ui:14
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
-msgstr ""
+msgstr "Monstrar commandos curte"
 
 #: data/resources/ui/shortcuts.ui:20
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Quitar"
@@ -109,52 +106,52 @@ msgstr "Quitar"
 #: data/resources/ui/shortcuts.ui:28
 msgctxt "shortcut window"
 msgid "Documents"
-msgstr ""
+msgstr "Documentos"
 
 #: data/resources/ui/shortcuts.ui:31
 msgctxt "shortcut window"
 msgid "New Document"
-msgstr ""
+msgstr "Nove documento"
 
 #: data/resources/ui/shortcuts.ui:37
 msgctxt "shortcut window"
 msgid "Open Document"
-msgstr ""
+msgstr "Aperir documento"
 
 #: data/resources/ui/shortcuts.ui:43
 msgctxt "shortcut window"
 msgid "Save"
-msgstr ""
+msgstr "Salvar"
 
 #: data/resources/ui/shortcuts.ui:49
 msgctxt "shortcut window"
 msgid "Save As"
-msgstr ""
+msgstr "Salvar como"
 
 #: data/resources/ui/shortcuts.ui:57
 msgctxt "shortcut window"
 msgid "Windows"
-msgstr ""
+msgstr "Fenestras"
 
 #: data/resources/ui/shortcuts.ui:60
 msgctxt "shortcut window"
 msgid "New Window"
-msgstr ""
+msgstr "Nove fenestra"
 
 #: data/resources/ui/shortcuts.ui:66
 msgctxt "shortcut window"
 msgid "Move Document to New Window"
-msgstr ""
+msgstr "Displaciar documento a un nove fenestra"
 
 #: data/resources/ui/shortcuts.ui:73
 msgctxt "shortcut window"
 msgid "Move to Next Tab"
-msgstr ""
+msgstr "Displaciar al sequente scheda"
 
 #: data/resources/ui/shortcuts.ui:79
 msgctxt "shortcut window"
 msgid "Move to Previous Tab"
-msgstr ""
+msgstr "Displaciar al precedente scheda"
 
 #: data/resources/ui/shortcuts.ui:85
 msgctxt "shortcut window"
@@ -231,7 +228,6 @@ msgid "Open _Containing Folder"
 msgstr ""
 
 #: data/resources/ui/window.ui:50
-#, fuzzy
 msgid "_Keyboard Shortcuts"
 msgstr "_Commandos curte de claviero"
 
@@ -272,7 +268,6 @@ msgid "New Document"
 msgstr ""
 
 #: data/resources/ui/window.ui:143
-#, fuzzy
 msgid "Main Menu"
 msgstr "Menu principal"
 
@@ -305,12 +300,10 @@ msgid "Donate (Buy Me a Coffee)"
 msgstr ""
 
 #: src/about.rs:35
-#, fuzzy
 msgid "GitHub"
 msgstr "GitHub"
 
 #: src/about.rs:37
-#, fuzzy
 msgid "Translate"
 msgstr "Traducer"
 
@@ -394,7 +387,7 @@ msgstr ""
 
 #: src/save_changes_dialog.rs:64
 msgid "Cancel"
-msgstr ""
+msgstr "Cancellar"
 
 #: src/save_changes_dialog.rs:67
 msgid "_Discard"
