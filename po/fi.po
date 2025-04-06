@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-22 12:05+0800\n"
-"PO-Revision-Date: 2025-04-06 09:35+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2025-04-06 18:23+0000\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/seadve/delineate/"
 "fi/>\n"
 "Language: fi\n"
@@ -39,26 +39,29 @@ msgid ""
 "language It is designed to be a simple and intuitive tool for creating and "
 "editing graphs, with a focus on the user experience."
 msgstr ""
+"Delineate mahdollistaa DOT-kielellä tehtyjen kaavioiden piirtämisen ja "
+"muokkaamisen. Se on yksinkertainen ja intuitiivinen työkalu kaavioiden "
+"kanssa työskentelyyn, ja käyttökokemus on keskeinen painopiste."
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:11
 msgid "The main features of Delineate include the following:"
-msgstr ""
+msgstr "Delineaten keskeisimmät ominaisuudet:"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:13
 msgid "🖼️ Live and interactive preview of the graph as you type"
-msgstr ""
+msgstr "🖼️ Reaaliaikainen ja vuorovaikutteinen kaavioiden esikatselu"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:14
 msgid "⏺️ Multiple Graphviz layout engines support"
-msgstr ""
+msgstr "⏺️ Useiden Graphviz-asettelumoottoreiden tuki"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:15
 msgid "📝 Fully-featured DOT language editor"
-msgstr ""
+msgstr "📝 Täysin ominaisuuksin varusteltu DOT-kielimuokkain"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:16
 msgid "📦 Export graph as PNG, SVG, or JPEG"
-msgstr ""
+msgstr "📦 Vie kaaviot PNG-, SVG- tai JPEG-muodossa"
 
 #: data/resources/ui/page.ui:75
 msgid "Zoom Out"
@@ -81,28 +84,24 @@ msgid "No Recent Documents"
 msgstr "Ei äskettäisiä asiakirjoja"
 
 #: data/resources/ui/recent_popover.ui:47
-#, fuzzy
 msgid "No Results"
 msgstr "Ei tuloksia"
 
 #: data/resources/ui/recent_row.ui:53
 msgid "Remove"
-msgstr ""
+msgstr "Poista"
 
 #: data/resources/ui/shortcuts.ui:11
-#, fuzzy
 msgctxt "shortcut window"
 msgid "General"
 msgstr "Yleiset"
 
 #: data/resources/ui/shortcuts.ui:14
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
-msgstr "Näytä pikavalinnat"
+msgstr "Näytä pikanäppäimet"
 
 #: data/resources/ui/shortcuts.ui:20
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Lopeta"
@@ -110,177 +109,174 @@ msgstr "Lopeta"
 #: data/resources/ui/shortcuts.ui:28
 msgctxt "shortcut window"
 msgid "Documents"
-msgstr ""
+msgstr "Asiakirjat"
 
 #: data/resources/ui/shortcuts.ui:31
 msgctxt "shortcut window"
 msgid "New Document"
-msgstr ""
+msgstr "Uusi asiakirja"
 
 #: data/resources/ui/shortcuts.ui:37
 msgctxt "shortcut window"
 msgid "Open Document"
-msgstr ""
+msgstr "Avaa asiakirja"
 
 #: data/resources/ui/shortcuts.ui:43
 msgctxt "shortcut window"
 msgid "Save"
-msgstr ""
+msgstr "Tallenna"
 
 #: data/resources/ui/shortcuts.ui:49
 msgctxt "shortcut window"
 msgid "Save As"
-msgstr ""
+msgstr "Tallenna nimellä"
 
 #: data/resources/ui/shortcuts.ui:57
 msgctxt "shortcut window"
 msgid "Windows"
-msgstr ""
+msgstr "Ikkunat"
 
 #: data/resources/ui/shortcuts.ui:60
 msgctxt "shortcut window"
 msgid "New Window"
-msgstr ""
+msgstr "Uusi ikkuna"
 
 #: data/resources/ui/shortcuts.ui:66
 msgctxt "shortcut window"
 msgid "Move Document to New Window"
-msgstr ""
+msgstr "Siirrä asiakirja uuteen ikkunaan"
 
 #: data/resources/ui/shortcuts.ui:73
 msgctxt "shortcut window"
 msgid "Move to Next Tab"
-msgstr ""
+msgstr "Siirry seuraavalle välilehdelle"
 
 #: data/resources/ui/shortcuts.ui:79
 msgctxt "shortcut window"
 msgid "Move to Previous Tab"
-msgstr ""
+msgstr "Siirry edelliselle välilehdelle"
 
 #: data/resources/ui/shortcuts.ui:85
 msgctxt "shortcut window"
 msgid "Reorder After Next Tab"
-msgstr ""
+msgstr "Järjestä uudelleen seuraavan välilehden perään"
 
 #: data/resources/ui/shortcuts.ui:91
 msgctxt "shortcut window"
 msgid "Reorder Before Previous Tab"
-msgstr ""
+msgstr "Järjestä uudelleen ennen edellistä välilehteä"
 
 #: data/resources/ui/shortcuts.ui:97
 msgctxt "shortcut window"
 msgid "Restore Previously Closed Tab"
-msgstr ""
+msgstr "Palauta aiemmin suljettu välilehti"
 
 #: data/resources/ui/shortcuts.ui:104
 msgctxt "shortcut window"
 msgid "Zoom"
-msgstr ""
+msgstr "Suurennus"
 
 #: data/resources/ui/shortcuts.ui:108
 msgctxt "shortcut window"
 msgid "Zoom In"
-msgstr ""
+msgstr "Lähennä"
 
 #: data/resources/ui/shortcuts.ui:114
 msgctxt "shortcut window"
 msgid "Zoom Out"
-msgstr ""
+msgstr "Loitonna"
 
 #: data/resources/ui/shortcuts.ui:120
 msgctxt "shortcut window"
 msgid "Reset Zoom"
-msgstr ""
+msgstr "Palauta mittakaava"
 
 #: data/resources/ui/window.ui:6
 msgid "_New Window"
-msgstr ""
+msgstr "_Uusi ikkuna"
 
 #: data/resources/ui/window.ui:12 src/save_changes_dialog.rs:71
 #: src/save_changes_dialog.rs:148
 msgid "_Save"
 msgid_plural "_Save All"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "_Tallenna"
+msgstr[1] "_Tallenna kaikki"
 
 #: data/resources/ui/window.ui:16
 msgid "Save _As…"
-msgstr ""
+msgstr "Tallenna _nimellä…"
 
 #: data/resources/ui/window.ui:20
 msgid "_Discard Changes"
-msgstr ""
+msgstr "_Hylkää muutokset"
 
 #: data/resources/ui/window.ui:26
 msgid "_Export Graph"
-msgstr ""
+msgstr "_Vie kaavio"
 
 #: data/resources/ui/window.ui:28
 msgid "Export As PNG…"
-msgstr ""
+msgstr "Vie PNG-muodossa…"
 
 #: data/resources/ui/window.ui:33
 msgid "Export As SVG…"
-msgstr ""
+msgstr "Vie SVG-muodossa…"
 
 #: data/resources/ui/window.ui:38
 msgid "Export As JPEG…"
-msgstr ""
+msgstr "Vie JPEG-muodossa…"
 
 #: data/resources/ui/window.ui:44
 msgid "Open _Containing Folder"
-msgstr ""
+msgstr "_Avaa sisältävä kansio"
 
 #: data/resources/ui/window.ui:50
-#, fuzzy
 msgid "_Keyboard Shortcuts"
 msgstr "_Pikanäppäimet"
 
 #: data/resources/ui/window.ui:54
 msgid "_About Delineate"
-msgstr ""
+msgstr "_Tietoja - Delineate"
 
 #: data/resources/ui/window.ui:62
 msgid "Move _Left"
-msgstr ""
+msgstr "Siirry _vasemmalle"
 
 #: data/resources/ui/window.ui:66
 msgid "Move _Right"
-msgstr ""
+msgstr "Siirry _oikealle"
 
 #: data/resources/ui/window.ui:72
 msgid "_Move to New Window"
-msgstr ""
+msgstr "_Siirry uuteen ikkunaan"
 
 #: data/resources/ui/window.ui:78
 msgid "Close _Other Tabs"
-msgstr ""
+msgstr "Sulje _muut välilehdet"
 
 #: data/resources/ui/window.ui:82
 msgid "_Close"
-msgstr ""
+msgstr "_Sulje"
 
 #: data/resources/ui/window.ui:104
-#, fuzzy
 msgid "Open"
 msgstr "Avaa"
 
 #: data/resources/ui/window.ui:106
 msgid "Recent Documents"
-msgstr ""
+msgstr "Viimeisimmät asiakirjat"
 
 #: data/resources/ui/window.ui:114
 msgid "New Document"
-msgstr ""
+msgstr "Uusi asiakirja"
 
 #: data/resources/ui/window.ui:143
-#, fuzzy
 msgid "Main Menu"
 msgstr "Päävalikko"
 
 #: data/resources/ui/window.ui:168
 msgid "Start or Open a Document"
-msgstr ""
+msgstr "Aloita tai avaa asiakirja"
 
 #: data/resources/ui/window.ui:174
 msgid ""
@@ -292,163 +288,166 @@ msgid ""
 "\n"
 "Or, press Ctrl+W to close the window."
 msgstr ""
+"• Napsauta Avaa-painiketta\n"
+"• Napsauta Uusi välilehti -painiketta\n"
+"• Paina Ctrl+N aloittaaksesi uuden asiakirjan\n"
+"• Paina Ctrl+O selataksesi asiakirjoja\n"
+"• Vedä tiedosto uuteen ikkunaan\n"
+"\n"
+"Tai paina Ctrl+W sulkeaksesi ikkunan."
 
 #. Translators: Replace "translator-credits" with your names. Put a comma between.
 #: src/about.rs:23
-#, fuzzy
 msgid "translator-credits"
 msgstr "Jiri Grönroos"
 
 #: src/about.rs:30
 msgid "Donate"
-msgstr ""
+msgstr "Lahjoita"
 
 #: src/about.rs:32
-#, fuzzy
 msgid "Donate (Buy Me a Coffee)"
 msgstr "Lahjoita (Buy Me a Coffee)"
 
 #: src/about.rs:35
-#, fuzzy
 msgid "GitHub"
 msgstr "GitHub"
 
 #: src/about.rs:37
-#, fuzzy
 msgid "Translate"
 msgstr "Käännä"
 
 #: src/export_format.rs:29
 msgid "SVG"
-msgstr ""
+msgstr "SVG"
 
 #: src/export_format.rs:30
 msgid "PNG"
-msgstr ""
+msgstr "PNG"
 
 #: src/export_format.rs:31
 msgid "JPEG"
-msgstr ""
+msgstr "JPEG"
 
 #: src/page.rs:358 src/save_changes_dialog.rs:110
 msgid "Untitled Document"
-msgstr ""
+msgstr "Nimetön asiakirja"
 
 #: src/page.rs:414
 msgid "Save Document"
-msgstr ""
+msgstr "Tallenna asiakirja"
 
 #: src/page.rs:435
 msgid "Save Document As"
-msgstr ""
+msgstr "Tallenna asiakirja nimellä"
 
 #: src/page.rs:485
 msgid "Export Graph"
-msgstr ""
+msgstr "Vie kaavio"
 
 #: src/page.rs:486
 msgid "_Export"
-msgstr ""
+msgstr "_Vie"
 
 #: src/page.rs:528
 msgid "Graph exported"
-msgstr ""
+msgstr "Kaavio viety"
 
 #: src/page.rs:529
-#, fuzzy
 msgid "Show in Files"
 msgstr "Näytä tiedostonhallinnassa"
 
 #: src/page.rs:544
 msgid "Failed to show in Files"
-msgstr ""
+msgstr "Näyttäminen tiedostonhallinnassa epäonnistui"
 
 #: src/page.rs:703
 msgid "Failed to draw graph"
-msgstr ""
+msgstr "Kaavion piirtäminen epäonnistui"
 
 #: src/recent_row.rs:134
 msgid "Just Now"
-msgstr ""
+msgstr "Juuri nyt"
 
 #: src/recent_row.rs:136
 msgid "An hour ago"
-msgstr ""
+msgstr "Tunti sitten"
 
 #: src/recent_row.rs:138
 msgid "Yesterday"
-msgstr ""
+msgstr "Eilen"
 
 #: src/recent_row.rs:144
 msgid "About a year ago"
-msgstr ""
+msgstr "Noin vuosi sitten"
 
 #: src/save_changes_dialog.rs:44
 msgid "Failed to save changes to document"
-msgstr ""
+msgstr "Muutosten tallentaminen asiakirjaan epäonnistui"
 
 #: src/save_changes_dialog.rs:57
 msgid "Save Changes?"
-msgstr ""
+msgstr "Tallennetaanko muutokset?"
 
 #: src/save_changes_dialog.rs:58
 msgid ""
 "Open documents contain unsaved changes. Changes which are not saved will be "
 "permanently lost."
 msgstr ""
+"Avoimet asiakirjat sisältävät tallentamattomia muutoksia. Muutokset, joita "
+"ei tallenneta, katoavat pysyvästi."
 
 #: src/save_changes_dialog.rs:64
-#, fuzzy
 msgid "Cancel"
-msgstr "Peruuta"
+msgstr "Peru"
 
 #: src/save_changes_dialog.rs:67
 msgid "_Discard"
 msgid_plural "_Discard All"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "_Hylkää"
+msgstr[1] "_Hylkää kaikki"
 
 #: src/session.rs:96
 msgid "Failed to load file"
-msgstr ""
+msgstr "Tiedoston lataaminen epäonnistui"
 
 #: src/session.rs:508
 msgid "Failed to open file"
-msgstr ""
+msgstr "Tiedoston avaaminen epäonnistui"
 
 #. Translators: DOT is an acronym, do not translate.
 #: src/utils.rs:38
 msgid "Graphviz DOT Files"
-msgstr ""
+msgstr "Graphviz DOT -tiedostot"
 
 #: src/window.rs:86
 msgid "Failed to open document"
-msgstr ""
+msgstr "Asiakirjan avaaminen epäonnistui"
 
 #: src/window.rs:101
 msgid "Failed to save document"
-msgstr ""
+msgstr "Asiakirjan tallentaminen epäonnistui"
 
 #: src/window.rs:116
 msgid "Failed to save document as"
-msgstr ""
+msgstr "Asiakirjan tallentaminen nimellä epäonnistui"
 
 #: src/window.rs:130
 msgid "Failed to discard document changes"
-msgstr ""
+msgstr "Asiakirjan muutosten hylkääminen epäonnistui"
 
 #: src/window.rs:144
 msgid "Failed to open containing folder"
-msgstr ""
+msgstr "Sisältävän kansion avaaminen epäonnistui"
 
 #: src/window.rs:171
 msgid "Failed to export graph"
-msgstr ""
+msgstr "Kaavion vieminen epäonnistui"
 
 #: src/window.rs:701
 msgid "Open Document"
-msgstr ""
+msgstr "Avaa asiakirja"
 
 #: src/window.rs:807
 msgid "There are unsaved documents"
-msgstr ""
+msgstr "Havaittu tallentamattomia asiakirjoja"
