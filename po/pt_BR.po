@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-22 12:05+0800\n"
-"PO-Revision-Date: 2025-05-24 13:54+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2025-05-25 15:01+0000\n"
+"Last-Translator: John Peter Sa <johnppetersa@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "seadve/delineate/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -21,17 +21,17 @@ msgstr ""
 #: data/io.github.seadve.Delineate.desktop.in.in:3
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
 msgid "Delineate"
-msgstr ""
+msgstr "Delinear"
 
 #: data/io.github.seadve.Delineate.desktop.in.in:4
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:8
 msgid "View and edit graphs"
-msgstr ""
+msgstr "Ver e editar gráficos"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/io.github.seadve.Delineate.desktop.in.in:10
 msgid "graphviz;dot;graphs;visualization;"
-msgstr ""
+msgstr "graphviz;dot;graphs;visualization;"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:10
 msgid ""
@@ -39,70 +39,70 @@ msgid ""
 "language It is designed to be a simple and intuitive tool for creating and "
 "editing graphs, with a focus on the user experience."
 msgstr ""
+"O Delineate fornece instalações para editar e desenhar gráficos "
+"especificados no idioma DOT que foi projetado para ser uma ferramenta "
+"simples e intuitiva para criar e editar gráficos, com foco na experiência do "
+"usuário."
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:11
 msgid "The main features of Delineate include the following:"
-msgstr ""
+msgstr "As principais características do delineado incluem o seguinte:"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:13
 msgid "🖼️ Live and interactive preview of the graph as you type"
-msgstr ""
+msgstr "🖼️ Visualização ao vivo e interativa do gráfico enquanto você digita"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:14
 msgid "⏺️ Multiple Graphviz layout engines support"
-msgstr ""
+msgstr "⏺️ vários mecanismos de layout de graphviz suporte"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:15
 msgid "📝 Fully-featured DOT language editor"
-msgstr ""
+msgstr "📝 Editor de idiomas de pontos totalmente com recursos"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:16
 msgid "📦 Export graph as PNG, SVG, or JPEG"
-msgstr ""
+msgstr "📦 Exportar gráfico como PNG, SVG ou JPEG"
 
 #: data/resources/ui/page.ui:75
 msgid "Zoom Out"
-msgstr ""
+msgstr "Amplie o zoom"
 
 #: data/resources/ui/page.ui:82
 msgid "Reset Zoom"
-msgstr ""
+msgstr "Redefina o zoom"
 
 #: data/resources/ui/page.ui:88
 msgid "Zoom In"
-msgstr ""
+msgstr "Zoom entre"
 
 #: data/resources/ui/recent_popover.ui:17
 msgid "Search documents"
-msgstr ""
+msgstr "Documentos de pesquisa"
 
 #: data/resources/ui/recent_popover.ui:38
 msgid "No Recent Documents"
-msgstr ""
+msgstr "Sem documentos recentes"
 
 #: data/resources/ui/recent_popover.ui:47
-#, fuzzy
 msgid "No Results"
-msgstr "Nenhum resultado"
+msgstr "Sem resultados"
 
 #: data/resources/ui/recent_row.ui:53
 msgid "Remove"
-msgstr ""
+msgstr "Remover"
 
 #: data/resources/ui/shortcuts.ui:11
-#, fuzzy
 msgctxt "shortcut window"
 msgid "General"
 msgstr "Geral"
 
 #: data/resources/ui/shortcuts.ui:14
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
 msgstr "Mostrar atalhos"
 
 #: data/resources/ui/shortcuts.ui:20
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Sair"
@@ -110,177 +110,174 @@ msgstr "Sair"
 #: data/resources/ui/shortcuts.ui:28
 msgctxt "shortcut window"
 msgid "Documents"
-msgstr ""
+msgstr "Documentos"
 
 #: data/resources/ui/shortcuts.ui:31
 msgctxt "shortcut window"
 msgid "New Document"
-msgstr ""
+msgstr "Novo documento"
 
 #: data/resources/ui/shortcuts.ui:37
 msgctxt "shortcut window"
 msgid "Open Document"
-msgstr ""
+msgstr "Documento aberto"
 
 #: data/resources/ui/shortcuts.ui:43
 msgctxt "shortcut window"
 msgid "Save"
-msgstr ""
+msgstr "Salvar"
 
 #: data/resources/ui/shortcuts.ui:49
 msgctxt "shortcut window"
 msgid "Save As"
-msgstr ""
+msgstr "Salve como"
 
 #: data/resources/ui/shortcuts.ui:57
 msgctxt "shortcut window"
 msgid "Windows"
-msgstr ""
+msgstr "Janela"
 
 #: data/resources/ui/shortcuts.ui:60
 msgctxt "shortcut window"
 msgid "New Window"
-msgstr ""
+msgstr "Nova janela"
 
 #: data/resources/ui/shortcuts.ui:66
 msgctxt "shortcut window"
 msgid "Move Document to New Window"
-msgstr ""
+msgstr "Mova o documento para a nova janela"
 
 #: data/resources/ui/shortcuts.ui:73
 msgctxt "shortcut window"
 msgid "Move to Next Tab"
-msgstr ""
+msgstr "Mover para a próxima guia"
 
 #: data/resources/ui/shortcuts.ui:79
 msgctxt "shortcut window"
 msgid "Move to Previous Tab"
-msgstr ""
+msgstr "Mover para a guia anterior"
 
 #: data/resources/ui/shortcuts.ui:85
 msgctxt "shortcut window"
 msgid "Reorder After Next Tab"
-msgstr ""
+msgstr "Reordenar após a próxima guia"
 
 #: data/resources/ui/shortcuts.ui:91
 msgctxt "shortcut window"
 msgid "Reorder Before Previous Tab"
-msgstr ""
+msgstr "Reordenar antes da guia anterior"
 
 #: data/resources/ui/shortcuts.ui:97
 msgctxt "shortcut window"
 msgid "Restore Previously Closed Tab"
-msgstr ""
+msgstr "Restaurar a guia anteriormente fechada"
 
 #: data/resources/ui/shortcuts.ui:104
 msgctxt "shortcut window"
 msgid "Zoom"
-msgstr ""
+msgstr "Zoom"
 
 #: data/resources/ui/shortcuts.ui:108
 msgctxt "shortcut window"
 msgid "Zoom In"
-msgstr ""
+msgstr "Zoom entre"
 
 #: data/resources/ui/shortcuts.ui:114
 msgctxt "shortcut window"
 msgid "Zoom Out"
-msgstr ""
+msgstr "Amplie o zoom"
 
 #: data/resources/ui/shortcuts.ui:120
 msgctxt "shortcut window"
 msgid "Reset Zoom"
-msgstr ""
+msgstr "Redefina o zoom"
 
 #: data/resources/ui/window.ui:6
 msgid "_New Window"
-msgstr ""
+msgstr "_Nova janela"
 
 #: data/resources/ui/window.ui:12 src/save_changes_dialog.rs:71
 #: src/save_changes_dialog.rs:148
 msgid "_Save"
 msgid_plural "_Save All"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "_Salvar"
+msgstr[1] "_Salvar tudo"
 
 #: data/resources/ui/window.ui:16
 msgid "Save _As…"
-msgstr ""
+msgstr "Salvar _ como…"
 
 #: data/resources/ui/window.ui:20
 msgid "_Discard Changes"
-msgstr ""
+msgstr "_ Discard Alterações"
 
 #: data/resources/ui/window.ui:26
 msgid "_Export Graph"
-msgstr ""
+msgstr "_Gráfico de exportação"
 
 #: data/resources/ui/window.ui:28
 msgid "Export As PNG…"
-msgstr ""
+msgstr "Exportar como PNG…"
 
 #: data/resources/ui/window.ui:33
 msgid "Export As SVG…"
-msgstr ""
+msgstr "Exportar como SVG…"
 
 #: data/resources/ui/window.ui:38
 msgid "Export As JPEG…"
-msgstr ""
+msgstr "Exportar como JPEG…"
 
 #: data/resources/ui/window.ui:44
 msgid "Open _Containing Folder"
-msgstr ""
+msgstr "Aberto _da pasta contendo"
 
 #: data/resources/ui/window.ui:50
-#, fuzzy
 msgid "_Keyboard Shortcuts"
 msgstr "_Atalhos de teclado"
 
 #: data/resources/ui/window.ui:54
 msgid "_About Delineate"
-msgstr ""
+msgstr "_ Sobre Delineado"
 
 #: data/resources/ui/window.ui:62
 msgid "Move _Left"
-msgstr ""
+msgstr "Mover _Esquerda"
 
 #: data/resources/ui/window.ui:66
 msgid "Move _Right"
-msgstr ""
+msgstr "Mover _Direita"
 
 #: data/resources/ui/window.ui:72
 msgid "_Move to New Window"
-msgstr ""
+msgstr "_Mover para uma nova janela"
 
 #: data/resources/ui/window.ui:78
 msgid "Close _Other Tabs"
-msgstr ""
+msgstr "Fechar _Outras abas"
 
 #: data/resources/ui/window.ui:82
 msgid "_Close"
-msgstr ""
+msgstr "_Fechar"
 
 #: data/resources/ui/window.ui:104
-#, fuzzy
 msgid "Open"
 msgstr "Abrir"
 
 #: data/resources/ui/window.ui:106
 msgid "Recent Documents"
-msgstr ""
+msgstr "Documentos recentes"
 
 #: data/resources/ui/window.ui:114
 msgid "New Document"
-msgstr ""
+msgstr "Novo documento"
 
 #: data/resources/ui/window.ui:143
-#, fuzzy
 msgid "Main Menu"
 msgstr "Menu principal"
 
 #: data/resources/ui/window.ui:168
 msgid "Start or Open a Document"
-msgstr ""
+msgstr "Iniciar ou abrir um documento"
 
 #: data/resources/ui/window.ui:174
 msgid ""
@@ -292,163 +289,166 @@ msgid ""
 "\n"
 "Or, press Ctrl+W to close the window."
 msgstr ""
+"• Pressione o botão Abrir\n"
+"• Pressione o botão Nova Aba\n"
+"• Pressione Ctrl+N para iniciar um novo documento\n"
+"• Pressione Ctrl+O para procurar um documento\n"
+"• Arraste um arquivo para a janela\n"
+"\n"
+"Ou pressione Ctrl+W para fechar a janela."
 
 #. Translators: Replace "translator-credits" with your names. Put a comma between.
 #: src/about.rs:23
-#, fuzzy
 msgid "translator-credits"
-msgstr "Vitor Cardoso, Tiago Lucas Flach, inkhorn"
+msgstr "Vitor Cardoso, Tiago Lucas Flach, inkhorn, john peter sa"
 
 #: src/about.rs:30
 msgid "Donate"
-msgstr ""
+msgstr "Doar"
 
 #: src/about.rs:32
-#, fuzzy
 msgid "Donate (Buy Me a Coffee)"
 msgstr "Doe (Me Compre Um Café)"
 
 #: src/about.rs:35
-#, fuzzy
 msgid "GitHub"
 msgstr "GitHub"
 
 #: src/about.rs:37
-#, fuzzy
 msgid "Translate"
 msgstr "Traduzir"
 
 #: src/export_format.rs:29
 msgid "SVG"
-msgstr ""
+msgstr "SVG"
 
 #: src/export_format.rs:30
 msgid "PNG"
-msgstr ""
+msgstr "PNG"
 
 #: src/export_format.rs:31
 msgid "JPEG"
-msgstr ""
+msgstr "JPEG"
 
 #: src/page.rs:358 src/save_changes_dialog.rs:110
 msgid "Untitled Document"
-msgstr ""
+msgstr "Documento sem título"
 
 #: src/page.rs:414
 msgid "Save Document"
-msgstr ""
+msgstr "Salvar documento"
 
 #: src/page.rs:435
 msgid "Save Document As"
-msgstr ""
+msgstr "Salvar documento como"
 
 #: src/page.rs:485
 msgid "Export Graph"
-msgstr ""
+msgstr "Exportar gráfico"
 
 #: src/page.rs:486
 msgid "_Export"
-msgstr ""
+msgstr "_Exportar"
 
 #: src/page.rs:528
 msgid "Graph exported"
-msgstr ""
+msgstr "Gráfico exportado"
 
 #: src/page.rs:529
-#, fuzzy
 msgid "Show in Files"
-msgstr "Mostrar nos Arquivos"
+msgstr "Mostrar em arquivos"
 
 #: src/page.rs:544
 msgid "Failed to show in Files"
-msgstr ""
+msgstr "Falha ao mostrar em Arquivos"
 
 #: src/page.rs:703
 msgid "Failed to draw graph"
-msgstr ""
+msgstr "Falha ao desenhar o gráfico"
 
 #: src/recent_row.rs:134
 msgid "Just Now"
-msgstr ""
+msgstr "Agora mesmo"
 
 #: src/recent_row.rs:136
 msgid "An hour ago"
-msgstr ""
+msgstr "Uma hora atrás"
 
 #: src/recent_row.rs:138
 msgid "Yesterday"
-msgstr ""
+msgstr "Ontem"
 
 #: src/recent_row.rs:144
 msgid "About a year ago"
-msgstr ""
+msgstr "Cerca de um ano atrás"
 
 #: src/save_changes_dialog.rs:44
 msgid "Failed to save changes to document"
-msgstr ""
+msgstr "Falha ao salvar alterações no documento"
 
 #: src/save_changes_dialog.rs:57
 msgid "Save Changes?"
-msgstr ""
+msgstr "Salvar alterações?"
 
 #: src/save_changes_dialog.rs:58
 msgid ""
 "Open documents contain unsaved changes. Changes which are not saved will be "
 "permanently lost."
 msgstr ""
+"Documentos abertos contêm alterações não salvas. Alterações que não forem "
+"salvas serão perdidas permanentemente."
 
 #: src/save_changes_dialog.rs:64
-#, fuzzy
 msgid "Cancel"
 msgstr "Cancelar"
 
 #: src/save_changes_dialog.rs:67
 msgid "_Discard"
 msgid_plural "_Discard All"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "_Descartar"
+msgstr[1] "_Descartar tudo"
 
 #: src/session.rs:96
 msgid "Failed to load file"
-msgstr ""
+msgstr "Falha ao carregar o arquivo"
 
 #: src/session.rs:508
 msgid "Failed to open file"
-msgstr ""
+msgstr "Falha ao abrir o arquivo"
 
 #. Translators: DOT is an acronym, do not translate.
 #: src/utils.rs:38
 msgid "Graphviz DOT Files"
-msgstr ""
+msgstr "Arquivos Graphviz DOT"
 
 #: src/window.rs:86
 msgid "Failed to open document"
-msgstr ""
+msgstr "Falha ao abrir o documento"
 
 #: src/window.rs:101
 msgid "Failed to save document"
-msgstr ""
+msgstr "Falha ao salvar o documento"
 
 #: src/window.rs:116
 msgid "Failed to save document as"
-msgstr ""
+msgstr "Falha ao salvar o documento como"
 
 #: src/window.rs:130
 msgid "Failed to discard document changes"
-msgstr ""
+msgstr "Falha ao descartar alterações no documento"
 
 #: src/window.rs:144
 msgid "Failed to open containing folder"
-msgstr ""
+msgstr "Falha ao abrir a pasta de conteúdo"
 
 #: src/window.rs:171
 msgid "Failed to export graph"
-msgstr ""
+msgstr "Falha ao exportar o gráfico"
 
 #: src/window.rs:701
 msgid "Open Document"
-msgstr ""
+msgstr "Abrir documento"
 
 #: src/window.rs:807
 msgid "There are unsaved documents"
-msgstr ""
+msgstr "Existem documentos não salvos"
