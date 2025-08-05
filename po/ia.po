@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-22 12:05+0800\n"
-"PO-Revision-Date: 2025-07-09 14:05+0000\n"
+"PO-Revision-Date: 2025-08-05 23:02+0000\n"
 "Last-Translator: \"Emilio S.\" <emism.translations@gmail.com>\n"
 "Language-Team: Interlingua <https://hosted.weblate.org/projects/seadve/"
 "delineate/ia/>\n"
@@ -297,7 +297,7 @@ msgstr ""
 
 #: src/about.rs:32
 msgid "Donate (Buy Me a Coffee)"
-msgstr ""
+msgstr "Facer un donation (Buy Me a Coffee)"
 
 #: src/about.rs:35
 msgid "GitHub"
