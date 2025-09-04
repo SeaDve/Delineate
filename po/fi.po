@@ -2,13 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the delineate package.
 # Jiri Grönroos <jiri.gronroos@iki.fi>, 2025.
+# Linus Virtanen <linus.virtanen@protonmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-22 12:05+0800\n"
-"PO-Revision-Date: 2025-04-06 18:23+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
+"PO-Revision-Date: 2025-09-04 12:02+0000\n"
+"Last-Translator: Linus Virtanen <linus.virtanen@protonmail.com>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/seadve/delineate/"
 "fi/>\n"
 "Language: fi\n"
@@ -16,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11-dev\n"
+"X-Generator: Weblate 5.13.1-rc\n"
 
 #: data/io.github.seadve.Delineate.desktop.in.in:3
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
@@ -94,12 +95,12 @@ msgstr "Poista"
 #: data/resources/ui/shortcuts.ui:11
 msgctxt "shortcut window"
 msgid "General"
-msgstr "Yleiset"
+msgstr "Yleistä"
 
 #: data/resources/ui/shortcuts.ui:14
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
-msgstr "Näytä pikanäppäimet"
+msgstr "Näytä pikavalinnat"
 
 #: data/resources/ui/shortcuts.ui:20
 msgctxt "shortcut window"
