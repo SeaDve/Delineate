@@ -8,19 +8,19 @@ edition = "2024"
 lto = true
 
 [dependencies]
-adw = { package = "libadwaita", version = "0.7", features = ["v1_6"] }
+adw = { package = "libadwaita", version = "0.8", features = ["v1_6"] }
 anyhow = "1.0"
-async-lock = "3.2"
+async-lock = "3.4"
 futures-util = { version = "0.3", features = ["io"] }
 futures-channel = "0.3"
 fuzzy-matcher = "0.3.7"
 gettext-rs = { version = "0.7", features = ["gettext-system"] }
-gtk = { version = "0.9", package = "gtk4", features = ["gnome_46"] }
-gtk_source = { package = "sourceview5", version = "0.9", features = ["v5_10"] }
-indexmap = "2.7"
-regex = "1.10"
+gtk = { version = "0.10", package = "gtk4", features = ["gnome_48"] }
+gtk_source = { package = "sourceview5", version = "0.10", features = ["v5_10"] }
+indexmap = "2"
+regex = "1"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1.0"
 tracing = "0.1"
 tracing-subscriber = "0.3"
-webkit = { package = "webkit6", version = "0.4.0", features = ["v2_42"] }
+webkit = { package = "webkit6", version = "0.5", features = ["v2_42"] }

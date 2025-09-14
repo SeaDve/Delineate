@@ -5,7 +5,7 @@
     "sdk": "org.gnome.Sdk",
     "sdk-extensions": [
         "org.freedesktop.Sdk.Extension.rust-stable",
-        "org.freedesktop.Sdk.Extension.llvm18",
+        "org.freedesktop.Sdk.Extension.llvm20",
         "org.freedesktop.Sdk.Extension.node20"
     ],
     "command": "delineate",
