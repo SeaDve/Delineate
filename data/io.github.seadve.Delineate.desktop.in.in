@@ -11,3 +11,4 @@ Keywords=graphviz;dot;graphs;visualization;
 Icon=@icon@
 StartupNotify=true
 X-Purism-FormFactor=Workstation;Mobile;
+DBusActivatable=true
