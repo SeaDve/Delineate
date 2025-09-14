@@ -50,6 +50,12 @@
                 <property name="accelerator">&lt;control&gt;&lt;shift&gt;s</property>
               </object>
             </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="title" translatable="yes" context="shortcut window">Close Document</property>
+                <property name="accelerator">&lt;control&gt;w</property>
+              </object>
+            </child>
           </object>
         </child>
         <child>
