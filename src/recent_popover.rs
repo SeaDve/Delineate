@@ -122,7 +122,8 @@ mod imp {
 
 glib::wrapper! {
     pub struct RecentPopover(ObjectSubclass<imp::RecentPopover>)
-        @extends gtk::Widget, gtk::Popover;
+        @extends gtk::Widget, gtk::Popover,
+        @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::ShortcutManager, gtk::Native;
 }
 
 impl RecentPopover {

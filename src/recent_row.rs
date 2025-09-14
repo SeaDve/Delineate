@@ -97,7 +97,8 @@ mod imp {
 
 glib::wrapper! {
     pub struct RecentRow(ObjectSubclass<imp::RecentRow>)
-        @extends gtk::Widget, gtk::ListBoxRow;
+        @extends gtk::Widget, gtk::ListBoxRow,
+        @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget, gtk::Actionable;
 }
 
 impl RecentRow {

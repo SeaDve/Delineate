@@ -158,7 +158,8 @@ mod imp {
 
 glib::wrapper! {
     pub struct ErrorGutterRenderer(ObjectSubclass<imp::ErrorGutterRenderer>)
-        @extends gtk::Widget, gtk_source::GutterRenderer;
+        @extends gtk::Widget, gtk_source::GutterRenderer,
+        @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget;
 }
 
 impl ErrorGutterRenderer {

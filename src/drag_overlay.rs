@@ -94,7 +94,8 @@ mod imp {
 
 glib::wrapper! {
     pub struct DragOverlay(ObjectSubclass<imp::DragOverlay>)
-        @extends gtk::Widget;
+        @extends gtk::Widget,
+        @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget;
 }
 
 impl DragOverlay {
