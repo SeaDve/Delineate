@@ -2,7 +2,7 @@ use std::time::Duration;
 
 use gettextrs::gettext;
 use gtk::{
-    glib::{self, clone, closure_local, TimeSpan},
+    glib::{self, TimeSpan, clone, closure_local},
     prelude::*,
     subclass::prelude::*,
 };

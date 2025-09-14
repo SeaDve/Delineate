@@ -1,6 +1,6 @@
 use std::cell::RefCell;
 
-use anyhow::{ensure, Context, Result};
+use anyhow::{Context, Result, ensure};
 use futures_channel::oneshot;
 use gtk::{
     gio,
@@ -9,7 +9,7 @@ use gtk::{
     subclass::prelude::*,
 };
 use serde::{Deserialize, Serialize};
-use webkit::{javascriptcore::Value, prelude::*, ContextMenuAction};
+use webkit::{ContextMenuAction, javascriptcore::Value, prelude::*};
 
 use crate::{config::GRAPHVIEWSRCDIR, utils};
 
@@ -219,9 +219,11 @@ mod imp {
 
         fn signals() -> &'static [Signal] {
             static SIGNALS: LazyLock<Vec<Signal>> = LazyLock::new(|| {
-                vec![Signal::builder("error")
-                    .param_types([String::static_type()])
-                    .build()]
+                vec![
+                    Signal::builder("error")
+                        .param_types([String::static_type()])
+                        .build(),
+                ]
             });
 
             SIGNALS.as_ref()

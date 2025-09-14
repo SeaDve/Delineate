@@ -100,9 +100,11 @@ mod imp {
 
         fn signals() -> &'static [Signal] {
             static SIGNALS: LazyLock<Vec<Signal>> = LazyLock::new(|| {
-                vec![Signal::builder("item-activated")
-                    .param_types([RecentItem::static_type()])
-                    .build()]
+                vec![
+                    Signal::builder("item-activated")
+                        .param_types([RecentItem::static_type()])
+                        .build(),
+                ]
             });
 
             SIGNALS.as_ref()

@@ -1,7 +1,7 @@
 use std::{future::Future, pin::Pin};
 
-use anyhow::{ensure, Result};
-use futures_util::{join, Stream, StreamExt};
+use anyhow::{Result, ensure};
+use futures_util::{Stream, StreamExt, join};
 use gtk::{
     gio,
     glib::{self, clone},

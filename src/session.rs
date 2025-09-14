@@ -11,8 +11,8 @@ use gtk::{
 use serde::{Deserialize, Serialize};
 
 use crate::{
-    document::Document, graph_view::LayoutEngine, page::Page, recent_list::RecentList, utils,
-    window::Window, Application, APP_DATA_DIR,
+    APP_DATA_DIR, Application, document::Document, graph_view::LayoutEngine, page::Page,
+    recent_list::RecentList, utils, window::Window,
 };
 
 const DEFAULT_WINDOW_WIDTH: i32 = 1000;

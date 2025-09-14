@@ -1,6 +1,6 @@
 use std::sync::LazyLock;
 
-use fuzzy_matcher::{skim::SkimMatcherV2, FuzzyMatcher};
+use fuzzy_matcher::{FuzzyMatcher, skim::SkimMatcherV2};
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
 
 static FUZZY_MATCHER: LazyLock<SkimMatcherV2> = LazyLock::new(SkimMatcherV2::default);

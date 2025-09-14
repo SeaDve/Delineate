@@ -2,10 +2,10 @@ use std::time::Instant;
 
 use anyhow::Result;
 use gtk::{gio, glib, prelude::*, subclass::prelude::*};
-use indexmap::{map::Entry, IndexMap};
+use indexmap::{IndexMap, map::Entry};
 use serde::{Deserialize, Serialize};
 
-use crate::{recent_item::RecentItem, APP_DATA_DIR};
+use crate::{APP_DATA_DIR, recent_item::RecentItem};
 
 #[derive(Debug, Serialize, Deserialize)]
 struct RecentItemState {
