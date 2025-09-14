@@ -431,10 +431,10 @@ impl GraphView {
         let load_tx = RefCell::new(Some(load_tx));
 
         let load_handler_id = imp.view.connect_load_changed(move |_, load_event| {
-            if load_event == webkit::LoadEvent::Finished {
-                if let Some(tx) = load_tx.take() {
-                    tx.send(()).unwrap();
-                }
+            if load_event == webkit::LoadEvent::Finished
+                && let Some(tx) = load_tx.take()
+            {
+                tx.send(()).unwrap();
             }
         });
 

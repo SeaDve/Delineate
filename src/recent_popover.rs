@@ -247,12 +247,11 @@ impl RecentPopover {
         if imp
             .filter_model
             .get()
-            .map_or(true, |filter_model| filter_model.n_items() == 0)
+            .is_none_or(|filter_model| filter_model.n_items() == 0)
             && !search_text.is_empty()
         {
             imp.stack.set_visible_child(&*imp.empty_search_page);
-        } else if imp.model.get().map_or(true, |model| model.n_items() == 0)
-            && search_text.is_empty()
+        } else if imp.model.get().is_none_or(|model| model.n_items() == 0) && search_text.is_empty()
         {
             imp.stack.set_visible_child(&*imp.empty_page);
         } else {

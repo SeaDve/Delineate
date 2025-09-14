@@ -632,10 +632,10 @@ impl Page {
         imp.queued_draw_graph.set(true);
 
         // If we're not rendering a graph, skip the timeout.
-        if !imp.graph_view.is_rendering() {
-            if let Some(cancellable) = imp.draw_graph_timeout_cancellable.take() {
-                cancellable.cancel();
-            }
+        if !imp.graph_view.is_rendering()
+            && let Some(cancellable) = imp.draw_graph_timeout_cancellable.take()
+        {
+            cancellable.cancel();
         }
 
         imp.spinner_revealer.set_reveal_child(true);

@@ -77,14 +77,13 @@ mod imp {
             });
 
             klass.install_action_async("win.open-document", None, |obj, _, _| async move {
-                if let Err(err) = obj.open_document().await {
-                    if !err
+                if let Err(err) = obj.open_document().await
+                    && !err
                         .downcast_ref::<glib::Error>()
                         .is_some_and(|error| error.matches(gtk::DialogError::Dismissed))
-                    {
-                        tracing::error!("Failed to open document: {:?}", err);
-                        obj.add_message_toast(&gettext("Failed to open document"));
-                    }
+                {
+                    tracing::error!("Failed to open document: {:?}", err);
+                    obj.add_message_toast(&gettext("Failed to open document"));
                 }
             });
 
@@ -92,14 +91,13 @@ mod imp {
                 let page = obj.selected_page().unwrap();
                 debug_assert!(page.can_save());
 
-                if let Err(err) = page.save_document().await {
-                    if !err
+                if let Err(err) = page.save_document().await
+                    && !err
                         .downcast_ref::<glib::Error>()
                         .is_some_and(|error| error.matches(gtk::DialogError::Dismissed))
-                    {
-                        tracing::error!("Failed to save document: {:?}", err);
-                        obj.add_message_toast(&gettext("Failed to save document"));
-                    }
+                {
+                    tracing::error!("Failed to save document: {:?}", err);
+                    obj.add_message_toast(&gettext("Failed to save document"));
                 }
             });
 
@@ -107,14 +105,13 @@ mod imp {
                 let page = obj.selected_page().unwrap();
                 debug_assert!(page.can_save());
 
-                if let Err(err) = page.save_document_as().await {
-                    if !err
+                if let Err(err) = page.save_document_as().await
+                    && !err
                         .downcast_ref::<glib::Error>()
                         .is_some_and(|error| error.matches(gtk::DialogError::Dismissed))
-                    {
-                        tracing::error!("Failed to save document as: {:?}", err);
-                        obj.add_message_toast(&gettext("Failed to save document as"));
-                    }
+                {
+                    tracing::error!("Failed to save document as: {:?}", err);
+                    obj.add_message_toast(&gettext("Failed to save document as"));
                 }
             });
 
@@ -162,14 +159,13 @@ mod imp {
                     let page = obj.selected_page().unwrap();
                     debug_assert!(page.can_export_graph());
 
-                    if let Err(err) = page.export_graph(format).await {
-                        if !err
+                    if let Err(err) = page.export_graph(format).await
+                        && !err
                             .downcast_ref::<glib::Error>()
                             .is_some_and(|error| error.matches(gtk::DialogError::Dismissed))
-                        {
-                            tracing::error!("Failed to export graph: {:?}", err);
-                            obj.add_message_toast(&gettext("Failed to export graph"));
-                        }
+                    {
+                        tracing::error!("Failed to export graph: {:?}", err);
+                        obj.add_message_toast(&gettext("Failed to export graph"));
                     }
                 },
             );
@@ -809,12 +805,10 @@ impl Window {
             imp.inhibit_cookie.replace(Some(inhibit_cookie));
 
             tracing::debug!("Inhibited logout");
-        } else if !has_modified {
-            if let Some(inhibit_cookie) = imp.inhibit_cookie.take() {
-                app.uninhibit(inhibit_cookie);
+        } else if !has_modified && let Some(inhibit_cookie) = imp.inhibit_cookie.take() {
+            app.uninhibit(inhibit_cookie);
 
-                tracing::debug!("Uninhibited logout");
-            }
+            tracing::debug!("Uninhibited logout");
         }
     }
 
