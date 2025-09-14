@@ -45,7 +45,7 @@
       <description translate="no">
         <p>This release contains minor changes:</p>
         <ul>
-          <li>App is not DBus activatable</li>
+          <li>App is now DBus activatable</li>
           <li>Updated UI</li>
           <li>Updated translations</li>
         </ul>
