@@ -28,10 +28,6 @@ pub fn present_dialog(parent: &impl IsA<gtk::Widget>) {
         .build();
 
     dialog.add_link(&gettext("Donate"), "https://seadve.github.io/donate/");
-    dialog.add_link(
-        &gettext("Donate (Buy Me a Coffee)"),
-        "https://www.buymeacoffee.com/seadve",
-    );
     dialog.add_link(&gettext("GitHub"), "https://github.com/SeaDve/Delineate");
     dialog.add_link(
         &gettext("Translate"),
