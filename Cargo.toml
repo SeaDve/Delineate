@@ -1,6 +1,6 @@
 [package]
 name = "delineate"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Dave Patrick Caberto"]
 edition = "2024"
 
