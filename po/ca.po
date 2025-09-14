@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-22 12:05+0800\n"
+"POT-Creation-Date: 2025-09-14 15:29+0800\n"
 "PO-Revision-Date: 2024-12-18 11:00+0000\n"
 "Last-Translator: Joan Aymà <joanayma@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/seadve/delineate/"
@@ -19,18 +19,18 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.9.2-dev\n"
 
-#: data/io.github.seadve.Delineate.desktop.in.in:3
+#: data/io.github.seadve.Delineate.desktop.in.in:2
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
 msgid "Delineate"
 msgstr "Delineate"
 
-#: data/io.github.seadve.Delineate.desktop.in.in:4
+#: data/io.github.seadve.Delineate.desktop.in.in:3
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:8
 msgid "View and edit graphs"
 msgstr "Visualitza i edita grafs"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/io.github.seadve.Delineate.desktop.in.in:10
+#: data/io.github.seadve.Delineate.desktop.in.in:9
 msgid "graphviz;dot;graphs;visualization;"
 msgstr "graphviz;dot;graphs;visualization;grafs;punts;visualització;"
 
@@ -63,6 +63,18 @@ msgstr "📝 Editor de llenguatge DOT amb totes les funcionalitats"
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:16
 msgid "📦 Export graph as PNG, SVG, or JPEG"
 msgstr "📦 Exporta el graf a PNG, SVG o JPEG"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:22
+msgid "Editor and viewer"
+msgstr ""
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:26
+msgid "Editor collapsed"
+msgstr ""
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:30
+msgid "Tab overview"
+msgstr ""
 
 #: data/resources/ui/page.ui:75
 msgid "Zoom Out"
@@ -132,62 +144,70 @@ msgctxt "shortcut window"
 msgid "Save As"
 msgstr "Guarda com"
 
-#: data/resources/ui/shortcuts.ui:57
+#: data/resources/ui/shortcuts.ui:55
+#, fuzzy
+#| msgctxt "shortcut window"
+#| msgid "New Document"
+msgctxt "shortcut window"
+msgid "Close Document"
+msgstr "Nou document"
+
+#: data/resources/ui/shortcuts.ui:63
 msgctxt "shortcut window"
 msgid "Windows"
 msgstr "Finestres"
 
-#: data/resources/ui/shortcuts.ui:60
+#: data/resources/ui/shortcuts.ui:66
 msgctxt "shortcut window"
 msgid "New Window"
 msgstr "Nova finestra"
 
-#: data/resources/ui/shortcuts.ui:66
+#: data/resources/ui/shortcuts.ui:72
 msgctxt "shortcut window"
 msgid "Move Document to New Window"
 msgstr "Mou el document a una nova finestra"
 
-#: data/resources/ui/shortcuts.ui:73
+#: data/resources/ui/shortcuts.ui:79
 msgctxt "shortcut window"
 msgid "Move to Next Tab"
 msgstr "Mou a la pestanya següent"
 
-#: data/resources/ui/shortcuts.ui:79
+#: data/resources/ui/shortcuts.ui:85
 msgctxt "shortcut window"
 msgid "Move to Previous Tab"
 msgstr "Mou a la pestanya anterior"
 
-#: data/resources/ui/shortcuts.ui:85
+#: data/resources/ui/shortcuts.ui:91
 msgctxt "shortcut window"
 msgid "Reorder After Next Tab"
 msgstr "Reordena després de la pastanya següent"
 
-#: data/resources/ui/shortcuts.ui:91
+#: data/resources/ui/shortcuts.ui:97
 msgctxt "shortcut window"
 msgid "Reorder Before Previous Tab"
 msgstr "Reordena abans de la pastanya anterior"
 
-#: data/resources/ui/shortcuts.ui:97
+#: data/resources/ui/shortcuts.ui:103
 msgctxt "shortcut window"
 msgid "Restore Previously Closed Tab"
 msgstr "Restaura la pestanya tancada"
 
-#: data/resources/ui/shortcuts.ui:104
+#: data/resources/ui/shortcuts.ui:110
 msgctxt "shortcut window"
 msgid "Zoom"
 msgstr "Zoom"
 
-#: data/resources/ui/shortcuts.ui:108
+#: data/resources/ui/shortcuts.ui:114
 msgctxt "shortcut window"
 msgid "Zoom In"
 msgstr "Ampliar"
 
-#: data/resources/ui/shortcuts.ui:114
+#: data/resources/ui/shortcuts.ui:120
 msgctxt "shortcut window"
 msgid "Zoom Out"
 msgstr "Reduïr"
 
-#: data/resources/ui/shortcuts.ui:120
+#: data/resources/ui/shortcuts.ui:126
 msgctxt "shortcut window"
 msgid "Reset Zoom"
 msgstr "Reiniciar zoom"
@@ -306,15 +326,11 @@ msgstr "Adolfo Jayme Barrientos, Víctor Dargallo, Joan Aymà"
 msgid "Donate"
 msgstr "Fer una donació"
 
-#: src/about.rs:32
-msgid "Donate (Buy Me a Coffee)"
-msgstr "Feu una donació (Buy Me a Coffee)"
-
-#: src/about.rs:35
+#: src/about.rs:31
 msgid "GitHub"
 msgstr "GitHub"
 
-#: src/about.rs:37
+#: src/about.rs:33
 msgid "Translate"
 msgstr "Tradueix"
 
@@ -330,7 +346,7 @@ msgstr "PNG"
 msgid "JPEG"
 msgstr "JPEG"
 
-#: src/page.rs:358 src/save_changes_dialog.rs:110
+#: src/page.rs:357 src/save_changes_dialog.rs:110
 msgid "Untitled Document"
 msgstr "Document sense títol"
 
@@ -425,30 +441,33 @@ msgstr "Arxius DOT de visualització de grafs"
 msgid "Failed to open document"
 msgstr "Ha fallat a l'obrir el document"
 
-#: src/window.rs:101
+#: src/window.rs:100
 msgid "Failed to save document"
 msgstr "Ha fallat al guardar el document"
 
-#: src/window.rs:116
+#: src/window.rs:114
 msgid "Failed to save document as"
 msgstr "Ha fallat al guardar el document com"
 
-#: src/window.rs:130
+#: src/window.rs:127
 msgid "Failed to discard document changes"
 msgstr "Ha fallat al descartar els canvis del document"
 
-#: src/window.rs:144
+#: src/window.rs:141
 msgid "Failed to open containing folder"
 msgstr "Ha fallat a l'obrir la carpeta continent"
 
-#: src/window.rs:171
+#: src/window.rs:168
 msgid "Failed to export graph"
 msgstr "Ha fallat a l'exportar el graf"
 
-#: src/window.rs:701
+#: src/window.rs:697
 msgid "Open Document"
 msgstr "Obre un document"
 
-#: src/window.rs:807
+#: src/window.rs:803
 msgid "There are unsaved documents"
 msgstr "Hi ha documents sense guardar"
+
+#~ msgid "Donate (Buy Me a Coffee)"
+#~ msgstr "Feu una donació (Buy Me a Coffee)"

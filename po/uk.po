@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-22 12:05+0800\n"
-"PO-Revision-Date: 2025-08-25 20:01+0000\n"
+"POT-Creation-Date: 2025-09-14 15:29+0800\n"
+"PO-Revision-Date: 2025-09-14 07:31+0000\n"
 "Last-Translator: Максим Горпиніч <gorpinicmaksim0@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/seadve/"
 "delineate/uk/>\n"
@@ -19,20 +19,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.13\n"
+"X-Generator: Weblate 5.14-dev\n"
 
-#: data/io.github.seadve.Delineate.desktop.in.in:3
+#: data/io.github.seadve.Delineate.desktop.in.in:2
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
 msgid "Delineate"
 msgstr "Delineate"
 
-#: data/io.github.seadve.Delineate.desktop.in.in:4
+#: data/io.github.seadve.Delineate.desktop.in.in:3
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:8
 msgid "View and edit graphs"
 msgstr "Перегляд та редагування графіків"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/io.github.seadve.Delineate.desktop.in.in:10
+#: data/io.github.seadve.Delineate.desktop.in.in:9
 msgid "graphviz;dot;graphs;visualization;"
 msgstr "graphviz;dot;графіки;візуалізація;graphs;visualization;"
 
@@ -66,6 +66,18 @@ msgstr "📝 Повнофункціональний редактор мови DO
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:16
 msgid "📦 Export graph as PNG, SVG, or JPEG"
 msgstr "📦 Експорт графіку у форматі PNG, SVG або JPEG"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:22
+msgid "Editor and viewer"
+msgstr ""
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:26
+msgid "Editor collapsed"
+msgstr ""
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:30
+msgid "Tab overview"
+msgstr ""
 
 #: data/resources/ui/page.ui:75
 msgid "Zoom Out"
@@ -135,62 +147,70 @@ msgctxt "shortcut window"
 msgid "Save As"
 msgstr "Зберегти як"
 
-#: data/resources/ui/shortcuts.ui:57
+#: data/resources/ui/shortcuts.ui:55
+#, fuzzy
+#| msgctxt "shortcut window"
+#| msgid "New Document"
+msgctxt "shortcut window"
+msgid "Close Document"
+msgstr "Новий документ"
+
+#: data/resources/ui/shortcuts.ui:63
 msgctxt "shortcut window"
 msgid "Windows"
 msgstr "Вікна"
 
-#: data/resources/ui/shortcuts.ui:60
+#: data/resources/ui/shortcuts.ui:66
 msgctxt "shortcut window"
 msgid "New Window"
 msgstr "Нове вікно"
 
-#: data/resources/ui/shortcuts.ui:66
+#: data/resources/ui/shortcuts.ui:72
 msgctxt "shortcut window"
 msgid "Move Document to New Window"
 msgstr "Перенести документ у нове вікно"
 
-#: data/resources/ui/shortcuts.ui:73
+#: data/resources/ui/shortcuts.ui:79
 msgctxt "shortcut window"
 msgid "Move to Next Tab"
 msgstr "Перехід до наступної вкладки"
 
-#: data/resources/ui/shortcuts.ui:79
+#: data/resources/ui/shortcuts.ui:85
 msgctxt "shortcut window"
 msgid "Move to Previous Tab"
 msgstr "Перехід до попередньої вкладки"
 
-#: data/resources/ui/shortcuts.ui:85
+#: data/resources/ui/shortcuts.ui:91
 msgctxt "shortcut window"
 msgid "Reorder After Next Tab"
 msgstr "Перевпорядкувати після наступної вкладки"
 
-#: data/resources/ui/shortcuts.ui:91
+#: data/resources/ui/shortcuts.ui:97
 msgctxt "shortcut window"
 msgid "Reorder Before Previous Tab"
 msgstr "Перевпорядкувати перед попередньою вкладкою"
 
-#: data/resources/ui/shortcuts.ui:97
+#: data/resources/ui/shortcuts.ui:103
 msgctxt "shortcut window"
 msgid "Restore Previously Closed Tab"
 msgstr "Відкрити раніше закриту вкладку"
 
-#: data/resources/ui/shortcuts.ui:104
+#: data/resources/ui/shortcuts.ui:110
 msgctxt "shortcut window"
 msgid "Zoom"
 msgstr "Масштаб"
 
-#: data/resources/ui/shortcuts.ui:108
+#: data/resources/ui/shortcuts.ui:114
 msgctxt "shortcut window"
 msgid "Zoom In"
 msgstr "Збільшити масштаб"
 
-#: data/resources/ui/shortcuts.ui:114
+#: data/resources/ui/shortcuts.ui:120
 msgctxt "shortcut window"
 msgid "Zoom Out"
 msgstr "Зменшити масштаб"
 
-#: data/resources/ui/shortcuts.ui:120
+#: data/resources/ui/shortcuts.ui:126
 msgctxt "shortcut window"
 msgid "Reset Zoom"
 msgstr "Скинути масштаб"
@@ -308,17 +328,13 @@ msgstr "Ihor Hordiichuk, Serhii Honcharuk"
 
 #: src/about.rs:30
 msgid "Donate"
-msgstr "Підтримати"
+msgstr "Пожертвувати"
 
-#: src/about.rs:32
-msgid "Donate (Buy Me a Coffee)"
-msgstr "Підтримати (Buy Me a Coffee)"
-
-#: src/about.rs:35
+#: src/about.rs:31
 msgid "GitHub"
 msgstr "GitHub"
 
-#: src/about.rs:37
+#: src/about.rs:33
 msgid "Translate"
 msgstr "Перекласти"
 
@@ -334,7 +350,7 @@ msgstr "PNG"
 msgid "JPEG"
 msgstr "JPEG"
 
-#: src/page.rs:358 src/save_changes_dialog.rs:110
+#: src/page.rs:357 src/save_changes_dialog.rs:110
 msgid "Untitled Document"
 msgstr "Документ без назви"
 
@@ -430,33 +446,36 @@ msgstr "Файли Graphviz DOT"
 msgid "Failed to open document"
 msgstr "Не вдалося відкрити документ"
 
-#: src/window.rs:101
+#: src/window.rs:100
 msgid "Failed to save document"
 msgstr "Не вдалося зберегти документ"
 
-#: src/window.rs:116
+#: src/window.rs:114
 msgid "Failed to save document as"
 msgstr "Не вдалося зберегти документ як"
 
-#: src/window.rs:130
+#: src/window.rs:127
 msgid "Failed to discard document changes"
 msgstr "Не вдалося відхилити зміни в документі"
 
-#: src/window.rs:144
+#: src/window.rs:141
 msgid "Failed to open containing folder"
 msgstr "Не вдалося відкрити розташування файлу"
 
-#: src/window.rs:171
+#: src/window.rs:168
 msgid "Failed to export graph"
 msgstr "Не вдалося експортувати графік"
 
-#: src/window.rs:701
+#: src/window.rs:697
 msgid "Open Document"
 msgstr "Відкрити документ"
 
-#: src/window.rs:807
+#: src/window.rs:803
 msgid "There are unsaved documents"
 msgstr "Є незбережені документи"
+
+#~ msgid "Donate (Buy Me a Coffee)"
+#~ msgstr "Підтримати (Buy Me a Coffee)"
 
 #~ msgid "Dave Patrick Caberto"
 #~ msgstr "Dave Patrick Caberto"

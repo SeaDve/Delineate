@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-22 12:05+0800\n"
+"POT-Creation-Date: 2025-09-14 15:29+0800\n"
 "PO-Revision-Date: 2024-04-25 13:07+0000\n"
 "Last-Translator: Fjuro <fjuro@alius.cz>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/seadve/delineate/"
@@ -18,18 +18,18 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
 "X-Generator: Weblate 5.5.1-dev\n"
 
-#: data/io.github.seadve.Delineate.desktop.in.in:3
+#: data/io.github.seadve.Delineate.desktop.in.in:2
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
 msgid "Delineate"
 msgstr "Delineate"
 
-#: data/io.github.seadve.Delineate.desktop.in.in:4
+#: data/io.github.seadve.Delineate.desktop.in.in:3
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:8
 msgid "View and edit graphs"
 msgstr "Zobrazení a úprava grafů"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/io.github.seadve.Delineate.desktop.in.in:10
+#: data/io.github.seadve.Delineate.desktop.in.in:9
 msgid "graphviz;dot;graphs;visualization;"
 msgstr "graphviz;dot;grafy;vizualizace;grafů;"
 
@@ -62,6 +62,18 @@ msgstr "📝 Plně funkční editor jazyka DOT"
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:16
 msgid "📦 Export graph as PNG, SVG, or JPEG"
 msgstr "📦 Export grafů do PNG, SVG nebo JPEG"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:22
+msgid "Editor and viewer"
+msgstr ""
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:26
+msgid "Editor collapsed"
+msgstr ""
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:30
+msgid "Tab overview"
+msgstr ""
 
 #: data/resources/ui/page.ui:75
 msgid "Zoom Out"
@@ -131,62 +143,70 @@ msgctxt "shortcut window"
 msgid "Save As"
 msgstr "Uložit jako"
 
-#: data/resources/ui/shortcuts.ui:57
+#: data/resources/ui/shortcuts.ui:55
+#, fuzzy
+#| msgctxt "shortcut window"
+#| msgid "New Document"
+msgctxt "shortcut window"
+msgid "Close Document"
+msgstr "Nový dokument"
+
+#: data/resources/ui/shortcuts.ui:63
 msgctxt "shortcut window"
 msgid "Windows"
 msgstr "Okna"
 
-#: data/resources/ui/shortcuts.ui:60
+#: data/resources/ui/shortcuts.ui:66
 msgctxt "shortcut window"
 msgid "New Window"
 msgstr "Nové okno"
 
-#: data/resources/ui/shortcuts.ui:66
+#: data/resources/ui/shortcuts.ui:72
 msgctxt "shortcut window"
 msgid "Move Document to New Window"
 msgstr "Přesunout dokument do nového okna"
 
-#: data/resources/ui/shortcuts.ui:73
+#: data/resources/ui/shortcuts.ui:79
 msgctxt "shortcut window"
 msgid "Move to Next Tab"
 msgstr "Přesunout na další kartu"
 
-#: data/resources/ui/shortcuts.ui:79
+#: data/resources/ui/shortcuts.ui:85
 msgctxt "shortcut window"
 msgid "Move to Previous Tab"
 msgstr "Přesunout na předchozí kartu"
 
-#: data/resources/ui/shortcuts.ui:85
+#: data/resources/ui/shortcuts.ui:91
 msgctxt "shortcut window"
 msgid "Reorder After Next Tab"
 msgstr "Změnit pořadí po další kartě"
 
-#: data/resources/ui/shortcuts.ui:91
+#: data/resources/ui/shortcuts.ui:97
 msgctxt "shortcut window"
 msgid "Reorder Before Previous Tab"
 msgstr "Změnit pořadí před předchozí kartou"
 
-#: data/resources/ui/shortcuts.ui:97
+#: data/resources/ui/shortcuts.ui:103
 msgctxt "shortcut window"
 msgid "Restore Previously Closed Tab"
 msgstr "Obnovit naposledy zavřenou kartu"
 
-#: data/resources/ui/shortcuts.ui:104
+#: data/resources/ui/shortcuts.ui:110
 msgctxt "shortcut window"
 msgid "Zoom"
 msgstr "Přiblížení"
 
-#: data/resources/ui/shortcuts.ui:108
+#: data/resources/ui/shortcuts.ui:114
 msgctxt "shortcut window"
 msgid "Zoom In"
 msgstr "Přiblížit"
 
-#: data/resources/ui/shortcuts.ui:114
+#: data/resources/ui/shortcuts.ui:120
 msgctxt "shortcut window"
 msgid "Zoom Out"
 msgstr "Oddálit"
 
-#: data/resources/ui/shortcuts.ui:120
+#: data/resources/ui/shortcuts.ui:126
 msgctxt "shortcut window"
 msgid "Reset Zoom"
 msgstr "Obnovit přiblížení"
@@ -310,15 +330,11 @@ msgstr ""
 msgid "Donate"
 msgstr "Darovat"
 
-#: src/about.rs:32
-msgid "Donate (Buy Me a Coffee)"
-msgstr "Darovat (kupte mi kávu)"
-
-#: src/about.rs:35
+#: src/about.rs:31
 msgid "GitHub"
 msgstr "GitHub"
 
-#: src/about.rs:37
+#: src/about.rs:33
 msgid "Translate"
 msgstr "Překlad"
 
@@ -334,7 +350,7 @@ msgstr "PNG"
 msgid "JPEG"
 msgstr "JPEG"
 
-#: src/page.rs:358 src/save_changes_dialog.rs:110
+#: src/page.rs:357 src/save_changes_dialog.rs:110
 msgid "Untitled Document"
 msgstr "Nepojmenovaný dokument"
 
@@ -430,30 +446,33 @@ msgstr "Soubory Graphviz DOT"
 msgid "Failed to open document"
 msgstr "Nepodařilo se otevřít dokument"
 
-#: src/window.rs:101
+#: src/window.rs:100
 msgid "Failed to save document"
 msgstr "Nepodařilo se uložit dokument"
 
-#: src/window.rs:116
+#: src/window.rs:114
 msgid "Failed to save document as"
 msgstr "Nepodařilo se uložit dokument jako"
 
-#: src/window.rs:130
+#: src/window.rs:127
 msgid "Failed to discard document changes"
 msgstr "Nepodařilo se zahodit změny dokumentu"
 
-#: src/window.rs:144
+#: src/window.rs:141
 msgid "Failed to open containing folder"
 msgstr "Nepodařilo se otevřít složku s obsahem"
 
-#: src/window.rs:171
+#: src/window.rs:168
 msgid "Failed to export graph"
 msgstr "Nepodařilo se exportovat graf"
 
-#: src/window.rs:701
+#: src/window.rs:697
 msgid "Open Document"
 msgstr "Otevřít dokument"
 
-#: src/window.rs:807
+#: src/window.rs:803
 msgid "There are unsaved documents"
 msgstr "Máte neuložené dokumenty"
+
+#~ msgid "Donate (Buy Me a Coffee)"
+#~ msgstr "Darovat (kupte mi kávu)"

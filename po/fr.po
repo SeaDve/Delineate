@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-22 12:05+0800\n"
+"POT-Creation-Date: 2025-09-14 15:29+0800\n"
 "PO-Revision-Date: 2024-06-26 22:09+0000\n"
 "Last-Translator: Clyhtsuriva <aimeric@adjutor.xyz>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/seadve/delineate/"
@@ -21,18 +21,18 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 5.6-rc\n"
 
-#: data/io.github.seadve.Delineate.desktop.in.in:3
+#: data/io.github.seadve.Delineate.desktop.in.in:2
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
 msgid "Delineate"
 msgstr "Delineate"
 
-#: data/io.github.seadve.Delineate.desktop.in.in:4
+#: data/io.github.seadve.Delineate.desktop.in.in:3
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:8
 msgid "View and edit graphs"
 msgstr "Voir et éditer des graphiques"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: data/io.github.seadve.Delineate.desktop.in.in:10
+#: data/io.github.seadve.Delineate.desktop.in.in:9
 msgid "graphviz;dot;graphs;visualization;"
 msgstr "graphviz;dot;graphes;visualisation;"
 
@@ -68,6 +68,18 @@ msgstr "📝 Éditeur complet du langage DOT"
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:16
 msgid "📦 Export graph as PNG, SVG, or JPEG"
 msgstr "📦 Export de graphiques aux formats PNG, SVG, ou JPEG"
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:22
+msgid "Editor and viewer"
+msgstr ""
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:26
+msgid "Editor collapsed"
+msgstr ""
+
+#: data/io.github.seadve.Delineate.metainfo.xml.in.in:30
+msgid "Tab overview"
+msgstr ""
 
 #: data/resources/ui/page.ui:75
 msgid "Zoom Out"
@@ -137,62 +149,70 @@ msgctxt "shortcut window"
 msgid "Save As"
 msgstr "Enregistrer sous"
 
-#: data/resources/ui/shortcuts.ui:57
+#: data/resources/ui/shortcuts.ui:55
+#, fuzzy
+#| msgctxt "shortcut window"
+#| msgid "New Document"
+msgctxt "shortcut window"
+msgid "Close Document"
+msgstr "Nouveau Document"
+
+#: data/resources/ui/shortcuts.ui:63
 msgctxt "shortcut window"
 msgid "Windows"
 msgstr "Fenêtres"
 
-#: data/resources/ui/shortcuts.ui:60
+#: data/resources/ui/shortcuts.ui:66
 msgctxt "shortcut window"
 msgid "New Window"
 msgstr "Nouvelle Fenêtre"
 
-#: data/resources/ui/shortcuts.ui:66
+#: data/resources/ui/shortcuts.ui:72
 msgctxt "shortcut window"
 msgid "Move Document to New Window"
 msgstr "Déplacer le document vers une nouvelle fenêtre"
 
-#: data/resources/ui/shortcuts.ui:73
+#: data/resources/ui/shortcuts.ui:79
 msgctxt "shortcut window"
 msgid "Move to Next Tab"
 msgstr "Aller à l'onglet suivant"
 
-#: data/resources/ui/shortcuts.ui:79
+#: data/resources/ui/shortcuts.ui:85
 msgctxt "shortcut window"
 msgid "Move to Previous Tab"
 msgstr "Aller à l'onglet précédent"
 
-#: data/resources/ui/shortcuts.ui:85
+#: data/resources/ui/shortcuts.ui:91
 msgctxt "shortcut window"
 msgid "Reorder After Next Tab"
 msgstr "Réorganiser après l'onglet suivant"
 
-#: data/resources/ui/shortcuts.ui:91
+#: data/resources/ui/shortcuts.ui:97
 msgctxt "shortcut window"
 msgid "Reorder Before Previous Tab"
 msgstr "Réorganiser avant l'onglet précédent"
 
-#: data/resources/ui/shortcuts.ui:97
+#: data/resources/ui/shortcuts.ui:103
 msgctxt "shortcut window"
 msgid "Restore Previously Closed Tab"
 msgstr "Restaurer l'onglet fermé précédemment"
 
-#: data/resources/ui/shortcuts.ui:104
+#: data/resources/ui/shortcuts.ui:110
 msgctxt "shortcut window"
 msgid "Zoom"
 msgstr "Zoom"
 
-#: data/resources/ui/shortcuts.ui:108
+#: data/resources/ui/shortcuts.ui:114
 msgctxt "shortcut window"
 msgid "Zoom In"
 msgstr "Zoomer"
 
-#: data/resources/ui/shortcuts.ui:114
+#: data/resources/ui/shortcuts.ui:120
 msgctxt "shortcut window"
 msgid "Zoom Out"
 msgstr "Dézoomer"
 
-#: data/resources/ui/shortcuts.ui:120
+#: data/resources/ui/shortcuts.ui:126
 msgctxt "shortcut window"
 msgid "Reset Zoom"
 msgstr "Réinitialiser le zoom"
@@ -311,15 +331,11 @@ msgstr "J. Lavoie, M. Bousquet, Irénée Thirion, Wedone, Clyhtsuriva"
 msgid "Donate"
 msgstr "Faire un don"
 
-#: src/about.rs:32
-msgid "Donate (Buy Me a Coffee)"
-msgstr "Faire un don (Buy Me a Coffee)"
-
-#: src/about.rs:35
+#: src/about.rs:31
 msgid "GitHub"
 msgstr "GitHub"
 
-#: src/about.rs:37
+#: src/about.rs:33
 msgid "Translate"
 msgstr "Traduire"
 
@@ -335,7 +351,7 @@ msgstr "PNG"
 msgid "JPEG"
 msgstr "JPEG"
 
-#: src/page.rs:358 src/save_changes_dialog.rs:110
+#: src/page.rs:357 src/save_changes_dialog.rs:110
 msgid "Untitled Document"
 msgstr "Document Sans Titre"
 
@@ -430,33 +446,36 @@ msgstr "Fichier DOT Graphviz"
 msgid "Failed to open document"
 msgstr "Échec de l'ouverture du document"
 
-#: src/window.rs:101
+#: src/window.rs:100
 msgid "Failed to save document"
 msgstr "Échec de l'enregistrement du document"
 
-#: src/window.rs:116
+#: src/window.rs:114
 msgid "Failed to save document as"
 msgstr "Échec de l'enregistrement du document sous"
 
-#: src/window.rs:130
+#: src/window.rs:127
 msgid "Failed to discard document changes"
 msgstr "Échec de l'annulation des modifications du document"
 
-#: src/window.rs:144
+#: src/window.rs:141
 msgid "Failed to open containing folder"
 msgstr "Échec de l'ouverture du dossier parent"
 
-#: src/window.rs:171
+#: src/window.rs:168
 msgid "Failed to export graph"
 msgstr "Échec de l'export du graphique"
 
-#: src/window.rs:701
+#: src/window.rs:697
 msgid "Open Document"
 msgstr "Ouvrir un document"
 
-#: src/window.rs:807
+#: src/window.rs:803
 msgid "There are unsaved documents"
 msgstr "Il y a des documents non enregistrés"
+
+#~ msgid "Donate (Buy Me a Coffee)"
+#~ msgstr "Faire un don (Buy Me a Coffee)"
 
 #, fuzzy
 #~ msgid "Dave Patrick Caberto"
