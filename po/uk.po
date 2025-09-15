@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-14 15:29+0800\n"
-"PO-Revision-Date: 2025-09-14 07:31+0000\n"
+"PO-Revision-Date: 2025-09-15 09:01+0000\n"
 "Last-Translator: Максим Горпиніч <gorpinicmaksim0@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/seadve/"
 "delineate/uk/>\n"
@@ -69,15 +69,15 @@ msgstr "📦 Експорт графіку у форматі PNG, SVG або JPE
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:22
 msgid "Editor and viewer"
-msgstr ""
+msgstr "Редактор і глядач"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:26
 msgid "Editor collapsed"
-msgstr ""
+msgstr "Редактор згорнуто"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:30
 msgid "Tab overview"
-msgstr ""
+msgstr "Огляд вкладок"
 
 #: data/resources/ui/page.ui:75
 msgid "Zoom Out"
@@ -148,12 +148,9 @@ msgid "Save As"
 msgstr "Зберегти як"
 
 #: data/resources/ui/shortcuts.ui:55
-#, fuzzy
-#| msgctxt "shortcut window"
-#| msgid "New Document"
 msgctxt "shortcut window"
 msgid "Close Document"
-msgstr "Новий документ"
+msgstr "Закрити документ"
 
 #: data/resources/ui/shortcuts.ui:63
 msgctxt "shortcut window"
