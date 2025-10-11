@@ -1,13 +1,13 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the delineate package.
-# Philip Goto <philip.goto@gmail.com>, 2024.
+# Philip Goto <philip.goto@gmail.com>, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-14 15:29+0800\n"
-"PO-Revision-Date: 2024-06-12 03:13+0000\n"
+"PO-Revision-Date: 2025-10-11 09:07+0000\n"
 "Last-Translator: Philip Goto <philip.goto@gmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/seadve/delineate/"
 "nl/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6-dev\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: data/io.github.seadve.Delineate.desktop.in.in:2
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
@@ -66,15 +66,15 @@ msgstr "📦 Exporteer grafieken als PNG, SVG of JPEG"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:22
 msgid "Editor and viewer"
-msgstr ""
+msgstr "Bewerker en bekĳker"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:26
 msgid "Editor collapsed"
-msgstr ""
+msgstr "Bewerker ingeklapt"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:30
 msgid "Tab overview"
-msgstr ""
+msgstr "Tabblad­overzicht"
 
 #: data/resources/ui/page.ui:75
 msgid "Zoom Out"
@@ -145,12 +145,9 @@ msgid "Save As"
 msgstr "Opslaan als"
 
 #: data/resources/ui/shortcuts.ui:55
-#, fuzzy
-#| msgctxt "shortcut window"
-#| msgid "New Document"
 msgctxt "shortcut window"
 msgid "Close Document"
-msgstr "Nieuw document"
+msgstr "Document sluiten"
 
 #: data/resources/ui/shortcuts.ui:63
 msgctxt "shortcut window"

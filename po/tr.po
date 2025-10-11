@@ -2,15 +2,15 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the dagger package.
 # Sabri Ünal <libreajans@gmail.com>, 2024.
-# Oğuz Ersen <oguz@ersen.moe>, 2024.
+# Oğuz Ersen <oguz@ersen.moe>, 2024, 2025.
 # Sabri Ünal <yakushabb@gmail.com>, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: dagger\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-14 15:29+0800\n"
-"PO-Revision-Date: 2025-08-30 16:01+0000\n"
-"Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
+"PO-Revision-Date: 2025-10-11 09:07+0000\n"
+"Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/seadve/delineate/"
 "tr/>\n"
 "Language: tr\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13.1-dev\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: data/io.github.seadve.Delineate.desktop.in.in:2
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
@@ -67,15 +67,15 @@ msgstr "📦 Grafiği PNG, SVG ya da JPEG olarak dışa aktarma"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:22
 msgid "Editor and viewer"
-msgstr ""
+msgstr "Düzenleyici ve görüntüleyici"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:26
 msgid "Editor collapsed"
-msgstr ""
+msgstr "Düzenleyici çöktü"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:30
 msgid "Tab overview"
-msgstr ""
+msgstr "Sekme ön izlemesi"
 
 #: data/resources/ui/page.ui:75
 msgid "Zoom Out"
@@ -118,7 +118,7 @@ msgstr "Kısayolları Göster"
 #: data/resources/ui/shortcuts.ui:20
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr "Çık"
+msgstr "Çıkış"
 
 #: data/resources/ui/shortcuts.ui:28
 msgctxt "shortcut window"
@@ -146,12 +146,9 @@ msgid "Save As"
 msgstr "Farklı Kaydet"
 
 #: data/resources/ui/shortcuts.ui:55
-#, fuzzy
-#| msgctxt "shortcut window"
-#| msgid "New Document"
 msgctxt "shortcut window"
 msgid "Close Document"
-msgstr "Yeni Belge"
+msgstr "Belgeyi Kapat"
 
 #: data/resources/ui/shortcuts.ui:63
 msgctxt "shortcut window"
