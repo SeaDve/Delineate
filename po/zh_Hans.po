@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the delineate package.
 # 刘韬 <lyuutau@outlook.com>, 2024.
 # Jianhua Lu <lujianhua000@gmail.com>, 2024.
+# Haoyu Qiu <timothyqiu32@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-14 15:29+0800\n"
-"PO-Revision-Date: 2025-07-04 12:01+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2025-10-23 13:02+0000\n"
+"Last-Translator: Haoyu Qiu <timothyqiu32@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/seadve/delineate/zh_Hans/>\n"
 "Language: zh_Hans\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.14.1-dev\n"
 
 #: data/io.github.seadve.Delineate.desktop.in.in:2
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
@@ -103,19 +104,16 @@ msgid "Remove"
 msgstr ""
 
 #: data/resources/ui/shortcuts.ui:11
-#, fuzzy
 msgctxt "shortcut window"
 msgid "General"
 msgstr "通用"
 
 #: data/resources/ui/shortcuts.ui:14
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
 msgstr "显示快捷键"
 
 #: data/resources/ui/shortcuts.ui:20
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "退出"
@@ -319,7 +317,8 @@ msgstr ""
 "Zhou Nan &lt;zhounan@nfschina.com&gt;\n"
 "Zhongrui Cao &lt;zhongrui.cao@suse.com&gt;\n"
 "WhiredPlanck &lt;wplanck@aosc.io&gt;\n"
-"lumingzh &lt;lumingzh@qq.com&gt;"
+"lumingzh &lt;lumingzh@qq.com&gt;\n"
+"Haoyu Qiu &lt;timothyqiu32@gmail.com&gt;"
 
 #: src/about.rs:30
 msgid "Donate"
