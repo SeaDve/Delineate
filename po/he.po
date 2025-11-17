@@ -7,15 +7,17 @@ msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-14 15:29+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-11-17 07:51+0000\n"
+"Last-Translator: \"Omer I.S.\" <omeritzicschwartz@gmail.com>\n"
+"Language-Team: Hebrew <https://hosted.weblate.org/projects/seadve/delineate/"
+"he/>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : "
 "((n > 10 && n % 10 == 0) ? 2 : 3));\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #: data/io.github.seadve.Delineate.desktop.in.in:2
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
@@ -25,7 +27,7 @@ msgstr ""
 #: data/io.github.seadve.Delineate.desktop.in.in:3
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:8
 msgid "View and edit graphs"
-msgstr ""
+msgstr "הצגה ועריכה של גרפים"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/io.github.seadve.Delineate.desktop.in.in:9
@@ -57,11 +59,11 @@ msgstr ""
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:16
 msgid "📦 Export graph as PNG, SVG, or JPEG"
-msgstr ""
+msgstr "📦 ייצוא גרפים בתור קובץ PNG, ‏SVG, או JPEG"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:22
 msgid "Editor and viewer"
-msgstr ""
+msgstr "עורך ומציג"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:26
 msgid "Editor collapsed"
@@ -73,86 +75,86 @@ msgstr ""
 
 #: data/resources/ui/page.ui:75
 msgid "Zoom Out"
-msgstr ""
+msgstr "התרחקות"
 
 #: data/resources/ui/page.ui:82
 msgid "Reset Zoom"
-msgstr ""
+msgstr "איפוס התקריב"
 
 #: data/resources/ui/page.ui:88
 msgid "Zoom In"
-msgstr ""
+msgstr "התקרבות"
 
 #: data/resources/ui/recent_popover.ui:17
 msgid "Search documents"
-msgstr ""
+msgstr "חיפוש במסמכים"
 
 #: data/resources/ui/recent_popover.ui:38
 msgid "No Recent Documents"
-msgstr ""
+msgstr "אין מסמכים אחרונים"
 
 #: data/resources/ui/recent_popover.ui:47
 msgid "No Results"
-msgstr ""
+msgstr "אין תוצאות"
 
 #: data/resources/ui/recent_row.ui:53
 msgid "Remove"
-msgstr ""
+msgstr "הסרה"
 
 #: data/resources/ui/shortcuts.ui:11
 msgctxt "shortcut window"
 msgid "General"
-msgstr ""
+msgstr "כללי"
 
 #: data/resources/ui/shortcuts.ui:14
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
-msgstr ""
+msgstr "הצגת קיצורי המקשים"
 
 #: data/resources/ui/shortcuts.ui:20
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr ""
+msgstr "יציאה"
 
 #: data/resources/ui/shortcuts.ui:28
 msgctxt "shortcut window"
 msgid "Documents"
-msgstr ""
+msgstr "מסמכים"
 
 #: data/resources/ui/shortcuts.ui:31
 msgctxt "shortcut window"
 msgid "New Document"
-msgstr ""
+msgstr "מסמך חדש"
 
 #: data/resources/ui/shortcuts.ui:37
 msgctxt "shortcut window"
 msgid "Open Document"
-msgstr ""
+msgstr "פתיחת מסמך"
 
 #: data/resources/ui/shortcuts.ui:43
 msgctxt "shortcut window"
 msgid "Save"
-msgstr ""
+msgstr "שמירה"
 
 #: data/resources/ui/shortcuts.ui:49
 msgctxt "shortcut window"
 msgid "Save As"
-msgstr ""
+msgstr "שמירה בשם"
 
 #: data/resources/ui/shortcuts.ui:55
 msgctxt "shortcut window"
 msgid "Close Document"
-msgstr ""
+msgstr "סגירת מסמך"
 
 #: data/resources/ui/shortcuts.ui:63
 msgctxt "shortcut window"
 msgid "Windows"
-msgstr ""
+msgstr "חלונות"
 
 #: data/resources/ui/shortcuts.ui:66
 msgctxt "shortcut window"
 msgid "New Window"
-msgstr ""
+msgstr "חלון חדש"
 
 #: data/resources/ui/shortcuts.ui:72
 msgctxt "shortcut window"
@@ -187,22 +189,22 @@ msgstr ""
 #: data/resources/ui/shortcuts.ui:110
 msgctxt "shortcut window"
 msgid "Zoom"
-msgstr ""
+msgstr "תקריב"
 
 #: data/resources/ui/shortcuts.ui:114
 msgctxt "shortcut window"
 msgid "Zoom In"
-msgstr ""
+msgstr "התקרבות"
 
 #: data/resources/ui/shortcuts.ui:120
 msgctxt "shortcut window"
 msgid "Zoom Out"
-msgstr ""
+msgstr "התרחקות"
 
 #: data/resources/ui/shortcuts.ui:126
 msgctxt "shortcut window"
 msgid "Reset Zoom"
-msgstr ""
+msgstr "איפוס התקריב"
 
 #: data/resources/ui/window.ui:6
 msgid "_New Window"
@@ -225,31 +227,32 @@ msgstr ""
 
 #: data/resources/ui/window.ui:26
 msgid "_Export Graph"
-msgstr ""
+msgstr "יי_צוא גרף"
 
 #: data/resources/ui/window.ui:28
 msgid "Export As PNG…"
-msgstr ""
+msgstr "ייצוא בתור PNG…"
 
 #: data/resources/ui/window.ui:33
 msgid "Export As SVG…"
-msgstr ""
+msgstr "ייצוא בתור SVG…"
 
 #: data/resources/ui/window.ui:38
 msgid "Export As JPEG…"
-msgstr ""
+msgstr "ייצוא בתור JPEG…"
 
 #: data/resources/ui/window.ui:44
 msgid "Open _Containing Folder"
 msgstr ""
 
 #: data/resources/ui/window.ui:50
+#, fuzzy
 msgid "_Keyboard Shortcuts"
-msgstr ""
+msgstr "_קיצורי מקשים"
 
 #: data/resources/ui/window.ui:54
 msgid "_About Delineate"
-msgstr ""
+msgstr "על _אודות Delineate"
 
 #: data/resources/ui/window.ui:62
 msgid "Move _Left"
@@ -273,7 +276,7 @@ msgstr ""
 
 #: data/resources/ui/window.ui:104
 msgid "Open"
-msgstr ""
+msgstr "פתיחה"
 
 #: data/resources/ui/window.ui:106
 msgid "Recent Documents"
@@ -285,7 +288,7 @@ msgstr ""
 
 #: data/resources/ui/window.ui:143
 msgid "Main Menu"
-msgstr ""
+msgstr "תפריט ראשי"
 
 #: data/resources/ui/window.ui:168
 msgid "Start or Open a Document"
@@ -305,19 +308,19 @@ msgstr ""
 #. Translators: Replace "translator-credits" with your names. Put a comma between.
 #: src/about.rs:23
 msgid "translator-credits"
-msgstr ""
+msgstr "עומר א״ש(@omeritzics)"
 
 #: src/about.rs:30
 msgid "Donate"
-msgstr ""
+msgstr "תרומה"
 
 #: src/about.rs:31
 msgid "GitHub"
-msgstr ""
+msgstr "GitHub"
 
 #: src/about.rs:33
 msgid "Translate"
-msgstr ""
+msgstr "תרגום"
 
 #: src/export_format.rs:29
 msgid "SVG"
@@ -333,19 +336,19 @@ msgstr ""
 
 #: src/page.rs:357 src/save_changes_dialog.rs:110
 msgid "Untitled Document"
-msgstr ""
+msgstr "מסמך ללא שם"
 
 #: src/page.rs:414
 msgid "Save Document"
-msgstr ""
+msgstr "שמירת מסמך"
 
 #: src/page.rs:435
 msgid "Save Document As"
-msgstr ""
+msgstr "שמירת מסמך בשם"
 
 #: src/page.rs:485
 msgid "Export Graph"
-msgstr ""
+msgstr "ייצוא גרף"
 
 #: src/page.rs:486
 msgid "_Export"
@@ -357,7 +360,7 @@ msgstr ""
 
 #: src/page.rs:529
 msgid "Show in Files"
-msgstr ""
+msgstr "הצגה בקבצים"
 
 #: src/page.rs:544
 msgid "Failed to show in Files"
@@ -369,19 +372,19 @@ msgstr ""
 
 #: src/recent_row.rs:134
 msgid "Just Now"
-msgstr ""
+msgstr "ברגע זה"
 
 #: src/recent_row.rs:136
 msgid "An hour ago"
-msgstr ""
+msgstr "לפני שעה"
 
 #: src/recent_row.rs:138
 msgid "Yesterday"
-msgstr ""
+msgstr "אתמול"
 
 #: src/recent_row.rs:144
 msgid "About a year ago"
-msgstr ""
+msgstr "לפני כשנה"
 
 #: src/save_changes_dialog.rs:44
 msgid "Failed to save changes to document"
@@ -389,7 +392,7 @@ msgstr ""
 
 #: src/save_changes_dialog.rs:57
 msgid "Save Changes?"
-msgstr ""
+msgstr "לשמור שינויים?"
 
 #: src/save_changes_dialog.rs:58
 msgid ""
@@ -399,7 +402,7 @@ msgstr ""
 
 #: src/save_changes_dialog.rs:64
 msgid "Cancel"
-msgstr ""
+msgstr "ביטול"
 
 #: src/save_changes_dialog.rs:67
 msgid "_Discard"
@@ -446,7 +449,7 @@ msgstr ""
 
 #: src/window.rs:697
 msgid "Open Document"
-msgstr ""
+msgstr "פתיחת מסמך"
 
 #: src/window.rs:803
 msgid "There are unsaved documents"
