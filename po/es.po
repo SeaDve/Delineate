@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the delineate package.
 # gallegonovato <fran-carro@hotmail.es>, 2024.
 # Óscar Fernández Díaz <oscfdezdz@tuta.io>, 2024.
+# Oshiro Akira <tionf33@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-14 15:29+0800\n"
-"PO-Revision-Date: 2024-09-28 21:16+0000\n"
-"Last-Translator: Óscar Fernández Díaz <oscfdezdz@tuta.io>\n"
+"PO-Revision-Date: 2025-11-27 14:00+0000\n"
+"Last-Translator: Oshiro Akira <tionf33@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/seadve/delineate/"
 "es/>\n"
 "Language: es\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.15-dev\n"
 
 #: data/io.github.seadve.Delineate.desktop.in.in:2
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
@@ -146,12 +147,9 @@ msgid "Save As"
 msgstr "Guardar como"
 
 #: data/resources/ui/shortcuts.ui:55
-#, fuzzy
-#| msgctxt "shortcut window"
-#| msgid "New Document"
 msgctxt "shortcut window"
 msgid "Close Document"
-msgstr "Documento nuevo"
+msgstr "Cerrar documento"
 
 #: data/resources/ui/shortcuts.ui:63
 msgctxt "shortcut window"
