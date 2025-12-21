@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the delineate package.
 # victor dargallo <victordargallo@disroot.org>, 2024.
 # Joan Aymà <joanayma@gmail.com>, 2024.
+# Isard Sabut <weblate@puntnet.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-14 15:29+0800\n"
-"PO-Revision-Date: 2024-12-18 11:00+0000\n"
-"Last-Translator: Joan Aymà <joanayma@gmail.com>\n"
+"PO-Revision-Date: 2025-12-21 20:00+0000\n"
+"Last-Translator: Isard Sabut <weblate@puntnet.org>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/seadve/delineate/"
 "ca/>\n"
 "Language: ca\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9.2-dev\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: data/io.github.seadve.Delineate.desktop.in.in:2
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
@@ -66,11 +67,12 @@ msgstr "📦 Exporta el graf a PNG, SVG o JPEG"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:22
 msgid "Editor and viewer"
-msgstr ""
+msgstr "Editor i visor"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:26
+#, fuzzy
 msgid "Editor collapsed"
-msgstr ""
+msgstr "Editor col·lapsat"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:30
 msgid "Tab overview"
@@ -145,12 +147,9 @@ msgid "Save As"
 msgstr "Guarda com"
 
 #: data/resources/ui/shortcuts.ui:55
-#, fuzzy
-#| msgctxt "shortcut window"
-#| msgid "New Document"
 msgctxt "shortcut window"
 msgid "Close Document"
-msgstr "Nou document"
+msgstr "Tanca el document"
 
 #: data/resources/ui/shortcuts.ui:63
 msgctxt "shortcut window"
