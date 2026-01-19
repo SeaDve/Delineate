@@ -1,13 +1,13 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the delineate package.
-# bittin1ddc447d824349b2 <bittin@reimu.nl>, 2024.
+# bittin1ddc447d824349b2 <bittin@reimu.nl>, 2024, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-14 15:29+0800\n"
-"PO-Revision-Date: 2024-03-12 14:02+0000\n"
+"PO-Revision-Date: 2026-01-19 12:01+0000\n"
 "Last-Translator: bittin1ddc447d824349b2 <bittin@reimu.nl>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/seadve/delineate/"
 "sv/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5-dev\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: data/io.github.seadve.Delineate.desktop.in.in:2
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
@@ -66,15 +66,15 @@ msgstr "📦 Exportera grafer som PNG, SVG, eller JPEG"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:22
 msgid "Editor and viewer"
-msgstr ""
+msgstr "Redigerare och visare"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:26
 msgid "Editor collapsed"
-msgstr ""
+msgstr "Redigerare hopfälld"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:30
 msgid "Tab overview"
-msgstr ""
+msgstr "Flik översikt"
 
 #: data/resources/ui/page.ui:75
 msgid "Zoom Out"
@@ -107,7 +107,7 @@ msgstr "Ta bort"
 #: data/resources/ui/shortcuts.ui:11
 msgctxt "shortcut window"
 msgid "General"
-msgstr "Allmänt"
+msgstr "Allmän"
 
 #: data/resources/ui/shortcuts.ui:14
 msgctxt "shortcut window"
@@ -145,12 +145,9 @@ msgid "Save As"
 msgstr "Spara som"
 
 #: data/resources/ui/shortcuts.ui:55
-#, fuzzy
-#| msgctxt "shortcut window"
-#| msgid "New Document"
 msgctxt "shortcut window"
 msgid "Close Document"
-msgstr "Nytt dokument"
+msgstr "Stäng dokument"
 
 #: data/resources/ui/shortcuts.ui:63
 msgctxt "shortcut window"
