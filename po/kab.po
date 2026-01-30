@@ -1,13 +1,13 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the delineate package.
-# ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>, 2025.
+# ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-14 15:29+0800\n"
-"PO-Revision-Date: 2025-09-18 15:35+0000\n"
+"PO-Revision-Date: 2026-01-30 10:01+0000\n"
 "Last-Translator: ButterflyOfFire <boffire@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Kabyle <https://hosted.weblate.org/projects/seadve/delineate/"
 "kab/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: data/io.github.seadve.Delineate.desktop.in.in:2
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
@@ -390,7 +390,7 @@ msgstr ""
 
 #: src/save_changes_dialog.rs:57
 msgid "Save Changes?"
-msgstr ""
+msgstr "Sekles ibeddilen?"
 
 #: src/save_changes_dialog.rs:58
 msgid ""
