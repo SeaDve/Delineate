@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the delineate package.
 # gallegonovato <fran-carro@hotmail.es>, 2024.
 # Óscar Fernández Díaz <oscfdezdz@tuta.io>, 2024.
-# Oshiro Akira <tionf33@gmail.com>, 2025.
+# Oshiro Akira <tionf33@gmail.com>, 2025, 2026.
 # Francisco Serrador <fserrador@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-14 15:29+0800\n"
-"PO-Revision-Date: 2026-03-09 07:09+0000\n"
+"PO-Revision-Date: 2026-03-13 12:09+0000\n"
 "Last-Translator: Francisco Serrador <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/seadve/delineate/"
 "es/>\n"
@@ -23,7 +23,6 @@ msgstr ""
 
 #: data/io.github.seadve.Delineate.desktop.in.in:2
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
-#, fuzzy
 msgid "Delineate"
 msgstr "Delinear"
 
@@ -70,19 +69,19 @@ msgstr "📦 Exportar gráfico como PNG, SVG o JPEG"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:22
 msgid "Editor and viewer"
-msgstr ""
+msgstr "Editor y visor"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:26
 msgid "Editor collapsed"
-msgstr ""
+msgstr "Editor colapsado"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:30
 msgid "Tab overview"
-msgstr ""
+msgstr "Descripción de pestaña"
 
 #: data/resources/ui/page.ui:75
 msgid "Zoom Out"
-msgstr "Reducir"
+msgstr "Alejar"
 
 #: data/resources/ui/page.ui:82
 msgid "Reset Zoom"
@@ -90,7 +89,7 @@ msgstr "Reiniciar zoom"
 
 #: data/resources/ui/page.ui:88
 msgid "Zoom In"
-msgstr "Ampliar"
+msgstr "Acercar"
 
 #: data/resources/ui/recent_popover.ui:17
 msgid "Search documents"
@@ -323,7 +322,7 @@ msgstr ""
 msgid "translator-credits"
 msgstr ""
 "Óscar Fernández Díaz (oscfdezdz@tuta.io), Adolfo Jayme Barrientos "
-"(fitojb@ubuntu.com)"
+"(fitojb@ubuntu.com), Javier F. Serrador (fserrador@gmail.com)"
 
 #: src/about.rs:30
 msgid "Donate"
