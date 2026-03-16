@@ -56,7 +56,20 @@ GNOME Builder is the environment used for developing this application. It can us
 3. Click the build button at the top once the project is loaded.
 
 ### Meson
+
+#### Install dependencies (Debian/Ubunut)
+```bash
+sudo apt install pkg-config \
+libglib2.0-dev \
+libgtkmm-4.0-dev \
+libgtksourceview-5-dev \
+libadwaita-1-dev \
+libwebkitgtk-6.0-dev \
+gettext
 ```
+
+#### Build the project
+```bash
 git clone https://github.com/SeaDve/Delineate.git
 cd Delineate
 meson _build --prefix=/usr/local
