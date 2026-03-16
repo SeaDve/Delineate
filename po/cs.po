@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-14 15:29+0800\n"
-"PO-Revision-Date: 2026-03-07 21:09+0000\n"
+"PO-Revision-Date: 2026-03-16 21:09+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/seadve/delineate/"
 "cs/>\n"
@@ -374,7 +374,7 @@ msgstr "Graf exportován"
 
 #: src/page.rs:529
 msgid "Show in Files"
-msgstr "Zobrazit v souborech"
+msgstr "Zobrazit ve správci souborů"
 
 #: src/page.rs:544
 msgid "Failed to show in Files"
