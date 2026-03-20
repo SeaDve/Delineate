@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the dagger package.
 # Sabri Ünal <libreajans@gmail.com>, 2024.
 # Oğuz Ersen <oguz@ersen.moe>, 2024, 2025.
-# Sabri Ünal <yakushabb@gmail.com>, 2024, 2025.
+# Sabri Ünal <yakushabb@gmail.com>, 2024, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: dagger\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-14 15:29+0800\n"
-"PO-Revision-Date: 2025-10-11 09:07+0000\n"
-"Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
+"PO-Revision-Date: 2026-03-20 21:09+0000\n"
+"Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/seadve/delineate/"
 "tr/>\n"
 "Language: tr\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: data/io.github.seadve.Delineate.desktop.in.in:2
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
@@ -318,7 +318,9 @@ msgstr ""
 #. Translators: Replace "translator-credits" with your names. Put a comma between.
 #: src/about.rs:23
 msgid "translator-credits"
-msgstr "Sabri Ünal (yakushabb@gmail.com), Oğuz Ersen"
+msgstr ""
+"Sabri Ünal (yakushabb@gmail.com)\n"
+"Oğuz Ersen"
 
 #: src/about.rs:30
 msgid "Donate"
