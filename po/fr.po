@@ -5,13 +5,14 @@
 # p h <phhens@gmail.com>, 2024.
 # Wedone <cafh62@gmail.com>, 2024.
 # Clyhtsuriva <aimeric@adjutor.xyz>, 2024.
+# "Loïc \"Lauloque\" Dautry" <loic.dautry@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-14 15:29+0800\n"
-"PO-Revision-Date: 2024-06-26 22:09+0000\n"
-"Last-Translator: Clyhtsuriva <aimeric@adjutor.xyz>\n"
+"PO-Revision-Date: 2026-03-22 21:09+0000\n"
+"Last-Translator: \"Loïc \\\"Lauloque\\\" Dautry\" <loic.dautry@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/seadve/delineate/"
 "fr/>\n"
 "Language: fr\n"
@@ -19,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.6-rc\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: data/io.github.seadve.Delineate.desktop.in.in:2
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
@@ -71,11 +72,11 @@ msgstr "📦 Export de graphiques aux formats PNG, SVG, ou JPEG"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:22
 msgid "Editor and viewer"
-msgstr ""
+msgstr "Éditeur et Visualiseur"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:26
 msgid "Editor collapsed"
-msgstr ""
+msgstr "Éditeur Réduit"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:30
 msgid "Tab overview"
@@ -150,12 +151,9 @@ msgid "Save As"
 msgstr "Enregistrer sous"
 
 #: data/resources/ui/shortcuts.ui:55
-#, fuzzy
-#| msgctxt "shortcut window"
-#| msgid "New Document"
 msgctxt "shortcut window"
 msgid "Close Document"
-msgstr "Nouveau Document"
+msgstr "Fermer le Document"
 
 #: data/resources/ui/shortcuts.ui:63
 msgctxt "shortcut window"
