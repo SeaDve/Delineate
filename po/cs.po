@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the delineate package.
 # Fjuro <fjuro@alius.cz>, 2024, 2025.
 # Pavel Borecki <pavel.borecki@gmail.com>, 2026.
+# Fjuro <fjuro@users.noreply.hosted.weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-14 15:29+0800\n"
-"PO-Revision-Date: 2026-03-16 21:09+0000\n"
-"Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
+"PO-Revision-Date: 2026-04-20 10:09+0000\n"
+"Last-Translator: Fjuro <fjuro@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/seadve/delineate/"
 "cs/>\n"
 "Language: cs\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=((n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2);\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 5.17.1-dev\n"
 
 #: data/io.github.seadve.Delineate.desktop.in.in:2
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
@@ -326,7 +327,7 @@ msgstr ""
 
 #: src/about.rs:30
 msgid "Donate"
-msgstr "Podpořit vývoj darem"
+msgstr "Přispět"
 
 #: src/about.rs:31
 msgid "GitHub"
