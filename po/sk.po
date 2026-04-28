@@ -8,9 +8,8 @@ msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-14 15:29+0800\n"
-"PO-Revision-Date: 2026-04-27 19:25+0000\n"
-"Last-Translator: Automatic translation add-on <noreply-addon-"
-"autotranslate@weblate.org>\n"
+"PO-Revision-Date: 2026-04-28 20:09+0000\n"
+"Last-Translator: Peter Vančo <petervanco347@gmail.com>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/seadve/delineate/"
 "sk/>\n"
 "Language: sk\n"
@@ -23,17 +22,17 @@ msgstr ""
 #: data/io.github.seadve.Delineate.desktop.in.in:2
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
 msgid "Delineate"
-msgstr ""
+msgstr "Delineate"
 
 #: data/io.github.seadve.Delineate.desktop.in.in:3
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:8
 msgid "View and edit graphs"
-msgstr ""
+msgstr "Zobrazenie a úprava grafov"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/io.github.seadve.Delineate.desktop.in.in:9
 msgid "graphviz;dot;graphs;visualization;"
-msgstr ""
+msgstr "graphviz;dot;grafy;vizualizácia;"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:10
 msgid ""
@@ -41,82 +40,81 @@ msgid ""
 "language It is designed to be a simple and intuitive tool for creating and "
 "editing graphs, with a focus on the user experience."
 msgstr ""
+"Aplikácia Delineate poskytuje nástroje na úpravu a kreslenie grafov "
+"špecifikovaných v jazyku DOT. Je navrhnutá ako jednoduchý a intuitívny "
+"nástroj na vytváranie a úpravu grafov s dôrazom na používateľskú skúsenosť."
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:11
 msgid "The main features of Delineate include the following:"
-msgstr ""
+msgstr "Hlavné funkcie aplikácie Delineate zahŕňajú:"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:13
 msgid "🖼️ Live and interactive preview of the graph as you type"
-msgstr ""
+msgstr "🖼️ Živé a interaktívne náhľady grafu počas písania"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:14
 msgid "⏺️ Multiple Graphviz layout engines support"
-msgstr ""
+msgstr "⏺️ Podpora viacerých rozvrhovacích enginov Graphviz"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:15
 msgid "📝 Fully-featured DOT language editor"
-msgstr ""
+msgstr "📝 Plne vybavený editor jazyka DOT"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:16
 msgid "📦 Export graph as PNG, SVG, or JPEG"
-msgstr ""
+msgstr "📦 Export grafu vo formáte PNG, SVG alebo JPEG"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:22
 msgid "Editor and viewer"
-msgstr ""
+msgstr "Editor a prehliadač"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:26
 msgid "Editor collapsed"
-msgstr ""
+msgstr "Zbalený editor"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:30
 msgid "Tab overview"
-msgstr ""
+msgstr "Prehľad kariet"
 
 #: data/resources/ui/page.ui:75
 msgid "Zoom Out"
-msgstr ""
+msgstr "Oddialiť"
 
 #: data/resources/ui/page.ui:82
 msgid "Reset Zoom"
-msgstr ""
+msgstr "Obnoviť priblíženie"
 
 #: data/resources/ui/page.ui:88
 msgid "Zoom In"
-msgstr ""
+msgstr "Priblížiť"
 
 #: data/resources/ui/recent_popover.ui:17
 msgid "Search documents"
-msgstr ""
+msgstr "Hľadať dokumenty"
 
 #: data/resources/ui/recent_popover.ui:38
 msgid "No Recent Documents"
-msgstr ""
+msgstr "Žiadne nedávne dokumenty"
 
 #: data/resources/ui/recent_popover.ui:47
-#, fuzzy
 msgid "No Results"
 msgstr "Žiadne výsledky"
 
 #: data/resources/ui/recent_row.ui:53
 msgid "Remove"
-msgstr ""
+msgstr "Odstrániť"
 
 #: data/resources/ui/shortcuts.ui:11
-#, fuzzy
 msgctxt "shortcut window"
 msgid "General"
 msgstr "Všeobecné"
 
 #: data/resources/ui/shortcuts.ui:14
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
-msgstr "Zobraziť klávesové skratky"
+msgstr "Zobraziť skratky"
 
 #: data/resources/ui/shortcuts.ui:20
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Ukončiť"
@@ -124,182 +122,180 @@ msgstr "Ukončiť"
 #: data/resources/ui/shortcuts.ui:28
 msgctxt "shortcut window"
 msgid "Documents"
-msgstr ""
+msgstr "Dokumenty"
 
 #: data/resources/ui/shortcuts.ui:31
 msgctxt "shortcut window"
 msgid "New Document"
-msgstr ""
+msgstr "Nový dokument"
 
 #: data/resources/ui/shortcuts.ui:37
 msgctxt "shortcut window"
 msgid "Open Document"
-msgstr ""
+msgstr "Otvoriť dokument"
 
 #: data/resources/ui/shortcuts.ui:43
 msgctxt "shortcut window"
 msgid "Save"
-msgstr ""
+msgstr "Uložiť"
 
 #: data/resources/ui/shortcuts.ui:49
 msgctxt "shortcut window"
 msgid "Save As"
-msgstr ""
+msgstr "Uložiť ako"
 
 #: data/resources/ui/shortcuts.ui:55
 msgctxt "shortcut window"
 msgid "Close Document"
-msgstr ""
+msgstr "Zavrieť dokument"
 
 #: data/resources/ui/shortcuts.ui:63
 msgctxt "shortcut window"
 msgid "Windows"
-msgstr ""
+msgstr "Okná"
 
 #: data/resources/ui/shortcuts.ui:66
 msgctxt "shortcut window"
 msgid "New Window"
-msgstr ""
+msgstr "Nové okno"
 
 #: data/resources/ui/shortcuts.ui:72
 msgctxt "shortcut window"
 msgid "Move Document to New Window"
-msgstr ""
+msgstr "Presunúť dokument do nového okna"
 
 #: data/resources/ui/shortcuts.ui:79
 msgctxt "shortcut window"
 msgid "Move to Next Tab"
-msgstr ""
+msgstr "Presunúť na ďalšiu kartu"
 
 #: data/resources/ui/shortcuts.ui:85
 msgctxt "shortcut window"
 msgid "Move to Previous Tab"
-msgstr ""
+msgstr "Presunúť na predchádzajúcu kartu"
 
 #: data/resources/ui/shortcuts.ui:91
 msgctxt "shortcut window"
 msgid "Reorder After Next Tab"
-msgstr ""
+msgstr "Presunúť za ďalšiu kartu"
 
 #: data/resources/ui/shortcuts.ui:97
 msgctxt "shortcut window"
 msgid "Reorder Before Previous Tab"
-msgstr ""
+msgstr "Presunúť pred predchádzajúcu kartu"
 
 #: data/resources/ui/shortcuts.ui:103
 msgctxt "shortcut window"
 msgid "Restore Previously Closed Tab"
-msgstr ""
+msgstr "Obnoviť predtým zatvorenú kartu"
 
 #: data/resources/ui/shortcuts.ui:110
 msgctxt "shortcut window"
 msgid "Zoom"
-msgstr ""
+msgstr "Priblíženie"
 
 #: data/resources/ui/shortcuts.ui:114
 msgctxt "shortcut window"
 msgid "Zoom In"
-msgstr ""
+msgstr "Priblížiť"
 
 #: data/resources/ui/shortcuts.ui:120
 msgctxt "shortcut window"
 msgid "Zoom Out"
-msgstr ""
+msgstr "Oddialiť"
 
 #: data/resources/ui/shortcuts.ui:126
 msgctxt "shortcut window"
 msgid "Reset Zoom"
-msgstr ""
+msgstr "Obnoviť priblíženie"
 
 #: data/resources/ui/window.ui:6
 msgid "_New Window"
-msgstr ""
+msgstr "_Nové okno"
 
 #: data/resources/ui/window.ui:12 src/save_changes_dialog.rs:71
 #: src/save_changes_dialog.rs:148
 msgid "_Save"
 msgid_plural "_Save All"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "_Uložiť"
+msgstr[1] "_Uložiť všetky"
+msgstr[2] "_Uložiť všetky"
 
 #: data/resources/ui/window.ui:16
 msgid "Save _As…"
-msgstr ""
+msgstr "Uložiť _ako…"
 
 #: data/resources/ui/window.ui:20
 msgid "_Discard Changes"
-msgstr ""
+msgstr "_Zahodiť zmeny"
 
 #: data/resources/ui/window.ui:26
 msgid "_Export Graph"
-msgstr ""
+msgstr "_Exportovať graf"
 
 #: data/resources/ui/window.ui:28
 msgid "Export As PNG…"
-msgstr ""
+msgstr "Exportovať ako PNG…"
 
 #: data/resources/ui/window.ui:33
 msgid "Export As SVG…"
-msgstr ""
+msgstr "Exportovať ako SVG…"
 
 #: data/resources/ui/window.ui:38
 msgid "Export As JPEG…"
-msgstr ""
+msgstr "Exportovať ako JPEG…"
 
 #: data/resources/ui/window.ui:44
 msgid "Open _Containing Folder"
-msgstr ""
+msgstr "Otvoriť _obsahujúci priečinok"
 
 #: data/resources/ui/window.ui:50
-#, fuzzy
 msgid "_Keyboard Shortcuts"
 msgstr "_Klávesové skratky"
 
 #: data/resources/ui/window.ui:54
 msgid "_About Delineate"
-msgstr ""
+msgstr "_O aplikácii Delineate"
 
 #: data/resources/ui/window.ui:62
 msgid "Move _Left"
-msgstr ""
+msgstr "Presunúť _vľavo"
 
 #: data/resources/ui/window.ui:66
 msgid "Move _Right"
-msgstr ""
+msgstr "Presunúť _vpravo"
 
 #: data/resources/ui/window.ui:72
 msgid "_Move to New Window"
-msgstr ""
+msgstr "_Presunúť do nového okna"
 
 #: data/resources/ui/window.ui:78
 msgid "Close _Other Tabs"
-msgstr ""
+msgstr "Zavrieť _ostatné karty"
 
 #: data/resources/ui/window.ui:82
 msgid "_Close"
-msgstr ""
+msgstr "_Zavrieť"
 
 #: data/resources/ui/window.ui:104
-#, fuzzy
 msgid "Open"
 msgstr "Otvoriť"
 
 #: data/resources/ui/window.ui:106
 msgid "Recent Documents"
-msgstr ""
+msgstr "Nedávne dokumenty"
 
 #: data/resources/ui/window.ui:114
 msgid "New Document"
-msgstr ""
+msgstr "Nový dokument"
 
 #: data/resources/ui/window.ui:143
-#, fuzzy
 msgid "Main Menu"
-msgstr "Hlavné menu"
+msgstr "Hlavná ponuka"
 
 #: data/resources/ui/window.ui:168
 msgid "Start or Open a Document"
-msgstr ""
+msgstr "Začať alebo otvoriť dokument"
 
 #: data/resources/ui/window.ui:174
 msgid ""
@@ -311,162 +307,163 @@ msgid ""
 "\n"
 "Or, press Ctrl+W to close the window."
 msgstr ""
+"• Stlačte tlačidlo Otvoriť\n"
+"• Stlačte tlačidlo Nová karta\n"
+"• Stlačte Ctrl+N na začatie nového dokumentu\n"
+"• Stlačte Ctrl+O na prehliadanie dokumentu\n"
+"• Presuňte súbor do okna\n"
+"\n"
+"Alebo stlačte Ctrl+W na zatvorenie okna."
 
 #. Translators: Replace "translator-credits" with your names. Put a comma between.
 #: src/about.rs:23
-#, fuzzy
 msgid "translator-credits"
-msgstr ""
-"MartinIIOT <https://github.com/MartinIIOT>,\n"
-"Dušan Kazik <prescott66@gmail.com>,\n"
-"Ľubo Varga https://github.com/LvargaDS,"
+msgstr "Prekladatelia"
 
 #: src/about.rs:30
-#, fuzzy
 msgid "Donate"
 msgstr "Darovať"
 
 #: src/about.rs:31
-#, fuzzy
 msgid "GitHub"
 msgstr "GitHub"
 
 #: src/about.rs:33
-#, fuzzy
 msgid "Translate"
 msgstr "Preložiť"
 
 #: src/export_format.rs:29
 msgid "SVG"
-msgstr ""
+msgstr "SVG"
 
 #: src/export_format.rs:30
 msgid "PNG"
-msgstr ""
+msgstr "PNG"
 
 #: src/export_format.rs:31
 msgid "JPEG"
-msgstr ""
+msgstr "JPEG"
 
 #: src/page.rs:357 src/save_changes_dialog.rs:110
 msgid "Untitled Document"
-msgstr ""
+msgstr "Dokument bez názvu"
 
 #: src/page.rs:414
 msgid "Save Document"
-msgstr ""
+msgstr "Uložiť dokument"
 
 #: src/page.rs:435
 msgid "Save Document As"
-msgstr ""
+msgstr "Uložiť dokument ako"
 
 #: src/page.rs:485
 msgid "Export Graph"
-msgstr ""
+msgstr "Exportovať graf"
 
 #: src/page.rs:486
 msgid "_Export"
-msgstr ""
+msgstr "_Exportovať"
 
 #: src/page.rs:528
 msgid "Graph exported"
-msgstr ""
+msgstr "Graf exportovaný"
 
 #: src/page.rs:529
-#, fuzzy
 msgid "Show in Files"
-msgstr "Zobraziť v súboroch"
+msgstr "Zobraziť v Súboroch"
 
 #: src/page.rs:544
 msgid "Failed to show in Files"
-msgstr ""
+msgstr "Zlyhalo zobrazenie v Súboroch"
 
 #: src/page.rs:703
 msgid "Failed to draw graph"
-msgstr ""
+msgstr "Zlyhalo vykreslenie grafu"
 
 #: src/recent_row.rs:134
 msgid "Just Now"
-msgstr ""
+msgstr "Práve teraz"
 
 #: src/recent_row.rs:136
 msgid "An hour ago"
-msgstr ""
+msgstr "Pred hodinou"
 
 #: src/recent_row.rs:138
 msgid "Yesterday"
-msgstr ""
+msgstr "Včera"
 
 #: src/recent_row.rs:144
 msgid "About a year ago"
-msgstr ""
+msgstr "Pred rokom"
 
 #: src/save_changes_dialog.rs:44
 msgid "Failed to save changes to document"
-msgstr ""
+msgstr "Zlyhalo uloženie zmien do dokumentu"
 
 #: src/save_changes_dialog.rs:57
 msgid "Save Changes?"
-msgstr ""
+msgstr "Uložiť zmeny?"
 
 #: src/save_changes_dialog.rs:58
 msgid ""
 "Open documents contain unsaved changes. Changes which are not saved will be "
 "permanently lost."
 msgstr ""
+"Otvorené dokumenty obsahujú neuložené zmeny. Zmeny, ktoré nebudú uložené, "
+"budú natrvalo stratené."
 
 #: src/save_changes_dialog.rs:64
-#, fuzzy
 msgid "Cancel"
 msgstr "Zrušiť"
 
 #: src/save_changes_dialog.rs:67
 msgid "_Discard"
 msgid_plural "_Discard All"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "_Zahodiť"
+msgstr[1] "_Zahodiť všetky"
+msgstr[2] "_Zahodiť všetky"
 
 #: src/session.rs:96
 msgid "Failed to load file"
-msgstr ""
+msgstr "Zlyhalo načítanie súboru"
 
 #: src/session.rs:508
 msgid "Failed to open file"
-msgstr ""
+msgstr "Zlyhalo otvorenie súboru"
 
 #. Translators: DOT is an acronym, do not translate.
 #: src/utils.rs:38
 msgid "Graphviz DOT Files"
-msgstr ""
+msgstr "Súbory Graphviz DOT"
 
 #: src/window.rs:86
 msgid "Failed to open document"
-msgstr ""
+msgstr "Zlyhalo otvorenie dokumentu"
 
 #: src/window.rs:100
 msgid "Failed to save document"
-msgstr ""
+msgstr "Zlyhalo uloženie dokumentu"
 
 #: src/window.rs:114
 msgid "Failed to save document as"
-msgstr ""
+msgstr "Zlyhalo uloženie dokumentu ako"
 
 #: src/window.rs:127
 msgid "Failed to discard document changes"
-msgstr ""
+msgstr "Zlyhalo zahodenie zmien dokumentu"
 
 #: src/window.rs:141
 msgid "Failed to open containing folder"
-msgstr ""
+msgstr "Zlyhalo otvorenie obsahujúceho priečinka"
 
 #: src/window.rs:168
 msgid "Failed to export graph"
-msgstr ""
+msgstr "Zlyhalo exportovanie grafu"
 
 #: src/window.rs:697
 msgid "Open Document"
-msgstr ""
+msgstr "Otvoriť dokument"
 
 #: src/window.rs:803
 msgid "There are unsaved documents"
-msgstr ""
+msgstr "Existujú neuložené dokumenty"
