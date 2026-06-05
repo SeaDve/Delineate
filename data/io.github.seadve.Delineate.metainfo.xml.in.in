@@ -41,6 +41,15 @@
   <url type="vcs-browser">https://github.com/SeaDve/Delineate</url>
   <content_rating type="oars-1.1"/>
   <releases>
+    <release version="0.1.2" date="2026-06-05">
+      <description translate="no">
+        <p>This release contains minor changes:</p>
+        <ul>
+          <li>Updated UI</li>
+          <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.1.1" date="2025-09-14">
       <description translate="no">
         <p>This release contains minor changes:</p>
