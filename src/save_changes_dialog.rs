@@ -151,7 +151,7 @@ async fn run_inner(parent: &impl IsA<gtk::Widget>, unsaved: &[Document]) -> Resu
         ));
     }
 
-    match dialog.choose_future(parent).await.as_str() {
+    match dialog.choose_future(Some(parent)).await.as_str() {
         CANCEL_RESPONSE_ID => Err(Cancelled.into()),
         DISCARD_RESPONSE_ID => Ok(()),
         SAVE_RESPONSE_ID => {

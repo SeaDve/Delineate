@@ -843,11 +843,11 @@ impl Window {
 
         let header_title = self
             .selected_page()
-            .map_or_else(|| app_name.to_string(), |page| page.title());
+            .map_or_else(|| app_name.clone(), |page| page.title());
         imp.document_title_label.set_text(&header_title);
 
         let window_title = self.selected_page().map_or_else(
-            || app_name.to_string(),
+            || app_name.clone(),
             |page| format!("{} - {}", page.title(), app_name),
         );
         self.set_title(Some(&window_title));
