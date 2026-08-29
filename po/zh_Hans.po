@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-14 15:29+0800\n"
-"PO-Revision-Date: 2026-08-06 12:01+0000\n"
+"PO-Revision-Date: 2026-08-29 22:32+0000\n"
 "Last-Translator: reducedradius "
 "<137701630+flytothehighest@users.noreply.github.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.8.1.dev0\n"
+"X-Generator: Weblate 2026.9.dev0\n"
 
 #: data/io.github.seadve.Delineate.desktop.in.in:2
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
@@ -82,7 +82,7 @@ msgstr "缩小"
 
 #: data/resources/ui/page.ui:82
 msgid "Reset Zoom"
-msgstr ""
+msgstr "重置缩放比例"
 
 #: data/resources/ui/page.ui:88
 msgid "Zoom In"
@@ -147,17 +147,17 @@ msgstr "另存为"
 #: data/resources/ui/shortcuts.ui:55
 msgctxt "shortcut window"
 msgid "Close Document"
-msgstr ""
+msgstr "关闭文档"
 
 #: data/resources/ui/shortcuts.ui:63
 msgctxt "shortcut window"
 msgid "Windows"
-msgstr ""
+msgstr "窗口"
 
 #: data/resources/ui/shortcuts.ui:66
 msgctxt "shortcut window"
 msgid "New Window"
-msgstr ""
+msgstr "新建窗口"
 
 #: data/resources/ui/shortcuts.ui:72
 msgctxt "shortcut window"
@@ -255,7 +255,7 @@ msgstr "快捷键(_K)"
 
 #: data/resources/ui/window.ui:54
 msgid "_About Delineate"
-msgstr ""
+msgstr "关于 Delineate(_A)"
 
 #: data/resources/ui/window.ui:62
 msgid "Move _Left"
@@ -350,11 +350,11 @@ msgstr "JPEG"
 
 #: src/page.rs:357 src/save_changes_dialog.rs:110
 msgid "Untitled Document"
-msgstr ""
+msgstr "无标题文档"
 
 #: src/page.rs:414
 msgid "Save Document"
-msgstr ""
+msgstr "保存文档"
 
 #: src/page.rs:435
 msgid "Save Document As"
