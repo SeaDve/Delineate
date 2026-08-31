@@ -8,9 +8,8 @@ msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-14 15:29+0800\n"
-"PO-Revision-Date: 2026-08-12 16:51+0000\n"
-"Last-Translator: Automatic translation add-on <noreply-addon-"
-"autotranslate@weblate.org>\n"
+"PO-Revision-Date: 2026-08-31 14:51+0000\n"
+"Last-Translator: தமிழ்நேரம் <tamilneram247@gmail.com>\n"
 "Language-Team: Tamil <https://hosted.weblate.org/projects/seadve/delineate/"
 "ta/>\n"
 "Language: ta\n"
@@ -23,17 +22,17 @@ msgstr ""
 #: data/io.github.seadve.Delineate.desktop.in.in:2
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
 msgid "Delineate"
-msgstr ""
+msgstr "வரையவும்"
 
 #: data/io.github.seadve.Delineate.desktop.in.in:3
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:8
 msgid "View and edit graphs"
-msgstr ""
+msgstr "வரைபடங்களைப் பார்த்து திருத்தவும்"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/io.github.seadve.Delineate.desktop.in.in:9
 msgid "graphviz;dot;graphs;visualization;"
-msgstr ""
+msgstr "வரைகாட்சி;புள்ளி;வரைபடங்கள்;காட்சிப்படுத்தல்;"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:10
 msgid ""
@@ -41,82 +40,82 @@ msgid ""
 "language It is designed to be a simple and intuitive tool for creating and "
 "editing graphs, with a focus on the user experience."
 msgstr ""
+"DOT மொழியில் குறிப்பிடப்பட்ட வரைபடங்களைத் திருத்துவதற்கும் வரைவதற்குமான வசதிகளை "
+"Delineate வழங்குகிறது, இது பயனர் அனுபவத்தை மையமாகக் கொண்டு வரைபடங்களை உருவாக்குவதற்கும் "
+"திருத்துவதற்கும் எளிமையான மற்றும் உள்ளுணர்வுக் கருவியாக வடிவமைக்கப்பட்டுள்ளது."
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:11
 msgid "The main features of Delineate include the following:"
-msgstr ""
+msgstr "Delineate இன் முக்கிய நற்பொருத்தங்கள் பின்வருவனவற்றை உள்ளடக்குகின்றன:"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:13
 msgid "🖼️ Live and interactive preview of the graph as you type"
 msgstr ""
+"🖼️ நீங்கள் தட்டச்சு செய்யும் போது வரைபடத்தின் நேரடி மற்றும் ஊடாடும் முன்னோட்டம்"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:14
 msgid "⏺️ Multiple Graphviz layout engines support"
-msgstr ""
+msgstr "⏺️ பல கிராஃப்விச் தளவமைப்பு இயந்திரங்கள் உதவி"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:15
 msgid "📝 Fully-featured DOT language editor"
-msgstr ""
+msgstr "📝 முழுமையாக இடம்பெற்றுள்ள DOT மொழி எடிட்டர்"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:16
 msgid "📦 Export graph as PNG, SVG, or JPEG"
-msgstr ""
+msgstr "📦 வரைபடத்தை PNG, SVG அல்லது JPEG ஆக ஏற்றுமதி செய்யவும்"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:22
 msgid "Editor and viewer"
-msgstr ""
+msgstr "தொகுப்பாளர் மற்றும் பார்வையாளர்"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:26
 msgid "Editor collapsed"
-msgstr ""
+msgstr "எடிட்டர் சரிந்தது"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:30
 msgid "Tab overview"
-msgstr ""
+msgstr "தாவல் மேலோட்டம்"
 
 #: data/resources/ui/page.ui:75
 msgid "Zoom Out"
-msgstr ""
+msgstr "சிறிதாக்கு"
 
 #: data/resources/ui/page.ui:82
 msgid "Reset Zoom"
-msgstr ""
+msgstr "பெரிதாக்கு மீட்டமைக்கவும்"
 
 #: data/resources/ui/page.ui:88
 msgid "Zoom In"
-msgstr ""
+msgstr "பெரிதாக்கு"
 
 #: data/resources/ui/recent_popover.ui:17
 msgid "Search documents"
-msgstr ""
+msgstr "ஆவணங்களைத் தேடுங்கள்"
 
 #: data/resources/ui/recent_popover.ui:38
 msgid "No Recent Documents"
-msgstr ""
+msgstr "அண்மைக் கால ஆவணங்கள் இல்லை"
 
 #: data/resources/ui/recent_popover.ui:47
-#, fuzzy
 msgid "No Results"
 msgstr "முடிவுகள் இல்லை"
 
 #: data/resources/ui/recent_row.ui:53
 msgid "Remove"
-msgstr ""
+msgstr "அகற்று"
 
 #: data/resources/ui/shortcuts.ui:11
-#, fuzzy
 msgctxt "shortcut window"
 msgid "General"
 msgstr "பொது"
 
 #: data/resources/ui/shortcuts.ui:14
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
 msgstr "குறுக்குவழிகளைக் காட்டு"
 
 #: data/resources/ui/shortcuts.ui:20
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "வெளியேறு"
@@ -124,182 +123,179 @@ msgstr "வெளியேறு"
 #: data/resources/ui/shortcuts.ui:28
 msgctxt "shortcut window"
 msgid "Documents"
-msgstr ""
+msgstr "ஆவணங்கள்"
 
 #: data/resources/ui/shortcuts.ui:31
 msgctxt "shortcut window"
 msgid "New Document"
-msgstr ""
+msgstr "புதிய ஆவணம்"
 
 #: data/resources/ui/shortcuts.ui:37
 msgctxt "shortcut window"
 msgid "Open Document"
-msgstr ""
+msgstr "ஆவணத்தைத் திற"
 
 #: data/resources/ui/shortcuts.ui:43
 msgctxt "shortcut window"
 msgid "Save"
-msgstr ""
+msgstr "சேமி"
 
 #: data/resources/ui/shortcuts.ui:49
 msgctxt "shortcut window"
 msgid "Save As"
-msgstr ""
+msgstr "என சேமி"
 
 #: data/resources/ui/shortcuts.ui:55
 msgctxt "shortcut window"
 msgid "Close Document"
-msgstr ""
+msgstr "ஆவணத்தை மூடு"
 
 #: data/resources/ui/shortcuts.ui:63
 msgctxt "shortcut window"
 msgid "Windows"
-msgstr ""
+msgstr "சாளரங்கள்"
 
 #: data/resources/ui/shortcuts.ui:66
 msgctxt "shortcut window"
 msgid "New Window"
-msgstr ""
+msgstr "புதிய சாளரம்"
 
 #: data/resources/ui/shortcuts.ui:72
 msgctxt "shortcut window"
 msgid "Move Document to New Window"
-msgstr ""
+msgstr "ஆவணத்தை புதிய சாளரத்திற்கு நகர்த்தவும்"
 
 #: data/resources/ui/shortcuts.ui:79
 msgctxt "shortcut window"
 msgid "Move to Next Tab"
-msgstr ""
+msgstr "அடுத்த தாவலுக்குச் செல்லவும்"
 
 #: data/resources/ui/shortcuts.ui:85
 msgctxt "shortcut window"
 msgid "Move to Previous Tab"
-msgstr ""
+msgstr "முந்தைய தாவலுக்கு நகர்த்தவும்"
 
 #: data/resources/ui/shortcuts.ui:91
 msgctxt "shortcut window"
 msgid "Reorder After Next Tab"
-msgstr ""
+msgstr "அடுத்த தாவலுக்குப் பிறகு மறுவரிசைப்படுத்தவும்"
 
 #: data/resources/ui/shortcuts.ui:97
 msgctxt "shortcut window"
 msgid "Reorder Before Previous Tab"
-msgstr ""
+msgstr "முந்தைய தாவலுக்கு முன் மறுவரிசைப்படுத்தவும்"
 
 #: data/resources/ui/shortcuts.ui:103
 msgctxt "shortcut window"
 msgid "Restore Previously Closed Tab"
-msgstr ""
+msgstr "முன்பு மூடப்பட்ட தாவலை மீட்டமை"
 
 #: data/resources/ui/shortcuts.ui:110
 msgctxt "shortcut window"
 msgid "Zoom"
-msgstr ""
+msgstr "பெரிதாக்கு"
 
 #: data/resources/ui/shortcuts.ui:114
 msgctxt "shortcut window"
 msgid "Zoom In"
-msgstr ""
+msgstr "பெரிதாக்கு"
 
 #: data/resources/ui/shortcuts.ui:120
 msgctxt "shortcut window"
 msgid "Zoom Out"
-msgstr ""
+msgstr "சிறிதாக்கு"
 
 #: data/resources/ui/shortcuts.ui:126
 msgctxt "shortcut window"
 msgid "Reset Zoom"
-msgstr ""
+msgstr "பெரிதாக்கு மீட்டமைக்கவும்"
 
 #: data/resources/ui/window.ui:6
 msgid "_New Window"
-msgstr ""
+msgstr "_புதிய சாளரம்"
 
 #: data/resources/ui/window.ui:12 src/save_changes_dialog.rs:71
 #: src/save_changes_dialog.rs:148
 msgid "_Save"
 msgid_plural "_Save All"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "_சேமி"
+msgstr[1] "_அனைத்தையும் சேமிக்கவும்"
 
 #: data/resources/ui/window.ui:16
 msgid "Save _As…"
-msgstr ""
+msgstr "_இவ்வாறு சேமி…"
 
 #: data/resources/ui/window.ui:20
 msgid "_Discard Changes"
-msgstr ""
+msgstr "மாற்றங்களை நிராகரிக்கவும்"
 
 #: data/resources/ui/window.ui:26
 msgid "_Export Graph"
-msgstr ""
+msgstr "_ஏற்றுமதி வரைபடம்"
 
 #: data/resources/ui/window.ui:28
 msgid "Export As PNG…"
-msgstr ""
+msgstr "PNG ஆக ஏற்றுமதி செய்யவும்…"
 
 #: data/resources/ui/window.ui:33
 msgid "Export As SVG…"
-msgstr ""
+msgstr "SVG ஆக ஏற்றுமதி செய்யவும்…"
 
 #: data/resources/ui/window.ui:38
 msgid "Export As JPEG…"
-msgstr ""
+msgstr "JPEG ஆக ஏற்றுமதி செய்யவும்…"
 
 #: data/resources/ui/window.ui:44
 msgid "Open _Containing Folder"
-msgstr ""
+msgstr "_கொண்ட கோப்புறையைத் திறக்கவும்"
 
 #: data/resources/ui/window.ui:50
-#, fuzzy
 msgid "_Keyboard Shortcuts"
-msgstr "_விசைப்பலகை குறுக்குவழிகள்"
+msgstr "விசைப்பலகை குறுக்குவழிகள்"
 
 #: data/resources/ui/window.ui:54
 msgid "_About Delineate"
-msgstr ""
+msgstr "_வரையறுத்தல் பற்றி"
 
 #: data/resources/ui/window.ui:62
 msgid "Move _Left"
-msgstr ""
+msgstr "_இடதுபுறம் நகர்த்தவும்"
 
 #: data/resources/ui/window.ui:66
 msgid "Move _Right"
-msgstr ""
+msgstr "நகர்த்து _வலது"
 
 #: data/resources/ui/window.ui:72
 msgid "_Move to New Window"
-msgstr ""
+msgstr "_புதிய சாளரத்திற்கு நகர்த்தவும்"
 
 #: data/resources/ui/window.ui:78
 msgid "Close _Other Tabs"
-msgstr ""
+msgstr "மற்ற தாவல்களை மூடு"
 
 #: data/resources/ui/window.ui:82
 msgid "_Close"
-msgstr ""
+msgstr "மூடு (_C)"
 
 #: data/resources/ui/window.ui:104
-#, fuzzy
 msgid "Open"
-msgstr "திறக்கவும்"
+msgstr "திற"
 
 #: data/resources/ui/window.ui:106
 msgid "Recent Documents"
-msgstr ""
+msgstr "சமீபத்திய ஆவணங்கள்"
 
 #: data/resources/ui/window.ui:114
 msgid "New Document"
-msgstr ""
+msgstr "புதிய ஆவணம்"
 
 #: data/resources/ui/window.ui:143
-#, fuzzy
 msgid "Main Menu"
 msgstr "முதன்மை பட்டியல்"
 
 #: data/resources/ui/window.ui:168
 msgid "Start or Open a Document"
-msgstr ""
+msgstr "ஒரு ஆவணத்தைத் தொடங்கவும் அல்லது திறக்கவும்"
 
 #: data/resources/ui/window.ui:174
 msgid ""
@@ -311,158 +307,161 @@ msgid ""
 "\n"
 "Or, press Ctrl+W to close the window."
 msgstr ""
+"• திற பொத்தானை அழுத்தவும் \n"
+"• புதிய தாவல் பட்டனை அழுத்தவும் \n"
+"• புதிய ஆவணத்தைத் தொடங்க Ctrl+N ஐ அழுத்தவும் \n"
+"• ஆவணத்தை உலாவ Ctrl+O அழுத்தவும் \n"
+"• சாளரத்தில் கோப்பை இழுக்கவும் \n"
+"\n"
+"அல்லது, சாளரத்தை மூட Ctrl+W அழுத்தவும்."
 
 #. Translators: Replace "translator-credits" with your names. Put a comma between.
 #: src/about.rs:23
-#, fuzzy
 msgid "translator-credits"
-msgstr "தருண் கிருஷ்ணா.க.பா"
+msgstr "தமிழ்நேரம் (Tamilneram.github.io)"
 
 #: src/about.rs:30
 msgid "Donate"
-msgstr ""
+msgstr "நன்கொடை"
 
 #: src/about.rs:31
-#, fuzzy
 msgid "GitHub"
-msgstr "கிட்ஹப்"
+msgstr "அறிவிலிமையம்"
 
 #: src/about.rs:33
-#, fuzzy
 msgid "Translate"
 msgstr "மொழிபெயர்"
 
 #: src/export_format.rs:29
 msgid "SVG"
-msgstr ""
+msgstr "எச்.வி.சி"
 
 #: src/export_format.rs:30
 msgid "PNG"
-msgstr ""
+msgstr "PNG"
 
 #: src/export_format.rs:31
 msgid "JPEG"
-msgstr ""
+msgstr "JPEG"
 
 #: src/page.rs:357 src/save_changes_dialog.rs:110
 msgid "Untitled Document"
-msgstr ""
+msgstr "பெயரிடப்படாத ஆவணம்"
 
 #: src/page.rs:414
 msgid "Save Document"
-msgstr ""
+msgstr "ஆவணத்தைச் சேமிக்கவும்"
 
 #: src/page.rs:435
 msgid "Save Document As"
-msgstr ""
+msgstr "ஆவணத்தை இவ்வாறு சேமி"
 
 #: src/page.rs:485
 msgid "Export Graph"
-msgstr ""
+msgstr "ஏற்றுமதி வரைபடம்"
 
 #: src/page.rs:486
 msgid "_Export"
-msgstr ""
+msgstr "ஏற்றுமதி (_E)"
 
 #: src/page.rs:528
 msgid "Graph exported"
-msgstr ""
+msgstr "வரைபடம் ஏற்றுமதி செய்யப்பட்டது"
 
 #: src/page.rs:529
-#, fuzzy
 msgid "Show in Files"
 msgstr "கோப்புகளில் காட்டு"
 
 #: src/page.rs:544
 msgid "Failed to show in Files"
-msgstr ""
+msgstr "கோப்புகளில் காட்ட முடியவில்லை"
 
 #: src/page.rs:703
 msgid "Failed to draw graph"
-msgstr ""
+msgstr "வரைபடத்தை வரைவதில் தோல்வி"
 
 #: src/recent_row.rs:134
 msgid "Just Now"
-msgstr ""
+msgstr "இப்போது"
 
 #: src/recent_row.rs:136
 msgid "An hour ago"
-msgstr ""
+msgstr "ஒரு மணி நேரத்திற்கு முன்பு"
 
 #: src/recent_row.rs:138
 msgid "Yesterday"
-msgstr ""
+msgstr "நேற்று"
 
 #: src/recent_row.rs:144
 msgid "About a year ago"
-msgstr ""
+msgstr "சுமார் ஒரு வருடம் முன்பு"
 
 #: src/save_changes_dialog.rs:44
 msgid "Failed to save changes to document"
-msgstr ""
+msgstr "ஆவணத்தில் மாற்றங்களைச் சேமிக்க முடியவில்லை"
 
 #: src/save_changes_dialog.rs:57
 msgid "Save Changes?"
-msgstr ""
+msgstr "மாற்றங்களைச் சேமிக்கவா?"
 
 #: src/save_changes_dialog.rs:58
 msgid ""
 "Open documents contain unsaved changes. Changes which are not saved will be "
 "permanently lost."
 msgstr ""
+"திறந்த ஆவணங்களில் சேமிக்கப்படாத மாற்றங்கள் உள்ளன. சேமிக்கப்படாத மாற்றங்கள் நிரந்தரமாக இழக்கப்படும்."
 
 #: src/save_changes_dialog.rs:64
-#, fuzzy
 msgid "Cancel"
 msgstr "ரத்துசெய்"
 
 #: src/save_changes_dialog.rs:67
 msgid "_Discard"
 msgid_plural "_Discard All"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "_ நிராகரி"
+msgstr[1] "_அனைத்தையும் நிராகரி"
 
 #: src/session.rs:96
 msgid "Failed to load file"
-msgstr ""
+msgstr "கோப்பை ஏற்ற முடியவில்லை"
 
 #: src/session.rs:508
 msgid "Failed to open file"
-msgstr ""
+msgstr "கோப்பைத் திறக்க முடியவில்லை"
 
 #. Translators: DOT is an acronym, do not translate.
 #: src/utils.rs:38
 msgid "Graphviz DOT Files"
-msgstr ""
+msgstr "Graphviz DOT கோப்புகள்"
 
 #: src/window.rs:86
 msgid "Failed to open document"
-msgstr ""
+msgstr "ஆவணத்தைத் திறக்க முடியவில்லை"
 
 #: src/window.rs:100
 msgid "Failed to save document"
-msgstr ""
+msgstr "ஆவணத்தைச் சேமிப்பதில் தோல்வி"
 
 #: src/window.rs:114
 msgid "Failed to save document as"
-msgstr ""
+msgstr "ஆவணத்தை இவ்வாறு சேமிக்க முடியவில்லை"
 
 #: src/window.rs:127
 msgid "Failed to discard document changes"
-msgstr ""
+msgstr "ஆவண மாற்றங்களை நிராகரிக்க முடியவில்லை"
 
 #: src/window.rs:141
 msgid "Failed to open containing folder"
-msgstr ""
+msgstr "அடங்கிய கோப்புறையைத் திறக்க முடியவில்லை"
 
 #: src/window.rs:168
 msgid "Failed to export graph"
-msgstr ""
+msgstr "வரைபடத்தை ஏற்றுமதி செய்ய முடியவில்லை"
 
 #: src/window.rs:697
 msgid "Open Document"
-msgstr ""
+msgstr "ஆவணத்தைத் திற"
 
 #: src/window.rs:803
 msgid "There are unsaved documents"
-msgstr ""
+msgstr "சேமிக்கப்படாத ஆவணங்கள் உள்ளன"
