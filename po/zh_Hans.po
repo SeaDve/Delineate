@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-14 15:29+0800\n"
-"PO-Revision-Date: 2026-08-29 22:32+0000\n"
+"PO-Revision-Date: 2026-09-04 15:51+0000\n"
 "Last-Translator: reducedradius "
 "<137701630+flytothehighest@users.noreply.github.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.9.dev0\n"
+"X-Generator: Weblate 2026.9.1.dev0\n"
 
 #: data/io.github.seadve.Delineate.desktop.in.in:2
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
@@ -127,12 +127,12 @@ msgstr ""
 #: data/resources/ui/shortcuts.ui:31
 msgctxt "shortcut window"
 msgid "New Document"
-msgstr ""
+msgstr "新建文档"
 
 #: data/resources/ui/shortcuts.ui:37
 msgctxt "shortcut window"
 msgid "Open Document"
-msgstr ""
+msgstr "打开文档"
 
 #: data/resources/ui/shortcuts.ui:43
 msgctxt "shortcut window"
@@ -167,12 +167,12 @@ msgstr ""
 #: data/resources/ui/shortcuts.ui:79
 msgctxt "shortcut window"
 msgid "Move to Next Tab"
-msgstr ""
+msgstr "移到下一标签页"
 
 #: data/resources/ui/shortcuts.ui:85
 msgctxt "shortcut window"
 msgid "Move to Previous Tab"
-msgstr ""
+msgstr "移到上一标签页"
 
 #: data/resources/ui/shortcuts.ui:91
 msgctxt "shortcut window"
