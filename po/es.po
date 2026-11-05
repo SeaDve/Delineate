@@ -5,13 +5,14 @@
 # Óscar Fernández Díaz <oscfdezdz@tuta.io>, 2024.
 # Oshiro Akira <tionf33@gmail.com>, 2025, 2026.
 # Francisco Serrador <fserrador@gmail.com>, 2026.
+# Adolfo Jayme Barrientos <fito@libreoffice.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-14 15:29+0800\n"
-"PO-Revision-Date: 2026-03-13 12:09+0000\n"
-"Last-Translator: Francisco Serrador <fserrador@gmail.com>\n"
+"PO-Revision-Date: 2026-11-05 17:16+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fito@libreoffice.org>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/seadve/delineate/"
 "es/>\n"
 "Language: es\n"
@@ -19,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17-dev\n"
+"X-Generator: Weblate 2026.11.2.dev0\n"
 
 #: data/io.github.seadve.Delineate.desktop.in.in:2
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
@@ -253,7 +254,7 @@ msgstr "Abrir _carpeta con el archivo"
 
 #: data/resources/ui/window.ui:50
 msgid "_Keyboard Shortcuts"
-msgstr "Atajos del _teclado"
+msgstr "Atajos de _teclado"
 
 #: data/resources/ui/window.ui:54
 msgid "_About Delineate"
@@ -321,8 +322,9 @@ msgstr ""
 #: src/about.rs:23
 msgid "translator-credits"
 msgstr ""
-"Óscar Fernández Díaz (oscfdezdz@tuta.io), Adolfo Jayme Barrientos "
-"(fitojb@ubuntu.com), Javier F. Serrador (fserrador@gmail.com)"
+"Óscar Fernández Díaz (oscfdezdz@tuta.io)\n"
+"Adolfo Jayme Barrientos (fitojb@ubuntu.com)\n"
+"Javier F. Serrador (fserrador@gmail.com)"
 
 #: src/about.rs:30
 msgid "Donate"
