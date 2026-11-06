@@ -2,35 +2,38 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the delineate package.
 # A D <load.txt@users.noreply.hosted.weblate.org>, 2026.
+# Automatic translation add-on <noreply-addon-autotranslate@weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: delineate\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-14 15:29+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-11-06 17:51+0000\n"
+"Last-Translator: A D <load.txt@users.noreply.hosted.weblate.org>\n"
+"Language-Team: Romanian <https://hosted.weblate.org/projects/seadve/"
+"delineate/ro/>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
+"X-Generator: Weblate 2026.11.2.dev0\n"
 
 #: data/io.github.seadve.Delineate.desktop.in.in:2
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:7 src/utils.rs:9
 msgid "Delineate"
-msgstr ""
+msgstr "Delineate"
 
 #: data/io.github.seadve.Delineate.desktop.in.in:3
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:8
 msgid "View and edit graphs"
-msgstr ""
+msgstr "Vizualizați și editați grafice"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: data/io.github.seadve.Delineate.desktop.in.in:9
 msgid "graphviz;dot;graphs;visualization;"
-msgstr ""
+msgstr "graphviz;dot;grafice;vizualizare;"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:10
 msgid ""
@@ -38,258 +41,265 @@ msgid ""
 "language It is designed to be a simple and intuitive tool for creating and "
 "editing graphs, with a focus on the user experience."
 msgstr ""
+"Delineate oferă facilități pentru editarea și desenarea graficelor "
+"specificate în limbajul DOT. Este proiectat ca un instrument simplu și "
+"intuitiv pentru crearea și editarea graficelor, cu accent pe experiența "
+"utilizatorului."
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:11
 msgid "The main features of Delineate include the following:"
-msgstr ""
+msgstr "Principalele caracteristici ale Delineate includ următoarele:"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:13
 msgid "🖼️ Live and interactive preview of the graph as you type"
 msgstr ""
+"🖼️ Previzualizare interactivă și în timp real a graficului pe măsură ce "
+"scrieți"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:14
 msgid "⏺️ Multiple Graphviz layout engines support"
-msgstr ""
+msgstr "⏺️ Suport pentru mai multe motoare de așezare Graphviz"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:15
 msgid "📝 Fully-featured DOT language editor"
-msgstr ""
+msgstr "📝 Editor de limbaj DOT complet echipat"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:16
 msgid "📦 Export graph as PNG, SVG, or JPEG"
-msgstr ""
+msgstr "📦 Exportați graficul ca PNG, SVG sau JPEG"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:22
 msgid "Editor and viewer"
-msgstr ""
+msgstr "Editor și vizualizator"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:26
 msgid "Editor collapsed"
-msgstr ""
+msgstr "Editor pliat"
 
 #: data/io.github.seadve.Delineate.metainfo.xml.in.in:30
 msgid "Tab overview"
-msgstr ""
+msgstr "Prezentare taburi"
 
 #: data/resources/ui/page.ui:75
 msgid "Zoom Out"
-msgstr ""
+msgstr "Micșorați"
 
 #: data/resources/ui/page.ui:82
 msgid "Reset Zoom"
-msgstr ""
+msgstr "Resetați mărirea"
 
 #: data/resources/ui/page.ui:88
 msgid "Zoom In"
-msgstr ""
+msgstr "Măriți"
 
 #: data/resources/ui/recent_popover.ui:17
 msgid "Search documents"
-msgstr ""
+msgstr "Căutați documente"
 
 #: data/resources/ui/recent_popover.ui:38
 msgid "No Recent Documents"
-msgstr ""
+msgstr "Niciun document recent"
 
 #: data/resources/ui/recent_popover.ui:47
 msgid "No Results"
-msgstr ""
+msgstr "Niciun rezultat"
 
 #: data/resources/ui/recent_row.ui:53
 msgid "Remove"
-msgstr ""
+msgstr "Eliminați"
 
 #: data/resources/ui/shortcuts.ui:11
 msgctxt "shortcut window"
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #: data/resources/ui/shortcuts.ui:14
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
-msgstr ""
+msgstr "Afișați comenzile rapide"
 
 #: data/resources/ui/shortcuts.ui:20
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr ""
+msgstr "Închide programul"
 
 #: data/resources/ui/shortcuts.ui:28
 msgctxt "shortcut window"
 msgid "Documents"
-msgstr ""
+msgstr "Documente"
 
 #: data/resources/ui/shortcuts.ui:31
 msgctxt "shortcut window"
 msgid "New Document"
-msgstr ""
+msgstr "Document nou"
 
 #: data/resources/ui/shortcuts.ui:37
 msgctxt "shortcut window"
 msgid "Open Document"
-msgstr ""
+msgstr "Deschideți documentul"
 
 #: data/resources/ui/shortcuts.ui:43
 msgctxt "shortcut window"
 msgid "Save"
-msgstr ""
+msgstr "Salvați"
 
 #: data/resources/ui/shortcuts.ui:49
 msgctxt "shortcut window"
 msgid "Save As"
-msgstr ""
+msgstr "Salvați ca"
 
 #: data/resources/ui/shortcuts.ui:55
 msgctxt "shortcut window"
 msgid "Close Document"
-msgstr ""
+msgstr "Închideți documentul"
 
 #: data/resources/ui/shortcuts.ui:63
 msgctxt "shortcut window"
 msgid "Windows"
-msgstr ""
+msgstr "Ferestre"
 
 #: data/resources/ui/shortcuts.ui:66
 msgctxt "shortcut window"
 msgid "New Window"
-msgstr ""
+msgstr "Fereastră nouă"
 
 #: data/resources/ui/shortcuts.ui:72
 msgctxt "shortcut window"
 msgid "Move Document to New Window"
-msgstr ""
+msgstr "Mutați documentul într-o fereastră nouă"
 
 #: data/resources/ui/shortcuts.ui:79
 msgctxt "shortcut window"
 msgid "Move to Next Tab"
-msgstr ""
+msgstr "Mutați la tabul următor"
 
 #: data/resources/ui/shortcuts.ui:85
 msgctxt "shortcut window"
 msgid "Move to Previous Tab"
-msgstr ""
+msgstr "Mutați la tabul precedent"
 
 #: data/resources/ui/shortcuts.ui:91
 msgctxt "shortcut window"
 msgid "Reorder After Next Tab"
-msgstr ""
+msgstr "Reordonați după tabul următor"
 
 #: data/resources/ui/shortcuts.ui:97
 msgctxt "shortcut window"
 msgid "Reorder Before Previous Tab"
-msgstr ""
+msgstr "Reordonați înaintea tabului precedent"
 
 #: data/resources/ui/shortcuts.ui:103
 msgctxt "shortcut window"
 msgid "Restore Previously Closed Tab"
-msgstr ""
+msgstr "Restaurați tabul închis anterior"
 
 #: data/resources/ui/shortcuts.ui:110
 msgctxt "shortcut window"
 msgid "Zoom"
-msgstr ""
+msgstr "Mărire"
 
 #: data/resources/ui/shortcuts.ui:114
 msgctxt "shortcut window"
 msgid "Zoom In"
-msgstr ""
+msgstr "Măriți"
 
 #: data/resources/ui/shortcuts.ui:120
 msgctxt "shortcut window"
 msgid "Zoom Out"
-msgstr ""
+msgstr "Micșorați"
 
 #: data/resources/ui/shortcuts.ui:126
 msgctxt "shortcut window"
 msgid "Reset Zoom"
-msgstr ""
+msgstr "Resetați mărirea"
 
 #: data/resources/ui/window.ui:6
 msgid "_New Window"
-msgstr ""
+msgstr "_Fereastră nouă"
 
 #: data/resources/ui/window.ui:12 src/save_changes_dialog.rs:71
 #: src/save_changes_dialog.rs:148
 msgid "_Save"
 msgid_plural "_Save All"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "_Salvați"
+msgstr[1] "_Salvați totul"
+msgstr[2] "_Salvați totul"
 
 #: data/resources/ui/window.ui:16
 msgid "Save _As…"
-msgstr ""
+msgstr "Salvați _ca…"
 
 #: data/resources/ui/window.ui:20
 msgid "_Discard Changes"
-msgstr ""
+msgstr "_Renunțați la modificări"
 
 #: data/resources/ui/window.ui:26
 msgid "_Export Graph"
-msgstr ""
+msgstr "_Exportați graficul"
 
 #: data/resources/ui/window.ui:28
 msgid "Export As PNG…"
-msgstr ""
+msgstr "Exportați ca PNG…"
 
 #: data/resources/ui/window.ui:33
 msgid "Export As SVG…"
-msgstr ""
+msgstr "Exportați ca SVG…"
 
 #: data/resources/ui/window.ui:38
 msgid "Export As JPEG…"
-msgstr ""
+msgstr "Exportați ca JPEG…"
 
 #: data/resources/ui/window.ui:44
 msgid "Open _Containing Folder"
-msgstr ""
+msgstr "Deschideți _dosarul"
 
 #: data/resources/ui/window.ui:50
 msgid "_Keyboard Shortcuts"
-msgstr ""
+msgstr "Scurtături _tastatură"
 
 #: data/resources/ui/window.ui:54
 msgid "_About Delineate"
-msgstr ""
+msgstr "_Despre Delineate"
 
 #: data/resources/ui/window.ui:62
 msgid "Move _Left"
-msgstr ""
+msgstr "Mutați la _stânga"
 
 #: data/resources/ui/window.ui:66
 msgid "Move _Right"
-msgstr ""
+msgstr "Mutați la _dreapta"
 
 #: data/resources/ui/window.ui:72
 msgid "_Move to New Window"
-msgstr ""
+msgstr "_Mutați într-o fereastră nouă"
 
 #: data/resources/ui/window.ui:78
 msgid "Close _Other Tabs"
-msgstr ""
+msgstr "Închideți celelalte _taburi"
 
 #: data/resources/ui/window.ui:82
 msgid "_Close"
-msgstr ""
+msgstr "_Închideți"
 
 #: data/resources/ui/window.ui:104
 msgid "Open"
-msgstr ""
+msgstr "Deschideți"
 
 #: data/resources/ui/window.ui:106
 msgid "Recent Documents"
-msgstr ""
+msgstr "Documente recente"
 
 #: data/resources/ui/window.ui:114
 msgid "New Document"
-msgstr ""
+msgstr "Document nou"
 
 #: data/resources/ui/window.ui:143
 msgid "Main Menu"
-msgstr ""
+msgstr "Meniul principal"
 
 #: data/resources/ui/window.ui:168
 msgid "Start or Open a Document"
-msgstr ""
+msgstr "Începeți sau deschideți un document"
 
 #: data/resources/ui/window.ui:174
 msgid ""
@@ -301,153 +311,163 @@ msgid ""
 "\n"
 "Or, press Ctrl+W to close the window."
 msgstr ""
+"• Apăsați butonul Deschideți\n"
+"• Apăsați butonul Fereastră nouă\n"
+"• Apăsați Ctrl+N pentru a începe un document nou\n"
+"• Apăsați Ctrl+O pentru a căuta un document\n"
+"• Trageți un fișier în fereastră\n"
+"\n"
+"Sau, apăsați Ctrl+W pentru a închide fereastra."
 
 #. Translators: Replace "translator-credits" with your names. Put a comma between.
 #: src/about.rs:23
 msgid "translator-credits"
-msgstr ""
+msgstr "Gabriel Cozma, Danny3"
 
 #: src/about.rs:30
 msgid "Donate"
-msgstr ""
+msgstr "Donați"
 
 #: src/about.rs:31
 msgid "GitHub"
-msgstr ""
+msgstr "GitHub"
 
 #: src/about.rs:33
 msgid "Translate"
-msgstr ""
+msgstr "Traduceți"
 
 #: src/export_format.rs:29
 msgid "SVG"
-msgstr ""
+msgstr "SVG"
 
 #: src/export_format.rs:30
 msgid "PNG"
-msgstr ""
+msgstr "PNG"
 
 #: src/export_format.rs:31
 msgid "JPEG"
-msgstr ""
+msgstr "JPEG"
 
 #: src/page.rs:357 src/save_changes_dialog.rs:110
 msgid "Untitled Document"
-msgstr ""
+msgstr "Document fără titlu"
 
 #: src/page.rs:414
 msgid "Save Document"
-msgstr ""
+msgstr "Salvați documentul"
 
 #: src/page.rs:435
 msgid "Save Document As"
-msgstr ""
+msgstr "Salvați documentul ca"
 
 #: src/page.rs:485
 msgid "Export Graph"
-msgstr ""
+msgstr "Exportați graficul"
 
 #: src/page.rs:486
 msgid "_Export"
-msgstr ""
+msgstr "_Exportați"
 
 #: src/page.rs:528
 msgid "Graph exported"
-msgstr ""
+msgstr "Grafic exportat"
 
 #: src/page.rs:529
 msgid "Show in Files"
-msgstr ""
+msgstr "Afișați în Fișiere"
 
 #: src/page.rs:544
 msgid "Failed to show in Files"
-msgstr ""
+msgstr "Nu s-a putut afișa în Fișiere"
 
 #: src/page.rs:703
 msgid "Failed to draw graph"
-msgstr ""
+msgstr "Nu s-a putut desena graficul"
 
 #: src/recent_row.rs:134
 msgid "Just Now"
-msgstr ""
+msgstr "Tocmai acum"
 
 #: src/recent_row.rs:136
 msgid "An hour ago"
-msgstr ""
+msgstr "Acum o oră"
 
 #: src/recent_row.rs:138
 msgid "Yesterday"
-msgstr ""
+msgstr "Ieri"
 
 #: src/recent_row.rs:144
 msgid "About a year ago"
-msgstr ""
+msgstr "Acum aproximativ un an"
 
 #: src/save_changes_dialog.rs:44
 msgid "Failed to save changes to document"
-msgstr ""
+msgstr "Nu s-au putut salva modificările în document"
 
 #: src/save_changes_dialog.rs:57
 msgid "Save Changes?"
-msgstr ""
+msgstr "Salvați modificările?"
 
 #: src/save_changes_dialog.rs:58
 msgid ""
 "Open documents contain unsaved changes. Changes which are not saved will be "
 "permanently lost."
 msgstr ""
+"Documentele deschise conțin modificări nesalvate. Modificările care nu sunt "
+"salvate vor fi pierdute definitiv."
 
 #: src/save_changes_dialog.rs:64
 msgid "Cancel"
-msgstr ""
+msgstr "Renunțați"
 
 #: src/save_changes_dialog.rs:67
 msgid "_Discard"
 msgid_plural "_Discard All"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "_Renunțați"
+msgstr[1] "_Renunțați la tot"
+msgstr[2] "_Renunțați la tot"
 
 #: src/session.rs:96
 msgid "Failed to load file"
-msgstr ""
+msgstr "Nu s-a putut încărca fișierul"
 
 #: src/session.rs:508
 msgid "Failed to open file"
-msgstr ""
+msgstr "Nu s-a putut deschide fișierul"
 
 #. Translators: DOT is an acronym, do not translate.
 #: src/utils.rs:38
 msgid "Graphviz DOT Files"
-msgstr ""
+msgstr "Fișiere Graphviz DOT"
 
 #: src/window.rs:86
 msgid "Failed to open document"
-msgstr ""
+msgstr "Nu s-a putut deschide documentul"
 
 #: src/window.rs:100
 msgid "Failed to save document"
-msgstr ""
+msgstr "Nu s-a putut salva documentul"
 
 #: src/window.rs:114
 msgid "Failed to save document as"
-msgstr ""
+msgstr "Nu s-a putut salva documentul ca"
 
 #: src/window.rs:127
 msgid "Failed to discard document changes"
-msgstr ""
+msgstr "Nu s-au putut renunța la modificările documentului"
 
 #: src/window.rs:141
 msgid "Failed to open containing folder"
-msgstr ""
+msgstr "Nu s-a putut deschide dosarul"
 
 #: src/window.rs:168
 msgid "Failed to export graph"
-msgstr ""
+msgstr "Nu s-a putut exporta graficul"
 
 #: src/window.rs:697
 msgid "Open Document"
-msgstr ""
+msgstr "Deschideți documentul"
 
 #: src/window.rs:803
 msgid "There are unsaved documents"
-msgstr ""
+msgstr "Există documente nesalvate"
